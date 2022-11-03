@@ -1,0 +1,28 @@
+.domian-link {
+	padding-left: 61px;
+	width: 100%;
+	height: 48px;
+	background: rgba(29, 36, 59, 0.05);
+	line-height: 48px;
+	font-size: 16px;
+	color: #1D243B;
+
+	a {
+		padding-left: 6px;
+		color: #2585D9;
+	}
+
+	&.mobile-domian-link {
+		padding-left: 0;
+		height: 44px;
+		line-height: 44px;
+
+		span {
+			display: none;
+		}
+
+		a {
+			padding-left: 15px;
+		}
+	}
+}

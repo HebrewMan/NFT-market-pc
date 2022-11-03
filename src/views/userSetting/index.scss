@@ -1,0 +1,116 @@
+.settings-wrap {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  .settings-list {
+    min-width: 250px;
+    padding: 10px;
+    border: 1px solid rgb(229, 232, 235);
+    .list-title {
+      padding: 8px 10px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgb(112, 122, 131);
+      line-height: 40px;
+    }
+    .li-item {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 20px;
+      border-radius: 5px;
+      color: rgb(112, 122, 131);
+      background-color: #fff;
+      &:hover {
+        color: rgb(53, 56, 64);
+        transition: color 1s ease 0s;
+      }
+    }
+    .li-item .svg-icon {
+      vertical-align: middle;
+    }
+    .li-item span {
+      font-size: 16px;
+      font-weight: 600;
+      margin-left: 16px;
+    }
+    .actived {
+      color: rgb(53, 56, 64);
+      background-color: rgb(243, 251, 254);
+      transition: color 1s ease 0s, background-color 1s ease 0s;
+    }
+  }
+  .settings-container {
+    max-width: 800px;
+    width: 100%;
+    flex: 1 1 0%;
+    margin: 28px 52px;
+    h1 {
+      font-weight: 600;
+      font-size: 40px;
+      letter-spacing: 0px;
+      color: rgb(4, 17, 29);
+      margin-bottom: 30px;
+    }
+  }
+}
+@media (max-width: 1024px) {
+  .settings-wrap .settings-list {
+    display: none;
+  }
+}
+@media (min-width: 767px) and (max-width: 1024px) {
+  .settings-wrap {
+    &.mobile-settings-wrap {
+      margin-bottom: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .settings-wrap {
+    .settings-list {
+      display: none;
+    }
+    .settings-container {
+      margin: 0;
+      padding: 20px 15px 80px;
+      h1 {
+        font-size: 20px;
+        margin-bottom: 25px;
+      }
+      .create-wrap {
+        .inner-top {
+          .inner-title {
+            text-align: center;
+          }
+          .logo-image {
+            max-width: 100px;
+            height: 100px;
+            margin: 0px auto 20px;
+          }
+        }
+        label {
+          font-size: 14px;
+        }
+        .inner-name {
+          .inner-name-input {
+            input,
+            textarea {
+              font-size: 14px;
+            }
+          }
+        }
+        .create-btn {
+          button {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px 20px;
+          }
+        }
+      }
+    }
+  }
+}

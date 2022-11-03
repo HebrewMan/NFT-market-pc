@@ -1,0 +1,44 @@
+.pc-footer {
+	padding: 48px 110px;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	min-width: 1440px;
+	;
+	background: rgba(29, 36, 59, 0.05);
+
+	.footer-left {
+		display: flex;
+		align-items: center;
+
+		img {
+			width: 74px;
+			height: 74px;
+		}
+
+		.desc {
+			margin-left: 24px;
+			font-size: 18px;
+			color: #1D243B;
+		}
+	}
+
+	.footer-right {
+		font-size: 14px;
+		color: #1D243B;
+
+		.copyright {
+			text-align: right;
+		}
+
+		.links {
+			margin-top: 16px;
+
+			span {
+				margin-top: 16px;
+				padding-left: 24px;
+			}
+
+		}
+	}
+}

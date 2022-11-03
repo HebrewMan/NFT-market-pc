@@ -1,0 +1,145 @@
+$screenSmMin: '768px';
+$white: #fff;
+
+.metamask-icon {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-image: url(../../assets/metamask.png);
+}
+
+.app-left {
+  display: flex;
+  align-items: center;
+  margin-left: 60px;
+  margin-right: 92px;
+
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 10px;
+      width: 44px;
+      height: 44px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #242A41;
+    }
+  }
+}
+
+.app-right {
+  margin-right: 40px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#desktop-navbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #fff;
+  // @media (max-width: $screenSmMin) {
+  //   display: none;
+  // }
+}
+
+section.ant-layout {
+  width: 100%;
+  margin: auto;
+  position: relative;
+  background-color: transparent;
+
+  #width-layout {
+    // max-width: 1200px;
+    // margin-top: 64px;
+  }
+}
+
+section#main-layout.ant-layout {
+  background-color: #fff !important;
+  min-height: 100vh;
+
+  span#static-header-gradient {
+    display: none;
+    position: absolute;
+    height: 300px;
+    width: 100%;
+    left: 0;
+    background: linear-gradient(0, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  span#static-end-gradient {
+    display: none;
+    position: absolute;
+    height: 300px;
+    width: 100%;
+    left: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  #bg-gradient {
+    position: absolute;
+    height: 200px;
+    width: 100%;
+    left: 0;
+    top: 510px;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, $white 100%);
+    display: none;
+  }
+
+  span#main-bg {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 708px;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, $white 100%);
+    background-position: top left !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    filter: blur(220px);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.ant-tabs-mobile {
+  // @media (max-width: $screenSmMin) {
+  //   padding: 20px;
+  // }
+}
+
+@media (min-width: 870px) and (max-width: 950px) {
+  #desktop-navbar {
+    .app-right {
+      .item {
+
+        &>a,
+        &>button {
+          padding: 0 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 869px) {
+  #desktop-navbar {
+    .app-right {
+      .item {
+
+        &>a,
+        &>button {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+.help-center-main {
+  width: 100%;
+  font-size: 16px;
+  font-family: Poppins, sans-serif;
+
+  .main-banner {
+    width: 100%;
+    height: 300px;
+    background-image: url('../../assets/bgc.jpg');
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-wrapper {
+    margin: 0 auto;
+    width: 1200px;
+
+    .wrapper-list {
+      margin-top: 108px;
+      width: 100%;
+
+      .ant-collapse {
+        .ant-collapse-item {
+          .ant-collapse-header {
+            padding: 12px 0px;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            .ant-collapse-header-text {
+              font-size: 24px;
+              font-weight: 600;
+              color: #1D243B;
+            }
+
+            .ant-collapse-expand-icon {
+              display: flex;
+
+              .ant-collapse-arrow {
+                font-size: 16px;
+              }
+            }
+          }
+
+          &.ant-collapse-item-active {
+            .ant-collapse-header-text {
+              color: #2585D9;
+            }
+
+          }
+
+          .ant-collapse-content {
+            .ant-collapse-content-box {
+              padding-top: 24px;
+              padding-bottom: 24px;
+            }
+          }
+        }
+      }
+
+      ul {
+        li {
+          font-size: 18px;
+          font-weight: 400;
+          color: #1D243B;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  .help-center-main {
+    .main-banner {
+      height: 150px;
+      background-image: url('../../assets/bgc-h5.jpg');
+    }
+
+    .main-wrapper {
+      margin: 21px auto;
+      width: 91%;
+
+      .wrapper-list {
+        margin-top: 0;
+
+        .ant-collapse {
+          .ant-collapse-item {
+            .ant-collapse-header {
+              padding: 12px 0px;
+              align-items: center;
+              border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+              .ant-collapse-header-text {
+                font-size: 17px;
+                font-weight: 600;
+                color: #1D243B;
+              }
+
+              .ant-collapse-expand-icon {
+                display: flex;
+
+                .ant-collapse-arrow {
+                  font-size: 16px;
+                }
+              }
+            }
+
+            &.ant-collapse-item-active {
+              .ant-collapse-header-text {
+                color: #2585D9;
+              }
+
+            }
+
+            .ant-collapse-content {
+              .ant-collapse-content-box {
+                padding-top: 16px;
+                padding-bottom: 16px;
+              }
+            }
+          }
+        }
+
+        ul {
+          li {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
