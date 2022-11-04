@@ -83,95 +83,95 @@
   }
 }
 
-@media screen and (max-width: 767px) {
-  .marketplace {
-    margin: auto;
-    padding: 20px 16px;
-    width: 100%;
+// @media screen and (max-width: 767px) {
+//   .marketplace {
+//     margin: auto;
+//     padding: 20px 16px;
+//     width: 100%;
 
-    .filter {
-      padding: 0;
-      flex-wrap: wrap;
-      gap: 16px;
+//     .filter {
+//       padding: 0;
+//       flex-wrap: wrap;
+//       gap: 16px;
 
-      .grid {
-        display: none;
-      }
+//       .grid {
+//         display: none;
+//       }
 
-      .g-search {
-        width: 343px;
-        max-width: unset;
-        height: 34px;
+//       .g-search {
+//         width: 343px;
+//         max-width: unset;
+//         height: 34px;
 
-        input {
-          width: auto;
-        }
-      }
+//         input {
+//           width: auto;
+//         }
+//       }
 
-      .condition {
-        width: 154px;
-        height: 100%;
+//       .condition {
+//         width: 154px;
+//         height: 100%;
 
-        .g-select {
-          width: 100%;
+//         .g-select {
+//           width: 100%;
 
-          .g-select--header {
-            padding: 4px 8px;
-            min-height: auto;
-          }
-        }
-      }
+//           .g-select--header {
+//             padding: 4px 8px;
+//             min-height: auto;
+//           }
+//         }
+//       }
 
-      .price {
-        width: 173px;
-        font-size: 14px;
+//       .price {
+//         width: 173px;
+//         font-size: 14px;
 
-        input {
-          padding: 7px 9px;
-        }
+//         input {
+//           padding: 7px 9px;
+//         }
 
-        .min {
-          margin: 0 7px;
-        }
+//         .min {
+//           margin: 0 7px;
+//         }
 
-        .to {
-          margin-right: 7px;
-          font-size: 14px;
-        }
-      }
-    }
+//         .to {
+//           margin-right: 7px;
+//           font-size: 14px;
+//         }
+//       }
+//     }
 
-    .g-list {
-      grid-gap: 9px;
-      gap: 9px;
-      padding: 25px 0;
-      justify-content: center;
+//     .g-list {
+//       grid-gap: 9px;
+//       gap: 9px;
+//       padding: 25px 0;
+//       justify-content: center;
 
-      .card {
-        margin-bottom: 15px;
+//       .card {
+//         margin-bottom: 15px;
 
-        .assets {
-          width: 345px;
-          height: 345px;
-        }
-      }
+//         .assets {
+//           width: 345px;
+//           height: 345px;
+//         }
+//       }
 
-      &.small {
-        width: 100%;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 0;
+//       &.small {
+//         width: 100%;
+//         flex-wrap: wrap;
+//         flex-direction: row;
+//         justify-content: space-between;
+//         gap: 0;
 
-        .card {
-          width: 169px;
+//         .card {
+//           width: 169px;
 
-          .assets {
-            width: 169px;
-            height: 169px;
-          }
-        }
-      }
-    }
-  }
-}
+//           .assets {
+//             width: 169px;
+//             height: 169px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

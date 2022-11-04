@@ -187,7 +187,7 @@ const ContentDetail = (props: any) => {
     );
   } else if (props.type === 4) {
     const _chainId = window?.ethereum?.chainId;
-    const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+    const chainId = parseInt(_chainId);
     const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK;
     return (
       <div className='content-wrap detail'>

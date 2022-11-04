@@ -17,10 +17,6 @@
   .wrapper-btn {
     text-align: right;
 
-    @media screen and (max-width: 767px) {
-      margin-bottom: 15px;
-    }
-
     button {
       padding: 12px 20px;
       font-size: 16px;
@@ -89,7 +85,7 @@
           width: 100%;
           height: 100%;
 
-          > div {
+          >div {
             position: absolute;
             top: 40px;
             right: 40px;
@@ -392,247 +388,248 @@
 //   }
 // }
 
-@media screen and (max-width: 767px) {
-  .personal-details {
-    .details-wrapper {
-      padding: 20px 15px 80px;
+// @media screen and (max-width: 767px) {
+//   .personal-details {
+//     .details-wrapper {
+//       padding: 20px 15px 80px;
 
-      .wrapper-btn {
-        display: flex;
-        justify-content: flex-end;
+//       .wrapper-btn {
+//         display: flex;
+//         justify-content: flex-end;
 
-        button {
-          font-size: 10px;
-          text-align: center;
+//         button {
+//           font-size: 10px;
+//           text-align: center;
 
-          &:not(:last-of-type) {
-            margin-right: 15px;
-          }
-        }
-      }
+//           &:not(:last-of-type) {
+//             margin-right: 15px;
+//           }
+//         }
+//       }
 
-      .wrapper-header {
-        flex-direction: column;
-        margin: 0;
+//       .wrapper-header {
+//         flex-direction: column;
+//         margin: 0;
 
-        .header-pic {
-          width: 100%;
+//         .header-pic {
+//           width: 100%;
 
-          p {
-            padding: 8px 10px;
-          }
+//           p {
+//             padding: 8px 10px;
+//           }
 
-          .header-image {
-            margin: 5% 0;
-          }
-        }
+//           .header-image {
+//             margin: 5% 0;
+//           }
+//         }
 
-        .header-information {
-          padding-top: 20px;
-          width: 100%;
+//         .header-information {
+//           padding-top: 20px;
+//           width: 100%;
 
-          .information-top {
-            h1 {
-              font-size: 16px;
-              color: #333333;
-            }
+//           .information-top {
+//             h1 {
+//               font-size: 16px;
+//               color: #333333;
+//             }
 
-            .author {
-              margin: 10px 0;
-              font-size: 14px;
-              color: #999999;
+//             .author {
+//               margin: 10px 0;
+//               font-size: 14px;
+//               color: #999999;
 
-              .auth {
-                margin-right: 10px;
-              }
-            }
+//               .auth {
+//                 margin-right: 10px;
+//               }
+//             }
 
-            .buy {
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-start;
-              margin-bottom: 25px;
+//             .buy {
+//               display: flex;
+//               flex-direction: column;
+//               justify-content: flex-start;
+//               margin-bottom: 25px;
 
-              .price {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
+//               .price {
+//                 display: flex;
+//                 flex-direction: row;
+//                 justify-content: space-between;
 
-                p {
-                  font-size: 14px;
-                  font-weight: 400;
-                  color: #999999;
+//                 p {
+//                   font-size: 14px;
+//                   font-weight: 400;
+//                   color: #999999;
 
-                  &:last-of-type {
-                    font-size: 21px;
-                    font-weight: 600;
-                    color: #2081e2;
-                  }
-                }
-              }
+//                   &:last-of-type {
+//                     font-size: 21px;
+//                     font-weight: 600;
+//                     color: #2081e2;
+//                   }
+//                 }
+//               }
 
-              button {
-                padding: 11px 10px;
-                font-size: 10px;
-              }
-            }
-          }
+//               button {
+//                 padding: 11px 10px;
+//                 font-size: 10px;
+//               }
+//             }
+//           }
 
-          .desc-information {
-            .list-inner {
-              .list-title {
-                padding: 10px;
-              }
+//           .desc-information {
+//             .list-inner {
+//               .list-title {
+//                 padding: 10px;
+//               }
 
-              .list-content {
-                p {
-                  padding: 10px 10px 10px 20px;
-                  font-size: 12px;
-                  color: #666666;
-                }
-              }
+//               .list-content {
+//                 p {
+//                   padding: 10px 10px 10px 20px;
+//                   font-size: 12px;
+//                   color: #666666;
+//                 }
+//               }
 
-              .about {
-                padding: 10px 10px 10px 20px;
-              }
+//               .about {
+//                 padding: 10px 10px 10px 20px;
+//               }
 
-              .details {
-                padding: 10px 20px 10px 20px;
+//               .details {
+//                 padding: 10px 20px 10px 20px;
 
-                .details-left {
-                  p {
-                    padding: 0;
-                    line-height: 32px;
-                  }
-                }
+//                 .details-left {
+//                   p {
+//                     padding: 0;
+//                     line-height: 32px;
+//                   }
+//                 }
 
-                .details-right {
-                  text-align: right;
+//                 .details-right {
+//                   text-align: right;
 
-                  p {
-                    padding: 0;
-                    line-height: 32px;
-                  }
+//                   p {
+//                     padding: 0;
+//                     line-height: 32px;
+//                   }
 
-                  a {
-                    font-size: 12px;
-                    line-height: 32px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+//                   a {
+//                     font-size: 12px;
+//                     line-height: 32px;
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
 
-      .trading-history {
-        margin-top: 25px;
-        border-bottom: 0;
+//       .trading-history {
+//         margin-top: 25px;
+//         border-bottom: 0;
 
-        .list-title {
-          padding: 10px;
-        }
+//         .list-title {
+//           padding: 10px;
+//         }
 
-        .list-content {
-          .details-filter {
-            .details-button {
-              padding: 0 10px 10px;
+//         .list-content {
+//           .details-filter {
+//             .details-button {
+//               padding: 0 10px 10px;
 
-              button {
-                font-size: 12px;
-                min-height: 34px;
-                padding: 5px 4px 5px 8px;
+//               button {
+//                 font-size: 12px;
+//                 min-height: 34px;
+//                 padding: 5px 4px 5px 8px;
 
-                img {
-                  width: 16px;
-                }
-              }
+//                 img {
+//                   width: 16px;
+//                 }
+//               }
 
-              span {
-                font-size: 12px;
-              }
-            }
-          }
+//               span {
+//                 font-size: 12px;
+//               }
+//             }
+//           }
 
-          .details-table {
-            & > table {
-              table-layout: fixed;
-              margin: 0;
+//           .details-table {
+//             &>table {
+//               table-layout: fixed;
+//               margin: 0;
 
-              thead {
-                tr {
-                  td {
-                    font-size: 12px;
-                    color: #666666;
-                    text-align: center;
-                    &.first-child {
-                      padding-left: 20px;
-                    }
-                  }
-                }
-              }
+//               thead {
+//                 tr {
+//                   td {
+//                     font-size: 12px;
+//                     color: #666666;
+//                     text-align: center;
 
-              tbody {
-                tr {
-                  width: 100%;
-                  white-space: nowrap;
+//                     &.first-child {
+//                       padding-left: 20px;
+//                     }
+//                   }
+//                 }
+//               }
 
-                  td {
-                    font-size: 12px;
-                    color: #000000;
-                    white-space: nowrap;
+//               tbody {
+//                 tr {
+//                   width: 100%;
+//                   white-space: nowrap;
 
-                    img {
-                      margin-right: 2px;
-                    }
+//                   td {
+//                     font-size: 12px;
+//                     color: #000000;
+//                     white-space: nowrap;
 
-                    &.first-child {
-                      padding-left: 7px;
-                      display: flex;
-                      justify-content: flex-start;
-                      align-items: center;
+//                     img {
+//                       margin-right: 2px;
+//                     }
 
-                      span {
-                        display: block;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                      }
-                    }
+//                     &.first-child {
+//                       padding-left: 7px;
+//                       display: flex;
+//                       justify-content: flex-start;
+//                       align-items: center;
 
-                    &:last-of-type {
-                      padding-right: 7px;
+//                       span {
+//                         display: block;
+//                         overflow: hidden;
+//                         text-overflow: ellipsis;
+//                         white-space: nowrap;
+//                       }
+//                     }
 
-                      a {
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
+//                     &:last-of-type {
+//                       padding-right: 7px;
 
-                        span {
-                          display: block;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                          white-space: nowrap;
-                        }
+//                       a {
+//                         display: flex;
+//                         justify-content: flex-start;
+//                         align-items: center;
 
-                        img {
-                          width: 12px;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+//                         span {
+//                           display: block;
+//                           overflow: hidden;
+//                           text-overflow: ellipsis;
+//                           white-space: nowrap;
+//                         }
 
-      .more-collection {
-        .list-title {
-          padding: 10px;
-        }
-      }
-    }
-  }
-}
+//                         img {
+//                           width: 12px;
+//                         }
+//                       }
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .more-collection {
+//         .list-title {
+//           padding: 10px;
+//         }
+//       }
+//     }
+//   }
+// }

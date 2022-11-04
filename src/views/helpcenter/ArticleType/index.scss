@@ -33,32 +33,32 @@
   }
 }
 
-@media (max-width: 767px) {
-  .article-main {
-    padding: 0 5%;
+// @media (max-width: 767px) {
+//   .article-main {
+//     padding: 0 5%;
 
-    .main-breadcrumb {
-      flex-wrap: wrap;
+//     .main-breadcrumb {
+//       flex-wrap: wrap;
 
-      .breadcrumb {
-        width: 100%;
-      }
+//       .breadcrumb {
+//         width: 100%;
+//       }
 
-      .search-component {
-        width: 100%;
-        margin-top: 20px;
-      }
+//       .search-component {
+//         width: 100%;
+//         margin-top: 20px;
+//       }
 
-      .search-container {
-        max-width: 100%;
-      }
-    }
+//       .search-container {
+//         max-width: 100%;
+//       }
+//     }
 
-    .main-inner .inner {
-      flex: 1;
-    }
-  }
-}
+//     .main-inner .inner {
+//       flex: 1;
+//     }
+//   }
+// }
 
 @media (max-width: 1250px) {
   .article-main {
@@ -98,21 +98,5 @@
 
   .search-component {
     border: 1px solid #e5e8eb;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-breadcrumb {
-    flex-direction: column;
-    align-items: start;
-
-    .breadcrumb {
-      margin-bottom: 15px;
-    }
-
-    .search-component {
-      width: 100%;
-      max-width: 100%;
-    }
   }
 }

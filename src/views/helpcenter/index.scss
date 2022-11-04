@@ -72,64 +72,64 @@
 
 }
 
-@media screen and (max-width: 767px) {
-  .help-center-main {
-    .main-banner {
-      height: 150px;
-      background-image: url('../../assets/bgc-h5.jpg');
-    }
+// @media screen and (max-width: 767px) {
+//   .help-center-main {
+//     .main-banner {
+//       height: 150px;
+//       background-image: url('../../assets/bgc-h5.jpg');
+//     }
 
-    .main-wrapper {
-      margin: 21px auto;
-      width: 91%;
+//     .main-wrapper {
+//       margin: 21px auto;
+//       width: 91%;
 
-      .wrapper-list {
-        margin-top: 0;
+//       .wrapper-list {
+//         margin-top: 0;
 
-        .ant-collapse {
-          .ant-collapse-item {
-            .ant-collapse-header {
-              padding: 12px 0px;
-              align-items: center;
-              border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+//         .ant-collapse {
+//           .ant-collapse-item {
+//             .ant-collapse-header {
+//               padding: 12px 0px;
+//               align-items: center;
+//               border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-              .ant-collapse-header-text {
-                font-size: 17px;
-                font-weight: 600;
-                color: #1D243B;
-              }
+//               .ant-collapse-header-text {
+//                 font-size: 17px;
+//                 font-weight: 600;
+//                 color: #1D243B;
+//               }
 
-              .ant-collapse-expand-icon {
-                display: flex;
+//               .ant-collapse-expand-icon {
+//                 display: flex;
 
-                .ant-collapse-arrow {
-                  font-size: 16px;
-                }
-              }
-            }
+//                 .ant-collapse-arrow {
+//                   font-size: 16px;
+//                 }
+//               }
+//             }
 
-            &.ant-collapse-item-active {
-              .ant-collapse-header-text {
-                color: #2585D9;
-              }
+//             &.ant-collapse-item-active {
+//               .ant-collapse-header-text {
+//                 color: #2585D9;
+//               }
 
-            }
+//             }
 
-            .ant-collapse-content {
-              .ant-collapse-content-box {
-                padding-top: 16px;
-                padding-bottom: 16px;
-              }
-            }
-          }
-        }
+//             .ant-collapse-content {
+//               .ant-collapse-content-box {
+//                 padding-top: 16px;
+//                 padding-bottom: 16px;
+//               }
+//             }
+//           }
+//         }
 
-        ul {
-          li {
-            font-size: 15px;
-          }
-        }
-      }
-    }
-  }
-}
+//         ul {
+//           li {
+//             font-size: 15px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

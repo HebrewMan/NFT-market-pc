@@ -47,8 +47,7 @@ export const Slider = (props: any) => {
       return;
     }
     if (
-      (!isMobile && (showDropper || pathname === '/wallet')) ||
-      (isMobile && pathname === '/wallet' && (account || walletAccount))
+      (pathname === '/wallet' && (account || walletAccount))
     ) {
       getBalance();
     }
@@ -78,9 +77,9 @@ export const Slider = (props: any) => {
   // }
   return (
     <>
-      {(showDropper || isMobile || (!isMobile && width < 768)) && (
+      {(showDropper) && (
         <div
-          className={`dropper-wrap ${isMobile || (!isMobile && width < 768) ? 'mobile-dropper-wrap' : ''}`}
+          className={`dropper-wrap`}
           onClick={(e) => handleOnClick(e, false)}
         >
           <div className='wrap-header'>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
 import { CommTimer } from '../Timer';
 import { useTouchBottom } from '../../../../hooks';
 import { getPrimaryActivityList } from '../../../../api/primary';
@@ -91,7 +90,7 @@ export const PList = () => {
     });
   };
   return (
-    <div className={`primary-list-wrap ${isMobile ? 'mobile-primary-list-wrap' : ''}`}>
+    <div className={`primary-list-wrap`}>
       <div className='list-wrap-box'>
         <ul>
           <ListItem activityList={activityList} />

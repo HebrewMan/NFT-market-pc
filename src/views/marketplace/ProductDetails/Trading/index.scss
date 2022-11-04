@@ -31,7 +31,7 @@
     }
   }
 
-  .list-content > .details-filter {
+  .list-content>.details-filter {
     width: 100%;
     border-bottom: 1px solid rgb(229, 232, 235);
 
@@ -61,7 +61,7 @@
         border: 1px solid rgb(229, 232, 235);
       }
 
-      .filter-checkbox > ul li {
+      .filter-checkbox>ul li {
         display: flex;
         align-items: center;
         padding: 0 20px;
@@ -78,11 +78,13 @@
           margin-right: 10px;
           cursor: pointer;
           background-color: #ffffff;
+
           &.checked {
             background-color: #2081e2;
           }
         }
       }
+
       .filter-checkbox ul label:last-child li {
         border: none;
       }
@@ -133,7 +135,7 @@
 }
 
 // table
-.details-table > table {
+.details-table>table {
   width: 100%;
   color: rgb(4, 17, 29);
   overflow: auto;
@@ -165,14 +167,14 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-  .trading-history {
-    margin: 20px;
-  }
-}
+// @media (min-width: 768px) and (max-width: 1024px) {
+//   .trading-history {
+//     margin: 20px;
+//   }
+// }
 
-@media (max-width: 375px) {
-  .trading-history .list-content > .details-filter .details-button span {
-    padding: 10px 0;
-  }
-}
+// @media (max-width: 375px) {
+//   .trading-history .list-content > .details-filter .details-button span {
+//     padding: 10px 0;
+//   }
+// }

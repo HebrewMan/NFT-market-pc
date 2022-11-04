@@ -32,34 +32,29 @@ $screen-sm-min: 768px;
     color: #8299ac;
   }
 
-  @media screen and (max-width: $mobile-xs-max) {
-    :first-child {
-      display: flex;
+  // @media screen and (max-width: $mobile-xs-max) {
+  //   :first-child {
+  //     display: flex;
 
-      img {
-        margin-right: 12px;
-      }
+  //     img {
+  //       margin-right: 12px;
+  //     }
 
-      div {
-        margin-right: 10px;
-      }
-    }
+  //     div {
+  //       margin-right: 10px;
+  //     }
+  //   }
 
-    sup {
-      display: none;
-    }
-  }
+  //   sup {
+  //     display: none;
+  //   }
+  // }
 }
 
 .ant-modal {
   width: 100%;
   top: 0;
   right: 0;
-
-  @media screen and (max-width: 767px) {
-    max-width: 100%;
-    margin: 0;
-  }
 
   .ant-modal-content {
     .ant-modal-header {
@@ -117,11 +112,6 @@ $screen-sm-min: 768px;
   width: 100% !important;
   height: 100%;
   top: 0 !important;
-
-  @media screen and (max-width: 767px) {
-    max-width: 100% !important;
-    margin: 0 !important;
-  }
 
   .ant-modal-content {
     border-radius: 0 !important;

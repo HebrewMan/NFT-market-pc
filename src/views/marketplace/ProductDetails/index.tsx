@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { ethers } from 'ethers';
-import { isMobile } from 'react-device-detect';
 import { DescInfo } from './DescInfo';
 import { MoreCollects } from './More';
 import { Trading } from './Trading';
@@ -31,7 +30,7 @@ import './index.scss';
 export const ProductionDetails = () => {
   const web3 = useWeb3();
   const _chainId = window?.ethereum?.chainId;
-  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+  const chainId = parseInt(_chainId);
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS;
   const { account } = useWeb3React();

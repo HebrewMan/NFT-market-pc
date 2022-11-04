@@ -5,7 +5,6 @@ import { setLocalStorage, setCookie, removeCookie, removeLocalStorage } from '..
 import { message } from 'antd';
 import history from '../utils/history';
 import { injected } from '../utils/utils';
-import { isMobile } from 'react-device-detect';
 import { isProd } from '../config/constants';
 declare global {
   interface Window {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { ethers } from 'ethers';
-import { isMobile } from 'react-device-detect';
 import { message } from 'antd';
 import Portal from '../../../../../components/Dialog';
 import { CommTimer } from '../../Timer';
@@ -21,7 +20,7 @@ import './index.scss';
 export const ProDetails = (props: any) => {
   const web3: any = useWeb3();
   const _chainId = window?.ethereum?.chainId;
-  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+  const chainId = parseInt(_chainId);
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
   const primaryMarketPlaceContractAddr = (config as any)[chainId]?.PRIMARY_ADDRESS;
   const account = getLocalStorage('wallet') || '';

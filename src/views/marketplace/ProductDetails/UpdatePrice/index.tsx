@@ -1,7 +1,6 @@
 import React, { useState, memo, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Modal, Button, message } from 'antd';
-import { isMobile } from 'react-device-detect';
 import useWeb3 from '../../../../hooks/useWeb3';
 // import { useFixedPriceCreateSellOrder } from "../../../../hooks/sellContract"
 import { getIsApprovedForAll, getSetApprovalForAll } from '../../../../hooks/web3Utils';
@@ -40,7 +39,7 @@ const UpdatePriceView = ({
   const account = getLocalStorage('wallet') || '';
   const token = getCookie('web-token') || '';
   const _chainId = window?.ethereum?.chainId;
-  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+  const chainId = parseInt(_chainId);
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS;
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
   const USDT_ADDRESS = (config as any)[chainId]?.USDT_ADDRESS;

@@ -1,4 +1,5 @@
 .domian-link {
+	min-width: 1200px;
 	padding-left: 61px;
 	width: 100%;
 	height: 48px;
@@ -10,19 +11,5 @@
 	a {
 		padding-left: 6px;
 		color: #2585D9;
-	}
-
-	&.mobile-domian-link {
-		padding-left: 0;
-		height: 44px;
-		line-height: 44px;
-
-		span {
-			display: none;
-		}
-
-		a {
-			padding-left: 15px;
-		}
 	}
 }

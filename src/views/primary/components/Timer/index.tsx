@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../../../utils/layout';
 import './index.scss';
 export const CommTimer = (props: any) => {

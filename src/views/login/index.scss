@@ -123,20 +123,3 @@
     }
   }
 }
-
-@media screen and (max-width: 767px) {
-  .login-component {
-    .login-inner {
-      .inner-wrap {
-        h1 {
-          font-size: 16px;
-        }
-
-        .login-wallet li img {
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-  }
-}

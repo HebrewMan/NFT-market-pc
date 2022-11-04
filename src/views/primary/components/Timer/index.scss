@@ -2,47 +2,50 @@
   .end-time {
     width: 100%;
     margin-top: 10px;
+
     .mobile-end-time {
       display: flex;
       justify-content: space-between;
-      & > .more {
+
+      &>.more {
         margin: 7px 20px 10px;
         align-self: center;
       }
     }
   }
 }
-@media screen and (max-width: 767px) {
-  .end-time {
-    width: 100%;
-    margin-top: 10px;
-    .mobile-end-time {
-      display: flex;
-      justify-content: space-between;
-      & > .more {
-        margin: 7px 0 10px;
-        align-self: center;
-      }
-    }
-  }
-}
-@media screen and (max-width: 350px) {
-  .end-time {
-    width: 100%;
-    .mobile-end-time {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      .box-timer {
-        margin-bottom: 0;
-      }
-      & > .more {
-        margin: 0 0 10px 0;
-        align-self: flex-start;
-      }
-    }
-  }
-}
+
+// @media screen and (max-width: 767px) {
+//   .end-time {
+//     width: 100%;
+//     margin-top: 10px;
+//     .mobile-end-time {
+//       display: flex;
+//       justify-content: space-between;
+//       & > .more {
+//         margin: 7px 0 10px;
+//         align-self: center;
+//       }
+//     }
+//   }
+// }
+// @media screen and (max-width: 350px) {
+//   .end-time {
+//     width: 100%;
+//     .mobile-end-time {
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: flex-start;
+//       .box-timer {
+//         margin-bottom: 0;
+//       }
+//       & > .more {
+//         margin: 0 0 10px 0;
+//         align-self: flex-start;
+//       }
+//     }
+//   }
+// }
 .end-time {
   h3 {
     font-size: 15px;
@@ -55,7 +58,7 @@
 .box-timer {
   display: flex;
 
-  > div {
+  >div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,25 +144,26 @@
   }
 }
 
-@media (max-width: 767px) {
-  .end-time {
-    h3 {
-      font-size: 10px;
-      line-height: normal;
-    }
+// @media (max-width: 767px) {
+//   .end-time {
+//     h3 {
+//       font-size: 10px;
+//       line-height: normal;
+//     }
 
-    .box-timer {
-      margin: 10px 0;
-      & > div {
-        margin-right: 12px;
-      }
-    }
+//     .box-timer {
+//       margin: 10px 0;
 
-    .box-timer span {
-      font-size: 16px;
-      font-weight: 800;
-      padding: 6px 3px;
-      min-width: 44px;
-    }
-  }
-}
+//       &>div {
+//         margin-right: 12px;
+//       }
+//     }
+
+//     .box-timer span {
+//       font-size: 16px;
+//       font-weight: 800;
+//       padding: 6px 3px;
+//       min-width: 44px;
+//     }
+//   }
+// }

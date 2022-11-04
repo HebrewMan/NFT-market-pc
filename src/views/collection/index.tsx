@@ -6,7 +6,6 @@ import { Select } from '../marketplace/Select';
 import { formatAdd } from '../marketplace/utils';
 import { Dropdown, Menu, Space, Typography, message, Select as SelectAntd } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../utils/layout';
 import { getGoods, getSelfGoods, getOtherPersonGoods, getGood, createIpfs, getGoodsByCollectionId } from '../../api';
 import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
@@ -523,7 +522,7 @@ export const Collection: React.FC<any> = () => {
       </div>
       <div className='collection-content-wrap'>
         <div className='collection-header--main'>
-          <div className={isMobile || width < 768 ? 'mobileImg' : ''}>
+          <div>
             <div className='user-img'>
               <img
                 className='header-img'
@@ -601,7 +600,7 @@ export const Collection: React.FC<any> = () => {
                 </button> */}
               </div>
             </div>
-            <div className={`info-main info-main--max ${isMobile ? 'mobile-info-main' : ''}`}>
+            <div className={`info-main info-main--max`}>
               <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
                 {collectionsData.length > 0 && CardItem()}
                 {collectionsData.length === 0 && listEmpty()}

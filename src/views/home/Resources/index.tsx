@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { PageTitle } from '../SetupDetails';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
-import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../../utils/layout';
 import 'swiper/scss';
 import './index.scss';
@@ -21,7 +20,7 @@ export const Resources = () => {
             delay: 2500,
             disableOnInteraction: false,
           }}
-          slidesPerView={isMobile || width < 768 ? 1 : 3}
+          slidesPerView={3}
         >
           <template slot='swiper'>
             <SwiperSlide>

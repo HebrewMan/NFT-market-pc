@@ -90,6 +90,7 @@
         vertical-align: middle;
         margin-bottom: 7px;
       }
+
       span {
         font-size: 24px;
         font-weight: 700;
@@ -106,91 +107,91 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .market-list-wrap .list-wrap ul .li-details h3 {
-    width: 70%;
-  }
-}
+// @media (max-width: 1200px) {
+//   .market-list-wrap .list-wrap ul .li-details h3 {
+//     width: 70%;
+//   }
+// }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-  .market-list-wrap {
-    padding: 30px;
-    &.mobileMarketListWrap {
-      margin-bottom: 500px;
-      @media (min-width: 768px) and (max-width: 768px) {
-        margin-bottom: 200px;
-      }
-    }
+// @media (min-width: 768px) and (max-width: 1024px) {
+//   .market-list-wrap {
+//     padding: 30px;
+//     &.mobileMarketListWrap {
+//       margin-bottom: 500px;
+//       @media (min-width: 768px) and (max-width: 768px) {
+//         margin-bottom: 200px;
+//       }
+//     }
 
-    .list-wrap {
-      ul {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        .li-footer {
-          padding: 10px 20px;
-          .li-details {
-            padding: 5px 0;
-          }
-        }
-      }
-    }
-  }
-}
+//     .list-wrap {
+//       ul {
+//         grid-template-columns: 1fr 1fr;
+//         gap: 30px;
+//         .li-footer {
+//           padding: 10px 20px;
+//           .li-details {
+//             padding: 5px 0;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 767px) {
-  .mobileMarketListWrap {
-    padding: 25px 15px;
-    margin-bottom: 100px;
-    .list-wrap {
-      ul {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        li {
-          .li-img {
-            height: 187px;
-          }
-          .li-footer {
-            padding: 5px 10px 10px;
-            .li-details {
-              padding: 0;
-              margin-bottom: 5px;
-              p {
-                width: 20px;
-                height: 20px;
-                border-radius: 10px;
-                span {
-                  font-size: 12px;
-                  margin: 0 auto;
-                }
-              }
-              h3 {
-                font-size: 12px;
-                font-weight: 600;
-                color: #000000;
-              }
-              h1 {
-                font-size: 12px;
-                color: #999999;
-              }
-              .eth-price {
-                img {
-                  width: 12px;
-                  vertical-align: middle;
-                }
-                span {
-                  font-size: 14px;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+// @media (max-width: 767px) {
+//   .mobileMarketListWrap {
+//     padding: 25px 15px;
+//     margin-bottom: 100px;
+//     .list-wrap {
+//       ul {
+//         grid-template-columns: 1fr;
+//         gap: 15px;
+//         li {
+//           .li-img {
+//             height: 187px;
+//           }
+//           .li-footer {
+//             padding: 5px 10px 10px;
+//             .li-details {
+//               padding: 0;
+//               margin-bottom: 5px;
+//               p {
+//                 width: 20px;
+//                 height: 20px;
+//                 border-radius: 10px;
+//                 span {
+//                   font-size: 12px;
+//                   margin: 0 auto;
+//                 }
+//               }
+//               h3 {
+//                 font-size: 12px;
+//                 font-weight: 600;
+//                 color: #000000;
+//               }
+//               h1 {
+//                 font-size: 12px;
+//                 color: #999999;
+//               }
+//               .eth-price {
+//                 img {
+//                   width: 12px;
+//                   vertical-align: middle;
+//                 }
+//                 span {
+//                   font-size: 14px;
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 320px) {
-  .market-list-wrap .list-wrap ul .list-link {
-    width: 85%;
-  }
-}
+// @media (max-width: 320px) {
+//   .market-list-wrap .list-wrap ul .list-link {
+//     width: 85%;
+//   }
+// }

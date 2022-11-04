@@ -690,206 +690,206 @@
 }
 
 
-@media screen and (max-width: 767px) {
+// @media screen and (max-width: 767px) {
 
-  .account {
-    padding-bottom: 80px;
+//   .account {
+//     padding-bottom: 80px;
 
-    .banner {
-      height: 150px;
+//     .banner {
+//       height: 150px;
 
-      .add {
-        display: none;
-      }
+//       .add {
+//         display: none;
+//       }
 
-      .edit {
-        display: none;
-      }
-    }
+//       .edit {
+//         display: none;
+//       }
+//     }
 
-    .account-content-wrap {
-      flex-direction: column;
-      width: 100%;
-    }
+//     .account-content-wrap {
+//       flex-direction: column;
+//       width: 100%;
+//     }
 
-    .account-header--main {
-      margin-top: -84px;
-      padding: unset;
-      width: 100%;
-      background: none;
-      border: none;
+//     .account-header--main {
+//       margin-top: -84px;
+//       padding: unset;
+//       width: 100%;
+//       background: none;
+//       border: none;
 
-      .account-info {
-        width: 100%;
-        background: #fff;
+//       .account-info {
+//         width: 100%;
+//         background: #fff;
 
-        .account-title {
-          text-align: center;
-        }
-      }
+//         .account-title {
+//           text-align: center;
+//         }
+//       }
 
-      .user-img {
-        width: 84px;
-        height: 84px;
+//       .user-img {
+//         width: 84px;
+//         height: 84px;
 
-        .header-img {
-          width: 84px;
-          height: 84px;
-        }
-      }
+//         .header-img {
+//           width: 84px;
+//           height: 84px;
+//         }
+//       }
 
-      .mobileImg {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+//       .mobileImg {
+//         width: 100%;
+//         display: flex;
+//         justify-content: space-between;
+//         align-items: center;
 
-        .userSetting {
-          width: 24px;
-          margin-top: 30px;
-          margin-right: 50px;
+//         .userSetting {
+//           width: 24px;
+//           margin-top: 30px;
+//           margin-right: 50px;
 
-          img {
-            width: 100%;
-          }
-        }
-      }
+//           img {
+//             width: 100%;
+//           }
+//         }
+//       }
 
-      .account-title {
-        display: block;
-        width: 100%;
-        font-size: 18px;
-        font-weight: bold;
-        color: #000000;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        height: auto;
-        min-height: auto;
-      }
+//       .account-title {
+//         display: block;
+//         width: 100%;
+//         font-size: 18px;
+//         font-weight: bold;
+//         color: #000000;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//         white-space: nowrap;
+//         height: auto;
+//         min-height: auto;
+//       }
 
-      .account-subtitle {
-        strong {
-          font-size: 14px;
-          font-weight: 400;
-        }
+//       .account-subtitle {
+//         strong {
+//           font-size: 14px;
+//           font-weight: 400;
+//         }
 
-        img {
-          width: 13px;
-        }
-      }
+//         img {
+//           width: 13px;
+//         }
+//       }
 
-      .select-wrap {
-        margin-top: 20px;
-        margin-left: 0;
+//       .select-wrap {
+//         margin-top: 20px;
+//         margin-left: 0;
 
-        .account-tabz {
-          flex-direction: row;
-          width: 100%;
+//         .account-tabz {
+//           flex-direction: row;
+//           width: 100%;
 
-          li {
-            margin-bottom: 0;
-            width: 50%;
-            line-height: 24px;
-            text-align: center;
-          }
-        }
-      }
-    }
+//           li {
+//             margin-bottom: 0;
+//             width: 50%;
+//             line-height: 24px;
+//             text-align: center;
+//           }
+//         }
+//       }
+//     }
 
-    .account-all-collects {
-      margin-left: 0;
+//     .account-all-collects {
+//       margin-left: 0;
 
-      .info {
+//       .info {
 
-        .info-collections {
-          width: 91%;
-          margin: 0 auto;
+//         .info-collections {
+//           width: 91%;
+//           margin: 0 auto;
 
-          .info-flex {
-            margin-top: 8px;
-            padding: 0;
-            flex-wrap: wrap-reverse;
-            gap: 16px;
+//           .info-flex {
+//             margin-top: 8px;
+//             padding: 0;
+//             flex-wrap: wrap-reverse;
+//             gap: 16px;
 
-            .grid {
-              display: none;
-            }
+//             .grid {
+//               display: none;
+//             }
 
-            .g-search {
-              max-width: unset;
-              height: 34px;
+//             .g-search {
+//               max-width: unset;
+//               height: 34px;
 
-              .prepend {
-                display: flex;
-                align-items: center;
-              }
+//               .prepend {
+//                 display: flex;
+//                 align-items: center;
+//               }
 
-              input {
-                width: auto;
-                font-size: 14px;
-              }
-            }
+//               input {
+//                 width: auto;
+//                 font-size: 14px;
+//               }
+//             }
 
-            .infoFilter {
-              justify-content: space-between;
-              width: 100%;
+//             .infoFilter {
+//               justify-content: space-between;
+//               width: 100%;
 
-              .g-select {
-                margin-right: 0;
-                width: calc(50% - 8px);
+//               .g-select {
+//                 margin-right: 0;
+//                 width: calc(50% - 8px);
 
-                .g-select--header {
-                  padding: 3px 8px;
-                  min-height: 34px;
+//                 .g-select--header {
+//                   padding: 3px 8px;
+//                   min-height: 34px;
 
-                  .main .g-title {
-                    font-size: 14px;
-                  }
-                }
-              }
-            }
-          }
+//                   .main .g-title {
+//                     font-size: 14px;
+//                   }
+//                 }
+//               }
+//             }
+//           }
 
-          .info-main {
-            margin-top: 28px;
-            width: 100%;
-            border: 0;
+//           .info-main {
+//             margin-top: 28px;
+//             width: 100%;
+//             border: 0;
 
-            .g-list {
-              padding: 0;
+//             .g-list {
+//               padding: 0;
 
-              .card {
-                width: 343px;
+//               .card {
+//                 width: 343px;
 
-                .assets {
-                  width: 343px;
-                  height: 343px;
+//                 .assets {
+//                   width: 343px;
+//                   height: 343px;
 
-                  img {
-                    border-radius: 10px;
-                  }
-                }
+//                   img {
+//                     border-radius: 10px;
+//                   }
+//                 }
 
-                .assets-info {
-                  .desc {
-                    margin-top: 8px;
+//                 .assets-info {
+//                   .desc {
+//                     margin-top: 8px;
 
-                    .name {
-                      line-height: 24px;
-                      font-size: 17px;
-                    }
-                  }
+//                     .name {
+//                       line-height: 24px;
+//                       font-size: 17px;
+//                     }
+//                   }
 
-                  .collection-name {
-                    margin-top: 4px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+//                   .collection-name {
+//                     margin-top: 4px;
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

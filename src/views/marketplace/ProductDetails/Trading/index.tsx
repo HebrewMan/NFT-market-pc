@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
 import { formatTime } from '../../utils';
 import config from '../../../../config/constants';
 import './index.scss';
 
 export const Trading = (props: any) => {
   const _chainId = window?.ethereum?.chainId;
-  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+  const chainId = parseInt(_chainId);
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([]);
   const deepTradingHistoryData = [...props.tradingHistoryData];
   const [detailsState, setDetailsState] = useState(false);

@@ -1,6 +1,5 @@
 import React from 'react';
 import Web3 from 'web3';
-import { isMobile } from 'react-device-detect';
 import config from '../config/constants';
 import MarketPlaceAbi from '../config/abi/marketPlace.json';
 import MarketPlacePrimaryAbi from '../config/abi/marketPlacePrimary.json';
@@ -9,7 +8,7 @@ import ERC20Abi from '../config/abi/ERC20.json';
 import { ethers } from 'ethers';
 
 const _chainId = window?.ethereum?.chainId;
-export const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+export const chainId = parseInt(_chainId);
 
 export const hasWallet = () => Boolean(window?.ethereum);
 

@@ -2,7 +2,6 @@ import { InjectedConnector } from '@web3-react/injected-connector';
 import dayjs from 'dayjs';
 // import utc from 'dayjs/plugin/utc';
 import BigNumber from 'bignumber.js';
-import { isMobile } from 'react-device-detect';
 import { message } from 'antd';
 
 // dayjs.extend(utc);
@@ -168,8 +167,8 @@ export const injected = new InjectedConnector({
 export const wallets = [
   {
     connector: injected,
-    name: isMobile ? 'Connect Wallet' : 'MetaMask',
-    logoURI: isMobile ? require('../assets/usdt.png') : require('../assets/metamask.png'),
+    name: 'MetaMask',
+    logoURI: require('../assets/metamask.png'),
     description: 'Easy-to-use browser extension.',
     href: null,
     color: '#E8831D',

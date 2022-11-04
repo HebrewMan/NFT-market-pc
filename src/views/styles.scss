@@ -4,7 +4,6 @@
 @import '../styles/comm.scss';
 @import '../styles/card.scss';
 
-$mobile-xs-max: 520px;
 $white: #ffffff;
 
 * {
@@ -50,10 +49,6 @@ textarea[disabled] {
 .ant-layout-content {
   position: relative;
   padding: 0 !important;
-
-  @media screen and (max-width: $mobile-xs-max) {
-    padding: 0 !important;
-  }
 }
 
 .ant-message-error {
@@ -91,7 +86,7 @@ textarea[disabled] {
   .ant-upload-list-item-info .anticon-loading .anticon,
   .ant-upload-list-item-info .ant-upload-text-icon .anticon,
   .ant-upload-list-item-name {
-    color: $white  !important;
+    color: $white !important;
   }
 }
 

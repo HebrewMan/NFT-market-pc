@@ -28,35 +28,35 @@
     }
   }
 
-  @media screen and (max-width: 767px) {
-    .home-container-wrap {
-      padding: 0px 15px 50px;
+  // @media screen and (max-width: 767px) {
+  //   .home-container-wrap {
+  //     padding: 0px 15px 50px;
 
-      .swiper-list {
-        .swiper-title {
-          justify-content: flex-start;
+  //     .swiper-list {
+  //       .swiper-title {
+  //         justify-content: flex-start;
 
-          h2 {
-            font-size: 20px;
-          }
+  //         h2 {
+  //           font-size: 20px;
+  //         }
 
-          .swiper-check {
-            h3 {
-              font-size: 20px;
-            }
-          }
-        }
-      }
+  //         .swiper-check {
+  //           h3 {
+  //             font-size: 20px;
+  //           }
+  //         }
+  //       }
+  //     }
 
-      &>div {
-        .page-title {
+  //     &>div {
+  //       .page-title {
 
-          h2 {
-            font-size: 20px;
-            text-align: left;
-          }
-        }
-      }
-    }
-  }
+  //         h2 {
+  //           font-size: 20px;
+  //           text-align: left;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }

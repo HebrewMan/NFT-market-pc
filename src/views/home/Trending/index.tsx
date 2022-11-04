@@ -139,8 +139,9 @@ export const Trending = () => {
           <h2>Trending Now</h2>
         </div>
         {(collections && collections.length > 0) && (
-          !isMobile && width >= 768 && <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} /> ||
-          (isMobile || width < 768) && <TrendSwiperMobile collections={collections} />
+          <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} /> 
+          // !isMobile && width >= 768 && <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} /> ||
+          // (isMobile || width < 768) && <TrendSwiperMobile collections={collections} />
         )}
         {!(collections && collections.length > 0) && (<p style={styles}>No Data</p>)}
         <div className='right-footer'>
@@ -150,7 +151,15 @@ export const Trending = () => {
           <div className='footer-text'>{currentSwiperObject?.name}</div>
         </div>
       </div>
-      {!isMobile && width >= 768 && (
+      <div className="swiper-buttons">
+        <div className="swiper-button-prev">
+          <img src={require('../../../assets/swiper-prev.png')} alt='' />
+        </div>
+        <div className="swiper-button-next">
+          <img src={require('../../../assets/swiper-next.png')} alt='' />
+        </div>
+      </div>
+      {/* {!isMobile && width >= 768 && (
         <div className="swiper-buttons">
           <div className="swiper-button-prev">
             <img src={require('../../../assets/swiper-prev.png')} alt='' />
@@ -159,7 +168,7 @@ export const Trending = () => {
             <img src={require('../../../assets/swiper-next.png')} alt='' />
           </div>
         </div>
-        )}
+        )} */}
     </>
   );
 };

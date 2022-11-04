@@ -84,40 +84,40 @@ export const MetaplexMenu = () => {
     $web3js.logOut(deactivate);
     setIsLogin(false);
   };
-  if (isMobile || width < 768)
-    return ( 
-      <>
-        <Modal
-          title={
-            <a href='/'>
-              <img src={require('../../assets/logo.png')} alt='logo' />
-              <span>DIFFGALAXY</span>
-            </a>
-          }
-          visible={isModalVisible}
-          footer={null}
-          className={'mobile-menu-list'}
-          closeIcon={<img alt='' onClick={() => setIsModalVisible(false)} src={require('../../assets/close.svg')} />}
-        >
-          <div className='site-card-wrapper mobile-menu-modal'>
-            <Menu onClick={() => setIsModalVisible(false)}>
-              {menuItem.map((item, idx) => (
-                <Menu.Item key={idx}>
-                  <div className='item'>
-                    {item.id === '/logOut' ? (
-                      <a onClick={clickLogout}>{item.name}</a>
-                    ) : (
-                      <Link to={item.id}>{item.name}</Link>
-                    )}
-                  </div>
-                </Menu.Item>
-              ))}
-            </Menu>
-          </div>
-        </Modal>
-        <MenuOutlined onClick={() => setIsModalVisible(true)} style={{ fontSize: '1.4rem' }} />
-      </>
-    );
+  // if (isMobile || width < 768)
+  //   return ( 
+  //     <>
+  //       <Modal
+  //         title={
+  //           <a href='/'>
+  //             <img src={require('../../assets/logo.png')} alt='logo' />
+  //             <span>DIFFGALAXY</span>
+  //           </a>
+  //         }
+  //         visible={isModalVisible}
+  //         footer={null}
+  //         className={'mobile-menu-list'}
+  //         closeIcon={<img alt='' onClick={() => setIsModalVisible(false)} src={require('../../assets/close.svg')} />}
+  //       >
+  //         <div className='site-card-wrapper mobile-menu-modal'>
+  //           <Menu onClick={() => setIsModalVisible(false)}>
+  //             {menuItem.map((item, idx) => (
+  //               <Menu.Item key={idx}>
+  //                 <div className='item'>
+  //                   {item.id === '/logOut' ? (
+  //                     <a onClick={clickLogout}>{item.name}</a>
+  //                   ) : (
+  //                     <Link to={item.id}>{item.name}</Link>
+  //                   )}
+  //                 </div>
+  //               </Menu.Item>
+  //             ))}
+  //           </Menu>
+  //         </div>
+  //       </Modal>
+  //       <MenuOutlined onClick={() => setIsModalVisible(true)} style={{ fontSize: '1.4rem' }} />
+  //     </>
+  //   );
 
   return <DefaultActions vertical={false} />;
 };
@@ -145,7 +145,15 @@ export const AppBar = () => {
   }, []);
   return (
     <>
-      {(isMobile || width < 768) && <MobileNavbar />}
+     <div id='desktop-navbar'>
+        <div className='app-left'>
+          <LogoLink />
+        </div>
+        <div className='app-right'>
+          <MetaplexMenu />
+        </div>
+      </div>
+      {/* {(isMobile || width < 768) && <MobileNavbar />}
       {!isMobile && width >= 768 && (
         <div id='desktop-navbar'>
           <div className='app-left'>
@@ -155,7 +163,7 @@ export const AppBar = () => {
             <MetaplexMenu />
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -1,12 +1,11 @@
 import React from 'react';
-import { isMobile } from 'react-device-detect';
 import { General } from './General';
 import './index.scss';
 
 export const UserSetting = () => {
   return (
     <div className='user-settings'>
-      <div className={`settings-wrap ${isMobile ? 'mobile-settings-wrap' : ''}`}>
+      <div className={`settings-wrap`}>
         <div className='settings-list'>
           <ul>
             <div className='list-title'>SETTINGS</div>

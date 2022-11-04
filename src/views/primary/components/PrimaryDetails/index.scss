@@ -34,16 +34,16 @@
   }
 }
 
-@media screen and (max-width: 767px) {
-  .primary-details .primary-details-wrap .wrap-header-timer {
-    align-items: flex-start;
-    padding: 0 30px;
-  }
+// @media screen and (max-width: 767px) {
+//   .primary-details .primary-details-wrap .wrap-header-timer {
+//     align-items: flex-start;
+//     padding: 0 30px;
+//   }
 
-  .primary-details .primary-details-wrap .details-wrap-inner .inner-container .inner-details .footer button {
-    width: 40%;
-  }
-}
+//   .primary-details .primary-details-wrap .details-wrap-inner .inner-container .inner-details .footer button {
+//     width: 40%;
+//   }
+// }
 
 .inner-details {
   display: flex;
@@ -79,7 +79,7 @@
     }
   }
 
-  .details-list > ul > li {
+  .details-list>ul>li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -122,117 +122,136 @@
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .inner-details {
-    .details-logo,
-    .spring-logo {
-      height: auto;
-    }
-    .details-list {
-      ul {
-        li {
-          .mobile-end-time {
-            .more {
-              display: none;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+// @media screen and (min-width: 768px) and (max-width: 1024px) {
+//   .inner-details {
 
-@media screen and (max-width: 767px) {
-  .primary-details {
-    .primary-details-wrap {
-      padding: 30px 15px;
-      .details-wrap-inner {
-        .inner-container {
-          padding: 0 0 80px;
-          box-shadow: none;
-          border: 0;
-          .inner-details {
-            flex-direction: column;
-            padding-bottom: 25px;
-            .details-logo {
-              width: 100%;
-              height: 230px;
-            }
-            .details-list {
-              margin-top: 15px;
-              h1 {
-                font-size: 23px;
-                font-weight: 800;
-                color: #000000;
-              }
-              & > ul {
-                & > li {
-                  & > p {
-                    &:last-of-type {
-                      font-weight: bold;
-                    }
-                    &:first-of-type {
-                      font-weight: normal;
-                      color: #777777;
-                    }
-                  }
-                  &:not(:last-of-type) {
-                    p {
-                      width: 50%;
-                      text-overflow: ellipsis;
-                      overflow: hidden;
-                      white-space: nowrap;
-                      &:last-of-type {
-                        text-align: right;
-                      }
-                    }
-                  }
-                  .end-time {
-                    h3 {
-                    }
-                    .mobile-end-time {
-                      .more {
-                        display: none;
-                      }
-                    }
-                  }
-                }
-              }
-              .price {
-                margin-top: 6px;
-                p {
-                  color: #777777;
-                }
-                .price-heighting {
-                  span {
-                    font-size: 16px;
-                  }
-                }
-              }
-              .footer {
-                & > button {
-                  width: 100%;
-                  margin-top: 25px;
-                  font-size: 14px;
-                }
-              }
-            }
-          }
-          .primary-desc {
-            .desc-nav {
-              .active {
-                line-height: 28px;
-              }
-            }
-            .desc-details {
-              padding-top: 10px;
-              .desc-desc {
-                font-size: 14px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+//     .details-logo,
+//     .spring-logo {
+//       height: auto;
+//     }
+
+//     .details-list {
+//       ul {
+//         li {
+//           .mobile-end-time {
+//             .more {
+//               display: none;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 767px) {
+//   .primary-details {
+//     .primary-details-wrap {
+//       padding: 30px 15px;
+
+//       .details-wrap-inner {
+//         .inner-container {
+//           padding: 0 0 80px;
+//           box-shadow: none;
+//           border: 0;
+
+//           .inner-details {
+//             flex-direction: column;
+//             padding-bottom: 25px;
+
+//             .details-logo {
+//               width: 100%;
+//               height: 230px;
+//             }
+
+//             .details-list {
+//               margin-top: 15px;
+
+//               h1 {
+//                 font-size: 23px;
+//                 font-weight: 800;
+//                 color: #000000;
+//               }
+
+//               &>ul {
+//                 &>li {
+//                   &>p {
+//                     &:last-of-type {
+//                       font-weight: bold;
+//                     }
+
+//                     &:first-of-type {
+//                       font-weight: normal;
+//                       color: #777777;
+//                     }
+//                   }
+
+//                   &:not(:last-of-type) {
+//                     p {
+//                       width: 50%;
+//                       text-overflow: ellipsis;
+//                       overflow: hidden;
+//                       white-space: nowrap;
+
+//                       &:last-of-type {
+//                         text-align: right;
+//                       }
+//                     }
+//                   }
+
+//                   .end-time {
+//                     h3 {}
+
+//                     .mobile-end-time {
+//                       .more {
+//                         display: none;
+//                       }
+//                     }
+//                   }
+//                 }
+//               }
+
+//               .price {
+//                 margin-top: 6px;
+
+//                 p {
+//                   color: #777777;
+//                 }
+
+//                 .price-heighting {
+//                   span {
+//                     font-size: 16px;
+//                   }
+//                 }
+//               }
+
+//               .footer {
+//                 &>button {
+//                   width: 100%;
+//                   margin-top: 25px;
+//                   font-size: 14px;
+//                 }
+//               }
+//             }
+//           }
+
+//           .primary-desc {
+//             .desc-nav {
+//               .active {
+//                 line-height: 28px;
+//               }
+//             }
+
+//             .desc-details {
+//               padding-top: 10px;
+
+//               .desc-desc {
+//                 font-size: 14px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

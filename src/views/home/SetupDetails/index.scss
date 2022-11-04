@@ -55,37 +55,37 @@
   }
 }
 
-@media (max-width: 767px) {
-  .nft-list {
-    width: 100%;
+// @media (max-width: 767px) {
+//   .nft-list {
+//     width: 100%;
 
-    .nft-list-item {
-      align-items: flex-start;
+//     .nft-list-item {
+//       align-items: flex-start;
 
-      &:not(:last-of-type) {
-        margin-bottom: 40px;
-      }
+//       &:not(:last-of-type) {
+//         margin-bottom: 40px;
+//       }
 
-      img {
-        width: 48px;
-        height: 48px;
-      }
+//       img {
+//         width: 48px;
+//         height: 48px;
+//       }
 
-      .item-title {
-        margin-top: 5px;
-        font-size: 18px;
-      }
+//       .item-title {
+//         margin-top: 5px;
+//         font-size: 18px;
+//       }
 
-      .item-text {
-        margin-top: 4px;
-        font-size: 14px;
-        text-align: left;
-        line-height: normal;
-      }
-    }
-  }
+//       .item-text {
+//         margin-top: 4px;
+//         font-size: 14px;
+//         text-align: left;
+//         line-height: normal;
+//       }
+//     }
+//   }
 
-  .page-title {
-    margin: 1.78rem 0 1.424rem;
-  }
-}
+//   .page-title {
+//     margin: 1.78rem 0 1.424rem;
+//   }
+// }

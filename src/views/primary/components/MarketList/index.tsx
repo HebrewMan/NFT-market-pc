@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
 import { PHeader } from '../Header';
 import { MaskImage } from '../List';
 import { getActivityProduction } from '../../../../api/primary';
@@ -67,7 +66,7 @@ export const MarketList = () => {
   };
 
   return (
-    <div className={`market-list-wrap ${isMobile || width < 768 ? 'mobileMarketListWrap' : ''}`}>
+    <div className={`market-list-wrap`}>
       <PHeader primaryObj={primaryObj} />
       <div className='list-wrap'>
         <ul>

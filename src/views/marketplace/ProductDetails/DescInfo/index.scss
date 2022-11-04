@@ -10,19 +10,13 @@
     padding: 6px 14px 6px 12px;
     margin-bottom: 24px;
 
-    @media screen and (max-width: 767px) {
-      display: grid;
-      grid-template-columns: repeat(2, 50%);
-      grid-template-rows: repeat(2, auto);
-      grid-row-gap: 10px;
-    }
-
     .list-title {
       display: flex;
       align-items: center;
       box-sizing: border-box;
       line-height: 1;
       padding: 3px 12px;
+
       h2 {
         font-size: 16px;
         font-weight: 400;
@@ -30,9 +24,11 @@
         line-height: 22px;
       }
     }
+
     .list-inner.active .list-title {
       background-color: #000;
       border-radius: 32px;
+
       h2 {
         font-weight: 600;
         color: #ffffff;
@@ -163,18 +159,20 @@
   }
 
   .content-wrap {
-    &.desc {
-    }
+    &.desc {}
 
     &.properties {
       .content {
         display: flex;
+
         &:not(:last-child) {
           margin-bottom: 14px;
         }
+
         p {
           flex: 1;
         }
+
         h2 {
           flex: 1;
           padding-left: 8px;
@@ -186,24 +184,31 @@
       .list-content {
         display: flex;
       }
+
       .details-left {
         flex: 1;
+
         p {
           font-size: 14px;
+
           &:not(:last-child) {
             margin-bottom: 14px;
           }
         }
       }
+
       .details-right {
         flex: 1;
+
         a {
           display: inline-block;
           margin-bottom: 14px;
         }
+
         p {
           font-size: 14px;
           font-weight: 600;
+
           &:not(:last-child) {
             margin-bottom: 14px;
           }

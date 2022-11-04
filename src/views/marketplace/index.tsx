@@ -7,7 +7,6 @@ import { getFans, removeFans, getFansByGoodsId } from '../../api/fans';
 import { useTouchBottom } from '../../hooks';
 import { defaultParams, blindType, queryList } from '../../core/constants/marketplace';
 import './index.scss';
-import { isMobile } from 'react-device-detect';
 import { Input, Spin } from 'antd';
 import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
 
@@ -254,14 +253,14 @@ export const MarketPlace = () => {
             className='min'
             value={inputMin}
             placeholder='Min'
-            style={{ width: !isMobile ? 84 : 50, height: !isMobile ? 41 : 34 }}
+            style={{ width: 50, height:34 }}
             onChange={handleChangeMin}
           />
           <span className='to'>To</span>
           <Input
             placeholder='Max'
             value={inputMax}
-            style={{ width: !isMobile ? 84 : 50, height: !isMobile ? 41 : 34 }}
+            style={{ width:50, height:34 }}
             onChange={handleChangeMax}
           />
         </div>
