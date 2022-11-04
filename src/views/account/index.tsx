@@ -138,10 +138,10 @@ export const Account: React.FC<any> = () => {
 
     const check: boolean = uploadFileCheck(
       file,
-      ['jpg', 'png'],
-      1024 * 1024,
-      'Uploading image should be JPG/PNG',
-      'Uploaded image should be less than 1M',
+      ['jpg', 'png', 'gif'],
+      1024 * 1024 * 10,
+      'Uploading image should be JPG/PNG/GIF',
+      'Uploaded image should be less than 10M',
     );
     if (!check) {
       return;
@@ -496,10 +496,10 @@ export const Account: React.FC<any> = () => {
 
     const check: boolean = uploadFileCheck(
       file,
-      ['jpg', 'png'],
-      1024 * 1024 * 5,
-      'Uploading image should be JPG/PNG',
-      'Uploaded image should be less than 5M',
+      ['jpg', 'png', 'gif'],
+      1024 * 1024 * 10,
+      'Uploading image should be JPG/PNG/GIF',
+      'Uploaded image should be less than 10M',
     );
     if (!check) {
       return;
