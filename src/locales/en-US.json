@@ -1,0 +1,10 @@
+{
+    "header": {
+        "title": "Title",
+        "subtitle": "Subtitle"
+    },
+    "footer": {
+        "about": "About",
+        "feedback": "Feedback"
+    }
+}

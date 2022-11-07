@@ -1,0 +1,10 @@
+{
+    "header": {
+        "title": "主标题",
+        "subtitle": "副标题"
+    },
+    "footer": {
+        "about": "关于",
+        "feedback": "反馈"
+    }
+}

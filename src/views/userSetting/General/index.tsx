@@ -21,7 +21,7 @@ export const General = () => {
   const handleUploadImage = (e: any) => {
     const file = e.target.files[0];
 
-    const res: boolean = uploadFileCheck(file, ['jpg', 'png'], 1024 * 1024, 'Uploading image should be JPG/PNG', 'Uploaded image should be less than 1M')
+    const res: boolean = uploadFileCheck(file, ['jpg', 'png', 'gif'], 1024 * 1024, 'Uploading image should be JPG/PNG/GIF', 'Uploaded image should be less than 1M')
     if (!res) {
       return
     }
@@ -35,7 +35,7 @@ export const General = () => {
   const handleBannerImage = (e: any) => {
     const file = e.target.files[0];
 
-    const res: boolean = uploadFileCheck(file, ['jpg', 'png'], 1024 * 1024 * 5, 'Uploading image should be JPG/PNG', 'Uploaded image should be less than 5M')
+    const res: boolean = uploadFileCheck(file, ['jpg', 'png','gif'], 1024 * 1024 * 5, 'Uploading image should be JPG/PNG/GIF', 'Uploaded image should be less than 5M')
     if (!res) {
       return
     }

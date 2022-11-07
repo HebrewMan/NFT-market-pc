@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getCookie } from '../../../utils/utils';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper';
-
+import { useTranslation } from 'react-i18next'
 import 'swiper/scss';
 import './index.scss';
 
@@ -45,6 +45,7 @@ const SwiperComm = (props: any) => {
 
 export const SubjectInner = () => {
   const history = useHistory();
+  const { t } = useTranslation()
   const [swiperList, setSwiperList] = useState<any[]>([]);
   const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({})
   const token = getCookie('web-token') || '';
@@ -82,7 +83,7 @@ export const SubjectInner = () => {
       </div> */}
       <div className='container-flex'>
         <div className='flex-left'>
-          <h1>Welcome to the Diffgalaxy digital art market.</h1>
+          <h1>{t('header.title')}</h1>
           <span>Diffgalaxy makes NFT transactions easier, The joy of exploring and trading together.</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
