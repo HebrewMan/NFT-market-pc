@@ -56,6 +56,10 @@ export const PList = () => {
   const ListItem = ({ activityList }: any) => {
     const history = useHistory();
     const handleToMarket = (item: any) => {
+      // 已售罄不可点击查看详情
+      if (item?.status === 3 || item?.status === null) {
+        return;
+      }
       const info = {
         name: item.name,
         description: item.description,
