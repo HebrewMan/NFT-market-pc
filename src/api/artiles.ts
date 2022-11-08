@@ -3,7 +3,7 @@ import { get, post } from '../ajax/quest';
 // 获取分类
 export function getAllCategories(params: any) {
   return post(`/v1/api/articles/category/page`, {
-    data: { ...params },
+    // data: { ...params },
     page: 1,
     size: 10,
   });
