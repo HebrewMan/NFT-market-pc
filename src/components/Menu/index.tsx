@@ -7,6 +7,9 @@ import { useWeb3React } from '@web3-react/core';
 import $web3js from '../../hooks/web3';
 import { getAccountInfo } from '../../api/user';
 import './index.scss';
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
 
 export const HeaderMenu = () => {
   const { account, active, deactivate } = useWeb3React();
@@ -22,6 +25,20 @@ export const HeaderMenu = () => {
     clearInterval(window.menuTimer);
     setDom(selector);
   };
+  const enum Language {
+    en = 'en-US',
+    zh = 'zh-CN',
+    tw = 'zh-TW',
+    jp = 'zh-JP',
+    tk = 'tr-TK',
+  }
+  const items: MenuProps['items'] = [
+    { key: Language.en, label: 'English' },
+    { key: Language.zh, label: '简体中文' },
+    { key: Language.tw, label: '繁體中文' },
+    { key: Language.jp, label: '日本語' },
+    { key: Language.tk, label: 'Türkçe, Türk dil' },
+  ];
   const hideMenu = () => {
     window.menuTimer = setTimeout(() => {
       setDom('');
@@ -104,6 +121,14 @@ export const HeaderMenu = () => {
         <div className='search-com'>
           <SelectGroup></SelectGroup>
         </div>
+        <Dropdown menu={{ items }}>
+            <a onClick={e => e.preventDefault()}>
+              <>
+                中文简体
+                <DownOutlined />
+              </>
+            </a>
+          </Dropdown>
         <div className='item' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
           <Link
             to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}
@@ -111,6 +136,7 @@ export const HeaderMenu = () => {
           >
             <img src={accountImg} className='account-active' alt='' />
           </Link>
+
           {dom === 'js-account' ? (
             <div
               id='js-account'
