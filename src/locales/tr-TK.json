@@ -3,7 +3,12 @@
     "buy": "Satın almak",
     "sell": "satmak",
     "noDataLong": "Şimdilik veri yok.",
-    "buyNow": "Satın almak"
+    "buyNow": "Satın almak",
+    "day": "gün",
+    "months": "ay",
+    "years": "yıl",
+    "hours": "saat",
+    "minutes": "dakika"
   },
   "domainNotice": "Diffgalaxy için tek resmi alan adı <1>https://nft.diffgalaxy.com</1>'dur.",
   "home": {
@@ -55,5 +60,13 @@
     "to": "varmak",
     "Owner": "Kulp",
     "curPrice": "Şimdi satın al"
+  },
+  "primary": {
+    "title": "Birincil Pazar",
+    "titleInfo": "Birincil, yüksek kaliteli projelerin, sanatçıların ve ünlülerin NFT varlıklarını satmasına izin veren birincil bir pazardır. Kullanıcılar veya oyuncular, daha iyi fiyatlar elde etmek veya önce öğeleri deneyimlemek için ikincil piyasaya girmeden önce NFT'leri satın alabilir.",
+    "soldOut": "hepsi satıldı",
+    "progress": "işleme",
+    "end": "Bitiş",
+    "more": "Daha"
   }
 }

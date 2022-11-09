@@ -1,11 +1,13 @@
 import React from "react"
 import { PHeader } from "./components/Header"
 import { PList } from "./components/List"
+import { useTranslation } from 'react-i18next';
+
 export const Primary = () => {
+  const {t} = useTranslation()
   const primaryObj = {
-    name: "Primary Market",
-    description:
-      "Primary is a marketplace that allows high-quality projects, artists, and celebrities to conduct the primary list of NFT assets. Users or players can place orders before the NFT flows into the secondary marketplace to obtain a better price or the priority to experience the project in advance.",
+    name: t('primary.title'),
+    description:t('primary.titleInfo')
   }
   return (
     <div className="primary-market-wrap">
