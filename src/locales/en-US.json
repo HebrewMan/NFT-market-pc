@@ -1,10 +1,10 @@
 {
-    "header": {
-        "title": "Title",
-        "subtitle": "Subtitle"
-    },
-    "footer": {
-        "about": "About",
-        "feedback": "Feedback"
-    }
+  "home": {
+    "title": "Welcome to the Diffgalaxy digital art market",
+    "subtitle": "Diffgalaxy makes NFT transactions easier, The joy of exploring and trading together."
+  },
+  "footer": {
+    "about": "About",
+    "feedback": "Feedback"
+  }
 }

@@ -36,5 +36,9 @@
   "javascript.format.semicolons": "remove",
   "typescript.format.semicolons": "remove",
   "prettier.semi": false,
-  "javascript.format.insertSpaceAfterSemicolonInForStatements": false
+  "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getCookie } from '../../../utils/utils';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 import 'swiper/scss';
 import './index.scss';
 
@@ -25,7 +25,7 @@ const SwiperComm = (props: any) => {
       pagination={{
         bulletClass: 'swiper-pagination-bullet my-bullet',
         bulletActiveClass: 'swiper-pagination-bullet-active my-bullet-active',
-        clickable: true
+        clickable: true,
       }}
     >
       {swiperList.map((item: any, index: number) => {
@@ -45,9 +45,9 @@ const SwiperComm = (props: any) => {
 
 export const SubjectInner = () => {
   const history = useHistory();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [swiperList, setSwiperList] = useState<any[]>([]);
-  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({})
+  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({});
   const token = getCookie('web-token') || '';
   const walletAccount = localStorage.getItem('wallet') || '';
   const [isLogin, setIsLogin] = useState(false);
@@ -74,7 +74,7 @@ export const SubjectInner = () => {
     } else {
       history.push(`/login`);
     }
-  }
+  };
 
   return (
     <div className='container-banner'>
@@ -83,21 +83,21 @@ export const SubjectInner = () => {
       </div> */}
       <div className='container-flex'>
         <div className='flex-left'>
-          <h1>{t('header.title')}</h1>
-          <span>Diffgalaxy makes NFT transactions easier, The joy of exploring and trading together.</span>
+          <h1>{t('home.title')}</h1>
+          <span>{t('home.subtitle')}</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
-            Buy
+              Buy
             </button>
-            <button className="button-sell" onClick={clickSell}>
-            Sell
+            <button className='button-sell' onClick={clickSell}>
+              Sell
             </button>
           </div>
         </div>
         <div className='flex-right'>
-          <div className="cards-swiper">
+          <div className='cards-swiper'>
             <SwiperComm swiperList={swiperList} setCurrentSwiperObject={setCurrentSwiperObject} />
-            <div className="swiper-pagination"></div>
+            <div className='swiper-pagination'></div>
             <div className='right-footer'>
               <div className='footer-img'>
                 <img src={currentSwiperObject?.collectionHeadUrl} alt='' />

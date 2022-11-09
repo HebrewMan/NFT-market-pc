@@ -4,13 +4,26 @@
  * @Description: 定义一些全局枚举值
  */
 // 多语言相关
-export enum LANG {
-  EN = 'en-US',
-  JP = 'ja-JP',
-  CN = 'zh-CN',
+export enum Language {
+  en = 'en-US',
+  zh = 'zh-CN',
+  tw = 'zh-TW',
+  jp = 'zh-JP',
+  tk = 'tr-TK',
 }
+
 export const LanguageNames = {
-  [LANG.EN]: 'English',
-  [LANG.CN]: '简体中文',
-  [LANG.JP]: '日本語',
-}
+  [Language.en]: 'English',
+  [Language.zh]: '简体中文',
+  [Language.tw]: '繁體中文',
+  [Language.jp]: '日本語',
+  [Language.tk]: 'Türkçe, Türk dil',
+};
+
+export const LanguageNamesMobile = {
+  [Language.en]: 'EN',
+  [Language.zh]: 'CN',
+  [Language.tw]: 'TW',
+  [Language.jp]: 'JP',
+  [Language.tk]: 'TK',
+};

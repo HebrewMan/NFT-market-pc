@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, NavLink } from 'react-router-dom';
 import { Slider } from '../Slider';
+import { Menu } from 'antd';
+import type { MenuProps } from 'antd';
 import { SelectGroup } from '../HeaderSearch';
 import { getCookie, removeCookie, removeLocalStorage } from '../../utils/utils';
 import { useWeb3React } from '@web3-react/core';
 import $web3js from '../../hooks/web3';
 import { getAccountInfo } from '../../api/user';
 import './index.scss';
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown } from 'antd';
-import type { MenuProps } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { Language } from '../../utils/enum';
+import { changeLanguage } from '../../utils/i18n';
 
 export const HeaderMenu = () => {
+  const { t, i18n } = useTranslation();
   const { account, active, deactivate } = useWeb3React();
   const history = useHistory();
   const [dom, setDom] = useState('');
@@ -21,30 +24,29 @@ export const HeaderMenu = () => {
   const defaultImg = require('../../assets/default_header.png');
   const [accountImg, setAccountImg] = useState(defaultImg);
   const [isLogin, setIsLogin] = useState(false);
-  const showMenu = (selector: any) => {
-    clearInterval(window.menuTimer);
-    setDom(selector);
-  };
-  const enum Language {
-    en = 'en-US',
-    zh = 'zh-CN',
-    tw = 'zh-TW',
-    jp = 'zh-JP',
-    tk = 'tr-TK',
-  }
-  const items: MenuProps['items'] = [
+
+  const [currentLang, setCurrentLang] = useState<Language>(i18n.language as Language);
+  const langConfig: MenuProps['items'] = [
     { key: Language.en, label: 'English' },
     { key: Language.zh, label: '简体中文' },
     { key: Language.tw, label: '繁體中文' },
     { key: Language.jp, label: '日本語' },
     { key: Language.tk, label: 'Türkçe, Türk dil' },
   ];
+  const showMenu = (selector: any) => {
+    clearInterval(window.menuTimer);
+    setDom(selector);
+  };
   const hideMenu = () => {
     window.menuTimer = setTimeout(() => {
       setDom('');
     }, 300);
   };
-
+  const handleSelectLang = (item: any) => {
+    setCurrentLang(item?.key);
+    changeLanguage(item?.key);
+    window.location.reload();
+  };
   const clearLogin = () => {
     removeLocalStorage('wallet');
     removeCookie('web-token');
@@ -121,14 +123,18 @@ export const HeaderMenu = () => {
         <div className='search-com'>
           <SelectGroup></SelectGroup>
         </div>
-        <Dropdown menu={{ items }}>
-            <a onClick={e => e.preventDefault()}>
-              <>
-                中文简体
-                <DownOutlined />
-              </>
-            </a>
-          </Dropdown>
+        <Menu mode='horizontal' defaultSelectedKeys={[currentLang]}>
+          <Menu.SubMenu
+            key='SubMenu'
+            icon={<img className='language-img' src={require('../../assets/fg.png')} alt='language' />}
+          >
+            {langConfig.map((item: any) => (
+              <Menu.Item key={item?.key} onClick={handleSelectLang}>
+                <span>{item?.label}</span>
+              </Menu.Item>
+            ))}
+          </Menu.SubMenu>
+        </Menu>
         <div className='item' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
           <Link
             to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}

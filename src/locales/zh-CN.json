@@ -1,10 +1,11 @@
 {
-    "header": {
-        "title": "主标题",
-        "subtitle": "副标题"
-    },
-    "footer": {
-        "about": "关于",
-        "feedback": "反馈"
-    }
+  "common": {},
+  "home": {
+    "title": "欢迎来到Diffgalaxy NFT资产交易市场",
+    "subtitle": "Diffgalaxy让NFT交易更简单，一起探索交易的乐趣"
+  },
+  "footer": {
+    "about": "关于",
+    "feedback": "反馈"
+  }
 }
