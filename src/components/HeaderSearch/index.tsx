@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
@@ -8,6 +9,7 @@ import './index.scss';
 
 const { Option, OptGroup } = Select;
 export const HeaderSearch = (props: any) => {
+  const { t } = useTranslation();
   const [keyword, setKeyWord] = useState(props.keyWord);
   const [placeholder, setPlaceholder] = useState(props.placeholder);
   const onKeyDown = (e: any) => {
@@ -43,6 +45,8 @@ export const HeaderSearch = (props: any) => {
 export const SelectGroup = () => {
   const [nftGoodsList, setNftGoodsList] = useState<any[]>([]);
   const [keyWord, setKeyWord] = useState<string>('');
+  const { t } = useTranslation();
+
   // const [blindGoodsList, setBlindGoodsList] = useState<any[]>([]);
   const history = useHistory();
   const handleChange = (value: any) => {
@@ -68,7 +72,7 @@ export const SelectGroup = () => {
 
   return (
     <Select
-      placeholder='Please enter NFT/ collection /address/account'
+      placeholder={t('nav.secherTips')}
       suffixIcon={<SearchOutlined />}
       optionLabelProp='label'
       style={{ width: '100%' }}

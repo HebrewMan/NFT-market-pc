@@ -6,5 +6,15 @@
   "footer": {
     "about": "About",
     "feedback": "Feedback"
+  },
+  "nav":{
+    "home":"Home",
+    "primary":"Primary",
+    "market":"Marketplace",
+    "help":"HelpCenter",
+    "secher.tips":"Please enter NFT/collection/address/account",
+    "setting":"Settings",
+    "login":"Log in",
+    "loginOut":"Log out"
   }
 }

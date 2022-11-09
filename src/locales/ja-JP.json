@@ -7,5 +7,15 @@
   "footer": {
     "about": "关于",
     "feedback": "反馈"
+  },
+  "nav":{
+    "home":"表紙",
+    "primary":"主要な",
+    "market":"市場",
+    "help":"ヘルプ",
+    "secher.tips":"NFT、コレクション、契約、アカウントの検索",
+    "setting":"設定",
+    "login":"ログイン",
+    "loginOut":"Log out"
   }
 }

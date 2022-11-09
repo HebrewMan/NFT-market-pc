@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, NavLink } from 'react-router-dom';
-import { Slider } from '../Slider';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd'
 import { SelectGroup } from '../HeaderSearch';
@@ -14,7 +13,7 @@ import { Language } from '../../utils/enum';
 import { changeLanguage } from '../../utils/i18n';
 
 export const HeaderMenu = () => {
-  const { t, i18n } = useTranslation();
+  const { t,i18n } = useTranslation();
   const { account, active, deactivate } = useWeb3React();
   const history = useHistory();
   const [dom, setDom] = useState('');
@@ -38,11 +37,7 @@ export const HeaderMenu = () => {
 
   useEffect(()=>{
     const Lang = localStorage.getItem('NFT_LANG_KEY');
-    console.log(Lang,'Lang');
-    
-    items.map((option:any) =>{
-      console.log(option,'option');
-      
+    items.map((option:any) =>{  
       if(Lang === option.key){
         setLang(option.label)
       }
@@ -68,11 +63,6 @@ export const HeaderMenu = () => {
     })
     // window.location.reload();
   };
-  // const handleSelectLang = (item: any) => {
-  //   setCurrentLang(item?.key);
-  //   changeLanguage(item?.key);
-  //   window.location.reload();
-  // };
   const clearLogin = () => {
     removeLocalStorage('wallet');
     removeCookie('web-token');
@@ -131,23 +121,23 @@ export const HeaderMenu = () => {
       <div className='navbar--items-left'>
         <div className='item' onMouseOver={() => showMenu('js-hone')} onMouseLeave={() => hideMenu()}>
           <NavLink exact activeClassName='current' className={dom === 'js-hone' ? 'active' : ''} to={`/`}>
-            Home
+            {t('nav.home')}
           </NavLink>
         </div>
         <div className='item' onMouseOver={() => showMenu('js-stats')} onMouseLeave={() => hideMenu()}>
           <NavLink activeClassName='current' className={dom === 'js-stats' ? 'active' : ''} to={`/primary`}>
-            Primary
+            {t('nav.primary')}
           </NavLink>
         </div>
         <div className='item' onMouseOver={() => showMenu('js-market')} onMouseLeave={() => hideMenu()}>
           <NavLink activeClassName='current' className={dom === 'js-market' ? 'active' : ''} to={`/marketplace`}>
-            Marketplace
+            {t('nav.market')}
           </NavLink>
         </div>
 
         <div className='item' onMouseOver={() => showMenu('js-helpcenter')} onMouseLeave={() => hideMenu()}>
           <NavLink activeClassName='current' to={`/helpcenter`} className={dom === 'js-helpcenter' ? 'active' : ''}>
-            HelpCenter
+            {t('nav.help')}
           </NavLink>
         </div>
       </div>
@@ -196,7 +186,7 @@ export const HeaderMenu = () => {
                     <Link to={`/user-settings`}>
                       <img src={require('../../assets/account-setting.png')} alt='' />
                       <div className='txt'>
-                        <span>Settings</span>
+                        <span>{t("nav.setting")}</span>
                       </div>
                     </Link>
                   </li>
@@ -204,7 +194,7 @@ export const HeaderMenu = () => {
                     <a onClick={getLogOut}>
                       <img src={require('../../assets/account-log-out.png')} alt='' />
                       <div className='txt'>
-                        <span>{isLogin ? 'Log Out' : 'Log In'}</span>
+                        <span>{isLogin ? t('nav.loginOut') : t('nav.login')}</span>
                       </div>
                     </a>
                   </li>

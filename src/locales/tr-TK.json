@@ -7,5 +7,15 @@
   "footer": {
     "about": "关于",
     "feedback": "反馈"
+  },
+  "nav":{
+    "home":"ön Sayfa",
+    "primary":"Öncelik",
+    "market":"pazar",
+    "help":"Yardım Edin",
+    "secher.tips":"NFT'leri, Koleksiyonları, Sözleşmeleri, Hesapları arayın",
+    "setting":"kurmak",
+    "login":"Giriş yapmak",
+    "loginOut":"Log out"
   }
 }

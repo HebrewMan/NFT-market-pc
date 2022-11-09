@@ -7,5 +7,15 @@
   "footer": {
     "about": "关于",
     "feedback": "反馈"
+  },
+  "nav":{
+    "home":"首頁",
+    "primary":"Primary",
+    "market":"市場",
+    "help":"幫助",
+    "secher.tips":"搜索NFT、合集、合約、賬戶",
+    "setting":"設置",
+    "login":"登錄",
+    "loginOut":"退出"
   }
 }
