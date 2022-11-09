@@ -1,7 +1,9 @@
 {
   "common": {
     "buy": "Satın almak",
-    "sell": "satmak"
+    "sell": "satmak",
+    "noDataLong": "Şimdilik veri yok.",
+    "buyNow": "Satın almak"
   },
   "domainNotice": "Diffgalaxy için tek resmi alan adı <1>https://nft.diffgalaxy.com</1>'dur.",
   "home": {
@@ -31,14 +33,27 @@
     "service": "hizmet sözleşmesi",
     "policy": "Gizlilik Politikası"
   },
-  "nav":{
-    "home":"ön Sayfa",
-    "primary":"Öncelik",
-    "market":"pazar",
-    "help":"Yardım Edin",
-    "secher.tips":"NFT'leri, Koleksiyonları, Sözleşmeleri, Hesapları arayın",
-    "setting":"kurmak",
-    "login":"Giriş yapmak",
-    "loginOut":"Log out"
+  "nav": {
+    "home": "ön Sayfa",
+    "primary": "Öncelik",
+    "market": "pazar",
+    "help": "Yardım Edin",
+    "secher.tips": "NFT'leri, Koleksiyonları, Sözleşmeleri, Hesapları arayın",
+    "setting": "kurmak",
+    "login": "Giriş yapmak",
+    "loginOut": "Log out"
+  },
+  "marketplace": {
+    "serach": "NFT veya koleksiyon adını arayın",
+    "sortBy": "göre sırala",
+    "recentlyListed": "son listeler",
+    "highToLow": "fiyat yüksekten düşüğe",
+    "LowToHigh": "Düşükten yükseğe fiyatlar",
+    "price": "fiyat",
+    "max": "maksimum",
+    "min": "asgari",
+    "to": "varmak",
+    "Owner": "Kulp",
+    "curPrice": "Şimdi satın al"
   }
 }

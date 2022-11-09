@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Select } from './Select';
 import { HeaderSearch } from '../../components/HeaderSearch';
+import { useTranslation } from 'react-i18next';
 import { getGoods } from '../../api';
 import { getFans, removeFans, getFansByGoodsId } from '../../api/fans';
 import { useTouchBottom } from '../../hooks';
-import { defaultParams, blindType, queryList } from '../../core/constants/marketplace';
+import { defaultParams } from '../../core/constants/marketplace';
 import './index.scss';
 import { Input, Spin } from 'antd';
 import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
@@ -13,6 +14,7 @@ import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export const MarketPlace = () => {
+  const { t } = useTranslation();
   const [goodsList, setGoodsList] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [grid, setGrid] = useState(1);
@@ -23,6 +25,11 @@ export const MarketPlace = () => {
   const [inputMax, setInputMax] = useState('');
   const [isMore, setIsMore] = useState(true);
   const [loading, setLoading] = useState(true);
+  const queryList = [
+    { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
+    { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
+    { name: `${t('marketplace.highToLow')}`, value: 'high' },
+  ];
 
   useEffect(() => {
     initData(params);
@@ -150,7 +157,7 @@ export const MarketPlace = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>No data available for the time being.</p>
+        <p>{t('common.noDataLong')}</p>
       </div>
     );
   };
@@ -241,26 +248,31 @@ export const MarketPlace = () => {
           </label>
         </div>
 
-        <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={'Please enter NFT/ collection'} />
+        <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} />
 
         <div className='condition'>
-          <Select list={queryList} placeholder={'Sort By'} change={handleChangeQuery} value={params.data.sort} />
+          <Select
+            list={queryList}
+            placeholder={t('marketplace.sortBy')}
+            change={handleChangeQuery}
+            value={params.data.sort}
+          />
         </div>
 
         <div className='price'>
-          Price
+          {t('marketplace.price')}
           <Input
             className='min'
             value={inputMin}
-            placeholder='Min'
-            style={{ width: 50, height:34 }}
+            placeholder={t('marketplace.min')}
+            style={{ width: 84, height: 34 }}
             onChange={handleChangeMin}
           />
-          <span className='to'>To</span>
+          <span className='to'>{t('marketplace.to')}</span>
           <Input
-            placeholder='Max'
+            placeholder={t('marketplace.max')}
             value={inputMax}
-            style={{ width:50, height:34 }}
+            style={{ width: 84, height: 34 }}
             onChange={handleChangeMax}
           />
         </div>

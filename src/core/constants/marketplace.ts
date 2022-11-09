@@ -13,8 +13,3 @@ export const blindType = [
   { value: 1, name: '盲盒' },
   { value: 0, name: '非盲盒' },
 ];
-export const queryList = [
-  { name: 'Recently listed', value: 'new' },
-  { name: 'Price Low to High', value: 'low' },
-  { name: 'Price High to Low', value: 'high' },
-];

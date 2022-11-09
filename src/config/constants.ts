@@ -11,10 +11,9 @@ export const isProd = process.env.NODE_ENV === 'production';
     https://nft-pre.diffgalaxy.com/
  */
 
-// const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
-const baseURL = isProd ? window.location.origin : 'http://192.168.1.59:4000/';
+const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
+// const baseURL = isProd ? window.location.origin : 'http://192.168.1.59:4000/';
 // console.log(baseURL,'baseURL');
-
 
 const constants = {
   ZERO_ADDRESS: '0x0000000000000000000000000000000000000000',
@@ -59,7 +58,7 @@ class Token {
 export const USDT = new Token(
   'USDT',
   18,
-  '0x4b6b9f3695205c8468ddf9ab4025ec2a09bdff1a'
+  '0x4b6b9f3695205c8468ddf9ab4025ec2a09bdff1a',
   // 'USDT',
   // isProd ? 6 : 18,
   // isProd ? '0x848cb1a9770830da575DfD246dF2d4e38c1D40ed' : '0x4b6b9f3695205c8468ddf9ab4025ec2a09bdff1a',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ethers } from 'ethers';
 import { DescInfo } from './DescInfo';
 import { MoreCollects } from './More';
@@ -29,6 +30,7 @@ import './index.scss';
 
 export const ProductionDetails = () => {
   const web3 = useWeb3();
+  const { t } = useTranslation();
   const _chainId = window?.ethereum?.chainId;
   const chainId = parseInt(_chainId);
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
@@ -337,15 +339,15 @@ export const ProductionDetails = () => {
   // };
   const sellBtn = () => {
     if (isOwner() && sellStatus === 0) {
-      return <button onClick={getSetPriceOrder}>Sell</button>;
+      return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>;
     }
   };
   const cancelBtn = () => {
     if (isCancelSell()) {
       return (
         <>
-          <button onClick={getCancelSellOrder}>Cancel listing</button>
-          <button onClick={getUpdateLowerPriceOrder}>Update price</button>
+          <button onClick={getCancelSellOrder}>{t('marketplace.details.cancel')}</button>
+          <button onClick={getUpdateLowerPriceOrder}>{t('marketplace.details.update')}</button>
         </>
       );
     }
@@ -358,7 +360,7 @@ export const ProductionDetails = () => {
     setFansStatus(status);
     setNoticeStatus(status);
   };
-  const ownerLink = <Link to={`/account/0/${ownerAddr}`}> you </Link>;
+  const ownerLink = <Link to={`/account/0/${ownerAddr}`}> {t('marketplace.details.you')} </Link>;
   const ownerAddress = (
     <Link to={`/account/0/${ownerAddr}`}>
       {ownerAddr?.startsWith('0x') ? ownerAddr?.substring(2, 8) : ownerAddr?.substring(0, 6)}
@@ -375,7 +377,9 @@ export const ProductionDetails = () => {
         <div className='wrapper-header'>
           <div className='top-inner inner-hidden'>
             <div className='top-left'>
-              <p>Untitled Collection #{collectionId}</p>
+              <p>
+                {t('marketplace.details.untitled')} #{collectionId}
+              </p>
             </div>
             <div className='top-right'>
               {/* <svg-icon icon-class="refresh"></svg-icon>
@@ -423,17 +427,19 @@ export const ProductionDetails = () => {
                 <div className='auth'>
                   {/* <img src={require('../../../assets/favorite_black.svg')} alt='' className='svg-img' /> */}
                   <img src={sellerImageUrl} alt='' />
-                  <span>Owned {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>
+                    {t('marketplace.Owner')} {isOwner() ? ownerLink : ownerAddress}
+                  </span>
                 </div>
               </div>
               <div className='buy'>
                 <div className='price'>
-                  <p>Current price</p>
+                  <p>{t('marketplace.curPrice')}</p>
                   <p>{parseFloat(price.toFixed(4))} USDT</p>
                 </div>
                 {!isOwner() && (
                   <button disabled={!isBuyNow()} onClick={getBuy}>
-                    Buy Now
+                    {t('common.buyNow')}
                   </button>
                 )}
               </div>

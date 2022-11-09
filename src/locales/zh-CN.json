@@ -2,7 +2,9 @@
   "common": {
     "buy": "购买",
     "sell": "出售",
-    "noData": "暂无数据"
+    "noData": "暂无数据",
+    "noDataLong": "暂时没有数据",
+    "buyNow": "购买"
   },
   "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -32,14 +34,27 @@
     "service": "服务协议",
     "policy": "隐私条款"
   },
-  "nav":{
-    "home":"首页",
-    "primary":"Primary",
-    "market":"市场",
-    "help":"帮助",
-    "secherTips":"搜索NFT、合集、合约、账户",
-    "setting":"设置",
-    "login":"登录",
-    "loginOut":"退出"
+  "nav": {
+    "home": "首页",
+    "primary": "Primary",
+    "market": "市场",
+    "help": "帮助",
+    "secherTips": "搜索NFT、合集、合约、账户",
+    "setting": "设置",
+    "login": "登录",
+    "loginOut": "退出"
+  },
+  "marketplace": {
+    "serach": "搜索NFT或合集名称",
+    "sortBy": "排序方式",
+    "recentlyListed": "最近的上架",
+    "highToLow": "价格从高到低",
+    "LowToHigh": "价格从低到高",
+    "price": "价格",
+    "max": "最大",
+    "min": "最小",
+    "to": "到",
+    "Owner": "持有者",
+    "curPrice": "一口价"
   }
 }
