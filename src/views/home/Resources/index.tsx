@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { PageTitle } from '../SetupDetails';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
@@ -7,10 +8,11 @@ import useWindowDimensions from '../../../utils/layout';
 import 'swiper/scss';
 import './index.scss';
 export const Resources = () => {
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   return (
     <div className='swiper-pic-container'>
-      <PageTitle title={`Diffgalaxy's Advantage`} />
+      <PageTitle title={`${t('home.advantage.title')}`} />
       <div className='pic-container'>
         <Swiper
           modules={[Autoplay]}
@@ -34,7 +36,7 @@ export const Resources = () => {
                   >
                     <img className='list-item-img' src={require('../../../assets/operation.png')} alt='' />
 
-                    <div className='item-footer'>Operation Is Simple, Convenient And Fast</div>
+                    <div className='item-footer'>{t('home.advantage.virtueOne')}</div>
                   </a>
                 </div>
               </div>
@@ -47,10 +49,9 @@ export const Resources = () => {
                     to=''
                     // target='_blank'
                   >
-
                     <img className='list-item-img' src={require('../../../assets/fee.png')} alt='' />
 
-                    <div className='item-footer'>Lowest Handling Fee</div>
+                    <div className='item-footer'>{t('home.advantage.virtueTwo')}</div>
                   </Link>
                 </div>
               </div>
@@ -62,10 +63,9 @@ export const Resources = () => {
                     to=''
                     // target='_blank'
                   >
-
                     <img className='list-item-img' src={require('../../../assets/contracts.png')} alt='' />
 
-                    <div className='item-footer'>Smart Contracts Are Secure And Reliable</div>
+                    <div className='item-footer'>{t('home.advantage.virtueThree')}</div>
                   </Link>
                 </div>
               </div>

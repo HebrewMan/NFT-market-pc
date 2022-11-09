@@ -1,11 +1,34 @@
 {
-  "common": {},
+  "common": {
+    "buy": "購買",
+    "sell": "出售"
+  },
+  "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
-    "title": "欢迎来到Diffgalaxy NFT资产交易市场",
-    "subtitle": "Diffgalaxy让NFT交易更简单，一起探索交易的乐趣"
+    "title": "歡迎來到Diffgalaxy NFT資產交易市場",
+    "subtitle": "Diffgalaxy讓NFT交易更簡單，一起探索交易的樂趣",
+    "collection": "熱門合集",
+    "assets": {
+      "title": "買賣你的NFTs資產",
+      "setting": "設置你的錢包",
+      "settingRemind": "請先設置你的錢包，然後點擊右上角的錢包圖標，將其連接到Diffgalaxy。了解我們支持的錢包。",
+      "buy": "購買NFTs",
+      "buyRemind": "在搜索框中輸入你想購買的NFT名稱，查看NFT的詳細信息。點擊 \"立即購買\" 按鈕，選擇 \"支付\" 並按照錢包裡的指示操作。",
+      "sell": "出售NFTs",
+      "sellRemind": "在我的NFTs列表中選擇要出售的NFT，設置NFT價格並點擊出售按鈕。一旦交易完成，NFT將被轉移到購買者的錢包，你將收到資金。"
+    },
+    "advantage": {
+      "title": "Diffgalaxy的優勢",
+      "virtueOne": "操作簡單、方便、快捷",
+      "virtueTwo": "最低的手續費",
+      "virtueThree": "安全和可靠的智能合約"
+    }
   },
   "footer": {
-    "about": "关于",
-    "feedback": "反馈"
+    "title": "Diffgalaxy讓NFT交易更簡單",
+    "copyright": "Copyright 2022. All Rights Reserved.",
+    "legal": "法律聲明",
+    "service": "服務協議",
+    "policy": "隱私條款"
   }
 }

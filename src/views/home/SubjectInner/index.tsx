@@ -87,10 +87,10 @@ export const SubjectInner = () => {
           <span>{t('home.subtitle')}</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
-              Buy
+              {t('common.buy')}
             </button>
             <button className='button-sell' onClick={clickSell}>
-              Sell
+              {t('common.sell')}
             </button>
           </div>
         </div>

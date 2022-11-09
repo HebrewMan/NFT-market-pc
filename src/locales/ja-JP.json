@@ -1,11 +1,34 @@
 {
-  "common": {},
+  "common": {
+    "buy": "買う",
+    "sell": "売る"
+  },
+  "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は <1>https://nft.diffgalaxy.com</1> です。",
   "home": {
-    "title": "欢迎来到Diffgalaxy NFT资产交易市场",
-    "subtitle": "Diffgalaxy让NFT交易更简单，一起探索交易的乐趣"
+    "title": "Diffgalaxy NFT アセット トレーディング マーケットへようこそ",
+    "subtitle": "Diffgalaxy は NFT 取引を簡単にします。一緒に取引の楽しさを探りましょう",
+    "collection": "人気のコレクション",
+    "assets": {
+      "title": "NFT 資産の売買",
+      "setting": "ウォレットを設定する",
+      "settingRemind": "最初にウォレットを設定してから、右上隅のウォレット アイコンをクリックして Diffgalaxy に接続してください。サポートされているウォレットについて学びます。",
+      "buy": "NFTを購入する",
+      "buyRemind": "購入したい NFT の名前を検索ボックスに入力して、NFT の詳細を表示します。 [今すぐ購入] ボタンをクリックし、[支払う] を選択して、ウォレットの指示に従います。",
+      "sell": "NFTを販売する",
+      "sellRemind": "My NFTリストで販売したいNFTを選択し、NFTの価格を設定して販売ボタンをクリックします。取引が完了すると、NFT は購入者のウォレットに転送され、資金を受け取ります。"
+    },
+    "advantage": {
+      "title": "ディフギャラクシーの利点",
+      "virtueOne": "シンプルで便利で素早い操作",
+      "virtueTwo": "最低の手数料",
+      "virtueThree": "安全でセキュアなスマート コントラクト"
+    }
   },
   "footer": {
-    "about": "关于",
-    "feedback": "反馈"
+    "title": "Diffgalaxy は NFT 取引を容易にします",
+    "copyright": "著作権 2022. 無断複写・転載を禁じます。",
+    "legal": "法的通知",
+    "service": "役務契約",
+    "policy": "プライバシーポリシー"
   }
 }

@@ -1,11 +1,34 @@
 {
-  "common": {},
+  "common": {
+    "buy": "Satın almak",
+    "sell": "satmak"
+  },
+  "domainNotice": "Diffgalaxy için tek resmi alan adı <1>https://nft.diffgalaxy.com</1>'dur.",
   "home": {
-    "title": "欢迎来到Diffgalaxy NFT资产交易市场",
-    "subtitle": "Diffgalaxy让NFT交易更简单，一起探索交易的乐趣"
+    "title": "Diffgalaxy NFT Varlık Alım Satım Pazarına Hoş Geldiniz",
+    "subtitle": "Diffgalaxy, NFT ticaretini kolaylaştırıyor, hadi birlikte ticaretin eğlencesini keşfedelim",
+    "collection": "Popüler Koleksiyonlar",
+    "assets": {
+      "title": "NFT varlıklarınızı satın alın ve satın",
+      "setting": "Cüzdanınızı kurun",
+      "settingRemind": "Lütfen önce cüzdanınızı kurun, ardından Diffgalaxy'ye bağlamak için sağ üst köşedeki cüzdan simgesine tıklayın. Desteklenen cüzdanlarımız hakkında bilgi edinin.",
+      "buy": "NFT satın al",
+      "buyRemind": "NFT'nin ayrıntılarını görüntülemek için satın almak istediğiniz NFT'nin adını arama kutusuna girin. \"Şimdi Satın Al\" düğmesini tıklayın, \"Öde\" yi seçin ve cüzdandaki talimatları izleyin.",
+      "sell": "NFT satmak",
+      "sellRemind": "NFT'lerim listesinden satmak istediğiniz NFT'yi seçin, NFT fiyatını belirleyin ve sat butonuna tıklayın. İşlem tamamlandığında, NFT alıcının cüzdanına aktarılacak ve parayı alacaksınız."
+    },
+    "advantage": {
+      "title": "Diffgalaxy'nin Avantajları",
+      "virtueOne": "Basit, kullanışlı ve hızlı çalışma",
+      "virtueTwo": "En düşük işlem ücreti",
+      "virtueThree": "Güvenli ve güvenli akıllı sözleşmeler"
+    }
   },
   "footer": {
-    "about": "关于",
-    "feedback": "反馈"
+    "title": "Diffgalaxy, NFT işlemlerini kolaylaştırır",
+    "copyright": "Telif Hakkı 2022. Tüm Hakları Saklıdır.",
+    "legal": "Yasal uyarılar",
+    "service": "hizmet sözleşmesi",
+    "policy": "Gizlilik Politikası"
   }
 }
