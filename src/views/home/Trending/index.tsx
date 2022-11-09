@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation } from 'swiper';
 import { isMobile } from 'react-device-detect';
@@ -27,10 +28,10 @@ const TrendSwiper = (props: any) => {
       loopedSlides={5}
       navigation={{
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
+        prevEl: '.swiper-button-prev',
       }}
       onSlideChange={(swiper) => {
-        setCurrentSwiperObject(collections[swiper.activeIndex])
+        setCurrentSwiperObject(collections[swiper.activeIndex]);
       }}
       onProgress={(swiper, progress: number) => {
         const slides: any = swiper.slides;
@@ -55,7 +56,7 @@ const TrendSwiper = (props: any) => {
       onSetTransition={(swiper, transition: number) => {
         const slides: any = swiper.slides;
         for (var i = 0; i < slides.length; i++) {
-          var slide = slides.eq(i)
+          var slide = slides.eq(i);
           slide.transition(transition);
         }
       }}
@@ -105,12 +106,10 @@ const TrendSwiperMobile = (props: any) => {
 };
 
 export const Trending = () => {
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const [collections, setCollections] = useState<any[]>([]);
-  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({})
-  // const temp: any = []
-  // const temp = [{...collections[0]},{...collections[0]},{...collections[0]},{...collections[0]},{...collections[0]},{...collections[0]},{...collections[0]}];
-  // const temp: any = [];
+  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({});
   const styles: object = { textAlign: 'center', paddingTop: '40px', fontWeight: 600 };
 
   const init = async () => {
@@ -124,9 +123,9 @@ export const Trending = () => {
     };
     const res: any = await getRecommendCollection(params);
     setCollections(res.data.records);
-    
+
     setCurrentSwiperObject(res?.data?.records[0]);
-  }
+  };
 
   useEffect(() => {
     init();
@@ -136,14 +135,14 @@ export const Trending = () => {
     <>
       <div className='swiper-list'>
         <div className='swiper-title'>
-          <h2>Trending Now</h2>
+          <h2>{t('home.collection')}</h2>
         </div>
-        {(collections && collections.length > 0) && (
-          <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} /> 
+        {collections && collections.length > 0 && (
+          <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} />
           // !isMobile && width >= 768 && <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} /> ||
           // (isMobile || width < 768) && <TrendSwiperMobile collections={collections} />
         )}
-        {!(collections && collections.length > 0) && (<p style={styles}>No Data</p>)}
+        {!(collections && collections.length > 0) && <p style={styles}>{t('common.noData')}</p>}
         <div className='right-footer'>
           <div className='footer-img'>
             <img src={currentSwiperObject?.headUrl} alt='' />
@@ -151,11 +150,11 @@ export const Trending = () => {
           <div className='footer-text'>{currentSwiperObject?.name}</div>
         </div>
       </div>
-      <div className="swiper-buttons">
-        <div className="swiper-button-prev">
+      <div className='swiper-buttons'>
+        <div className='swiper-button-prev'>
           <img src={require('../../../assets/swiper-prev.png')} alt='' />
         </div>
-        <div className="swiper-button-next">
+        <div className='swiper-button-next'>
           <img src={require('../../../assets/swiper-next.png')} alt='' />
         </div>
       </div>

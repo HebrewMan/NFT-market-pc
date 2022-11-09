@@ -13,11 +13,11 @@ export enum Language {
 }
 
 export const LanguageNames = {
+  [Language.zh]: '中文简体',
+  [Language.tw]: '中文繁體',
   [Language.en]: 'English',
-  [Language.zh]: '简体中文',
-  [Language.tw]: '繁體中文',
   [Language.jp]: '日本語',
-  [Language.tk]: 'Türkçe, Türk dil',
+  [Language.tk]: 'T ürkiye dili',
 };
 
 export const LanguageNamesMobile = {
