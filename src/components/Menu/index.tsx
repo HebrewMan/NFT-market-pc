@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, NavLink } from 'react-router-dom';
 import { Slider } from '../Slider';
-import { Menu } from 'antd';
 import type { MenuProps } from 'antd';
+import { Dropdown, Space } from 'antd'
 import { SelectGroup } from '../HeaderSearch';
 import { getCookie, removeCookie, removeLocalStorage } from '../../utils/utils';
 import { useWeb3React } from '@web3-react/core';
@@ -24,15 +24,31 @@ export const HeaderMenu = () => {
   const defaultImg = require('../../assets/default_header.png');
   const [accountImg, setAccountImg] = useState(defaultImg);
   const [isLogin, setIsLogin] = useState(false);
-
   const [currentLang, setCurrentLang] = useState<Language>(i18n.language as Language);
-  const langConfig: MenuProps['items'] = [
+  const [lang, setLang] = useState('简体中文');
+
+
+  const items: MenuProps['items'] =  [
     { key: Language.en, label: 'English' },
     { key: Language.zh, label: '简体中文' },
     { key: Language.tw, label: '繁體中文' },
     { key: Language.jp, label: '日本語' },
     { key: Language.tk, label: 'Türkçe, Türk dil' },
   ];
+
+  useEffect(()=>{
+    const Lang = localStorage.getItem('NFT_LANG_KEY');
+    console.log(Lang,'Lang');
+    
+    items.map((option:any) =>{
+      console.log(option,'option');
+      
+      if(Lang === option.key){
+        setLang(option.label)
+      }
+    })
+  },[])
+
   const showMenu = (selector: any) => {
     clearInterval(window.menuTimer);
     setDom(selector);
@@ -42,11 +58,21 @@ export const HeaderMenu = () => {
       setDom('');
     }, 300);
   };
-  const handleSelectLang = (item: any) => {
+  const handleMenuClick: MenuProps['onClick'] = (item: any) => {
     setCurrentLang(item?.key);
     changeLanguage(item?.key);
-    window.location.reload();
+    items.map((option:any) =>{
+      if(item?.key === option.key){
+        setLang(option.label)
+      }
+    })
+    // window.location.reload();
   };
+  // const handleSelectLang = (item: any) => {
+  //   setCurrentLang(item?.key);
+  //   changeLanguage(item?.key);
+  //   window.location.reload();
+  // };
   const clearLogin = () => {
     removeLocalStorage('wallet');
     removeCookie('web-token');
@@ -94,6 +120,12 @@ export const HeaderMenu = () => {
       getLoginUserInfo();
     }
   }, [walletAccount, token, account?.toLocaleLowerCase()]);
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
+  
   return (
     <div className='navbar--items'>
       <div className='navbar--items-left'>
@@ -123,18 +155,16 @@ export const HeaderMenu = () => {
         <div className='search-com'>
           <SelectGroup></SelectGroup>
         </div>
-        <Menu mode='horizontal' defaultSelectedKeys={[currentLang]}>
-          <Menu.SubMenu
-            key='SubMenu'
-            icon={<img className='language-img' src={require('../../assets/fg.png')} alt='language' />}
-          >
-            {langConfig.map((item: any) => (
-              <Menu.Item key={item?.key} onClick={handleSelectLang}>
-                <span>{item?.label}</span>
-              </Menu.Item>
-            ))}
-          </Menu.SubMenu>
-        </Menu>
+        {/* 多语言 */}
+        <div className='langWaper'>
+           <Dropdown menu={menuProps} overlayClassName="langDrodown" placement="bottomRight">
+            <Space>
+              <img className='language-img' src={require('../../assets/common/lang.png')} alt='language'/>
+              {lang}
+            </Space>
+          </Dropdown>
+        </div>
+       
         <div className='item' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
           <Link
             to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}
