@@ -11,8 +11,8 @@ export const isProd = process.env.NODE_ENV === 'production';
     https://nft-pre.diffgalaxy.com/
  */
 
-const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
-// const baseURL = isProd ? window.location.origin : 'http://192.168.1.59:4000/';
+// const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
+const baseURL = isProd ? window.location.origin : 'http://192.168.1.59:4000/';
 // console.log(baseURL,'baseURL');
 
 const constants = {
