@@ -1,7 +1,12 @@
 {
   "common": {
     "buy": "購買",
-    "sell": "出售"
+    "sell": "出售",
+    "day":"日",
+    "months":"月",
+    "years":"年",
+    "hours":"小時",
+    "minutes":"分鐘"
   },
   "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -40,5 +45,13 @@
     "setting":"設置",
     "login":"登錄",
     "loginOut":"退出"
+  },
+  "primary":{
+    "title":"Primary Market",
+    "titleInfo":"Primary 是一個一級市場，允許高質量的項目、藝術家和名人進行NFT 資產的發售。用戶或玩家可以在NFT 流入二級市場之前購買，以獲得更好的價格或優先體驗項目。",
+    "soldOut":"告罄",
+    "progress":"進行中",
+    "end":"結束",
+    "more":"更多"
   }
 }

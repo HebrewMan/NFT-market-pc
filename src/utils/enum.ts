@@ -21,9 +21,9 @@ export const LanguageNames = {
 };
 
 export const LanguageNamesMobile = {
-  [Language.en]: 'EN',
-  [Language.zh]: 'CN',
-  [Language.tw]: 'TW',
-  [Language.jp]: 'JP',
-  [Language.tk]: 'TK',
+  [Language.en]: 'en',
+  [Language.zh]: 'zh',
+  [Language.tw]: 'tw',
+  [Language.jp]: 'jp',
+  [Language.tk]: 'tk',
 };

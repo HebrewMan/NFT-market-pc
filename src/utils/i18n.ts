@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { Language } from './enum';
+import { Language, LanguageNamesMobile } from './enum';
 import enLocale from '../locales/en-US.json';
 import zhLocale from '../locales/zh-CN.json';
 import twLocale from '../locales/zh-TW.json';
@@ -28,6 +28,15 @@ const getInitLang = () => {
   const browseLang = navigator?.language?.substr(0, 2)?.toLowerCase();
   return browseLang.includes('zh') ? Language.zh : Language.en;
 };
+
+
+// 导出后端返回的文案
+export const getViewLang = (name:any) => {
+  const langCache = localStorage.getItem(LANG_CACHE_KEY);
+  const lang = LanguageNamesMobile[langCache as Language];
+  return name[lang]
+};
+
 
 // 初始化
 export const initI18n = () => {

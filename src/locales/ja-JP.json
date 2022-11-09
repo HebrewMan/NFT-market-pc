@@ -1,7 +1,13 @@
 {
   "common": {
     "buy": "買う",
-    "sell": "売る"
+    "sell": "売る",
+    "day":"日",
+    "months":"月",
+    "years":"年",
+    "hours":"時間",
+    "minutes":"分",
+    "seconds":"未翻译"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は <1>https://nft.diffgalaxy.com</1> です。",
   "home": {
@@ -40,5 +46,13 @@
     "setting":"設定",
     "login":"ログイン",
     "loginOut":"Log out"
+  },
+  "primary":{
+    "title":"一次市場",
+    "titleInfo":"Primary 是一个一级市场，允许高质量的项目、艺术家和名人进行 NFT 资产的发售。用户或玩家可以在 NFT 流入二级市场之前购买，以获得更好的价格或优先体验项目。",
+    "soldOut":"完売",
+    "progress":"処理",
+    "end":"終了",
+    "more":"もっと"
   }
 }
