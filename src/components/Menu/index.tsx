@@ -58,7 +58,13 @@ export const HeaderMenu = () => {
         setLang(option.label);
       }
     });
-    // window.location.reload();
+    /** 
+      如果路由是 helpcenter  
+      就要刷新当前页面，因为页面里用了ui组件 必须要刷新 文案才会更新
+    */
+    if(window.location.pathname == '/helpcenter'){   
+      window.location.reload();
+    }
   };
   const clearLogin = () => {
     removeLocalStorage('wallet');
