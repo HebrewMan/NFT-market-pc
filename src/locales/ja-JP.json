@@ -9,7 +9,9 @@
     "years": "年",
     "hours": "時間",
     "minutes": "分",
-    "seconds": "未翻译"
+    "seconds": "未翻译",
+    "cofirm":"確認",
+    "cancel":"キャンセル"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は <1>https://nft.diffgalaxy.com</1> です。",
   "home": {
@@ -68,6 +70,13 @@
     "soldOut": "完売",
     "progress": "処理",
     "end": "終了",
-    "more": "もっと"
+    "more": "もっと",
+    "update":"更新日",
+    "description":"情報",
+    "owner":"保有者",
+    "tokenId":"トークンID",
+    "address":"契約住所",
+    "amount":"数量",
+    "currentPrice":"即購入"
   }
 }

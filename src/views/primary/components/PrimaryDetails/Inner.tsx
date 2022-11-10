@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 // import { MaskImage } from '../List';
 import { ProDetails } from './Details';
 
 export const MaskImage = (props: any) => {
+  const { t } = useTranslation()
   let { width, status, activityStatus, type } = props;
   const maskTitle = (status: number) => {
     // 该nft配置了活动
     if (activityStatus !== null) {
       if (activityStatus === 3 || activityStatus === null) {
-        return 'Sold Out';
+        return t("primary.soldOut");
       } else if (activityStatus === 2) {
-        return 'End';
+        return t("primary.end");
       } else if (activityStatus === 0) {
-        return 'To Begin';
+        return t("primary.begin");
       } else {
         return '';
       }
     } else {
       if (status === 3 || type === 2) {
-        return 'Sold Out';
+        return t('primary.soldOut');
       } else if (status === 0 || status === 1) {
-        return 'To Begin';
+        return t("primary.begin");
       } else {
         return '';
       }

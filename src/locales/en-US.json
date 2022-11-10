@@ -9,7 +9,9 @@
     "years": "years",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "cofirm":"Cofirm",
+    "cancel":"Cancel"
   },
   "domainNotice": "The only official domain for Diffgalaxy is <1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -74,6 +76,14 @@
     "soldOut": "Sold Out",
     "progress": "In Progress",
     "end": "End",
-    "more": "More"
+    "begin":"To Begin",
+    "more": "More",
+    "update":"Update on",
+    "description":"Description",
+    "owner":"Owned",
+    "tokenId":"Token ID",
+    "address":"Contract Address",
+    "amount":"Quantity",
+    "currentPrice":"Current Price"
   }
 }

@@ -8,8 +8,10 @@
  * @returns
  */
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Dialog(props: any) {
+  const {t} = useTranslation()
   return (
     props.visible && (
       <div className={`dialog-container ${props.visible ? 'container-enter' : ''}`}>
@@ -20,10 +22,10 @@ export default function Dialog(props: any) {
           <div className='content dialog-body'>{props.children}</div>
           <div className='btn'>
             <button className='btn-default' onClick={() => props.close()}>
-              {props.closeText || '关闭'}
+              {props.closeText || t('common.cofirm')}
             </button>
             <button className='btn-primary' onClick={() => props.checked()}>
-              {props.checkedText || '确认'}
+              {props.checkedText || t('common.cancel')}
             </button>
           </div>
           <div className='close-btn' onClick={() => props.close()}>

@@ -3,14 +3,18 @@ import { getInfoById } from '../../../api/artiles';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { getViewLang } from "../../../utils/i18n"
+import { useTranslation } from 'react-i18next';
 import './index.scss';
 
 export const ArticleDetails = () => {
+  const {t} = useTranslation()
   const history = useHistory();
   const [form, setForm] = useState({
     title: '',
     modifyDate: '',
     content: '',
+    inName:{}
   });
   const { id } = useParams() as any;
   const [queryId, setQueryId] = useState(id);
@@ -32,9 +36,9 @@ export const ArticleDetails = () => {
       <div className='article-details'>
         <div className='nav-right-wrap'>
           <div className='article-header'>
-            <h1>{form.title}</h1>
+            <h1>{getViewLang(form.inName)} </h1>
             <div className='article-update-time'>
-              <span>Update on</span>
+              <span>{t('primary.update')}</span>
               <span>· {form.modifyDate}</span>
             </div>
           </div>

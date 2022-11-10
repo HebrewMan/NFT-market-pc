@@ -5,9 +5,9 @@ import { message } from 'antd';
 import Portal from '../../../../../components/Dialog';
 import { CommTimer } from '../../Timer';
 import { Content, ContentSuccess } from './content';
-import $web3js from '../../../../../hooks/web3';
+// import $web3js from '../../../../../hooks/web3';
 import useWeb3 from '../../../../../hooks/useWeb3';
-import { getUpdateBuyOrder } from '../../../../../api/index';
+// import { getUpdateBuyOrder } from '../../../../../api/index';
 import { createMarketSaleErc1155, createMarketSaleWithTokenErc1155 } from '../../../../../hooks/marketplace';
 import { getApproval, getIsApproved } from '../../../../../hooks/web3Utils';
 // import { useAddBlindBoxContract, useOpenBlindBoxContract } from '../../../../../hooks/useContract';
@@ -15,10 +15,12 @@ import { buyBlindBox, openBlindBox } from '../../../../../api/blindbox';
 import instanceLoading from '../../../../../utils/loading';
 import { getCookie, getLocalStorage, toPriceDecimals } from '../../../../../utils/utils';
 import config, { USDT, isProd } from '../../../../../config/constants';
+import { useTranslation } from 'react-i18next';
 import './index.scss';
 
 export const ProDetails = (props: any) => {
   const web3: any = useWeb3();
+  const { t } = useTranslation()
   const _chainId = window?.ethereum?.chainId;
   const chainId = parseInt(_chainId);
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
@@ -303,7 +305,7 @@ export const ProDetails = (props: any) => {
       {!isOwner() ? (
         <>
           <button onClick={handleNFTAction} disabled={!isBuy()}>
-            Buy Now
+            {t("common.buyNow")}
           </button>
         </>
       ) : (
@@ -320,9 +322,9 @@ export const ProDetails = (props: any) => {
         !isOwner() ? (
           !isBuying() ? (
             !isSoldOut() ? (
-              <button onClick={handleBlindAction}>Buy Now</button>
+              <button onClick={handleBlindAction}>{t('common.buyNow')}</button>
             ) : (
-              <button disabled={true}>Sold out</button>
+              <button disabled={true}>{t('primary.soldOut')}</button>
             )
           ) : (
             isOpen() && <button onClick={handleOpenBlindBox}>开启盲盒</button>
@@ -350,32 +352,32 @@ export const ProDetails = (props: any) => {
           )}
           {(isOpen() || !blindbox()) && (
             <li>
-              <p>Owner</p>
+              <p>{t('primary.owner')}</p>
               <p>{nftGoods.ownerAddr}</p>
             </li>
           )}
           {!blindbox() && (
             <li>
-              <p>TokenID</p>
+              <p>{t("primary.tokenId")}</p>
               <p>{JSON.stringify(nftGoods) !== '{}' ? nftGoods.tokenId : ''}</p>
             </li>
           )}
           <li>
-            <p>Amount</p>
+            <p>{t('primary.amount')}</p>
             <p className={blindbox() ? (!isOpen() ? 'count' : '') : 'un-count'}>
               {!isOpen() && blindbox() && <img src='/sol/blind_box.svg' alt='' />}
               <span>✖ {!isOpen() && nftGoods.blindBox ? nftGoods.blindBox.num : 1}</span>
             </p>
           </li>
           <li>
-            <p>Contract Address</p>
+            <p>{t('primary.address')}</p>
             <p className='address'>{nftGoods.contractAddr}</p>
           </li>
           {Timer()}
         </ul>
         {!isOpen() && (
           <div className='price'>
-            <p>{blindbox() ? 'Price' : 'Current Price'}</p>
+            <p>{blindbox() ? t('marketplace.price') : t('primary.currentPrice')}</p>
             <div className='price-heighting'>
               <span>
                 <img src={require('../../../../../assets/usdt.png')} alt='' />
@@ -388,8 +390,8 @@ export const ProDetails = (props: any) => {
       </div>
       {/* <!-- 购买弹窗 --> */}
       <Portal
-        closeText={'Cancel'}
-        checkedText={!ispay ? 'Confirm' : blindbox() ? '开启盲盒' : ''}
+        closeText={t('common.cancel')}
+        checkedText={!ispay ? t('common.cofirm') : blindbox() ? '开启盲盒' : ''}
         content={<Content ispay={ispay} nftGoods={nftGoods} />}
         visible={visible}
         close={close}
@@ -397,7 +399,7 @@ export const ProDetails = (props: any) => {
       />
       {/* <!-- 购买成功 --> */}
       <Portal
-        closeText={'Cancel'}
+        closeText={t('common.cancel')}
         checkedText={'OK'}
         content={<ContentSuccess />}
         visible={success}

@@ -8,7 +8,9 @@
     "months": "ay",
     "years": "yıl",
     "hours": "saat",
-    "minutes": "dakika"
+    "minutes": "dakika",
+    "cofirm":"onaylamak",
+    "cancel":"İptal"
   },
   "domainNotice": "Diffgalaxy için tek resmi alan adı <1>https://nft.diffgalaxy.com</1>'dur.",
   "home": {
@@ -67,6 +69,8 @@
     "soldOut": "hepsi satıldı",
     "progress": "işleme",
     "end": "Bitiş",
-    "more": "Daha"
+    "more": "Daha",
+    "update":"Güncelle",
+    "description":"betimlemek"
   }
 }

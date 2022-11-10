@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { getAllCategories } from '../../api/artiles';
+import { getViewLang } from "../../utils/i18n"
 import { Collapse } from 'antd';
 const { Panel } = Collapse;
 import './index.scss';
@@ -23,6 +24,10 @@ export const HelpCenter = () => {
   const initCategories = async () => {
     const res: any = await getAllCategories({ name: name });
     setCategoriesList(res.data.records);
+    // res.data.records.map((item: any) => {
+    //   console.log(getViewLang(item.inName),'mmmmmm');
+      
+    // })
   };
   return (
     <div className='help-center-main'>
@@ -32,11 +37,13 @@ export const HelpCenter = () => {
           <div className='wrapper-list'>
             <Collapse ghost>
               {categoriesList.map((item: any) => (
-                <Panel header={item.name} key={item.id}>
+                
+                <Panel header={getViewLang(item.inName)} key={item.id}>
                   <ul>
                     {item.articleList.map((cItem: any) => (
+
                       <li key={cItem.id} onClick={() => handleToArticle(item.name, cItem.id)}>
-                        {cItem.title}
+                        {item.name}
                       </li>
                     ))}
                   </ul>

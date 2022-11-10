@@ -171,7 +171,6 @@ function UseWalletProvider({
   const web3ReactContext = useWeb3React();
   const activationId = useRef<number>(0);
   const { account, library: ethereum, deactivate } = web3ReactContext;
-  console.log('ethereum:::', ethereum);
   // const balancex = useWalletBalancex({ account, pollBalanceInterval })
   // const allowance = useWalletAllowance({ account, pollBalanceInterval })
   const { addBlockNumberListener, removeBlockNumberListener } = useWatchBlockNumber({
