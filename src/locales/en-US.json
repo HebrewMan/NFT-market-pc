@@ -120,5 +120,9 @@
     "sale": "For Sale",
     "selling": "Selling",
     "forceCancel": "Force Cancel"
+  },
+  "collection": {
+    "serach": "Search items, or accounts",
+    "created": "Recently Created"
   }
 }

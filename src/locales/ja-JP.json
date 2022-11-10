@@ -115,5 +115,9 @@
     "sale": "販売のため",
     "selling": "販売中",
     "forceCancel": "強制キャンセル"
+  },
+  "collection": {
+    "serach": "名前またはアカウントを検索する",
+    "created": "最近作成された"
   }
 }

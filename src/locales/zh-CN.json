@@ -116,5 +116,9 @@
     "sale": "待出售",
     "selling": "出售中",
     "forceCancel": "强制取消"
+  },
+  "collection": {
+    "serach": "搜索名称或账户",
+    "created": "最近创建的"
   }
 }

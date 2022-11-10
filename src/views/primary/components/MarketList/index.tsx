@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { PHeader } from '../Header';
 import { MaskImage } from '../List';
 import { getActivityProduction } from '../../../../api/primary';
@@ -8,6 +9,7 @@ import './index.scss';
 import useWindowDimensions from '../../../../utils/layout';
 
 export const MarketList = () => {
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const details: string = localStorage.getItem('details') ?? '';
   const primaryObj = JSON.parse(details);
@@ -90,7 +92,7 @@ export const MarketList = () => {
                       </p>
                     </div>
                     <div className='li-price li-details'>
-                      <h1>Price</h1>
+                      <h1>{t('marketplace.price')}</h1>
                       <div className='eth-price'>
                         <img width='18' src={require('../../../../assets/usdt.png')} alt='' />
                         <span>{item?.price}</span>

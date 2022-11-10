@@ -114,5 +114,9 @@
     "sale": "satılık",
     "selling": "Satılık",
     "forceCancel": "Zorla iptal"
+  },
+  "collection": {
+    "serach": "Bir ad veya hesap arayın",
+    "created": "yakın zamanda oluşturulmuş"
   }
 }

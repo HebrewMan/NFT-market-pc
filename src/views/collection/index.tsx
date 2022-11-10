@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Portal from '../../components/Dialog';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { Select } from '../marketplace/Select';
@@ -34,40 +35,6 @@ interface collectionsDataProps {
   name: string;
   price: number;
 }
-const list = [
-  // 所有过滤条件
-  {
-    label: 'status',
-    name: 'Created',
-    value: 0,
-  },
-  {
-    label: 'status',
-    name: 'Listing',
-    value: 1,
-  },
-  {
-    label: 'status',
-    name: 'Listed',
-    value: 2,
-  },
-  {
-    label: 'status',
-    name: 'Force Cancel',
-    value: 3,
-  },
-  {
-    label: 'sort',
-    name: 'Price High to Low',
-    value: 'high',
-  },
-  {
-    label: 'sort',
-    name: 'Price Low to High',
-    value: 'low',
-  },
-];
-const tabsData = ['Collected', 'Favorited'];
 
 export const MaskImage = (props: any) => {
   let { width, status, type } = props;
@@ -88,6 +55,41 @@ export const MaskImage = (props: any) => {
 };
 
 export const Collection: React.FC<any> = () => {
+  const { t } = useTranslation();
+  const list = [
+    // 所有过滤条件
+    {
+      label: 'status',
+      name: 'Created',
+      value: 0,
+    },
+    {
+      label: 'status',
+      name: t('marketplace.details.listings'),
+      value: 1,
+    },
+    {
+      label: 'status',
+      name: 'Listed',
+      value: 2,
+    },
+    {
+      label: 'status',
+      name: t('account.forceCancel'),
+      value: 3,
+    },
+    {
+      label: 'sort',
+      name: t('marketplace.highToLow'),
+      value: 'high',
+    },
+    {
+      label: 'sort',
+      name: t('marketplace.LowToHigh'),
+      value: 'low',
+    },
+  ];
+  const tabsData = [t('account.collected'), t('account.favorited')];
   const [grid, setGrid] = useState(1);
   const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
@@ -139,7 +141,7 @@ export const Collection: React.FC<any> = () => {
   const [mobileLabel, setMobileLabel] = useState([
     {
       value: '0',
-      label: 'Collected',
+      label: t('account.collected'),
     },
   ]);
   // 判断方法回调返回值
@@ -467,8 +469,8 @@ export const Collection: React.FC<any> = () => {
     };
     return (
       <SelectAntd labelInValue value={mobileLabel} onChange={handleChange} className='mobileSelect'>
-        <SelectAntd.Option value='0'>Collected</SelectAntd.Option>
-        <SelectAntd.Option value='1'>Favorited</SelectAntd.Option>
+        <SelectAntd.Option value='0'>{t('account.collected')}</SelectAntd.Option>
+        <SelectAntd.Option value='1'>{t('account.favorited')}</SelectAntd.Option>
       </SelectAntd>
     );
   };
@@ -477,7 +479,7 @@ export const Collection: React.FC<any> = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>No data available for the time being.</p>
+        <p>{t('common.noDataLong')}</p>
       </div>
     );
   };
@@ -534,7 +536,7 @@ export const Collection: React.FC<any> = () => {
                   <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
                   <div className='ico'>
                     <img src={require('../../assets/edit_white.svg')} alt='' />
-                    <span>Edit</span>
+                    <span>{t('account.edit')}</span>
                   </div>
                 </>
               )}
@@ -583,7 +585,7 @@ export const Collection: React.FC<any> = () => {
                 getKeyWord={getKeyWord}
                 reset={reset}
                 keyWord={keyWord}
-                placeholder={'Search items, and accounts'}
+                placeholder={t('collection.serach')}
               />
 
               <div className='infoFilter'>
