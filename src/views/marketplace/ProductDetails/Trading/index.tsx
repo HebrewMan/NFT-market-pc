@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { formatTime } from '../../utils';
 import config from '../../../../config/constants';
 import './index.scss';
 
 export const Trading = (props: any) => {
+  const { t } = useTranslation();
   const _chainId = window?.ethereum?.chainId;
   const chainId = parseInt(_chainId);
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([]);
@@ -13,13 +15,13 @@ export const Trading = (props: any) => {
   const [filterState, setFilterState] = useState(false);
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK;
   const [filterList, setFilterList] = useState([
-    { label: '3', name: 'MintTo', checked: false },
-    { label: '0', name: 'Listings', checked: false },
-    { label: '1', name: 'Cancel', checked: false },
-    { label: '2', name: 'AtomicMatch', checked: false },
-    { label: '4', name: 'BatchMintTo', checked: false },
-    { label: '5', name: 'UpdatePrice', checked: false },
-    { label: '6', name: 'Transfer', checked: false },
+    { label: '3', name: t('marketplace.details.mintTo'), checked: false },
+    { label: '0', name: t('marketplace.details.listings'), checked: false },
+    { label: '1', name: t('marketplace.details.cancel'), checked: false },
+    { label: '2', name: t('marketplace.details.atomicMatch'), checked: false },
+    { label: '4', name: t('marketplace.details.batchMintTo'), checked: false },
+    { label: '5', name: t('marketplace.details.updatePrcie'), checked: false },
+    { label: '6', name: t('marketplace.details.transfer'), checked: false },
   ]);
   const [eventBtn, setEventBtn] = useState<any>([]);
   const history = useHistory();
@@ -44,19 +46,19 @@ export const Trading = (props: any) => {
   const showEventName = (method: any) => {
     switch (method) {
       case 3:
-        return 'MintTo';
+        return t('marketplace.details.mintTo');
       case 0:
-        return 'List';
+        return t('marketplace.details.list');
       case 1:
-        return 'Cancel';
+        return t('marketplace.details.cancel');
       case 2:
-        return 'AtomicMatch';
+        return t('marketplace.details.atomicMatch');
       case 4:
-        return 'BatchMintTo';
+        return t('marketplace.details.batchMintTo');
       case 5:
-        return 'UpdatePrice';
+        return t('marketplace.details.updatePrcie');
       case 6:
-        return 'Transfer';
+        return t('marketplace.details.transfer');
     }
   };
   const iconClass = (item: any) => {
@@ -187,11 +189,11 @@ export const Trading = (props: any) => {
       <table>
         <thead>
           <tr>
-            <td className='first-child'>Transaction</td>
-            <td>Price</td>
-            <td>From</td>
-            <td>To</td>
-            <td>Date</td>
+            <td className='first-child'>{t('marketplace.details.transaction')}</td>
+            <td>{t('marketplace.price')}</td>
+            <td>{t('marketplace.from')}</td>
+            <td>{t('marketplace.to')}</td>
+            <td>{t('common.date')}</td>
           </tr>
         </thead>
         <tbody>
@@ -206,7 +208,7 @@ export const Trading = (props: any) => {
       <div className='details-filter'>
         <div className='details-top'>
           <div className='filter' onClick={() => setFilterState(!filterState)}>
-            <p>Filter</p>
+            <p>{t('marketplace.details.filter')}</p>
             <img
               src={
                 !filterState
@@ -224,7 +226,7 @@ export const Trading = (props: any) => {
               {showEventName(Number(item))} <img src={require('../../../../assets/close.svg')} width={20} alt='' />
             </button>
           ))}
-          {eventBtn.length > 0 && <span onClick={handleClearAll}>Clear All</span>}
+          {eventBtn.length > 0 && <span onClick={handleClearAll}>{t('marketplace.details.clearAll')}</span>}
         </div>
       </div>
       {<Table />}
@@ -234,7 +236,7 @@ export const Trading = (props: any) => {
     <div className='trading-history'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
         <img src={require('../../../../assets/tradding.svg')} alt='' className='svg-default-size' />
-        <h2>Trading History</h2>
+        <h2>{t('marketplace.details.history')}</h2>
         <div className='arrow-icon'>
           <img
             src={

@@ -4,6 +4,7 @@
     "sell": "売る",
     "noDataLong": "今のところデータはありません",
     "buyNow": "買う",
+    "date": "日にち",
     "day": "日",
     "months": "月",
     "years": "年",
@@ -13,7 +14,7 @@
     "cofirm":"確認",
     "cancel":"キャンセル"
   },
-  "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は <1>https://nft.diffgalaxy.com</1> です。",
+  "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://nft.diffgalaxy.com</1>。",
   "home": {
     "title": "Diffgalaxy NFT アセット トレーディング マーケットへようこそ",
     "subtitle": "Diffgalaxy は NFT 取引を簡単にします。一緒に取引の楽しさを探りましょう",
@@ -60,9 +61,34 @@
     "price": "価格",
     "max": "最大",
     "min": "最小",
+    "from": "から",
     "to": "到着",
     "Owner": "持有者",
-    "curPrice": "即購入"
+    "curPrice": "即購入",
+    "details": {
+      "more": "シリーズの他の作品",
+      "properties": "属性",
+      "collection": "Collection Details",
+      "tokenDetails": "Token Details",
+      "description": "情報",
+      "info": "説明",
+      "address": "契約住所",
+      "token": "トークンID",
+      "standard": "トークン標準",
+      "blockchain": "ブロックチェーン",
+      "history": "取引履歴",
+      "filter": "フィルター",
+      "transaction": "トレード",
+      "clearAll": "すべてクリア",
+      "mintTo": "鋳造",
+      "listings": "棚の上",
+      "cancel": "キャンセル",
+      "atomicMatch": "AtomicMatch",
+      "batchMintTo": "BatchMintTo",
+      "updatePrcie": "更新価格",
+      "transfer": "移行",
+      "list": "リスト"
+    }
   },
   "primary": {
     "title": "一次市場",

@@ -346,7 +346,7 @@ export const ProductionDetails = () => {
     if (isCancelSell()) {
       return (
         <>
-          <button onClick={getCancelSellOrder}>{t('marketplace.details.cancel')}</button>
+          <button onClick={getCancelSellOrder}>{t('marketplace.details.cancelList')}</button>
           <button onClick={getUpdateLowerPriceOrder}>{t('marketplace.details.update')}</button>
         </>
       );
