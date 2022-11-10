@@ -10,8 +10,8 @@
     "years": "年",
     "hours": "小時",
     "minutes": "分鐘",
-    "cofirm":"確認",
-    "cancel":"取消"
+    "cofirm": "確認",
+    "cancel": "取消"
   },
   "domainNotice": "Diffgalaxy 的唯壹官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -47,6 +47,7 @@
     "market": "市場",
     "help": "幫助",
     "secher.tips": "搜索NFT、合集、合約、賬戶",
+    "myNft": "我的NFTs",
     "setting": "設置",
     "login": "登錄",
     "loginOut": "退出"
@@ -96,12 +97,22 @@
     "progress": "進行中",
     "end": "結束",
     "more": "更多",
-    "update":"更新",
-    "description":"描述",
-    "owner":"持有者",
-    "tokenId":"代幣ID",
-    "address":"合約地址",
-    "amount":"数量",
-    "currentPrice":"一口價"
+    "update": "更新",
+    "description": "描述",
+    "owner": "持有者",
+    "tokenId": "代幣ID",
+    "address": "合約地址",
+    "amount": "数量",
+    "currentPrice": "一口價"
+  },
+  "account": {
+    "collected": "我的NFTs",
+    "favorited": "我的收藏",
+    "edit": "修改",
+    "banner": "添加背景",
+    "all": "全部",
+    "sale": "待出售",
+    "selling": "出售中",
+    "forceCancel": "强制取消"
   }
 }

@@ -10,8 +10,8 @@
     "years": "yıl",
     "hours": "saat",
     "minutes": "dakika",
-    "cofirm":"onaylamak",
-    "cancel":"İptal"
+    "cofirm": "onaylamak",
+    "cancel": "İptal"
   },
   "domainNotice": "Diffgalaxy'nin tek resmi alan adı <1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -47,6 +47,7 @@
     "market": "pazar",
     "help": "Yardım Edin",
     "secher.tips": "NFT'leri, Koleksiyonları, Sözleşmeleri, Hesapları arayın",
+    "myNft": "NFT'lerim",
     "setting": "kurmak",
     "login": "Giriş yapmak",
     "loginOut": "Log out"
@@ -96,7 +97,22 @@
     "progress": "işleme",
     "end": "Bitiş",
     "more": "Daha",
-    "update":"Güncelle",
-    "description":"betimlemek"
+    "update": "Güncelle",
+    "description": "betimlemek",
+    "owner": "Kulp",
+    "tokenId": "jeton kimliği",
+    "address": "sözleşme adresi",
+    "amount": "tutar",
+    "currentPrice": "Şimdi satın al"
+  },
+  "account": {
+    "collected": "NFT'lerim",
+    "favorited": "benim koleksiyonum",
+    "edit": "Tekrar düzeltme yapmak",
+    "banner": "arka plan ekle",
+    "all": "tüm",
+    "sale": "satılık",
+    "selling": "Satılık",
+    "forceCancel": "Zorla iptal"
   }
 }

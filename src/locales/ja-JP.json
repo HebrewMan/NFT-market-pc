@@ -11,8 +11,8 @@
     "hours": "時間",
     "minutes": "分",
     "seconds": "未翻译",
-    "cofirm":"確認",
-    "cancel":"キャンセル"
+    "cofirm": "確認",
+    "cancel": "キャンセル"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://nft.diffgalaxy.com</1>。",
   "home": {
@@ -48,6 +48,7 @@
     "market": "市場",
     "help": "ヘルプ",
     "secher.tips": "NFT、コレクション、契約、アカウントの検索",
+    "myNft": "私のNFT",
     "setting": "設定",
     "login": "ログイン",
     "loginOut": "Log out"
@@ -97,12 +98,22 @@
     "progress": "処理",
     "end": "終了",
     "more": "もっと",
-    "update":"更新日",
-    "description":"情報",
-    "owner":"保有者",
-    "tokenId":"トークンID",
-    "address":"契約住所",
-    "amount":"数量",
-    "currentPrice":"即購入"
+    "update": "更新日",
+    "description": "情報",
+    "owner": "保有者",
+    "tokenId": "トークンID",
+    "address": "契約住所",
+    "amount": "数量",
+    "currentPrice": "即購入"
+  },
+  "account": {
+    "collected": "私のNFT",
+    "favorited": "私のコレクション",
+    "edit": "改訂",
+    "banner": "背景を追加",
+    "all": "全て",
+    "sale": "販売のため",
+    "selling": "販売中",
+    "forceCancel": "強制キャンセル"
   }
 }

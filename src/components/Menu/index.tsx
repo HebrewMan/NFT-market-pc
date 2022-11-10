@@ -13,7 +13,7 @@ import { Language } from '../../utils/enum';
 import { changeLanguage } from '../../utils/i18n';
 
 export const HeaderMenu = () => {
-  const { t,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { account, active, deactivate } = useWeb3React();
   const history = useHistory();
   const [dom, setDom] = useState('');
@@ -35,9 +35,9 @@ export const HeaderMenu = () => {
 
   useEffect(() => {
     const Lang = localStorage.getItem('NFT_LANG_KEY');
-    items.map((option:any) =>{  
-      if(Lang === option.key){
-        setLang(option.label)
+    items.map((option: any) => {
+      if (Lang === option.key) {
+        setLang(option.label);
       }
     });
   }, []);
@@ -174,7 +174,7 @@ export const HeaderMenu = () => {
                       <Link to={`/account/0/${walletAccount}`}>
                         <img src={require('../../assets/account-my-NFTs.png')} alt='' />
                         <div className='txt'>
-                          <span>My NFTs</span>
+                          <span>{t('nav.myNft')}</span>
                         </div>
                       </Link>
                     </li>
@@ -183,7 +183,7 @@ export const HeaderMenu = () => {
                     <Link to={`/user-settings`}>
                       <img src={require('../../assets/account-setting.png')} alt='' />
                       <div className='txt'>
-                        <span>{t("nav.setting")}</span>
+                        <span>{t('nav.setting')}</span>
                       </div>
                     </Link>
                   </li>
