@@ -29,14 +29,12 @@ const getInitLang = () => {
   return browseLang.includes('zh') ? Language.zh : Language.en;
 };
 
-
 // 导出后端返回的文案
-export const getViewLang = (name:any) => {
+export const getViewLang = (name: any) => {
   const langCache = localStorage.getItem(LANG_CACHE_KEY);
   const lang = LanguageNamesMobile[langCache as Language];
-  return name[lang]
+  return name ? name[lang] : '';
 };
-
 
 // 初始化
 export const initI18n = () => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { useTranslation } from 'react-i18next';
 import { formatAdd } from '../../utils';
 import config from '../../../../config/constants';
 import './index.scss';
@@ -121,6 +122,7 @@ import './index.scss';
 
 export const DescInfo = (props: any) => {
   const [type, setType] = useState(1);
+  const { t } = useTranslation();
 
   return (
     <div className='desc-information'>
@@ -128,23 +130,23 @@ export const DescInfo = (props: any) => {
         {/* desc */}
         <div className={`list-inner ${type === 1 ? 'active' : ''}`} onClick={() => setType(1)}>
           <div className='list-title title-point'>
-            <h2>Description</h2>
+            <h2>{t('marketplace.details.description')}</h2>
           </div>
         </div>
 
         <div className={`list-inner ${type === 2 ? 'active' : ''}`} onClick={() => setType(2)}>
           <div className='list-title title-point'>
-            <h2>Properties</h2>
+            <h2>{t('marketplace.details.properties')}</h2>
           </div>
         </div>
         <div className={`list-inner ${type === 3 ? 'active' : ''}`} onClick={() => setType(3)}>
           <div className='list-title title-point'>
-            <h2>Collection Details</h2>
+            <h2>{t('marketplace.details.collection')}</h2>
           </div>
         </div>
         <div className={`list-inner ${type === 4 ? 'active' : ''}`} onClick={() => setType(4)}>
           <div className='list-title title-point'>
-            <h2>Token Details</h2>
+            <h2>{t('marketplace.details.tokenDetails')}</h2>
           </div>
         </div>
       </div>
@@ -154,6 +156,7 @@ export const DescInfo = (props: any) => {
 };
 
 const ContentDetail = (props: any) => {
+  const { t } = useTranslation();
   const { metadata, collectionsData } = props;
   const list = metadata.propertyList || [];
   const { contractAddr, tokenId } = props;
@@ -193,10 +196,10 @@ const ContentDetail = (props: any) => {
       <div className='content-wrap detail'>
         <div className='list-content details'>
           <div className='details-left'>
-            <p>Contract Address</p>
-            <p>Token ID</p>
-            <p>Token Standard</p>
-            <p>Blockchain</p>
+            <p>{t('marketplace.details.address')}</p>
+            <p>{t('marketplace.details.token')}</p>
+            <p>{t('marketplace.details.standard')}</p>
+            <p>{t('marketplace.details.blockchain')}</p>
           </div>
           <div className='details-right'>
             <a href={linkEth + 'address/' + contractAddr} target='_blank'>
