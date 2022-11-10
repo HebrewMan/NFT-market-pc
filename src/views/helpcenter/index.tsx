@@ -24,10 +24,6 @@ export const HelpCenter = () => {
   const initCategories = async () => {
     const res: any = await getAllCategories({ name: name });
     setCategoriesList(res.data.records);
-    // res.data.records.map((item: any) => {
-    //   console.log(getViewLang(item.inName),'mmmmmm');
-      
-    // })
   };
   return (
     <div className='help-center-main'>
@@ -35,15 +31,15 @@ export const HelpCenter = () => {
         <div className='main-banner'></div>
         <div className='main-wrapper'>
           <div className='wrapper-list'>
-            <Collapse ghost>
+            <Collapse ghost expandIconPosition="end">
               {categoriesList.map((item: any) => (
                 
                 <Panel header={getViewLang(item.inName)} key={item.id}>
                   <ul>
                     {item.articleList.map((cItem: any) => (
 
-                      <li key={cItem.id} onClick={() => handleToArticle(item.name, cItem.id)}>
-                        {item.name}
+                      <li key={cItem.id} onClick={() => handleToArticle(getViewLang(cItem.inName), cItem.id)}>
+                        {getViewLang(cItem.inName)}
                       </li>
                     ))}
                   </ul>

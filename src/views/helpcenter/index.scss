@@ -18,7 +18,8 @@
     width: 1200px;
 
     .wrapper-list {
-      margin-top: 108px;
+      margin-bottom: 20px;
+      margin-top: 105px;
       width: 100%;
 
       .ant-collapse {
@@ -54,6 +55,8 @@
             .ant-collapse-content-box {
               padding-top: 24px;
               padding-bottom: 24px;
+              padding-left: 0px;
+
             }
           }
         }
@@ -61,10 +64,15 @@
 
       ul {
         li {
+          margin-bottom: 24px;
           font-size: 18px;
           font-weight: 400;
           color: #1D243B;
           cursor: pointer;
+        }
+
+        li:last-child {
+          margin-bottom: 0px;
         }
       }
     }
