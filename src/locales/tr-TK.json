@@ -6,12 +6,19 @@
     "buyNow": "Satın almak",
     "date": "tarih",
     "day": "gün",
+    "days": "gün",
     "months": "ay",
     "years": "yıl",
     "hours": "saat",
     "minutes": "dakika",
     "cofirm": "onaylamak",
-    "cancel": "İptal"
+    "cancel": "İptal",
+    "secondAgo": "{{ num }} saniye önce",
+    "minuteAgo": "{{ num }} dakika önce",
+    "hourAgo": "{{ num }} saat önce",
+    "dayAgo": "{{ num }} gün önce",
+    "monthAgo": "{{ num }} ay önce",
+    "yearAgo": "{{ num }} yıl önce"
   },
   "domainNotice": "Diffgalaxy'nin tek resmi alan adı <1>https://nft.diffgalaxy.com</1>",
   "home": {

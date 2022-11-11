@@ -5,13 +5,19 @@
     "noDataLong": "暫時沒有數據",
     "buyNow": "購買",
     "date": "日期",
-    "day": "日",
+    "days": "日",
     "months": "月",
     "years": "年",
     "hours": "小時",
     "minutes": "分鐘",
     "cofirm": "確認",
-    "cancel": "取消"
+    "cancel": "取消",
+    "secondAgo": "{{ num }} 秒前",
+    "minuteAgo": "{{ num }} 分鐘前",
+    "hourAgo": "{{ num }} 小時前",
+    "dayAgo": "{{ num }} 天前",
+    "monthAgo": "{{ num }} 月前",
+    "yearAgo": "{{ num }} 年前"
   },
   "domainNotice": "Diffgalaxy 的唯壹官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {

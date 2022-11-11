@@ -6,13 +6,20 @@
     "buyNow": "買う",
     "date": "日にち",
     "day": "日",
+    "days": "日",
     "months": "月",
     "years": "年",
     "hours": "時間",
     "minutes": "分",
     "seconds": "未翻译",
     "cofirm": "確認",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "secondAgo": "{{ num }} 替わり前",
+    "minuteAgo": "{{ num }} 分前",
+    "hourAgo": "{{ num }} 時間前",
+    "dayAgo": "{{ num }} 日前",
+    "monthAgo": "{{ num }} 月前",
+    "yearAgo": "{{ num }} 年前"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://nft.diffgalaxy.com</1>。",
   "home": {
