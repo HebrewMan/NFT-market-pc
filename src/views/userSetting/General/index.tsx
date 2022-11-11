@@ -4,6 +4,8 @@ import { createIpfs } from '../../../api';
 import { message } from 'antd';
 import { uploadFileCheck } from '../../../utils/utils';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
+
 const userInfo: string | null = localStorage.getItem('userInfo') || '';
 const {
   imageUrl: image,
@@ -13,6 +15,7 @@ const {
   bio: userBio,
 } = JSON.parse(userInfo ? userInfo : '{}');
 export const General = () => {
+  const { t } = useTranslation();
   const [imageUrl, setImageUrl] = useState(image);
   const [bannerUrl, setBannerUrl] = useState(banner);
   const [requiredEmail, setRequiredEmail] = useState(false);
@@ -21,9 +24,15 @@ export const General = () => {
   const handleUploadImage = (e: any) => {
     const file = e.target.files[0];
 
-    const res: boolean = uploadFileCheck(file, ['jpg', 'png', 'gif'], 1024 * 1024, 'Uploading image should be JPG/PNG/GIF', 'Uploaded image should be less than 1M')
+    const res: boolean = uploadFileCheck(
+      file,
+      ['jpg', 'png', 'gif'],
+      1024 * 1024,
+      'Uploading image should be JPG/PNG/GIF',
+      'Uploaded image should be less than 1M',
+    );
     if (!res) {
-      return
+      return;
     }
 
     const params = new FormData();
@@ -35,9 +44,15 @@ export const General = () => {
   const handleBannerImage = (e: any) => {
     const file = e.target.files[0];
 
-    const res: boolean = uploadFileCheck(file, ['jpg', 'png','gif'], 1024 * 1024 * 5, 'Uploading image should be JPG/PNG/GIF', 'Uploaded image should be less than 5M')
+    const res: boolean = uploadFileCheck(
+      file,
+      ['jpg', 'png', 'gif'],
+      1024 * 1024 * 5,
+      'Uploading image should be JPG/PNG/GIF',
+      'Uploaded image should be less than 5M',
+    );
     if (!res) {
-      return
+      return;
     }
 
     const params = new FormData();
@@ -81,7 +96,7 @@ export const General = () => {
       <div className='create-wrap'>
         <div className='inner-top'>
           <div className='inner-title'>
-            <label>Profile Image</label>
+            <label>{t('userSettings.avatar')}</label>
           </div>
           <div className='inner-file logo-image'>
             {!imageUrl ? (
@@ -98,7 +113,7 @@ export const General = () => {
         </div>
         <div className='inner-top'>
           <div className='inner-title'>
-            <label>Profile Banner</label>
+            <label>{t('userSettings.banner')}</label>
           </div>
           <div className='inner-file banner-image'>
             {!bannerUrl ? (
@@ -117,7 +132,8 @@ export const General = () => {
 
         <div className='inner-name'>
           <label htmlFor='name'>
-            Username<span>*</span>
+            {t('userSettings.username')}
+            <span>*</span>
           </label>
           <div className={`inner-name-input ${requiredName ? 'active-name-input' : 'inner-name-input'}`}>
             <input
@@ -133,13 +149,14 @@ export const General = () => {
           </div>
           {requiredName && (
             <p className='required-tips'>
-              <img src='/sol/close_error.svg' alt='' className='close-svg' /> This field is required.
+              <img src='/sol/close_error.svg' alt='' className='close-svg' /> {t('userSettings.required')}
             </p>
           )}
         </div>
         <div className='inner-name'>
           <label htmlFor='email'>
-            Email Address<span>*</span>
+            {t('userSettings.email')}
+            <span>*</span>
           </label>
           <div className={`inner-name-input ${requiredEmail ? 'active-name-input' : 'inner-name-input'}`}>
             <input
@@ -147,7 +164,7 @@ export const General = () => {
               name='email'
               id='name'
               className={requiredEmail ? 'active-focus' : ''}
-              placeholder='email'
+              placeholder={t('userSettings.email')}
               onBlur={(e) => handleEmailBlur(e)}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               value={form.email || ''}
@@ -155,18 +172,18 @@ export const General = () => {
           </div>
           {requiredEmail && (
             <p className='required-tips'>
-              <img src='/sol/close_error.svg' alt='' className='close-svg' /> This field is required.
+              <img src='/sol/close_error.svg' alt='' className='close-svg' /> {t('userSettings.required')}
             </p>
           )}
         </div>
 
         <div className='inner-name'>
-          <label htmlFor='bio'>Bio</label>
+          <label htmlFor='bio'>{t('userSettings.bio')}</label>
           <div className='inner-name-input'>
             <textarea
               name='bio'
               id='desc'
-              placeholder='Tell the world your story!'
+              placeholder={t('userSettings.introduction')}
               value={form.bio || ''}
               onChange={(e) => setForm({ ...form, bio: e.target.value })}
             />
@@ -174,7 +191,7 @@ export const General = () => {
         </div>
         <div className='create-btn'>
           <button disabled={!disabledState} onClick={() => handleUpdateInfo()}>
-            Save
+            {t('userSettings.save')}
           </button>
         </div>
       </div>

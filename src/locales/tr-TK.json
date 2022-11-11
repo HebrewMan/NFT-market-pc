@@ -118,5 +118,17 @@
   "collection": {
     "serach": "Bir ad veya hesap arayın",
     "created": "yakın zamanda oluşturulmuş"
+  },
+  "userSettings": {
+    "general": "Profil",
+    "generalSetting": "Profil ayarları",
+    "avatar": "Kişisel avatar",
+    "banner": "Arka plan afişi",
+    "username": "Kullanıcı Adı",
+    "email": "E-posta",
+    "bio": "Giriiş",
+    "introduction": "Bize kendinizden bahsedin",
+    "save": "保存",
+    "required": "This field is required."
   }
 }

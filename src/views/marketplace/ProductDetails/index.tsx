@@ -437,6 +437,7 @@ export const ProductionDetails = () => {
                   <p>{t('marketplace.curPrice')}</p>
                   <p>{parseFloat(price.toFixed(4))} USDT</p>
                 </div>
+                {/* TODO: 二级市场未上架的NFT隐藏购买按钮 status !== 2 */}
                 {!isOwner() && (
                   <button disabled={!isBuyNow()} onClick={getBuy}>
                     {t('common.buyNow')}

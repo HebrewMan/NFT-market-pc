@@ -119,5 +119,17 @@
   "collection": {
     "serach": "名前またはアカウントを検索する",
     "created": "最近作成された"
+  },
+  "userSettings": {
+    "general": "プロフィール",
+    "generalSetting": "プロフィール設定",
+    "avatar": "個人用アバター",
+    "banner": "背景バナー",
+    "username": "ユーザー名",
+    "email": "電子メール",
+    "bio": "プロフィール",
+    "introduction": "あなた自身について教えてください。",
+    "save": "保存",
+    "required": "This field is required."
   }
 }
