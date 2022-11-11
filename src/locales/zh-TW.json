@@ -118,5 +118,17 @@
   "collection": {
     "serach": "搜索名稱或賬戶",
     "created": "最近創建的"
+  },
+  "userSettings": {
+    "general": "資料",
+    "generalSetting": "資料設置",
+    "avatar": "個人頭像",
+    "banner": "背景横幅",
+    "username": "用户名",
+    "email": "郵箱",
+    "bio": "簡介",
+    "introduction": "介紹壹下妳自己吧",
+    "save": "保存",
+    "required": "This field is required."
   }
 }

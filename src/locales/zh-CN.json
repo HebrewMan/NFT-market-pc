@@ -120,5 +120,17 @@
   "collection": {
     "serach": "搜索名称或账户",
     "created": "最近创建的"
+  },
+  "userSettings": {
+    "general": "资料",
+    "generalSetting": "资料设置",
+    "avatar": "个人头像",
+    "banner": "背景横幅",
+    "username": "用户名",
+    "email": "邮箱",
+    "bio": "简介",
+    "introduction": "介绍一下你自己吧",
+    "save": "保存",
+    "required": "This field is required."
   }
 }

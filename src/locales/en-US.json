@@ -124,5 +124,17 @@
   "collection": {
     "serach": "Search items, or accounts",
     "created": "Recently Created"
+  },
+  "userSettings": {
+    "general": "General",
+    "generalSetting": "General Settings",
+    "avatar": "Profile Image",
+    "banner": "Profile Banner",
+    "username": "Username",
+    "email": "Email Address",
+    "bio": "Bio",
+    "introduction": "Tell the world your story!",
+    "save": "Save",
+    "required": "This field is required."
   }
 }

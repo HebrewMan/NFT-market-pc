@@ -1,23 +1,26 @@
 import React from 'react';
 import { General } from './General';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 export const UserSetting = () => {
+  const { t } = useTranslation();
+
   return (
     <div className='user-settings'>
       <div className={`settings-wrap`}>
         <div className='settings-list'>
           <ul>
-            <div className='list-title'>SETTINGS</div>
+            <div className='list-title'>{t('nav.setting')}</div>
             <li>
               <a className='li-item actived'>
-                <span>General</span>
+                <span>{t('userSettings.general')}</span>
               </a>
             </li>
           </ul>
         </div>
         <div className='settings-container'>
-          <h1>General Settings</h1>
+          <h1>{t('userSettings.generalSetting')}</h1>
           <General />
         </div>
       </div>
