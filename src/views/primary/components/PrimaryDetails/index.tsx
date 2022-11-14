@@ -15,7 +15,7 @@ export const PrimaryDetails = () => {
   const btnDefaultList = [{ label: t('primary.description'), value: 0 }];
   const btnTabsList = [
     { label: t('primary.description'), value: 0 },
-    { label: '关于艺术家', value: 1 },
+    { label: t('primary.Artist'), value: 1 },
     { label: '明细', value: 2 },
     { label: '系列内容', value: 3 },
   ];

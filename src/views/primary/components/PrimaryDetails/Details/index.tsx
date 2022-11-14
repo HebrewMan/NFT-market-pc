@@ -327,15 +327,15 @@ export const ProDetails = (props: any) => {
               <button disabled={true}>{t('primary.soldOut')}</button>
             )
           ) : (
-            isOpen() && <button onClick={handleOpenBlindBox}>开启盲盒</button>
+            isOpen() && <button onClick={handleOpenBlindBox}>{t('primary.openBox')}</button>
           )
         ) : (
-          !isOpen() && isOwner() && <button onClick={handleOpenBlindBox}>开启盲盒</button>
+          !isOpen() && isOwner() && <button onClick={handleOpenBlindBox}>{t('primary.openBox')}</button>
         )
       ) : isOpen() ? (
-        isOwner() && <button onClick={handleOutPrice}>出价</button>
+        isOwner() && <button onClick={handleOutPrice}>{t('primary.bidding')}</button>
       ) : (
-        isOwner() && <button onClick={handleOpenBlindBox}>开启盲盒</button>
+        isOwner() && <button onClick={handleOpenBlindBox}>{t('primary.openBox')}</button>
       )}
     </div>
   );
@@ -346,7 +346,7 @@ export const ProDetails = (props: any) => {
         <ul>
           {blindbox() && (
             <li>
-              <p>艺术家</p>
+              <p>{t('primary.Artist')}</p>
               <p>{nftGoods.metadata?.author}</p>
             </li>
           )}

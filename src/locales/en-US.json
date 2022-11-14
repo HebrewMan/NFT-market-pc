@@ -12,7 +12,8 @@
     "minutes": "minutes",
     "seconds": "seconds",
     "cofirm": "Cofirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "colse":"Closed"
   },
   "domainNotice": "The only official domain for Diffgalaxy is <1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -47,11 +48,11 @@
     "primary": "Primary",
     "market": "Marketplace",
     "help": "HelpCenter",
-    "secher.tips": "Please enter NFT/collection/address/account",
+    "secher.tips": "Search for NFT, Collection, Contract, Account",
     "myNft": "My NFTs",
     "setting": "Settings",
     "login": "Log in",
-    "loginOut": "Log out"
+    "loginOut": "Exit"
   },
   "marketplace": {
     "serach": "Please enter NFT / collection",
@@ -109,7 +110,10 @@
     "tokenId": "Token ID",
     "address": "Contract Address",
     "amount": "Quantity",
-    "currentPrice": "Current Price"
+    "currentPrice": "Current Price",
+    "openBox":"Open MysteryBoxes",
+    "bidding":"bidding",
+    "Artist":"Artist"
   },
   "account": {
     "collected": "Collected",

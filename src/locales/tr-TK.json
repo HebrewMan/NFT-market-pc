@@ -10,8 +10,10 @@
     "years": "yıl",
     "hours": "saat",
     "minutes": "dakika",
+    "seconds": "saniye",
     "cofirm": "onaylamak",
-    "cancel": "İptal"
+    "cancel": "İptal",
+    "colse":"kapat"
   },
   "domainNotice": "Diffgalaxy'nin tek resmi alan adı <1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -43,14 +45,14 @@
   },
   "nav": {
     "home": "ön Sayfa",
-    "primary": "Öncelik",
+    "primary": "ilk yayinlanan",
     "market": "pazar",
-    "help": "Yardım Edin",
+    "help": "Yardım",
     "secher.tips": "NFT'leri, Koleksiyonları, Sözleşmeleri, Hesapları arayın",
     "myNft": "NFT'lerim",
     "setting": "kurmak",
     "login": "Giriş yapmak",
-    "loginOut": "Log out"
+    "loginOut": "cik"
   },
   "marketplace": {
     "serach": "NFT veya koleksiyon adını arayın",
@@ -91,7 +93,7 @@
     }
   },
   "primary": {
-    "title": "Birincil Pazar",
+    "title": "birinci piyasa",
     "titleInfo": "Birincil, yüksek kaliteli projelerin, sanatçıların ve ünlülerin NFT varlıklarını satmasına izin veren birincil bir pazardır. Kullanıcılar veya oyuncular, daha iyi fiyatlar elde etmek veya önce öğeleri deneyimlemek için ikincil piyasaya girmeden önce NFT'leri satın alabilir.",
     "soldOut": "hepsi satıldı",
     "progress": "işleme",
@@ -103,7 +105,10 @@
     "tokenId": "jeton kimliği",
     "address": "sözleşme adresi",
     "amount": "tutar",
-    "currentPrice": "Şimdi satın al"
+    "currentPrice": "Şimdi satın al",
+    "openBox":"şanslı kutu aç",
+    "bidding":"teklif fiyat",
+    "Artist":"sanatçi"
   },
   "account": {
     "collected": "NFT'lerim",

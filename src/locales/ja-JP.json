@@ -3,16 +3,17 @@
     "buy": "買う",
     "sell": "売る",
     "noDataLong": "今のところデータはありません",
-    "buyNow": "買う",
+    "buyNow": "購入",
     "date": "日にち",
     "day": "日",
     "months": "月",
     "years": "年",
     "hours": "時間",
     "minutes": "分",
-    "seconds": "未翻译",
+    "seconds": "秒",
     "cofirm": "確認",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "colse":"閉じます"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://nft.diffgalaxy.com</1>。",
   "home": {
@@ -43,15 +44,15 @@
     "policy": "プライバシーポリシー"
   },
   "nav": {
-    "home": "表紙",
-    "primary": "主要な",
+    "home": "ホームページ",
+    "primary": "プレミアム",
     "market": "市場",
     "help": "ヘルプ",
-    "secher.tips": "NFT、コレクション、契約、アカウントの検索",
+    "secher.tips": "NFT、コレクション、コントラクト、アカウントの検索",
     "myNft": "私のNFT",
     "setting": "設定",
     "login": "ログイン",
-    "loginOut": "Log out"
+    "loginOut": "ログアウト"
   },
   "marketplace": {
     "serach": "NFTまたはコレクション名で検索",
@@ -65,7 +66,7 @@
     "from": "から",
     "to": "到着",
     "Owner": "持有者",
-    "curPrice": "即購入",
+    "curPrice": "値下げ無し",
     "details": {
       "more": "シリーズの他の作品",
       "properties": "属性",
@@ -104,7 +105,10 @@
     "tokenId": "トークンID",
     "address": "契約住所",
     "amount": "数量",
-    "currentPrice": "即購入"
+    "currentPrice": "即購入",
+    "openBox":"ブラインドボックスを始めよう",
+    "bidding":"値段付き",
+    "Artist":"芸術家"
   },
   "account": {
     "collected": "私のNFT",
