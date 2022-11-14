@@ -101,7 +101,12 @@
       "batchMintTo": "BatchMintTo",
       "updatePrcie": "UpdatePrice",
       "transfer": "Transfer",
-      "list": "List"
+      "list": "List",
+      "setPrice": "Set the listing price",
+      "updateListPrice": "Update the listing price",
+      "neverMind": "Never mind",
+      "CompleteList": "Complete listing",
+      "sellTips": "Tips: NFT must set the price. You must pay an additional gas fee if you want to cancel this listing at a  later point."
     }
   },
   "primary": {
@@ -122,12 +127,14 @@
     "openBox": "Open MysteryBoxes",
     "bidding": "bidding",
     "Artist": "Artist",
-    "goodsArrived": "The goods have arrived your address!"
+    "goodsArrived": "The goods have arrived your address!",
+    "deadline": "Deadline"
   },
   "account": {
     "collected": "Collected",
     "favorited": "Favorited",
     "edit": "Edit",
+    "editBanner": "Edit Banner",
     "banner": "Add a banner ima",
     "all": "ALL",
     "sale": "For Sale",
@@ -136,7 +143,8 @@
   },
   "collection": {
     "serach": "Search items, or accounts",
-    "created": "Recently Created"
+    "created": "Create",
+    "listed": "Listed"
   },
   "userSettings": {
     "general": "General",
@@ -148,7 +156,7 @@
     "bio": "Bio",
     "introduction": "Tell the world your story!",
     "save": "Save",
-    "required": "This field is required."
+    "required": "This field must be filled"
   },
   "hint": {
     "switchMainnet": "Please switch to mainnet!",

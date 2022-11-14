@@ -77,6 +77,10 @@
     "Owner": "持有者",
     "curPrice": "値下げ無し",
     "details": {
+      "cancelList": "売るのをキャンセル",
+      "update": "更新価格",
+      "you": "あなた",
+      "untitled": "名無しのコレクション",
       "more": "他のシリーズの作品",
       "properties": "属性",
       "collection": "Collection Details",
@@ -95,10 +99,15 @@
       "listings": "ローンチ",
       "cancel": "キャンセル",
       "atomicMatch": "AtomicMatch",
-      "batchMintTo": "大量鋳造",
+      "batchMintTo": "大量生産",
       "updatePrcie": "更新価格",
       "transfer": "移行",
-      "list": "リスト"
+      "list": "リスト",
+      "setPrice": "ローンチ価格を設置します",
+      "updateListPrice": "ローンチ価格を更新します",
+      "neverMind": "構いません",
+      "CompleteList": "ローンチ完了",
+      "sellTips": "ヒント：NFTに価格設定が必須で、もし売らないなら別途にGAS費が払わないといけません"
     }
   },
   "primary": {
@@ -118,12 +127,14 @@
     "openBox": "ブラインドボックスを始めよう",
     "bidding": "値段付き",
     "Artist": "芸術家",
-    "goodsArrived": "商品がアドレスに確認できました！"
+    "goodsArrived": "商品がアドレスに確認できました！",
+    "deadline": "締切日"
   },
   "account": {
     "collected": "私のNFT",
     "favorited": "私のコレクション",
     "edit": "修正",
+    "editBanner": "バナーを編集します",
     "banner": "背景を追加",
     "all": "全て",
     "sale": "販売待ち",
@@ -132,7 +143,8 @@
   },
   "collection": {
     "serach": "名前またはアカウントを検索する",
-    "created": "最近の作成"
+    "created": "創立",
+    "listed": "ローンチした"
   },
   "userSettings": {
     "general": "プロフィール",
@@ -144,7 +156,7 @@
     "bio": "プロフィール",
     "introduction": "自己紹介しましょう",
     "save": "保存",
-    "required": "This field is required."
+    "required": "該当文字の記入が必須"
   },
   "hint": {
     "switchMainnet": "メインネットを切り替えてください",

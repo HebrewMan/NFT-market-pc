@@ -140,8 +140,8 @@ export const Account: React.FC<any> = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024 * 5,
-      t("hint.imageTupe"),
-      t("hint.imageSize"),
+      t('hint.imageTupe'),
+      t('hint.imageSize'),
     );
     if (!check) {
       return;
@@ -161,7 +161,7 @@ export const Account: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success(t("hint.avatarUpdated"));
+      message.success(t('hint.avatarUpdated'));
     }
   };
   const handleCopy = (address: string) => {
@@ -498,8 +498,8 @@ export const Account: React.FC<any> = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024 * 5,
-      t("hint.imageTupe"),
-      t("hint.imageSize"),
+      t('hint.imageTupe'),
+      t('hint.imageSize'),
     );
     if (!check) {
       return;
@@ -602,7 +602,7 @@ export const Account: React.FC<any> = () => {
         </div>
         <div className='edit'>
           <img src={require('../../assets/edit_banner.png')} alt='' />
-          <span>Edit Banner</span>
+          <span>{t('account.editBanner')}</span>
           <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
         </div>
       </div>

@@ -37,12 +37,13 @@ interface collectionsDataProps {
 }
 
 export const MaskImage = (props: any) => {
+  const { t } = useTranslation();
   let { width, status, type } = props;
   const maskTitle = (status: number) => {
     if (status === 3 || type === 2) {
-      return 'Sold Out';
+      return t('primary.soldOut');
     } else if (status === 0 || status === 1) {
-      return 'To Begin';
+      return t('primary.begin');
     } else {
       return '';
     }
@@ -60,7 +61,7 @@ export const Collection: React.FC<any> = () => {
     // 所有过滤条件
     {
       label: 'status',
-      name: 'Created',
+      name: t('collection.created'),
       value: 0,
     },
     {
@@ -70,7 +71,7 @@ export const Collection: React.FC<any> = () => {
     },
     {
       label: 'status',
-      name: 'Listed',
+      name: t('collection.listed'),
       value: 2,
     },
     {
@@ -165,7 +166,7 @@ export const Collection: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success(t("hint.avatarUpdated"));
+      message.success(t('hint.avatarUpdated'));
     }
   };
   const handleCopy = (address: string) => {
@@ -177,7 +178,7 @@ export const Collection: React.FC<any> = () => {
     document.execCommand('Copy'); // 执行浏览器复制命令
     const creatDom: any = document.getElementById('creatDom');
     creatDom.parentNode.removeChild(creatDom);
-    message.success(t("hint.copySuccess"));
+    message.success(t('hint.copySuccess'));
   };
   const clickedTab = (index: number) => {
     const typeParams = {

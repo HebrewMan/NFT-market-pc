@@ -76,8 +76,10 @@
     "Owner": "持有者",
     "curPrice": "一口价",
     "details": {
-      "you": "you",
-      "untitled": "Untitled Collection",
+      "cancelList": "取消上架",
+      "update": "更新价格",
+      "you": "你",
+      "untitled": "未命名的收藏",
       "more": "更多来自该系列的作品",
       "properties": "属性",
       "collection": "Collection Details",
@@ -95,11 +97,16 @@
       "mintTo": "铸造",
       "listings": "上架",
       "cancel": "取消",
-      "atomicMatch": "AtomicMatch",
-      "batchMintTo": "BatchMintTo",
+      "atomicMatch": "订单成交",
+      "batchMintTo": "批量铸造",
       "updatePrcie": "更新价格",
       "transfer": "转移",
-      "list": "列表"
+      "list": "列表",
+      "setPrice": "设置上架价格",
+      "updateListPrice": "更新上架价格",
+      "neverMind": "没关系",
+      "CompleteList": "完成上架",
+      "sellTips": "提示：NFT必须设置一个价格，你需要支付额外的gas费如果你在未来要取消这个上架"
     }
   },
   "primary": {
@@ -119,12 +126,14 @@
     "openBox": "开启盲盒",
     "bidding": "出价",
     "Artist": "艺术家",
-    "goodsArrived": "物品已到达你的地址！"
+    "goodsArrived": "物品已到达你的地址！",
+    "deadline": "截至时间"
   },
   "account": {
     "collected": "我的NFTs",
     "favorited": "我的收藏",
     "edit": "修改",
+    "editBanner": "编辑banner",
     "banner": "添加背景",
     "all": "全部",
     "sale": "待出售",
@@ -133,7 +142,8 @@
   },
   "collection": {
     "serach": "搜索名称或账户",
-    "created": "最近创建的"
+    "created": "创建",
+    "listed": "已上架"
   },
   "userSettings": {
     "general": "资料",
@@ -145,7 +155,7 @@
     "bio": "简介",
     "introduction": "介绍一下你自己吧",
     "save": "保存",
-    "required": "This field is required."
+    "required": "该字段为必填"
   },
   "hint": {
     "switchMainnet": "请先切换到主网",

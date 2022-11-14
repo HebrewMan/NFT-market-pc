@@ -77,6 +77,10 @@
     "Owner": "sahip olan",
     "curPrice": "Şimdi satın al",
     "details": {
+      "cancelList": "raf iptal",
+      "update": "fiyat güncelleme",
+      "you": "sen",
+      "untitled": "adlandirimamiş favori",
       "more": "Seriden daha fazla eser",
       "properties": "özellikler",
       "collection": "Collection Details",
@@ -95,10 +99,15 @@
       "listings": "rafta",
       "cancel": "İptal",
       "atomicMatch": "AtomicMatch",
-      "batchMintTo": "Toplu döküm",
+      "batchMintTo": "Toplu Nane",
       "updatePrcie": "Fiyatı güncelle",
       "transfer": "Aktar",
-      "list": "Liste"
+      "list": "Liste",
+      "setPrice": "raf fıyatını belirle",
+      "updateListPrice": "raf fıyatını güncelle",
+      "neverMind": "sıkıntı yok",
+      "CompleteList": "Listeyi tamamla",
+      "sellTips": "İpuçları: NFT fiyatı belirlemelidir. Bu listeyi daha sonra iptal etmek isterseniz, ek bir gas ücreti ödemeniz gerekir."
     }
   },
   "primary": {
@@ -118,12 +127,14 @@
     "openBox": "şanslı kutu aç",
     "bidding": "teklif fiyat",
     "Artist": "sanatçi",
-    "goodsArrived": "Ürün adresinize geldi!"
+    "goodsArrived": "Ürün adresinize geldi!",
+    "deadline": "zamana kadar"
   },
   "account": {
     "collected": "NFT'lerim",
     "favorited": "benim koleksiyonum",
     "edit": "Tekrar düzeltme yapmak",
+    "editBanner": "Banner'ı Düzenle",
     "banner": "arka plan ekle",
     "all": "tüm",
     "sale": "satılık",
@@ -132,7 +143,8 @@
   },
   "collection": {
     "serach": "Bir ad veya hesap arayın",
-    "created": "yakın zamanda oluşturulmuş"
+    "created": "oluştur",
+    "listed": "ürün eklendi"
   },
   "userSettings": {
     "general": "Profil",
@@ -143,8 +155,8 @@
     "email": "E-posta",
     "bio": "Giriiş",
     "introduction": "Bize kendinizden bahsedin",
-    "save": "保存",
-    "required": "This field is required."
+    "save": "kaydet",
+    "required": "bualan doldurulmak zorunda"
   },
   "hint": {
     "switchMainnet": "ana sayfaya git",

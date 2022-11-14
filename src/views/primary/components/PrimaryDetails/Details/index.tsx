@@ -20,7 +20,7 @@ import './index.scss';
 
 export const ProDetails = (props: any) => {
   const web3: any = useWeb3();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const _chainId = window?.ethereum?.chainId;
   const chainId = parseInt(_chainId);
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
@@ -142,7 +142,7 @@ export const ProDetails = (props: any) => {
     openBlindBox(params).then((res: any) => {
       console.log(res);
       if (res.message == 'success') {
-        message.success(t("hint.openBox"));
+        message.success(t('hint.openBox'));
         setVisible(false);
         const { id, openStatus } = res.data;
         const { tokenId } = res.data.metadata;
@@ -196,7 +196,6 @@ export const ProDetails = (props: any) => {
       marketPlaceContractAddr: primaryMarketPlaceContractAddr,
       account,
     };
-
 
     if (!account || !token || !Erc20ContractAddr) {
       message.error('Please log in first！');
@@ -269,7 +268,7 @@ export const ProDetails = (props: any) => {
       if (activted())
         return (
           <li>
-            <p>Deadline</p>
+            <p>{t('primary.deadline')}</p>
             <div>
               <CommTimer
                 className='wrap-header-timer'
@@ -285,7 +284,7 @@ export const ProDetails = (props: any) => {
       if (!isOpen() && !isBuying()) {
         return (
           <li>
-            <p>Deadline</p>
+            <p>{t('primary.deadline')}</p>
             <div>
               <CommTimer
                 className='wrap-header-timer'
@@ -305,7 +304,7 @@ export const ProDetails = (props: any) => {
       {!isOwner() ? (
         <>
           <button onClick={handleNFTAction} disabled={!isBuy()}>
-            {t("common.buyNow")}
+            {t('common.buyNow')}
           </button>
         </>
       ) : (
@@ -358,7 +357,7 @@ export const ProDetails = (props: any) => {
           )}
           {!blindbox() && (
             <li>
-              <p>{t("primary.tokenId")}</p>
+              <p>{t('primary.tokenId')}</p>
               <p>{JSON.stringify(nftGoods) !== '{}' ? nftGoods.tokenId : ''}</p>
             </li>
           )}

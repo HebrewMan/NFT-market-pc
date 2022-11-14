@@ -35,7 +35,7 @@ const UpdatePriceView = ({
   updateGoods: Function;
 }) => {
   const web3 = useWeb3();
-  const { t } = useTranslation() 
+  const { t } = useTranslation();
   const history = useHistory();
   const account = getLocalStorage('wallet') || '';
   const token = getCookie('web-token') || '';
@@ -82,12 +82,12 @@ const UpdatePriceView = ({
   const getSellOrder = async () => {
     // 上架
     if (!account || !token) {
-      message.error(t("hint.pleaseLog"));
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error(t("hint.switchMainnet"));
+      message.error(t('hint.switchMainnet'));
       return;
     }
     const isApproval = await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr, web3);
@@ -95,7 +95,7 @@ const UpdatePriceView = ({
     let orderRes: any = undefined;
     const _price = !updatePrice ? Number(price) : Number(updatePrice);
     if (!price && !updatePrice) {
-      message.error(t("hint.priceSet"));
+      message.error(t('hint.priceSet'));
       return;
     }
     instanceLoading.service();
@@ -183,7 +183,7 @@ const UpdatePriceView = ({
     const reg = /[^\d.]{1,18}/;
 
     if (reg.test(value)) {
-      message.error(t("hint.numbersOnly"));
+      message.error(t('hint.numbersOnly'));
       return;
     }
     if (value <= 0) {
@@ -212,16 +212,16 @@ const UpdatePriceView = ({
   return (
     <>
       <Modal
-        title={sellOrderFlag ? 'Set the listing price' : 'Update the listing price'}
+        title={sellOrderFlag ? t('marketplace.details.setPrice') : t('marketplace.details.updateListPrice')}
         visible={isModalVisible}
         onOk={getSellOrderOrUpdatePrice}
         onCancel={updateClose}
         footer={[
           <Button key='back' onClick={updateClose}>
-            Never mind
+            {t('marketplace.details.neverMind')}
           </Button>,
           <Button key='submit' type='primary' onClick={getSellOrderOrUpdatePrice}>
-            Complete listing
+            {t('marketplace.details.CompleteList')}
           </Button>,
         ]}
         className='sellOrderAndUpdatePrice'
@@ -231,10 +231,7 @@ const UpdatePriceView = ({
             <input defaultValue='USDT' disabled />
             <input placeholder='please enter price' defaultValue={updatePrice} onChange={debounce(handleChange)} />
           </div>
-          <p>
-            Tips: NFT must set the price. You must pay an additional gas fee if you want to cancel this listing at a
-            later point.
-          </p>
+          <p>{t('marketplace.details.sellTips')}</p>
         </div>
       </Modal>
     </>
