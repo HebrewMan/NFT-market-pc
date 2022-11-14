@@ -10,7 +10,7 @@ import instanceLoading from '../../../../utils/loading';
 import { getLocalStorage, toPriceDecimals, debounce, getCookie } from '../../../../utils/utils';
 import config, { USDT, isProd } from '../../../../config/constants';
 import './index.scss';
-
+import { useTranslation } from 'react-i18next';
 const UpdatePriceView = ({
   price,
   tokenId,
@@ -35,6 +35,7 @@ const UpdatePriceView = ({
   updateGoods: Function;
 }) => {
   const web3 = useWeb3();
+  const { t } = useTranslation() 
   const history = useHistory();
   const account = getLocalStorage('wallet') || '';
   const token = getCookie('web-token') || '';
@@ -81,12 +82,12 @@ const UpdatePriceView = ({
   const getSellOrder = async () => {
     // 上架
     if (!account || !token) {
-      message.error('Please log in first!');
+      message.error(t("hint.pleaseLog"));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t("hint.switchMainnet"));
       return;
     }
     const isApproval = await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr, web3);
@@ -94,7 +95,7 @@ const UpdatePriceView = ({
     let orderRes: any = undefined;
     const _price = !updatePrice ? Number(price) : Number(updatePrice);
     if (!price && !updatePrice) {
-      message.error('Price must be set for blind box！');
+      message.error(t("hint.priceSet"));
       return;
     }
     instanceLoading.service();
@@ -123,7 +124,7 @@ const UpdatePriceView = ({
     }
     if (orderRes?.transactionHash) {
       // 上架通知后台
-      message.success('Order successful!');
+      message.success(t('hint.order'));
       updateClose();
       updateGoods();
       // const updateObj = {
@@ -144,12 +145,12 @@ const UpdatePriceView = ({
       account,
     };
     if (!account || !token) {
-      message.error('Please log in first!');
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t('hint.switchMainnet'));
       return;
     }
     instanceLoading.service();
@@ -182,11 +183,11 @@ const UpdatePriceView = ({
     const reg = /[^\d.]{1,18}/;
 
     if (reg.test(value)) {
-      message.error('Please enter numbers only！');
+      message.error(t("hint.numbersOnly"));
       return;
     }
     if (value <= 0) {
-      message.error('Please only enter numbers greater than zero!');
+      message.error(t('hint.numbersGreater'));
       setUpdatePrice('');
       return;
     }

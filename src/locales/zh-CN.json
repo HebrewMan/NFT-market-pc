@@ -144,5 +144,24 @@
     "introduction": "介绍一下你自己吧",
     "save": "保存",
     "required": "This field is required."
+  },
+  "hint":{
+    "switchMainnet":"请先切换到主网",
+    "pleaseLog":"请先登录",
+    "cancellation":"订单取消成功",
+    "priceSet":"必须设置盲盒价格",
+    "order":"订单成功",
+    "numbersOnly":"请只输入数字",
+    "numbersGreater":"请只输入大于0的数字",
+    "loginSuccess":"登录成功",
+    "avatarUpdated":"用户头像更新成功!",
+    "copySuccess":"复制成功",
+    "purchaseSuccess":"购买成功",
+    "openBox":"开启盲盒成功",
+    "informationUpdated":"用户信息更新成功!",
+    "imageTupe":"上传的图片应该是JPG/PNG/GIF格式",
+    "imageSize":"上传的图片应该小于5M",
+    "succeed":"成功",
+    "faile":"失败"
   }
 }

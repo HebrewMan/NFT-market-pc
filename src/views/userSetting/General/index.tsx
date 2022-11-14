@@ -28,8 +28,8 @@ export const General = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024,
-      'Uploading image should be JPG/PNG/GIF',
-      'Uploaded image should be less than 1M',
+      t("hint.imageTupe"),
+      t("hint.imageSize"),
     );
     if (!res) {
       return;
@@ -48,8 +48,8 @@ export const General = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024 * 5,
-      'Uploading image should be JPG/PNG/GIF',
-      'Uploaded image should be less than 5M',
+      t("hint.imageTupe"),
+      t("hint.imageSize"),
     );
     if (!res) {
       return;
@@ -88,7 +88,7 @@ export const General = () => {
     };
     const res: any = await updateUserInfo(params);
     if (res?.message === 'success') {
-      message.success('User information updated successfully!');
+      message.success(t('hint.informationUpdated'));
     }
   };
   return (

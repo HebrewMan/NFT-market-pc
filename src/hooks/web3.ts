@@ -6,6 +6,7 @@ import { message } from 'antd';
 import history from '../utils/history';
 import { injected } from '../utils/utils';
 import { isProd } from '../config/constants';
+import { useTranslation } from 'react-i18next';
 declare global {
   interface Window {
     ethereum: any;
@@ -112,6 +113,7 @@ const connectWallet = () => {
 };
 
 const useSignature = (account: string) => {
+  const { t} = useTranslation()
   const _web3 = web3 || new Web3(window?.ethereum);
   if (!account) {
     return;
@@ -124,7 +126,7 @@ const useSignature = (account: string) => {
           .then((value: string) => {
             login(account, value).then((token: any) => {
               if (token?.data) {
-                message.success('Login Successful');
+                message.success(t("hint.loginSuccess"));
                 setLocalStorage('wallet', account);
                 removeCookie('web-token');
                 setCookie('web-token', token.data, 1);
@@ -145,6 +147,7 @@ const useSignature = (account: string) => {
 };
 
 const onEthereumEvent = (deactivate?: any) => {
+  const { t} = useTranslation()
   const ethereum = window?.ethereum;
   if (ethereum?.isMetaMask) {
     ethereum.on('accountsChanged', (accounts: string[]) => {
@@ -160,7 +163,7 @@ const onEthereumEvent = (deactivate?: any) => {
       const _chainId = parseInt(chainId);
       const supportedChainIds = injected.supportedChainIds;
       if (_chainId !== 1319 && isProd) {
-        message.error('Please switch to mainnet!');
+        message.error(t('hint.switchMainnet'));
         logOut(deactivate);
       }
       // if (supportedChainIds?.includes(_chainId)) {

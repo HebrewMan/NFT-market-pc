@@ -165,7 +165,7 @@ export const Collection: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success('User avatar updated successfully！');
+      message.success(t("hint.avatarUpdated"));
     }
   };
   const handleCopy = (address: string) => {
@@ -177,7 +177,7 @@ export const Collection: React.FC<any> = () => {
     document.execCommand('Copy'); // 执行浏览器复制命令
     const creatDom: any = document.getElementById('creatDom');
     creatDom.parentNode.removeChild(creatDom);
-    message.success('Copy Successful!');
+    message.success(t("hint.copySuccess"));
   };
   const clickedTab = (index: number) => {
     const typeParams = {

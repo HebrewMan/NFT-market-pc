@@ -146,5 +146,24 @@
     "introduction": "Tell the world your story!",
     "save": "Save",
     "required": "This field is required."
+  },
+  "hint":{
+    "switchMainnet":"Please switch to mainnet!",
+    "pleaseLog":"Please log in first!",
+    "cancellation":"Cancellation of order successful!",
+    "priceSet":"Price must be set for blind box！",
+    "order":"Order successful!",
+    "numbersOnly":"Please enter numbers only！",
+    "numbersGreater":"Please only enter numbers greater than zero!",
+    "loginSuccess":"Login Successful",
+    "avatarUpdated":"User avatar updated successfully！!",
+    "copySuccess":"Copy Successful!",
+    "purchaseSuccess":"Purchase Successful!",
+    "openBox":"Open the blind box successfully!",
+    "informationUpdated":"User information updated successfully!",
+    "imageTupe":"Uploading image should be JPG/PNG/GIF",
+    "imageSize":"Uploaded image should be less than 5M",
+    "succeed":"Succeed",
+    "faile":"Failed"
   }
 }

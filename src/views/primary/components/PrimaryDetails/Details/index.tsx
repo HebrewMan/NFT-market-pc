@@ -142,7 +142,7 @@ export const ProDetails = (props: any) => {
     openBlindBox(params).then((res: any) => {
       console.log(res);
       if (res.message == 'success') {
-        message.success('Open the blind box successfully!');
+        message.success(t("hint.openBox"));
         setVisible(false);
         const { id, openStatus } = res.data;
         const { tokenId } = res.data.metadata;

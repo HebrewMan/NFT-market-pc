@@ -140,8 +140,8 @@ export const Account: React.FC<any> = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024 * 5,
-      'Uploading image should be JPG/PNG/GIF',
-      'Uploaded image should be less than 5M',
+      t("hint.imageTupe"),
+      t("hint.imageSize"),
     );
     if (!check) {
       return;
@@ -161,7 +161,7 @@ export const Account: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success('User avatar updated successfully！');
+      message.success(t("hint.avatarUpdated"));
     }
   };
   const handleCopy = (address: string) => {
@@ -173,7 +173,7 @@ export const Account: React.FC<any> = () => {
     document.execCommand('Copy'); // 执行浏览器复制命令
     const creatDom: any = document.getElementById('creatDom');
     creatDom.parentNode.removeChild(creatDom);
-    message.success('Copy Successful!');
+    message.success(t('hint.copySuccess'));
   };
   const clickedTab = (index: number) => {
     const typeParams = {
@@ -498,8 +498,8 @@ export const Account: React.FC<any> = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024 * 5,
-      'Uploading image should be JPG/PNG/GIF',
-      'Uploaded image should be less than 5M',
+      t("hint.imageTupe"),
+      t("hint.imageSize"),
     );
     if (!check) {
       return;

@@ -142,5 +142,24 @@
     "introduction": "Bize kendinizden bahsedin",
     "save": "保存",
     "required": "This field is required."
+  },
+  "hint":{
+    "switchMainnet":"ana sayfaya git",
+    "pleaseLog":"önce giriş yap",
+    "cancellation":"sipariş iptal edildi",
+    "priceSet":"şansli kutu fiyati belirlemek zorunlu",
+    "order":"Sipariş başarılı!",
+    "numbersOnly":"Lütfen sadece sayı girin！",
+    "numbersGreater":"Lütfen sadece sıfırdan büyük sayılar giriniz!",
+    "loginSuccess":"Giriş başarılı",
+    "avatarUpdated":"Kullanıcı profil resmi başarıyla güncellendi！!",
+    "copySuccess":"kopyalandı",
+    "purchaseSuccess":"satin alındı",
+    "openBox":"kutu açildı",
+    "informationUpdated":"Kullanıcı bilgileri başarıyla güncellendi!",
+    "imageTupe":"yüklenen resim JPG/PNG/GIF olmalıdır",
+    "imageSize":"Yüklenen resim 5M'den az olmalıdır",
+    "succeed":"başardı",
+    "faile":"başamadı"
   }
 }

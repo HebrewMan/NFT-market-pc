@@ -142,5 +142,24 @@
     "introduction": "あなた自身について教えてください。",
     "save": "保存",
     "required": "This field is required."
+  },
+  "hint":{
+    "switchMainnet":"メインネットを切り替えてください",
+    "pleaseLog":"まずは登録してください",
+    "cancellation":"オーダー取り消し完了",
+    "priceSet":"プライドボックスの価格を設定しないといけません",
+    "order":"オーダー成功",
+    "numbersOnly":"数字だけ入力してください",
+    "numbersGreater":"０以上の数字を入力してください",
+    "loginSuccess":"ログイン成功",
+    "avatarUpdated":"プロフィール画像設定成功!",
+    "copySuccess":"コピー成功",
+    "purchaseSuccess":"購入成功",
+    "openBox":"ブラインドボックスが開けます",
+    "informationUpdated":"ユーザーの情報は更新完了です",
+    "imageTupe":"アップロードする画像はJPG/PNG/GIF形式のみ支持",
+    "imageSize":"アップロードする画像のサイズは5M以下",
+    "succeed":"成功",
+    "faile":"失敗"
   }
 }

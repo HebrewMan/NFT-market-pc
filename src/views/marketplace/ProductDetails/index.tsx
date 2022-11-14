@@ -199,12 +199,12 @@ export const ProductionDetails = () => {
   const getCancelSellOrder = async () => {
     // 下架合约
     if (!accountAddress || !token) {
-      message.error('Please log in first!');
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t("hint.switchMainnet"));
       return;
     }
     instanceLoading.service();
@@ -278,12 +278,12 @@ export const ProductionDetails = () => {
       account: accountAddress,
     };
     if (!accountAddress || !token || !Erc20ContractAddr) {
-      message.error('Please log in first!');
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t('hint.switchMainnet'));
       return;
     }
     instanceLoading.service();
@@ -305,7 +305,7 @@ export const ProductionDetails = () => {
         fillOrderRes = await createMarketSaleWithTokenErc1155(web3, obj);
       }
       if (!!fillOrderRes?.transactionHash) {
-        message.success('Purchase Successful!');
+        message.success(t('hint.purchaseSuccess'));
         updateGoods();
       }
       instanceLoading.close();
