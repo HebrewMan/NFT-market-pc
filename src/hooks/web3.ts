@@ -6,7 +6,7 @@ import { message } from 'antd';
 import history from '../utils/history';
 import { injected } from '../utils/utils';
 import { isProd } from '../config/constants';
-import { useTranslation,Trans } from 'react-i18next';
+import i18n from 'i18next'
 declare global {
   interface Window {
     ethereum: any;
@@ -126,7 +126,7 @@ const useSignature = (account: string) => {
           .then((value: string) => {
             login(account, value).then((token: any) => {
               if (token?.data) {
-                message.success(`<Trans>hint.loginSuccess</Trans>`);
+                message.success(i18n.t('hint.loginSuccess'));
                 setLocalStorage('wallet', account);
                 removeCookie('web-token');
                 setCookie('web-token', token.data, 1);
@@ -163,7 +163,7 @@ const onEthereumEvent = (deactivate?: any) => {
       const _chainId = parseInt(chainId);
       const supportedChainIds = injected.supportedChainIds;
       if (_chainId !== 1319 && isProd) {
-        message.success(`<Trans>hint.switchMainnet</Trans>`);
+        message.success(i18n.t('hint.switchMainnet'));
         logOut(deactivate);
       }
       // if (supportedChainIds?.includes(_chainId)) {
