@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 export const Content = (props: any) => {
   const routeParams = useParams() as any;
@@ -32,12 +33,13 @@ export const Content = (props: any) => {
 };
 
 export const ContentSuccess = () => {
+  const { t } = useTranslation();
   return (
     <div className='dialog-body'>
       <div className='body'>
         <img src={require('../../../../../assets/success.svg')} className='mr-b-30' alt='' />
-        <h1 className='mr-b-20'>Purchase Successful</h1>
-        <p className='mr-b-50 c-999'>The goods have arrived your address!</p>
+        <h1 className='mr-b-20'>{t('hint.purchaseSuccess')}</h1>
+        <p className='mr-b-50 c-999'>{t('primary.goodsArrived')}</p>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
   "common": {
     "buy": "购买",
     "sell": "出售",
-    "noData": "暂无数据",
+    "noData": "没有数据",
     "noDataLong": "暂时没有数据",
     "buyNow": "购买",
     "date": "日期",
@@ -14,13 +14,14 @@
     "seconds": "秒",
     "cofirm": "确认",
     "cancel": "取消",
-    "colse":"关闭",
+    "colse": "关闭",
     "secondAgo": "{{ num }} 秒前",
     "minuteAgo": "{{ num }} 分钟前",
     "hourAgo": "{{ num }} 小时前",
     "dayAgo": "{{ num }} 天前",
     "monthAgo": "{{ num }} 月前",
-    "yearAgo": "{{ num }} 年前"
+    "yearAgo": "{{ num }} 年前",
+    "signIn": "登录你的钱包"
   },
   "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -115,9 +116,10 @@
     "address": "合约地址",
     "amount": "数量",
     "currentPrice": "一口价",
-    "openBox":"开启盲盒",
-    "bidding":"出价",
-    "Artist":"艺术家"
+    "openBox": "开启盲盒",
+    "bidding": "出价",
+    "Artist": "艺术家",
+    "goodsArrived": "物品已到达你的地址！"
   },
   "account": {
     "collected": "我的NFTs",
@@ -145,23 +147,23 @@
     "save": "保存",
     "required": "This field is required."
   },
-  "hint":{
-    "switchMainnet":"请先切换到主网",
-    "pleaseLog":"请先登录",
-    "cancellation":"订单取消成功",
-    "priceSet":"必须设置盲盒价格",
-    "order":"订单成功",
-    "numbersOnly":"请只输入数字",
-    "numbersGreater":"请只输入大于0的数字",
-    "loginSuccess":"登录成功",
-    "avatarUpdated":"用户头像更新成功!",
-    "copySuccess":"复制成功",
-    "purchaseSuccess":"购买成功",
-    "openBox":"开启盲盒成功",
-    "informationUpdated":"用户信息更新成功!",
-    "imageTupe":"上传的图片应该是JPG/PNG/GIF格式",
-    "imageSize":"上传的图片应该小于5M",
-    "succeed":"成功",
-    "faile":"失败"
+  "hint": {
+    "switchMainnet": "请先切换到主网",
+    "pleaseLog": "请先登录",
+    "cancellation": "订单取消成功",
+    "priceSet": "必须设置盲盒价格",
+    "order": "订单成功",
+    "numbersOnly": "请只输入数字",
+    "numbersGreater": "请只输入大于0的数字",
+    "loginSuccess": "登录成功",
+    "avatarUpdated": "用户头像更新成功!",
+    "copySuccess": "复制成功",
+    "purchaseSuccess": "购买成功",
+    "openBox": "开启盲盒成功",
+    "informationUpdated": "用户信息更新成功!",
+    "imageTupe": "上传的图片应该是JPG/PNG/GIF格式",
+    "imageSize": "上传的图片应该小于5M",
+    "succeed": "成功",
+    "faile": "失败"
   }
 }

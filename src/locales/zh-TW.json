@@ -2,6 +2,7 @@
   "common": {
     "buy": "購買",
     "sell": "出售",
+    "noData": "沒有數據",
     "noDataLong": "暫時沒有數據",
     "buyNow": "購買",
     "date": "日期",
@@ -12,13 +13,14 @@
     "minutes": "分鐘",
     "cofirm": "確認",
     "cancel": "取消",
-    "colse":"關閉",
+    "colse": "關閉",
     "secondAgo": "{{ num }} 秒前",
     "minuteAgo": "{{ num }} 分鐘前",
     "hourAgo": "{{ num }} 小時前",
     "dayAgo": "{{ num }} 天前",
     "monthAgo": "{{ num }} 月前",
-    "yearAgo": "{{ num }} 年前"
+    "yearAgo": "{{ num }} 年前",
+    "signIn": "登錄你的錢包"
   },
   "domainNotice": "Diffgalaxy 的唯壹官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -111,9 +113,10 @@
     "address": "合約地址",
     "amount": "数量",
     "currentPrice": "一口價",
-    "openBox":"開啟盲盒",
-    "bidding":"出價",
-    "Artist":"藝術家"
+    "openBox": "開啟盲盒",
+    "bidding": "出價",
+    "Artist": "藝術家",
+    "goodsArrived": "物品已到達你的地址！"
   },
   "account": {
     "collected": "我的NFTs",
@@ -141,23 +144,23 @@
     "save": "保存",
     "required": "This field is required."
   },
-  "hint":{
-    "switchMainnet":"請切換到主網",
-    "pleaseLog":"請先登錄",
-    "cancellation":"訂單取消成功",
-    "priceSet":"必須設置盲盒價格",
-    "order":"訂單成功",
-    "numbersOnly":"請只輸入數字",
-    "numbersGreater":"請只輸入大於0的數字",
-    "loginSuccess":"登錄成功",
-    "avatarUpdated":"用戶頭像更新成功!",
-    "copySuccess":"複製成功",
-    "purchaseSuccess":"購買成功",
-    "openBox":"開啟盲盒成功",
-    "informationUpdated":"用戶信息更新成功",
-    "imageTupe":"上傳的圖片應該是JPG/PNG/GIF格式",
-    "imageSize":"上傳的圖片應該小於5M",
-    "succeed":"成功",
-    "faile":"失敗"
+  "hint": {
+    "switchMainnet": "請切換到主網",
+    "pleaseLog": "請先登錄",
+    "cancellation": "訂單取消成功",
+    "priceSet": "必須設置盲盒價格",
+    "order": "訂單成功",
+    "numbersOnly": "請只輸入數字",
+    "numbersGreater": "請只輸入大於0的數字",
+    "loginSuccess": "登錄成功",
+    "avatarUpdated": "用戶頭像更新成功!",
+    "copySuccess": "複製成功",
+    "purchaseSuccess": "購買成功",
+    "openBox": "開啟盲盒成功",
+    "informationUpdated": "用戶信息更新成功",
+    "imageTupe": "上傳的圖片應該是JPG/PNG/GIF格式",
+    "imageSize": "上傳的圖片應該小於5M",
+    "succeed": "成功",
+    "faile": "失敗"
   }
 }

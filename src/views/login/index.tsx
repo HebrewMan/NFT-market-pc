@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, memo } from 'react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'react-i18next';
 // import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { AbstractConnector } from '@web3-react/abstract-connector';
@@ -16,6 +17,7 @@ import './index.scss';
 const { INIT_CHAIN } = Constants;
 
 export const Login = () => {
+  const { t } = useTranslation();
   // connector
   const { active, account, activate, deactivate } = useWeb3React();
   const web3 = useWeb3();
@@ -76,7 +78,7 @@ export const Login = () => {
     <div className='login-component'>
       <div className='login-inner'>
         <div className='inner-wrap'>
-          <h1>Sign in to your wallet</h1>
+          <h1>{t('common.signIn')}</h1>
           <ul className='login-wallet'>
             {wallets.map((item) => {
               return (

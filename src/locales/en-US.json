@@ -1,7 +1,8 @@
 {
   "common": {
-    "buy": "Buy",
+    "buy": "Purchase",
     "sell": "Sell",
+    "noData": "No Data",
     "noDataLong": "No data available for the time being",
     "buyNow": "Buy Now",
     "date": "Date",
@@ -13,33 +14,34 @@
     "seconds": "seconds",
     "cofirm": "Cofirm",
     "cancel": "Cancel",
-    "colse":"Closed",
+    "colse": "Closed",
     "secondAgo": "{{ num }} second{{ plural }} ago",
     "minuteAgo": "{{ num }}  minute{{ plural }} ago",
     "hourAgo": "{{ num }} hour{{ plural }} ago",
     "dayAgo": "{{ num }}  day{{ plural }} ago",
     "monthAgo": "{{ num }} month{{ plural }} ago",
-    "yearAgo": "{{ num }} year{{ plural }} ago"
+    "yearAgo": "{{ num }} year{{ plural }} ago",
+    "signIn": "Sign in to your wallet"
   },
   "domainNotice": "The only official domain for Diffgalaxy is <1>https://nft.diffgalaxy.com</1>",
   "home": {
-    "title": "Welcome to the Diffgalaxy digital art market",
-    "subtitle": "Diffgalaxy makes NFT transactions easier, The joy of exploring and trading together.",
-    "collection": "Trending Now",
+    "title": "Welcome to the Diffgalaxy NFT assets trading market",
+    "subtitle": "Diffgalaxy makes NFT transactions easier,Let's explore the joy of Transaction Together.",
+    "collection": "Trending Collection",
     "assets": {
-      "title": "Buy And Sell Your NFTs",
-      "setting": "Setting your wallet",
-      "settingRemind": "Once you've set up your wallet of choice, connect it to Diffgalaxy by clicking the wallet icon in the top right corner. Learn about thewallets we support.",
-      "buy": "Buy NFTs",
+      "title": "Buy And Sell Your NFT assets",
+      "setting": "Set Your Wallet",
+      "settingRemind": "Once you've set up your wallet of choice, connect it to Diffgalaxy by clicking the wallet icon in the top right corner. Learn about the wallets that we support.",
+      "buy": "Purchase NFTs",
       "buyRemind": "Enter the name of the NFT you want to purchase in the search box to see the details of the NFT. Click the Buy Now button,Select Pay and follow the instructions in your wallet.",
       "sell": "Sell NFTs",
       "sellRemind": "Select the NFT to sell in my NFTS list, Set the NFT price and click the Sell button. Once the transaction is completed, the NFT will be transferred to purchaser wallet and you will receive the funds."
     },
     "advantage": {
-      "title": "Diffgalaxy's Advantage",
-      "virtueOne": "Operation Is Simple, Convenient And Fast",
-      "virtueTwo": "Lowest Handling Fee",
-      "virtueThree": "Smart Contracts Are Secure And Reliable"
+      "title": "The priority of Diffgalaxy's",
+      "virtueOne": "Operation Procedure Is Simple, Convenient And Fast",
+      "virtueTwo": "Lowest Handling Fee is",
+      "virtueThree": "Secure and Reliable Smart Contract"
     }
   },
   "footer": {
@@ -117,9 +119,10 @@
     "address": "Contract Address",
     "amount": "Quantity",
     "currentPrice": "Current Price",
-    "openBox":"Open MysteryBoxes",
-    "bidding":"bidding",
-    "Artist":"Artist"
+    "openBox": "Open MysteryBoxes",
+    "bidding": "bidding",
+    "Artist": "Artist",
+    "goodsArrived": "The goods have arrived your address!"
   },
   "account": {
     "collected": "Collected",
@@ -147,23 +150,23 @@
     "save": "Save",
     "required": "This field is required."
   },
-  "hint":{
-    "switchMainnet":"Please switch to mainnet!",
-    "pleaseLog":"Please log in first!",
-    "cancellation":"Cancellation of order successful!",
-    "priceSet":"Price must be set for blind box！",
-    "order":"Order successful!",
-    "numbersOnly":"Please enter numbers only！",
-    "numbersGreater":"Please only enter numbers greater than zero!",
-    "loginSuccess":"Login Successful",
-    "avatarUpdated":"User avatar updated successfully！!",
-    "copySuccess":"Copy Successful!",
-    "purchaseSuccess":"Purchase Successful!",
-    "openBox":"Open the blind box successfully!",
-    "informationUpdated":"User information updated successfully!",
-    "imageTupe":"Uploading image should be JPG/PNG/GIF",
-    "imageSize":"Uploaded image should be less than 5M",
-    "succeed":"Succeed",
-    "faile":"Failed"
+  "hint": {
+    "switchMainnet": "Please switch to mainnet!",
+    "pleaseLog": "Please log in first!",
+    "cancellation": "Cancellation of order successful!",
+    "priceSet": "Price must be set for blind box！",
+    "order": "Order successful!",
+    "numbersOnly": "Please enter numbers only！",
+    "numbersGreater": "Please only enter numbers greater than zero!",
+    "loginSuccess": "Login Successful",
+    "avatarUpdated": "User avatar updated successfully！!",
+    "copySuccess": "Copy Successful!",
+    "purchaseSuccess": "Purchase Successful!",
+    "openBox": "Open the blind box successfully!",
+    "informationUpdated": "User information updated successfully!",
+    "imageTupe": "Uploading image should be JPG/PNG/GIF",
+    "imageSize": "Uploaded image should be less than 5M",
+    "succeed": "Succeed",
+    "faile": "Failed"
   }
 }
