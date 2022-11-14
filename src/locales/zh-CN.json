@@ -6,7 +6,7 @@
     "noDataLong": "暂时没有数据",
     "buyNow": "购买",
     "date": "日期",
-    "day": "天",
+    "days": "天",
     "months": "月",
     "years": "年",
     "hours": "小时",
@@ -14,7 +14,13 @@
     "seconds": "秒",
     "cofirm": "确认",
     "cancel": "取消",
-    "colse":"关闭"
+    "colse":"关闭",
+    "secondAgo": "{{ num }} 秒前",
+    "minuteAgo": "{{ num }} 分钟前",
+    "hourAgo": "{{ num }} 小时前",
+    "dayAgo": "{{ num }} 天前",
+    "monthAgo": "{{ num }} 月前",
+    "yearAgo": "{{ num }} 年前"
   },
   "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://nft.diffgalaxy.com</1>",
   "home": {
@@ -69,6 +75,8 @@
     "Owner": "持有者",
     "curPrice": "一口价",
     "details": {
+      "you": "you",
+      "untitled": "Untitled Collection",
       "more": "更多来自该系列的作品",
       "properties": "属性",
       "collection": "Collection Details",

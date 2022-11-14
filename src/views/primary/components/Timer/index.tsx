@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import useWindowDimensions from '../../../../utils/layout';
 import './index.scss';
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
 export const CommTimer = (props: any) => {
   // eslint-disable-next-line react/prop-types
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const { activityStatus, isSoldOut, small, isBought, endTime } = props;
   const stamps = endTime[0] * 24 * 60 * 60 + endTime[1] * 60 * 60 + endTime[2] * 60 + endTime[3];
   let [timeStamp, setTimeStamp] = useState(stamps);
- 
+
   const currentStatus = () => {
     if (activityStatus === 0) {
-      return t("primary.soldOut");
+      return t('primary.soldOut');
     } else if (activityStatus === 1) {
       return t('primary.progress');
     } else if (activityStatus === 2) {
       return t('primary.end');
     } else if (isSoldOut || activityStatus == 3) {
-      return t("primary.soldOut");
+      return t('primary.soldOut');
     } else {
       return t('primary.progress');
     }
@@ -84,15 +84,15 @@ export const CommTimer = (props: any) => {
         <div className={`box-timer ${small ? 'small-timer' : 'default-timer'}`}>
           <div>
             <span className={timeEnd ? 'disabled' : ''}>{downTime?.days}</span>
-            <p className={timeEnd ? 'disabled' : ''}>{t("common.day")}</p>
+            <p className={timeEnd ? 'disabled' : ''}>{t('common.days')}</p>
           </div>
           <div>
             <span className={timeEnd ? 'disabled' : ''}>{downTime?.hours}</span>
-            <p className={timeEnd ? 'disabled' : ''}>{t("common.hours")}</p>
+            <p className={timeEnd ? 'disabled' : ''}>{t('common.hours')}</p>
           </div>
           <div>
             <span className={timeEnd ? 'disabled' : ''}>{downTime?.minutes}</span>
-            <p className={timeEnd ? 'disabled' : ''}>{t("common.minutes")}</p>
+            <p className={timeEnd ? 'disabled' : ''}>{t('common.minutes')}</p>
           </div>
           <div>
             <span className={timeEnd ? 'disabled' : ''}>{downTime?.seconds}</span>
