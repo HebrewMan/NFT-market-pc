@@ -37,15 +37,19 @@ export const MarketPlace = () => {
 
   const initData = async (data: any) => {
     setLoading(true);
-    const res: any = await getGoods(data);
+    try {
+      const res: any = await getGoods(data);
 
-    setTotal(res.data.total);
-    setGoodsList([...goodsList, ...res.data.records]);
-    setLoading(false);
-    if (data.page >= Math.ceil(res.data.total / data.size)) {
-      setIsMore(false);
-    } else {
-      setIsMore(true);
+      setTotal(res.data.total);
+      setGoodsList([...goodsList, ...res.data.records]);
+      setLoading(false);
+      if (data.page >= Math.ceil(res.data.total / data.size)) {
+        setIsMore(false);
+      } else {
+        setIsMore(true);
+      }
+    } catch (err: any) {
+      setLoading(false);
     }
   };
   const toggleFansCollected = (e: any, item: any) => {
