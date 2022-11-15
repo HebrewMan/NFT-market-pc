@@ -18,7 +18,7 @@ export const Trading = (props: any) => {
     { label: '3', name: t('marketplace.details.mintTo'), checked: false },
     { label: '0', name: t('marketplace.details.listings'), checked: false },
     { label: '1', name: t('marketplace.details.cancel'), checked: false },
-    { label: '2', name: t('marketplace.details.atomicMatch'), checked: false },
+    { label: '2', name: t('marketplace.details.trade'), checked: false },
     { label: '4', name: t('marketplace.details.batchMintTo'), checked: false },
     { label: '5', name: t('marketplace.details.updatePrcie'), checked: false },
     { label: '6', name: t('marketplace.details.transfer'), checked: false },
@@ -52,7 +52,7 @@ export const Trading = (props: any) => {
       case 1:
         return t('marketplace.details.cancel');
       case 2:
-        return t('marketplace.details.atomicMatch');
+        return t('marketplace.details.trade');
       case 4:
         return t('marketplace.details.batchMintTo');
       case 5:

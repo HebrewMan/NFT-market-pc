@@ -97,7 +97,7 @@
       "mintTo": "铸造",
       "listings": "上架",
       "cancel": "取消",
-      "atomicMatch": "订单成交",
+      "trade": "交易",
       "batchMintTo": "批量铸造",
       "updatePrcie": "更新价格",
       "transfer": "转移",

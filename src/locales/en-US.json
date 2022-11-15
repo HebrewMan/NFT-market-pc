@@ -97,7 +97,7 @@
       "mintTo": "MintTo",
       "listings": "Listings",
       "cancel": "Cancel",
-      "atomicMatch": "AtomicMatch",
+      "trade": "Trade",
       "batchMintTo": "BatchMintTo",
       "updatePrcie": "UpdatePrice",
       "transfer": "Transfer",
