@@ -204,7 +204,7 @@ export const ProductionDetails = () => {
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error(t("hint.switchMainnet"));
+      message.error(t('hint.switchMainnet'));
       return;
     }
     instanceLoading.service();
@@ -216,7 +216,7 @@ export const ProductionDetails = () => {
         marketPlaceContractAddr,
       );
       if (cancelOrderRes?.transactionHash) {
-        message.success('Cancellation of order successful!');
+        message.success(t('hint.cancellation'));
         updateGoods();
       }
       // if (cancelOrderRes?.transactionHash) {

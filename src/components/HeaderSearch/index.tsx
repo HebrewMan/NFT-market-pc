@@ -72,7 +72,7 @@ export const SelectGroup = () => {
 
   return (
     <Select
-      placeholder={t('nav.secherTips')}
+      placeholder={t('nav.searchTips')}
       suffixIcon={<SearchOutlined />}
       optionLabelProp='label'
       style={{ width: '100%' }}

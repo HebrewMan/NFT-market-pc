@@ -28,8 +28,8 @@ export const General = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024,
-      t("hint.imageTupe"),
-      t("hint.imageSize"),
+      t('hint.imageTupe'),
+      t('hint.imageSize'),
     );
     if (!res) {
       return;
@@ -48,8 +48,8 @@ export const General = () => {
       file,
       ['jpg', 'png', 'gif'],
       1024 * 1024 * 5,
-      t("hint.imageTupe"),
-      t("hint.imageSize"),
+      t('hint.imageTupe'),
+      t('hint.imageSize'),
     );
     if (!res) {
       return;
@@ -141,7 +141,7 @@ export const General = () => {
               name='name'
               id='name'
               className={requiredName ? 'active-focus' : ''}
-              placeholder='username'
+              placeholder={t('userSettings.username')}
               onBlur={(e) => handleNameBlur(e)}
               value={form.username || ''}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
