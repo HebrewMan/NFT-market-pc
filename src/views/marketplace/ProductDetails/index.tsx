@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { ethers } from 'ethers';
+import { isMobile } from 'react-device-detect';
 import { DescInfo } from './DescInfo';
 import { MoreCollects } from './More';
 import { Trading } from './Trading';
@@ -12,9 +12,19 @@ import {
   cancelMarketItemErc1155,
   createMarketSaleErc1155,
   createMarketSaleWithTokenErc1155,
+  createMarketSale,
+  cancelMarketItem,
 } from '../../../hooks/marketplace';
 import { getApproval, getIsApproved } from '../../../hooks/web3Utils';
-import { getGood, getRecommendGoods, getUpdateCancelSellOrder, getUpdateBuyOrder } from '../../../api';
+import {
+  getGood,
+  getRecommendGoods,
+  getUpdateCancelSellOrder,
+  getUpdateBuyOrder,
+  getNFTDetail,
+  getUserNFTDetail,
+  getGoodsByCollectionId,
+} from '../../../api';
 import { getOrderEventPage } from '../../../api/order';
 import { getCollectionDetails } from '../../../api/collection';
 import { getFans, getFansByGoodsId, removeFans } from '../../../api/fans';
@@ -22,113 +32,149 @@ import { getCookie, getLocalStorage, toPriceDecimals } from '../../../utils/util
 import UpdatePriceView from './UpdatePrice/index';
 // import { useMarketTrading, useCancelMarketTrading } from "../../../hooks/sellContract"
 // import { useOwnerAddress } from '../../../hooks/useContract';
-import config, { USDT } from '../../../config/constants';
+import config, { USDT, ContractType, CoinType } from '../../../config/constants';
 import instanceLoading from '../../../utils/loading';
 import { isProd } from '../../../config/constants';
+import BugModal from './bugModal';
 
 import './index.scss';
 
 export const ProductionDetails = () => {
   const web3 = useWeb3();
-  const { t } = useTranslation();
   const _chainId = window?.ethereum?.chainId;
-  const chainId = parseInt(_chainId);
+  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS;
   const { account } = useWeb3React();
-  const [createSuccess, setCreateSuccess] = useState(false);
   const [tokenId, setTokenId] = useState<string>('');
   const [orderId, setOrderId] = useState<number>();
   const [ownerAddr, setOwnerAddr] = useState('');
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'));
   const token = getCookie('web-token') || '';
-  const [description, setDescription] = useState('');
-  const [createAddr, setCreateAddr] = useState('');
   const [contractAddr, setContractAddr] = useState('');
-  const [sellStatus, setSellStatus] = useState<Number>();
+  const [sellStatus, setSellStatus] = useState<Number>(); //售卖状态
   const [status, setStatus] = useState<Number>();
+  const [userNftStatus, setUserNftStatus] = useState<Number>();
   const [belongsId, setBelongsId] = useState<Number | String | null | undefined>();
   const [collectionId, setCollectionId] = useState('');
   const [name, setName] = useState('');
   const [fansNum, setFansNum] = useState(0);
   const [nftId, setNftId] = useState('');
   const [fansStatus, setFansStatus] = useState<number | string>('');
-  const [imgSrc, setImgSrc] = useState('');
-  const [sellerImageUrl, setSellerImageUrl] = useState('');
-  const [collectionsName, setCollectionsName] = useState('');
   const [price, setPrice] = useState(0);
-  const [activityStatus, setActivityStatus] = useState<Number>();
-  const [metadata, setMetadata] = useState({});
+  const [amount, setAmount] = useState(0); // nft的个数
   const [collectionsData, setCollectionsData] = useState({});
   const [tradingHistoryData, setTradingHistoryData] = useState([]);
   const [collectGoodsData, setCollectGoodsData] = useState([]);
   const history = useHistory();
-  const { id: goodsId } = useParams<{ id: string }>(); // 路由参数id
+  const {
+    id: goodsId,
+    tokenId: userTokenId,
+    contractAddr: userContractAddr,
+  } = useParams<{ id: string; tokenId: string; contractAddr: string }>(); // 路由参数id tokenId
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false);
   const [noticeStatus, setNoticeStatus] = useState<number | string>('');
+  const [DetailData, setDetailData] = useState<any>({}); //详情数据
+  const [detailMetadata, setDetailMetadata] = useState<any>({});
+  const [contractType, setContractType] = useState(null);
+  const [bugModalOpen, setBuyModalOpen] = useState(false);
+  const [isAITD, setIsAITD] = useState<boolean>(false);
 
+  //初始化数据
   useEffect(() => {
+    // 详情
     init();
-    getFansByGoodsIdData();
-  }, [goodsId]);
+  }, [tokenId, goodsId]);
 
   useEffect(() => {
     if (noticeStatus === '') return;
-    getFansByGoodsIdData();
+    getFansByGoodsIdData(DetailData?.tokenId, DetailData?.contractAddr);
   }, [noticeStatus]);
 
   useEffect(() => {
-    if (collectionId) {
+    if (DetailData?.collectionId) {
       getCollection();
     }
-  }, [collectionId]);
+  }, [DetailData?.collectionId]);
   const init = async () => {
-    try {
-      const res: any = await getGood(goodsId);
-      // setIsLoading(false)
-      const {
-        collectionId,
-        contractAddr,
-        sellStatus,
-        status,
-        ownerAddr,
-        price,
-        activityStatus,
-        belongsId,
-        blindBox,
-        tokenId,
-        orderId,
-      } = res.data;
-      const { sellerImageUrl } = res.data;
-      const { name, imageUrl, description, nftId } = res.data.metadata;
-      const defaultAvatar = require('../../../assets/default_header.png');
+    const params = {
+      orderId: goodsId,
+    };
+    const useParams = {
+      orderId: goodsId || '',
+      tokenId: userTokenId,
+      contractAddr: userContractAddr,
+      marketAddr: marketPlaceContractAddr,
+    };
+    let { data } = userTokenId ? await getUserNFTDetail(useParams) : await getNFTDetail(params);
+    setStatus(data.status); //售卖状态
+    setAmount(data.amount);
+    setDetailMetadata(data?.nftMetadata);
+    setContractType(data?.contractType); // 暂时取外层的合约类型
 
-      setName(name);
-      setNftId(nftId);
-      setImgSrc(imageUrl);
-      setTokenId(tokenId);
-      setOrderId(orderId);
-      setDescription(description);
-      setOwnerAddr(ownerAddr);
-      setPrice(price);
-      setCollectionId(collectionId);
-      setCreateAddr(createAddr);
-      setContractAddr(contractAddr);
-      setSellStatus(sellStatus);
-      setStatus(status);
-      setCreateSuccess(true);
-      setActivityStatus(activityStatus);
-      setBelongsId(belongsId);
-      setSellerImageUrl(sellerImageUrl || defaultAvatar);
-      setMetadata(res.data.metadata);
-      if (tokenId) {
-        // getUserAddress(tokenId);
-        getOrderPageData();
-      }
-    } catch (err) {
-      console.log(err);
+    // 我的资产跳转过来, 获取当前nft订单
+    if (data?.nftOrderVO && data?.nftOrderVO.length) {
+      const orderObj = data?.nftOrderVO.filter((item: any) => item.contractAddr === userContractAddr)[0] || {};
+      data = { ...data, ...orderObj };
+      setUserNftStatus(orderObj?.status);
     }
+
+    setDetailData(data);
+    setOrderId(data.orderId);
+    setOwnerAddr(data.ownerAddr); //用户钱包地址
+    setIsAITD(data?.coin === CoinType.AITD);
+    if (data?.tokenId) {
+      // getUserAddress(tokenId);
+      getFansByGoodsIdData(data?.tokenId, data?.contractAddr);
+      getOrderPageData(data?.tokenId, data?.contractAddr);
+    }
+    // try {
+    //   const res: any = await getGood(goodsId);
+    //   setListData(res.data)
+    //   // setIsLoading(false)
+    //   const {
+    //     collectionId,
+    //     contractAddr,
+    //     sellStatus,
+    //     status,
+    //     ownerAddr,
+    //     price,
+    //     activityStatus,
+    //     belongsId,
+    //     blindBox,
+    //     tokenId,
+    //     orderId,
+    //   } = res.data;
+    //   const { sellerImageUrl } = res.data;
+    //   const { name, imageUrl, description, nftId } = res.data.metadata;
+    //   const defaultAvatar = require('../../../assets/default_header.png');
+
+    //   setName(name);
+    //   setNftId(nftId);
+    //   setImgSrc(imageUrl);
+    //   setTokenId(tokenId);
+    //   setOrderId(orderId);
+    //   setDescription(description);
+    //   setOwnerAddr(ownerAddr);
+    //   setPrice(price);
+    //   setCollectionId(collectionId);
+    //   setCreateAddr(createAddr);
+    //   setContractAddr(contractAddr);
+    //   setSellStatus(sellStatus);
+    //   setStatus(status);
+    //   setCreateSuccess(true);
+    //   setActivityStatus(activityStatus);
+    //   setBelongsId(belongsId);
+    //   setSellerImageUrl(sellerImageUrl || defaultAvatar);
+    //   setMetadata(res.data.metadata);
+    //   if (tokenId) {
+    //     // getUserAddress(tokenId);
+    //     getOrderPageData();
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
   // 根据tokenId判断拥有者地址
   // const getUserAddress = (tokenId: string) => {
@@ -139,53 +185,65 @@ export const ProductionDetails = () => {
   //   });
   // };
   // 获取粉丝数量
-  const getFansByGoodsIdData = async () => {
-    const res: any = await getFansByGoodsId(goodsId);
-    setFansNum(res?.data?.collectNum);
-    setFansStatus(Number(res?.data?.collect));
+  const getFansByGoodsIdData = async (tokenId: string, contractAddr: string) => {
+    const address = localStorage.getItem('wallet');
+    const param = {
+      tokenId: tokenId,
+      contractAddr: contractAddr,
+      ownerAddr: address,
+    };
+    if (tokenId) {
+      const res: any = await getFansByGoodsId(param);
+      setFansNum(res?.data?.collectNum);
+      setFansStatus(Number(res?.data?.collect));
+    }
   };
   // 获取合集详情信息
   const getCollection = async () => {
-    const res: any = await getCollectionDetails(collectionId);
-    setCollectionsName(res?.data?.name);
+    const res: any = await getCollectionDetails(DetailData?.collectionId);
     setCollectionsData(res?.data);
     checkIsOwner();
   };
-  // 判断当前合集id是否是当前登录用户的
+  // 判断当前合集id是否是当前登录用户的  && 获取商品列表
   const checkIsOwner = async () => {
     const params = {
       data: {
-        collectionId: collectionId,
+        collectionId: DetailData?.collectionId,
       },
       page: 1,
       size: 10,
     };
-    const res: any = await getRecommendGoods(params);
+
+    const res: any = await getGoodsByCollectionId(params);
     setCollectGoodsData(res?.data?.records);
   };
-  const getOrderPageData = async () => {
+  // 请求Trading History
+  const getOrderPageData = async (tokenId: number, contractAddr: string) => {
+    console.log(contractAddr, 'contractAddr');
+
     const obj = {
-      data: {
-        nftId: goodsId,
-      },
+      tokenId: tokenId,
       page: 1,
       size: 20,
+      contractAddr: contractAddr,
     };
     const res: any = await getOrderEventPage(obj);
     setTradingHistoryData(res?.data?.records);
   };
   const isOwner = () => {
     // 连接钱包，并且拥有者=登录账户
-    return !!account && ownerAddr === accountAddress;
+    return !!account && DetailData?.ownerAddr === accountAddress;
   };
   const isCancelSell = () => {
-    // sellStatus用于判断nft是否正在出售，status用于判断nft是否已上架
-    return isOwner() && sellStatus === 1 && status === 2;
+    
+    // 用户资产跳过来进行出售操作，刷新后用数量判断
+    const canEdit = userTokenId && amount === 0;
+    // userNftStatus用于判断nft是否正在出售
+    return isOwner() && (canEdit || userNftStatus === 0 || status === 0);
   };
   const isBuyNow = () => {
-    // return sellStatus === 1 && activityStatus === 1;
-    // 钱包连接并且已上架
-    return !!account && sellStatus === 1 && status === 2;
+    // 正在出售 状态：0-正在出售；1-已售空；2-已取消
+    return status === 0;
   };
   const getSetPriceOrder = () => {
     // 上架
@@ -199,24 +257,24 @@ export const ProductionDetails = () => {
   const getCancelSellOrder = async () => {
     // 下架合约
     if (!accountAddress || !token) {
-      message.error(t('hint.pleaseLog'));
+      message.error('Please log in first!');
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error(t('hint.switchMainnet'));
+      message.error('Please switch to mainnet!');
       return;
     }
     instanceLoading.service();
     try {
-      const cancelOrderRes = await cancelMarketItemErc1155(
+      const cancelOrderRes = await cancelMarketItem(
         web3,
-        Number(orderId),
+        Number(DetailData?.orderId),
         accountAddress,
         marketPlaceContractAddr,
       );
       if (cancelOrderRes?.transactionHash) {
-        message.success(t('hint.cancellation'));
+        message.success('Cancellation of order successful!');
         updateGoods();
       }
       // if (cancelOrderRes?.transactionHash) {
@@ -229,7 +287,6 @@ export const ProductionDetails = () => {
       // }
       instanceLoading.close();
     } catch (error: any) {
-      console.log('getCancelSellOrder error', error);
       instanceLoading.close();
     }
   };
@@ -239,30 +296,36 @@ export const ProductionDetails = () => {
     setSellOrderFlag(false);
   };
   const toggleFansCollected = () => {
-    fansStatus ? removeFansData(goodsId) : fansCollected(goodsId);
+    fansStatus
+      ? removeFansData(DetailData?.tokenId, DetailData?.contractAddr)
+      : fansCollected(DetailData?.tokenId, DetailData?.contractAddr);
   };
   // 取消收藏
-  const removeFansData = async (goodsId: string) => {
-    const res: any = await removeFans(goodsId);
+  const removeFansData = async (tokenId: string, contractAddr: string) => {
+    const res: any = await removeFans(tokenId, contractAddr);
     if (res?.message === 'success') {
-      getFansByGoodsIdData();
+      getFansByGoodsIdData(tokenId, contractAddr);
       checkIsOwner();
     }
   };
   // 添加收藏
-  const fansCollected = async (goodsId: string) => {
-    const res: any = await getFans(goodsId);
+  const fansCollected = async (tokenId: string, contractAddr: string) => {
+    const res: any = await getFans(tokenId, contractAddr);
     if (res?.message === 'success') {
-      getFansByGoodsIdData();
+      getFansByGoodsIdData(tokenId, contractAddr);
       checkIsOwner();
     }
   };
-  const handleToAccount = () => {
-    if (belongsId) return false;
-    history.push(`/collection/${collectionId}`);
+  const handleToCollection = () => {
+    history.push(`/collection/${DetailData?.collectionId}`);
   };
+
   // 买nft合约
   const getBuy = async () => {
+    // 未链接钱包跳转
+    if (!account) {
+      return history.push(`/login`);
+    }
     const Erc20ContractAddr = USDT.address || '';
     let approvedRes: any = undefined;
     let fillOrderRes: any = undefined;
@@ -270,42 +333,52 @@ export const ProductionDetails = () => {
 
     const obj = {
       orderId, // 订单id
-      price: toPriceDecimals(price, USDT.decimals), // nft 价格
-      marketType: 2, // 用于标注二级市场
-      Erc1155ContractAddr: contractAddr,
-      moneyMintAddress: Erc20ContractAddr,
-      marketPlaceContractAddr,
+      price: toPriceDecimals(DetailData?.price, isAITD ? 18 : USDT.decimals), // nft 价格 USDT.decimals
+      // marketType: 2, // 用于标注二级市场
+      Erc1155ContractAddr: DetailData?.contractAddr,
+      moneyMintAddress: DetailData?.moneyAddr,
+      marketPlaceContractAddr: DetailData?.marketAddr,
       account: accountAddress,
+      tokenId: DetailData?.tokenId,
+      ctype: contractType === ContractType.ERC721 ? 0 : 1,
+      amounts: 1, // TODO: 暂时写死
+      coin: DetailData?.coin,
     };
+
     if (!accountAddress || !token || !Erc20ContractAddr) {
-      message.error(t('hint.pleaseLog'));
+      message.error('Please log in first!');
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error(t('hint.switchMainnet'));
+      message.error('Please switch to mainnet!');
       return;
     }
     instanceLoading.service();
     try {
-      // 查看是否已授权
-      const _allowance = await getIsApproved(accountAddress, marketPlaceContractAddr, Erc20ContractAddr, web3);
-      allowance = Number(_allowance) - Number(price);
-      if (allowance <= 0) {
-        // 授权erc20 币种到市场合约
-        approvedRes = await getApproval(
-          accountAddress,
-          marketPlaceContractAddr,
-          ethers.constants.MaxUint256,
-          Erc20ContractAddr,
-          web3,
-        );
-      }
-      if (allowance > 0 || !!approvedRes?.transactionHash) {
-        fillOrderRes = await createMarketSaleWithTokenErc1155(web3, obj);
+      // 非原生币需要授权
+      if (isAITD) {
+        fillOrderRes = await createMarketSale(web3, obj);
+      } else {
+        // 查看erc20是否已授权, 获取授权余额
+        const _allowance = await getIsApproved(accountAddress, marketPlaceContractAddr, Erc20ContractAddr, web3);
+        allowance = Number(_allowance) - Number(price);
+        if (allowance <= 0) {
+          // 授权erc20 币种到市场合约
+          approvedRes = await getApproval(
+            accountAddress,
+            marketPlaceContractAddr,
+            ethers.constants.MaxUint256,
+            Erc20ContractAddr,
+            web3,
+          );
+        }
+        if (allowance > 0 || !!approvedRes?.transactionHash) {
+          fillOrderRes = await createMarketSale(web3, obj);
+        }
       }
       if (!!fillOrderRes?.transactionHash) {
-        message.success(t('hint.purchaseSuccess'));
+        message.success('Purchase Successful!');
         updateGoods();
       }
       instanceLoading.close();
@@ -338,29 +411,39 @@ export const ProductionDetails = () => {
   //   }
   // };
   const sellBtn = () => {
-    if (isOwner() && sellStatus === 0) {
-      return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>;
+    // 用户资产跳转过来状态为用户撤单 或 个数不为0
+    const canSell = userTokenId ? amount !== 0 || userNftStatus === 2 : true;
+    // 判断属于本人, status 不是正在出售
+    if (isOwner() && canSell && status !== 0) {
+      return <button onClick={getSetPriceOrder}>Sell</button>;
     }
   };
   const cancelBtn = () => {
     if (isCancelSell()) {
       return (
         <>
-          <button onClick={getCancelSellOrder}>{t('marketplace.details.cancelList')}</button>
-          <button onClick={getUpdateLowerPriceOrder}>{t('marketplace.details.update')}</button>
+          <button onClick={getCancelSellOrder}>Cancel listing</button>
+          <button onClick={getUpdateLowerPriceOrder}>Update price</button>
         </>
       );
     }
   };
   const updateGoods = () => {
     init();
-    getFansByGoodsIdData();
+    getFansByGoodsIdData(DetailData?.tokenId, DetailData?.contractAddr);
   };
   const notify = (status: number | string) => {
     setFansStatus(status);
     setNoticeStatus(status);
   };
-  const ownerLink = <Link to={`/account/0/${ownerAddr}`}> {t('marketplace.details.you')} </Link>;
+  // 购买按钮
+  const handeClickBuy = () => {
+    console.log('zhixing ');
+
+    setBuyModalOpen(true);
+  };
+
+  const ownerLink = <Link to={`/account/0/${ownerAddr}`}> you </Link>;
   const ownerAddress = (
     <Link to={`/account/0/${ownerAddr}`}>
       {ownerAddr?.startsWith('0x') ? ownerAddr?.substring(2, 8) : ownerAddr?.substring(0, 6)}
@@ -375,33 +458,10 @@ export const ProductionDetails = () => {
           {cancelBtn()}
         </div>
         <div className='wrapper-header'>
-          <div className='top-inner inner-hidden'>
-            <div className='top-left'>
-              <p>
-                {t('marketplace.details.untitled')} #{collectionId}
-              </p>
-            </div>
-            <div className='top-right'>
-              {/* <svg-icon icon-class="refresh"></svg-icon>
-                <svg-icon icon-class="open_in_new"></svg-icon>
-                <svg-icon icon-class="share"></svg-icon>
-                <svg-icon icon-class="more_vert"></svg-icon> */}
-            </div>
-          </div>
-          <h1 className='hidden'>{name}</h1>
           <div className='header-pic'>
-            {/* <p>
-              <img
-                className={!fansStatus ? 'favorite_border_gray' : 'favorite_red'}
-                src={!fansStatus ? require('../../../assets/fbg.svg') : require('../../../assets/fr.png')}
-                onClick={() => toggleFansCollected()}
-                alt=''
-              />
-              <span>{fansNum}</span>
-            </p> */}
             <div className='header-image'>
               <div className='prod-image'>
-                <img src={imgSrc} alt='' />
+                <img src={detailMetadata?.imageUrl} alt='' />
                 <div>
                   <img
                     className={!fansStatus ? 'favorite_border_gray' : 'favorite_red'}
@@ -422,36 +482,45 @@ export const ProductionDetails = () => {
                   <a onClick={handleToAccount}>{collectionsName}</a>
                 </div>
               </div> */}
-              <h1>{name}</h1>
+              {/* <h1>{name}</h1>  */}
+              <p className='collections-name' onClick={handleToCollection}>
+                {DetailData?.collectionName}
+              </p>
+              <h1 className='name'>{detailMetadata?.name + '#' + (detailMetadata?.tokenId || DetailData.tokenId)}</h1>
               <div className='author'>
                 <div className='auth'>
                   {/* <img src={require('../../../assets/favorite_black.svg')} alt='' className='svg-img' /> */}
-                  <img src={sellerImageUrl} alt='' />
-                  <span>
-                    {t('marketplace.Owner')} {isOwner() ? ownerLink : ownerAddress}
-                  </span>
+                  <img src={detailMetadata?.imageUrl} alt='' />
+                  <span>Owned {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>
-                <div className='price'>
-                  <p>{t('marketplace.curPrice')}</p>
-                  <p>{parseFloat(price.toFixed(4))} USDT</p>
-                </div>
-                {/* TODO: 二级市场未上架的NFT隐藏购买按钮 status !== 2 */}
+                {DetailData?.price && (
+                  <div className='price'>
+                    <p>Current price</p>
+                    <p>
+                      {Math.floor(Number(DetailData?.price) * 10000) / 10000} {DetailData?.coin || 'AITD'}
+                    </p>
+                  </div>
+                )}
                 {!isOwner() && (
                   <button disabled={!isBuyNow()} onClick={getBuy}>
-                    {t('common.buyNow')}
+                    Buy Now
                   </button>
+                  // <button disabled={!isBuyNow()} onClick={handeClickBuy}>
+                  //   Buy Now
+                  // </button>
                 )}
               </div>
             </div>
             {/* Description List */}
             <DescInfo
-              metadata={metadata}
-              description={description}
-              contractAddr={contractAddr}
-              tokenId={tokenId}
+              metadata={detailMetadata}
+              description={detailMetadata?.description}
+              contractAddr={DetailData.contractAddr}
+              tokenId={DetailData.tokenId}
               collectionsData={collectionsData}
+              DetailData={DetailData}
             />
           </div>
         </div>
@@ -459,23 +528,28 @@ export const ProductionDetails = () => {
         <Trading tradingHistoryData={tradingHistoryData} />
         <MoreCollects
           collectGoodsData={collectGoodsData}
-          collectionId={collectionId}
-          belongsId={belongsId}
+          collectionId={DetailData?.collectionId}
+          // belongsId={belongsId}
           notify={notify}
         />
         {/* 价格弹框 */}
         <UpdatePriceView
-          price={price}
-          tokenId={tokenId}
-          contractAddr={contractAddr}
+          price={DetailData.price}
+          tokenId={DetailData.tokenId}
+          contractAddr={DetailData.contractAddr}
+          isAITD={isAITD}
+          contractType={contractType}
           accountAddress={accountAddress}
-          goodsId={goodsId}
+          moneyAddr={DetailData.moneyAddr}
+          goodsId={userTokenId ? DetailData.id : goodsId}
           orderId={Number(orderId)}
           isOpen={isOpen}
           sellOrderFlag={sellOrderFlag}
           close={updateClose}
           updateGoods={updateGoods}
         />
+        {/* 购买弹窗  下版本在放开 */}
+        {/* <BugModal visible={bugModalOpen} onCancel={()=>setBuyModalOpen(false)} data={DetailData}/> */}
       </div>
     </div>
   );

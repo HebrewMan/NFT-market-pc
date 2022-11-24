@@ -40,6 +40,12 @@ export function getGoods(params: any) {
     ...params,
   });
 }
+// 查询所有的已上架的nft商品：721和1155资产;
+export function getListedNftList(params: any) {
+  return post(`/v1/api/nftOrder/page`, {
+    ...params,
+  });
+}
 // 查询所有的nft商品;nft详情查询该合集下的所有商品(传集合id)
 export function getGoodsByCollectionId(params: any) {
   return post(`/v1/api/nft/findPageByCollectionId`, {
@@ -51,6 +57,16 @@ export function getGoodsByCollectionId(params: any) {
 export function getGood(id: string) {
   return get(`/v1/api/nft/${id}`);
 }
+//根据id 查询NfT 详情
+export function getNFTDetail(params: any) {
+  return post(`/v1/api/nftOrder/getNft`, { ...params });
+}
+
+//根据tokenId 查询用户NFT 详情
+export function getUserNFTDetail(params: any) {
+  return post(`/v1/api/nftOrder/getUserNftInfo`, { ...params });
+}
+
 // 查询自己钱包下，且属于该合集id的所有nft商品
 export function getSelfGoods(params: any) {
   return post(`/v1/api/nft/findSelfPage`, {
@@ -71,6 +87,11 @@ export function getRecommendGoods(params: any) {
 export function getOtherPersonGoods(address: string, params: any) {
   return post(`/v1/api/nft/findOtherPage/${address}`, { ...params });
 }
+// 查看我的Nft API
+export function getMyNFTList(params: any) {
+  return post(`/v1/api/nftOrder/selecAssetNftPage`, { ...params });
+}
+
 // 上架
 export function getUpdateSellOrder(params: any) {
   return post(`/v1/api/nft/sell`, {
@@ -85,7 +106,7 @@ export function getUpdateCancelSellOrder(nftId: string) {
 }
 // 降低价格
 export function getUpdateLowerPrice(params: any) {
-  return post(`/v1/api/nft/changePrice`, params);
+  return post(`/v1/api/nftOrder/changePrice`, params);
 }
 // buy now 之后获取状态
 export function getUpdateBuyOrder(params: any) {

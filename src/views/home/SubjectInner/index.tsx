@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getCookie } from '../../../utils/utils';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper';
-import { useTranslation } from 'react-i18next';
+
 import 'swiper/scss';
 import './index.scss';
 
@@ -20,6 +20,7 @@ const SwiperComm = (props: any) => {
         disableOnInteraction: false,
       }}
       effect='cards'
+      // loop={true}
       grabCursor={true}
       onSlideChange={(swiper) => setCurrentSwiperObject(swiperList[swiper.activeIndex])}
       pagination={{
@@ -31,7 +32,7 @@ const SwiperComm = (props: any) => {
       {swiperList.map((item: any, index: number) => {
         return (
           <SwiperSlide key={index}>
-            <Link to={Number(item.type) === 1 ? `/primary-details/${item.id}` : `/product-details/${item.id}`}>
+            <Link to={Number(item.type) === 1 ? `/primary-details/${item.id}` : `/product-details/${item.orderId}`}>
               <div className='right-inner'>
                 <img className='pic' src={item.imageUrl} alt='' />
               </div>
@@ -45,7 +46,6 @@ const SwiperComm = (props: any) => {
 
 export const SubjectInner = () => {
   const history = useHistory();
-  const { t } = useTranslation();
   const [swiperList, setSwiperList] = useState<any[]>([]);
   const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({});
   const token = getCookie('web-token') || '';
@@ -83,14 +83,14 @@ export const SubjectInner = () => {
       </div> */}
       <div className='container-flex'>
         <div className='flex-left'>
-          <h1>{t('home.title')}</h1>
-          <span>{t('home.subtitle')}</span>
+          <h1>Welcome to the Diffgalaxy digital art market.</h1>
+          <span>Diffgalaxy makes NFT transactions easier, The joy of exploring and trading together.</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
-              {t('common.buy')}
+              Buy
             </button>
             <button className='button-sell' onClick={clickSell}>
-              {t('common.sell')}
+              Sell
             </button>
           </div>
         </div>

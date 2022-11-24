@@ -1,0 +1,96 @@
+.modalWaper.ant-modal-body {
+    padding-top: 0px;
+}
+
+.modalContent {
+    padding: 20px 0px;
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid rgba(29, 36, 59, 0.1);
+    border-bottom: 1px solid rgba(29, 36, 59, 0.1);
+
+    .contentLeft {
+        width: 160px;
+        height: 160px;
+        border-radius: 10px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .contentRight {
+        margin-left: 24px;
+        flex: 1;
+
+        .name {
+            font-size: 16px;
+            color: #1D243B;
+        }
+
+        .info {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            color: #1D243B;
+        }
+
+        .fontWeight {
+            font-weight: bold;
+        }
+    }
+}
+
+.pay {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #1D243B;
+}
+
+.BuyBtn {
+    margin-top: 40px;
+    width: 100%;
+    height: 48px;
+    line-height: 38px;
+    background: #2585D9;
+    border-radius: 8px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.numberWaper {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+
+    input {
+        text-align: center;
+        margin: 0 16px;
+        width: 374px;
+        height: 48px;
+        background: #FFFFFF;
+        border-radius: 8px;
+        border: 1px solid #E8E9EB;
+        font-size: 20px;
+        font-weight: bold;
+        color: #1D243B;
+    }
+
+    div {
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        background: #FFFFFF;
+        border-radius: 8px;
+        border: 1px solid #E8E9EB;
+        text-align: center;
+        cursor: pointer;
+    }
+}

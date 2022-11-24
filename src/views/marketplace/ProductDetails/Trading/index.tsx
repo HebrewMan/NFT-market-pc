@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { isMobile } from 'react-device-detect';
 import { formatTime } from '../../utils';
 import config from '../../../../config/constants';
 import './index.scss';
 
 export const Trading = (props: any) => {
-  const { t } = useTranslation();
   const _chainId = window?.ethereum?.chainId;
-  const chainId = parseInt(_chainId);
+  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([]);
   const deepTradingHistoryData = [...props.tradingHistoryData];
   const [detailsState, setDetailsState] = useState(false);
   const [filterState, setFilterState] = useState(false);
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK;
   const [filterList, setFilterList] = useState([
-    { label: '3', name: t('marketplace.details.mintTo'), checked: false },
-    { label: '0', name: t('marketplace.details.listings'), checked: false },
-    { label: '1', name: t('marketplace.details.cancel'), checked: false },
-    { label: '2', name: t('marketplace.details.trade'), checked: false },
-    { label: '4', name: t('marketplace.details.batchMintTo'), checked: false },
-    { label: '5', name: t('marketplace.details.updatePrcie'), checked: false },
-    { label: '6', name: t('marketplace.details.transfer'), checked: false },
+    { label: '3', name: 'MintTo', checked: false },
+    { label: '0', name: 'Listings', checked: false },
+    { label: '1', name: 'Cancel', checked: false },
+    { label: '2', name: 'AtomicMatch', checked: false },
+    { label: '4', name: 'BatchMintTo', checked: false },
+    { label: '5', name: 'UpdatePrice', checked: false },
+    { label: '6', name: 'Transfer', checked: false },
   ]);
   const [eventBtn, setEventBtn] = useState<any>([]);
   const history = useHistory();
@@ -46,19 +45,19 @@ export const Trading = (props: any) => {
   const showEventName = (method: any) => {
     switch (method) {
       case 3:
-        return t('marketplace.details.mintTo');
+        return 'MintTo';
       case 0:
-        return t('marketplace.details.list');
+        return 'List';
       case 1:
-        return t('marketplace.details.cancel');
+        return 'Cancel';
       case 2:
-        return t('marketplace.details.trade');
+        return 'AtomicMatch';
       case 4:
-        return t('marketplace.details.batchMintTo');
+        return 'BatchMintTo';
       case 5:
-        return t('marketplace.details.updatePrcie');
+        return 'UpdatePrice';
       case 6:
-        return t('marketplace.details.transfer');
+        return 'Transfer';
     }
   };
   const iconClass = (item: any) => {
@@ -153,12 +152,10 @@ export const Trading = (props: any) => {
             <span>{showEventName(item.method)}</span>
           </td>
           <td>
-            {Number(item.amount) ? (
-              <img src={require('../../../../assets/usdt.png')} alt='' className='svg-img' />
-            ) : (
-              <></>
+            {(
+              <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='svg-img' />
             )}
-            {Number(item.amount) ? parseFloat(Number(item?.amount).toFixed(4)) : ''}
+            {Math.floor(Number(item.price) * 10000) / 10000}
           </td>
           <td>
             <a onClick={() => handleChangeFromRoute(item)}>{setAddrFrom(item)}</a>
@@ -189,11 +186,11 @@ export const Trading = (props: any) => {
       <table>
         <thead>
           <tr>
-            <td className='first-child'>{t('marketplace.details.transaction')}</td>
-            <td>{t('marketplace.price')}</td>
-            <td>{t('marketplace.from')}</td>
-            <td>{t('marketplace.to')}</td>
-            <td>{t('common.date')}</td>
+            <td className='first-child'>Transaction</td>
+            <td>Price</td>
+            <td>From</td>
+            <td>To</td>
+            <td>Date</td>
           </tr>
         </thead>
         <tbody>
@@ -208,7 +205,7 @@ export const Trading = (props: any) => {
       <div className='details-filter'>
         <div className='details-top'>
           <div className='filter' onClick={() => setFilterState(!filterState)}>
-            <p>{t('marketplace.details.filter')}</p>
+            <p>Filter</p>
             <img
               src={
                 !filterState
@@ -226,7 +223,7 @@ export const Trading = (props: any) => {
               {showEventName(Number(item))} <img src={require('../../../../assets/close.svg')} width={20} alt='' />
             </button>
           ))}
-          {eventBtn.length > 0 && <span onClick={handleClearAll}>{t('marketplace.details.clearAll')}</span>}
+          {eventBtn.length > 0 && <span onClick={handleClearAll}>Clear All</span>}
         </div>
       </div>
       {<Table />}
@@ -236,7 +233,7 @@ export const Trading = (props: any) => {
     <div className='trading-history'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
         <img src={require('../../../../assets/tradding.svg')} alt='' className='svg-default-size' />
-        <h2>{t('marketplace.details.history')}</h2>
+        <h2>Trading History</h2>
         <div className='arrow-icon'>
           <img
             src={

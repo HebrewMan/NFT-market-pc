@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Select } from './Select';
 import { HeaderSearch } from '../../components/HeaderSearch';
-import { useTranslation } from 'react-i18next';
-import { getGoods } from '../../api';
+import { getGoods, getListedNftList } from '../../api';
 import { getFans, removeFans, getFansByGoodsId } from '../../api/fans';
 import { useTouchBottom } from '../../hooks';
-import { defaultParams } from '../../core/constants/marketplace';
+import { defaultParams, blindType, queryList } from '../../core/constants/marketplace';
 import './index.scss';
+import { isMobile } from 'react-device-detect';
 import { Input, Spin } from 'antd';
 import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export const MarketPlace = () => {
-  const { t } = useTranslation();
   const [goodsList, setGoodsList] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [grid, setGrid] = useState(1);
@@ -25,23 +24,31 @@ export const MarketPlace = () => {
   const [inputMax, setInputMax] = useState('');
   const [isMore, setIsMore] = useState(true);
   const [loading, setLoading] = useState(true);
-  const queryList = [
-    { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
-    { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
-    { name: `${t('marketplace.highToLow')}`, value: 'high' },
-  ];
+  const [ownerAddr,setOwnerAddr] = useState('')
 
   useEffect(() => {
     initData(params);
   }, [params, collect]);
 
   const initData = async (data: any) => {
+    // const userWallet = localStorage.getItem('wallet') || null
+    // const param = {
+    //   ...data,
+    // }
     setLoading(true);
     try {
-      const res: any = await getGoods(data);
-
+      // getListedNftList getGoods
+      const res: any = await getListedNftList(data);
       setTotal(res.data.total);
-      setGoodsList([...goodsList, ...res.data.records]);
+
+      // 过滤掉没有元数据的脏数据
+      const list: any = [];
+      res.data.records.map((item: any, index: string) => {
+        if (item?.imageUrl != null) {
+          list.push(item);
+        }
+      });
+      setGoodsList([...goodsList, ...list]);
       setLoading(false);
       if (data.page >= Math.ceil(res.data.total / data.size)) {
         setIsMore(false);
@@ -55,20 +62,22 @@ export const MarketPlace = () => {
   const toggleFansCollected = (e: any, item: any) => {
     e.preventDefault();
 
-    const { id, collect } = item;
+    const { tokenId, collect, contractAddr,ownerAddr } = item;
+    setOwnerAddr(ownerAddr)
+    
     if (collect) {
-      removeFansData(id);
+      removeFansData(tokenId, contractAddr);
     } else {
       // 关注、收藏
-      getFansCount(id);
+      getFansCount(tokenId, contractAddr);
     }
   };
   // 取消收藏
-  const removeFansData = (id: string) => {
-    removeFans(id)
+  const removeFansData = (tokenId: string, contractAddr: string) => {
+    removeFans(tokenId, contractAddr)
       .then((res: any) => {
         if (res && res.message === 'success') {
-          modifyFansStatus(id);
+          modifyFansStatus(tokenId, contractAddr,);
         }
       })
       .catch((err: unknown) => {
@@ -76,19 +85,24 @@ export const MarketPlace = () => {
       });
   };
   // 添加收藏
-  const getFansCount = (id: string) => {
-    getFans(id)
+  const getFansCount = (tokenId: string, contractAddr: string) => {
+    getFans(tokenId, contractAddr)
       .then((res: any) => {
         if (res && res.message === 'success') {
-          modifyFansStatus(id);
+          modifyFansStatus(tokenId, contractAddr);
         }
       })
       .catch((err: any) => {
         console.log('getFans error', err);
       });
   };
-  const modifyFansStatus = (id: string) => {
-    getFansByGoodsId(id).then((res: any) => {
+  const modifyFansStatus = (id: string, contractAddr: string) => {
+    const params = {
+      tokenId:id,
+      contractAddr:contractAddr,
+      ownerAddr:ownerAddr
+    }
+    getFansByGoodsId(params).then((res: any) => {
       if (res && res?.data !== null) {
         const data = res.data;
         setGoodsList([]);
@@ -119,7 +133,14 @@ export const MarketPlace = () => {
 
   const handleChangeQuery = (itemObj: any) => {
     setGoodsList([]);
-    setParams({ ...params, data: { ...params.data, sort: itemObj.value }, page: 1 });
+    // 原有逻辑上调整接口后台所需入参 o.xx ..不理解
+    const orders = [
+      {
+        asc: itemObj.value === 'high' ? false : true,
+        column: itemObj.value === 'new' ? 'o.create_date' : 'o.price',
+      },
+    ];
+    setParams({ ...params, orders, page: 1 });
 
     // useTouchBottom 页码不对的问题 修改
     if (pageRef.current > 1) {
@@ -130,14 +151,16 @@ export const MarketPlace = () => {
     return goodsList.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link to={`/product-details/${item.id}`}>
+          <Link to={`/product-details/${item.orderId}`}>
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
             </div>
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>{parseFloat(Number(item.price).toFixed(4)) + ' USDT'}</div>
+                <div className='price'>
+                  {Math.floor(Number(item.price) * 10000) / 10000 + ` ${item?.coin || 'AITD'}`}
+                </div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
             </div>
@@ -161,14 +184,14 @@ export const MarketPlace = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>{t('common.noDataLong')}</p>
+        <p>No data available for the time being.</p>
       </div>
     );
   };
 
   const getKeyWord = (value: string) => {
     setGoodsList([]);
-    setParams({ ...params, data: { ...params.data, keyWord: value }, page: 1 });
+    setParams({ ...params, name: value, page: 1 });
   };
 
   const handleChangeMin = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,7 +201,7 @@ export const MarketPlace = () => {
     if (temp === null && inputMax === '') {
       setInputMin('');
       setGoodsList([]);
-      setParams({ ...params, data: { ...params.data, maxPrice: undefined, minPrice: undefined }, page: 1 });
+      setParams({ ...params, maxPrice: undefined, minPrice: undefined, page: 1 });
       return;
     }
 
@@ -197,7 +220,7 @@ export const MarketPlace = () => {
 
       if (inputMax) {
         setGoodsList([]);
-        setParams({ ...params, data: { ...params.data, minPrice: temp[0], maxPrice: inputMax }, page: 1 });
+        setParams({ ...params, minPrice: Number(temp[0]), maxPrice: Number(inputMax), page: 1 });
       }
     } else {
       setInputMin('');
@@ -211,7 +234,7 @@ export const MarketPlace = () => {
     if (temp === null && inputMin === '') {
       setInputMax('');
       setGoodsList([]);
-      setParams({ ...params, data: { ...params.data, maxPrice: undefined, minPrice: undefined }, page: 1 });
+      setParams({ ...params, maxPrice: undefined, minPrice: undefined, page: 1 });
 
       return;
     }
@@ -229,7 +252,7 @@ export const MarketPlace = () => {
 
       if (inputMin) {
         setGoodsList([]);
-        setParams({ ...params, data: { ...params.data, minPrice: inputMin, maxPrice: temp[0] }, page: 1 });
+        setParams({ ...params, minPrice: Number(inputMin), maxPrice: Number(temp[0]), page: 1 });
       }
     } else {
       setInputMax('');
@@ -252,31 +275,26 @@ export const MarketPlace = () => {
           </label>
         </div>
 
-        <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} />
+        <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={'Please enter NFT/ collection'} />
 
         <div className='condition'>
-          <Select
-            list={queryList}
-            placeholder={t('marketplace.sortBy')}
-            change={handleChangeQuery}
-            value={params.data.sort}
-          />
+          <Select list={queryList} placeholder={'Sort By'} change={handleChangeQuery} value={params.sort} />
         </div>
 
         <div className='price'>
-          {t('marketplace.price')}
+          Price
           <Input
             className='min'
             value={inputMin}
-            placeholder={t('marketplace.min')}
-            style={{ width: 84, height: 34 }}
+            placeholder='Min'
+            style={{ width: !isMobile ? 84 : 50, height: !isMobile ? 41 : 34 }}
             onChange={handleChangeMin}
           />
-          <span className='to'>{t('marketplace.to')}</span>
+          <span className='to'>To</span>
           <Input
-            placeholder={t('marketplace.max')}
+            placeholder='Max'
             value={inputMax}
-            style={{ width: 84, height: 34 }}
+            style={{ width: !isMobile ? 84 : 50, height: !isMobile ? 41 : 34 }}
             onChange={handleChangeMax}
           />
         </div>

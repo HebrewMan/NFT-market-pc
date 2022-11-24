@@ -1,8 +1,19 @@
 import DEV_CONSTANTS from './development';
 import PRO_CONSTANTS from './production';
+import PRE_CONSTANTS from './preProduction';
 
-const conditionConfig = process.env.NODE_ENV === 'production' ? PRO_CONSTANTS : DEV_CONSTANTS;
-export const isProd = process.env.NODE_ENV === 'production';
+let conditionConfig = null;
+
+if (process.env.APP_MODE === 'production') {
+  conditionConfig = PRO_CONSTANTS;
+} else if (process.env.APP_MODE === 'pre') {
+  conditionConfig = PRE_CONSTANTS;
+} else {
+  conditionConfig = DEV_CONSTANTS;
+}
+
+export const isProd = process.env.APP_MODE === 'production';
+
 
 /**
  *  baseURL: 'http://192.168.1.59:4000',
@@ -10,10 +21,9 @@ export const isProd = process.env.NODE_ENV === 'production';
     baseURL: 'http://nft-pre.aitd.io',
     https://nft-pre.diffgalaxy.com/
  */
-
+const devBase = 'http://192.168.1.59:4000'
 // const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
-const baseURL = isProd ? window.location.origin : 'http://192.168.1.59:4000/';
-// console.log(baseURL,'baseURL');
+const baseURL = window.location.origin === 'http://localhost:8080' ? devBase : window.location.origin ; 
 
 const constants = {
   ZERO_ADDRESS: '0x0000000000000000000000000000000000000000',
@@ -57,11 +67,8 @@ class Token {
 }
 export const USDT = new Token(
   'USDT',
-  18,
-  '0x4b6b9f3695205c8468ddf9ab4025ec2a09bdff1a',
-  // 'USDT',
-  // isProd ? 6 : 18,
-  // isProd ? '0x848cb1a9770830da575DfD246dF2d4e38c1D40ed' : '0x4b6b9f3695205c8468ddf9ab4025ec2a09bdff1a',
+  isProd ? 6 : 18,
+  isProd ? '0x848cb1a9770830da575DfD246dF2d4e38c1D40ed' : '0x4b6b9f3695205c8468ddf9ab4025ec2a09bdff1a',
 );
 export const AITD = new Token('AITD', 18);
 
@@ -80,6 +87,16 @@ export const ChainIds = {
   sol: {
     chainId: 10,
   },
+};
+
+export const CoinType = {
+  AITD: 'AITD',
+  USDT: 'USDT',
+};
+
+export const ContractType = {
+  ERC721: 'ERC721',
+  ERC1155: 'ERC1155',
 };
 
 export default configs;

@@ -1,0 +1,156 @@
+.active-detail-container {
+  width: 100%;
+  height: 100%;
+
+  .banner {
+    width: 100%;
+    display: flex;
+    height: 300px;
+    background: #e5e8eb;
+    overflow: hidden;
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .timer-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 32px 0;
+    min-height: 180px;
+
+    .timer {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding: 18px;
+      width: 60%;
+      border: 1px solid #E5E8EB;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+    .end-time h3 {
+      padding: 0 10px;
+      position: absolute;
+      top: -18px;
+      left: 45%;
+      background: #fff;
+    }
+  }
+  .price-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    p {
+      text-align: center;
+      font-size: 18px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #4B5163;
+      line-height: 25px;
+    }
+    p + p {
+      margin-top: 8px;
+    }
+    .num {
+      font-size: 32px;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: #1D243B;
+      line-height: 45px;
+    }
+    .ant-divider-vertical {
+      height: 4.5em;
+      margin: 0 48px;
+    }
+  }
+  .btn-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 72px;
+    button {
+      padding: 12px 222px;
+      font-size: 18px;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      line-height: 25px;
+      border-radius: 5px;
+      background-color: rgb(32, 129, 226);
+      border: 1px solid rgb(32, 129, 226);
+      color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mobileActiveDetailContainer {
+    width: 100%;
+  }
+
+  .active-detail-container {
+
+    .banner {
+      height: 105px;
+      min-height: 105px;
+    }
+    .price-box {
+      margin-bottom: 2.25rem;
+
+      p {
+        font-size: .9375rem;
+      }
+      p + p {
+        margin-top: .25rem;
+      }
+      .num {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+      .ant-divider-vertical {
+        height: 2rem;
+        margin: 0 1.25rem;
+      }
+    }
+    .timer-box {
+      margin: 1.625rem 0;
+      min-height: 7.5rem;
+  
+      .timer {
+        padding: 0;
+        width: 80%;
+        border: 1px solid #E5E8EB;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+      }
+      .end-time {
+        margin-top: 5px;
+        display: flex;
+        justify-content: center;
+        h3 {
+          top: -0.625rem;
+          left: 35%;
+        }
+        .box-timer span {
+          padding: 10px 4px;
+          min-width: 56px;
+        }
+      }
+    }
+    .btn-box {
+      button {
+        padding: .75rem 7.5rem;
+      }
+    }
+  }
+}

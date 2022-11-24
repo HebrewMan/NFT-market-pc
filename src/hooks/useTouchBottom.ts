@@ -15,8 +15,6 @@ const isTouchBottom = (handler: any) => {
 };
 
 export const useTouchBottom = (func: any, page: number, isMore: any) => {
-  console.log(page, 'useTouchBottom-page');
-
   const useFn = throttle(() => {
     if (typeof func === 'function') {
       isTouchBottom(func);

@@ -72,11 +72,17 @@ request.interceptors.response.use((response: any) => {
     if (codeNum === 10003 || codeNum === 1008) {
       removeCookie('web-token');
       removeLocalStorage('wallet');
-      history.push('/login');
-      // window.location.reload();
+      messageAntd.error(data?.message)
+      setTimeout(() => {
+        history.push('/login');
+      }, 2500)
+    }else if(codeNum === 500){
+      messageAntd.error('接口异常')
     }
-    // messageAntd.error(message);
-    return Promise.reject(response.data);
+    else{
+      messageAntd.error(message)
+      return response?.data // 返回接口返回的错误信息
+    }
   }
 }, errorHandler);
 

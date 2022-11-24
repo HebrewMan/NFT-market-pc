@@ -1,14 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import Portal from '../../components/Dialog';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { Select } from '../marketplace/Select';
 import { formatAdd } from '../marketplace/utils';
 import { Dropdown, Menu, Space, Typography, message, Select as SelectAntd } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../utils/layout';
-import { getGoods, getSelfGoods, getOtherPersonGoods, getGood, createIpfs, getGoodsByCollectionId } from '../../api';
+import {
+  getGoods,
+  getSelfGoods,
+  getOtherPersonGoods,
+  getGood,
+  createIpfs,
+  getGoodsByCollectionId,
+  getMyNFTList,
+} from '../../api';
 import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
 import { getAccountInfo, updateUserInfo } from '../../api/user';
 import { getCollectionDetails } from '../../api/collection';
@@ -34,45 +42,45 @@ interface collectionsDataProps {
   name: string;
   price: number;
 }
+const statusList = [
+  {
+    label: 'status',
+    name: 'All',
+    value: 9,
+  },
+  {
+    label: 'status',
+    name: 'For Sale',
+    value: 1,
+  },
+  {
+    label: 'status',
+    name: 'Selling',
+    value: 2,
+  },
+  {
+    label: 'status',
+    name: 'Force Cancel',
+    value: 3,
+  },
+];
+
+const sortList = [
+  {
+    label: 'sort',
+    name: 'Price High to Low',
+    value: 'high',
+  },
+  {
+    label: 'sort',
+    name: 'Price Low to High',
+    value: 'low',
+  },
+];
+
+const tabsData = ['Collected', 'Favorited'];
 
 export const Account: React.FC<any> = () => {
-  const { t } = useTranslation();
-  const statusList = [
-    {
-      label: 'status',
-      name: t('account.all'),
-      value: 9,
-    },
-    {
-      label: 'status',
-      name: t('account.sale'),
-      value: 1,
-    },
-    {
-      label: 'status',
-      name: t('account.selling'),
-      value: 2,
-    },
-    {
-      label: 'status',
-      name: t('account.forceCancel'),
-      value: 3,
-    },
-  ];
-
-  const sortList = [
-    {
-      label: 'sort',
-      name: t('marketplace.highToLow'),
-      value: 'high',
-    },
-    {
-      label: 'sort',
-      name: t('marketplace.LowToHigh'),
-      value: 'low',
-    },
-  ];
-  const tabsData = [t('account.collected'), t('account.favorited')];
   const [grid, setGrid] = useState(1);
   const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
@@ -96,13 +104,12 @@ export const Account: React.FC<any> = () => {
   const [ownerAddr, setOwnerAddr] = useState<any>(null);
   const [reset, setReset] = useState(false);
   const [mobileSelect, setMobileSelect] = useState(0);
+
   const defaultData = {
     collectAddr: collectAddr,
-    // createAddr: createAddr,
     ownerAddr: ownerAddr || address,
-    keyWord: keyWord,
-    sort: sort,
-    status: status,
+    name: keyWord,
+    // status: status,
   };
 
   const [pageCurrent, setPageCurrent] = useState(1);
@@ -125,9 +132,14 @@ export const Account: React.FC<any> = () => {
   const [mobileLabel, setMobileLabel] = useState([
     {
       value: '0',
-      label: t('account.collected'),
+      label: 'Collected',
     },
   ]);
+
+  // 初始化
+  useEffect(() => {
+    setCollectionsData([]);
+  }, [address]);
   // 判断方法回调返回值
   const isOwner = () => {
     return (accountInfo?.userAddr && accountInfo?.userAddr === walletAccount) || address === walletAccount;
@@ -138,10 +150,10 @@ export const Account: React.FC<any> = () => {
 
     const check: boolean = uploadFileCheck(
       file,
-      ['jpg', 'png', 'gif'],
-      1024 * 1024 * 5,
-      t('hint.imageTupe'),
-      t('hint.imageSize'),
+      ['jpg', 'png'],
+      1024 * 1024,
+      'Uploading image should be JPG/PNG',
+      'Uploaded image should be less than 1M',
     );
     if (!check) {
       return;
@@ -161,7 +173,7 @@ export const Account: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success(t('hint.avatarUpdated'));
+      message.success('User avatar updated successfully！');
     }
   };
   const handleCopy = (address: string) => {
@@ -173,7 +185,7 @@ export const Account: React.FC<any> = () => {
     document.execCommand('Copy'); // 执行浏览器复制命令
     const creatDom: any = document.getElementById('creatDom');
     creatDom.parentNode.removeChild(creatDom);
-    message.success(t('hint.copySuccess'));
+    message.success('Copy Successful!');
   };
   const clickedTab = (index: number) => {
     const typeParams = {
@@ -218,27 +230,54 @@ export const Account: React.FC<any> = () => {
         size,
         data: {
           ...httpData.data,
-          keyWord: value,
+          name: value,
         },
       };
     });
   };
 
   const handleSort = (item: any) => {
+    const orders = [
+      {
+        asc: item.value === 'high' ? false : true,
+        column: 'o.price',
+      },
+    ];
+    setHttpData(() => {
+      return {
+        page: pageCurrent,
+        size,
+        data: {
+          ...httpData.data,
+          orders: orders,
+        },
+      };
+    });
+    // sort === 'high' ? false : true
     const params = {
       ...httpData,
       page: pageCurrent,
     };
+    console.log(params, 'paramsparams');
+
     pageRef.current = 0;
-    setSort(item.value);
-    params.data.sort = item.value;
-    params.data.status = undefined;
+    setSort(item.value === 'high' ? false : true);
     setPageCurrent(1);
     setCollectionsData([]);
     if (Math.ceil(total / size) > page) {
       setIsMore(true);
     }
-    setHttpData(() => ({ ...params, page: 1 }));
+    setHttpData(() => {
+      return {
+        page: 1,
+        size,
+        data: {
+          ...httpData.data,
+          orders: orders,
+        },
+      };
+    });
+    // setHttpData(() => ({ ...httpData.data, page: 1,orders:orders}));
   };
 
   const handleStatus = (item: any) => {
@@ -248,8 +287,8 @@ export const Account: React.FC<any> = () => {
     };
     pageRef.current = 0;
     setStatus(item.value);
-    params.data.status = item.value;
-    params.data.sort = '';
+    // params.data.status = item.value;
+    // params.data.sort = '';
     setPageCurrent(1);
     setCollectionsData([]);
     if (Math.ceil(total / size) > page) {
@@ -261,20 +300,27 @@ export const Account: React.FC<any> = () => {
   // 收藏或取消收藏
   const toggleFansCollected = (e: any, item: any) => {
     e.preventDefault();
-
-    const { id, collect } = item;
+    const { tokenId, collect, contractAddr } = item;
     if (collect) {
-      removeFansCollect(id);
+      console.log('quxiao');
+
+      removeFansCollect(tokenId, contractAddr);
     } else {
+      console.log('shouc');
       // 关注、收藏
-      addFansCollect(id);
+      addFansCollect(tokenId, contractAddr);
     }
   };
-  const getFansListByNftId = async (id: string | number) => {
-    const res: any = await getFansByGoodsId(id);
+  const getFansListByNftId = async (id: string | number, contractAddr: string) => {
+    const params = {
+      tokenId: id,
+      contractAddr: contractAddr,
+      ownerAddr: address,
+    };
+    const res: any = await getFansByGoodsId(params);
     if (res?.message === 'success') {
       const list = collectionsData.map((item: any) => {
-        return item.id === id
+        return item.tokenId === id
           ? {
               ...item,
               collect: Number(res.data.collect),
@@ -282,21 +328,23 @@ export const Account: React.FC<any> = () => {
             }
           : { ...item };
       });
+      console.log(collectionsData, 'collectionsDatacollectionsData');
+
       setCollectionsData(list);
     }
   };
   // 添加收藏
-  const addFansCollect = async (id: string | number) => {
-    const res: any = await getFans(id);
+  const addFansCollect = async (tokenId: string | number, contractAddr: string) => {
+    const res: any = await getFans(tokenId, contractAddr);
     if (res.message === 'success') {
-      getFansListByNftId(id);
+      getFansListByNftId(tokenId, contractAddr);
     }
   };
   // 取消收藏
-  const removeFansCollect = async (id: string) => {
-    const res: any = await removeFans(id);
+  const removeFansCollect = async (tokenId: string, contractAddr: string) => {
+    const res: any = await removeFans(tokenId, contractAddr);
     if (res.message === 'success') {
-      getFansListByNftId(id);
+      getFansListByNftId(tokenId, contractAddr);
     }
   };
   // 路由跳转
@@ -337,21 +385,29 @@ export const Account: React.FC<any> = () => {
     }
   }, [address]);
 
-  // 滚动加载更多
+  // 触底加载
   const handleLoadMore = () => {
-    if ((id && id !== '0') || address) {
-      if (isMoreRef.current) {
-        const newPage = pageRef.current + 1;
-        setPageCurrent(newPage);
-        setHttpData({ ...httpData, page: newPage });
-      }
+    if (isMoreRef.current) {
+      const newPage = pageRef.current + 1;
+      setPageCurrent(newPage);
+      setHttpData({ ...httpData, page: newPage });
+    } else {
+      pageRef.current = 1;
     }
   };
-  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, pageCurrent, isMore);
+
+  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, httpData.page, isMore);
 
   useEffect(() => {
     if (accountInfo?.userAddr || accountInfo?.id) {
-      getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
+      const address = localStorage.getItem('wallet');
+      if (accountInfo?.userAddr == address) {
+        setCollectionsData([]);
+      }
+      setTimeout(() => {
+        getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
+      }, 200);
+      // getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
     }
   }, [httpData, accountInfo?.userAddr, accountInfo?.id]);
 
@@ -373,101 +429,45 @@ export const Account: React.FC<any> = () => {
       getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
     }
   };
-  // 统一处理列表渲染及是否需要加载
-  const loaderList = (data: any, total: number, flag: boolean) => {
-    if (!flag) {
-      setCollectionsData(() => {
-        return data;
-      });
+  // // 统一处理列表渲染及是否需要加载
+  // const loaderList = (data: any, total: number, flag: boolean) => {
+  //   if (!flag) {
+  //     setCollectionsData(() => {
+  //       return data;
+  //     });
+  //   } else {
+  //     setCollectionsData(() => {
+  //       return [...collectionsData, ...data];
+  //     });
+  //   }
+  //   setTotal(total);
+  //   if (Math.ceil(total / size) > page) {
+  //     setIsMore(true);
+  //   }
+  // };
+
+  // 获取用户当前账号所有的资产
+  const getAccountNFTList = async (typeParams: any) => {
+    const res: any = await getMyNFTList(typeParams);
+    const { records, total, current } = res.data;
+    collectRef.current = records;
+    setPageCurrent(current);
+    setCollectionsData([...collectionsData, ...records]);
+    if (httpData.page >= Math.ceil(total / httpData.size)) {
+      setIsMore(false);
     } else {
-      setCollectionsData(() => {
-        return [...collectionsData, ...data];
-      });
-    }
-    setTotal(total);
-    if (Math.ceil(total / size) > page) {
       setIsMore(true);
     }
-    // if (page >= Math.round(total / httpData.size)) {
-    //   setIsMore(false);
-    // }
   };
-  // 通过合集id及市场类型获取商品列表
-  const getCollectsById = async (params: any) => {
-    const res: any = await getGoodsByCollectionId(params);
-    const { records, total, current } = res.data;
-    collectRef.current = records;
-    setPageCurrent(current);
-    loaderList(collectRef.current, total, true);
-  };
-  // 通过合集id获取当前用户所属的商品列表
-  // const getSelfGoodsById = async (deepParams: any, flag: boolean) => {
-  //   const res: any = await getSelfGoods(deepParams);
-  //   const { records, total, current } = res.data;
-  //   collectRef.current = records;
-  //   setPageCurrent(current);
-  //   loaderList(collectRef.current, total, flag);
-  // };
-  // 查询他人用户的商品
-  const getOtherAccountGoods = async (typeParams: any) => {
-    const res: any = await getOtherPersonGoods(address, typeParams);
-    const { records, total, current } = res.data;
-    collectRef.current = records;
-    setPageCurrent(current);
-    loaderList(collectRef.current, total, true);
-  };
-  // 获取当前账户下的所有商品，包括盲盒
-  // const getCollectGoods = (typeParams: any, flag: boolean = true) => {
-  //   const deepParams = {
-  //     data: {
-  //       ...typeParams.data,
-  //       collectionId: id,
-  //       ownerAddr: currentIndex == 0 ? address : '',
-  //     },
-  //     page: typeParams.page,
-  //     size,
-  //   };
-  //   if (id && id !== '0' && !isOwner()) {
-  //     // typeParams.data.collectionId = id
-  //     delete deepParams.data.ownerAddr;
-  //     getCollectsById(deepParams);
-  //   }
-  //   else if (id && id !== '0' && isOwner()) {
-  //     delete deepParams.data.ownerAddr;
-  //     getSelfGoodsById(deepParams, flag);
-  //   }
-  //   else if (address && isOwner()) {
-  //     delete deepParams.data.collectionId;
-  //     getSelfGoodsById(deepParams, flag);
-  //   }
-  //   else if (address && !isOwner()) {
-  //     // 查询别人的nft
-  //     getOtherAccountGoods(typeParams);
-  //   } else {
-  //     getCollectsById({ page, size });
-  //   }
-  // };
+
   const getCollectGoods = (typeParams: any) => {
-    const deepParams = {
-      data: {
-        ...typeParams.data,
-        collectionId: id,
-        ownerAddr: currentIndex === 0 ? address || walletAccount : '',
-      },
+    const newParams = {
+      ...typeParams.data,
       page: typeParams.page,
       size,
+      ownerAddr: address,
     };
-    if (id && id !== '0') {
-      // 通过合集id查询nft
-      delete deepParams.data.ownerAddr;
-      getCollectsById(deepParams);
-    } else if (address) {
-      // 通过地址查询nft
-      delete deepParams.data.collectionId;
-      getOtherAccountGoods(deepParams);
-    } else {
-      getCollectsById({ page, size });
-    }
+    getAccountNFTList(newParams);
   };
   const handleReset = () => {
     setKeyWord('');
@@ -479,9 +479,7 @@ export const Account: React.FC<any> = () => {
       page: 1,
       size,
     };
-    resetParams.data.keyWord = '';
-    resetParams.data.status = undefined;
-    resetParams.data.sort = '';
+    resetParams.data.name = '';
     pageRef.current = 0;
     setPageCurrent(1);
     setCollectionsData([]);
@@ -496,10 +494,10 @@ export const Account: React.FC<any> = () => {
 
     const check: boolean = uploadFileCheck(
       file,
-      ['jpg', 'png', 'gif'],
+      ['jpg', 'png'],
       1024 * 1024 * 5,
-      t('hint.imageTupe'),
-      t('hint.imageSize'),
+      'Uploading image should be JPG/PNG',
+      'Uploaded image should be less than 5M',
     );
     if (!check) {
       return;
@@ -545,9 +543,9 @@ export const Account: React.FC<any> = () => {
         onChange={handleChange}
         className='mobileSelect'
       >
-        <SelectAntd.Option value='0'>{t('account.collected')}</SelectAntd.Option>
+        <SelectAntd.Option value='0'>Collected</SelectAntd.Option>
         {/* <SelectAntd.Option value='1'>Created</SelectAntd.Option> */}
-        <SelectAntd.Option value='1'>{t('account.favorited')}</SelectAntd.Option>
+        <SelectAntd.Option value='1'>Favorited</SelectAntd.Option>
       </SelectAntd>
     );
   };
@@ -556,7 +554,7 @@ export const Account: React.FC<any> = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>{t('common.noDataLong')}</p>
+        <p>No data available for the time being.</p>
       </div>
     );
   };
@@ -565,14 +563,22 @@ export const Account: React.FC<any> = () => {
     return collectionsData.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link to={`/product-details/${item.id}`}>
+          <Link
+            to={
+              item.orderId
+                ? `/product-details/${item.orderId}`
+                : `/product-details/${0}/${item.tokenId}/${item?.contractAddr}`
+            }
+          >
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
             </div>
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>{parseFloat(Number(item.price).toFixed(4)) + ' USDT'}</div>
+                <div className='price'>
+                  {item.status === 0 ? Math.floor(Number(item.price) * 10000) / 10000 + ' AITD' : 0 + 'AITD'}
+                </div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
             </div>
@@ -597,12 +603,12 @@ export const Account: React.FC<any> = () => {
       <div className={`banner ${accountInfo?.bannerUrl ? 'set' : ''}`}>
         <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
         <div className='add'>
-          {t('account.banner')}
+          Add a banner ima
           <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
         </div>
         <div className='edit'>
           <img src={require('../../assets/edit_banner.png')} alt='' />
-          <span>{t('account.editBanner')}</span>
+          <span>Edit Banner</span>
           <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
         </div>
       </div>
@@ -620,7 +626,7 @@ export const Account: React.FC<any> = () => {
                   <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
                   <div className='ico'>
                     <img src={require('../../assets/edit_white.svg')} alt='' />
-                    <span>{t('account.edit')}</span>
+                    <span>Edit</span>
                   </div>
                 </>
               )}
@@ -671,20 +677,20 @@ export const Account: React.FC<any> = () => {
                   getKeyWord={getKeyWord}
                   reset={reset}
                   keyWord={keyWord}
-                  placeholder={t('marketplace.serach')}
+                  placeholder={'Please enter NFT/ collection'}
                 />
 
                 <div className='infoFilter'>
                   <Select value={sort} list={sortList} change={handleSort} />
 
-                  <Select value={status} list={statusList} change={handleStatus} />
+                  {/* <Select value={status} list={statusList} change={handleStatus} /> */}
 
                   {/* <button className='reset-btn' onClick={handleReset}>
                     Reset
                   </button> */}
                 </div>
               </div>
-              <div className={`info-main info-main--max`}>
+              <div className={`info-main info-main--max ${isMobile ? 'mobile-info-main' : ''}`}>
                 <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
                   {collectionsData.length > 0 && CardItem()}
                   {collectionsData.length === 0 && listEmpty()}

@@ -4,6 +4,7 @@ import { UseWalletProvider } from './providers';
 import { Primary } from './views';
 import { MarketPlace } from './views/marketplace';
 import { MarketList } from './views/primary/components/MarketList';
+import { ActivityDetail } from './views/primary/ActivityDetail';
 import { PrimaryDetails } from './views/primary/components/PrimaryDetails';
 import { ProductionDetails } from './views/marketplace/ProductDetails';
 import { HelpCenter } from './views/helpcenter';
@@ -27,6 +28,7 @@ export function Routes() {
             <Route exact path='/primary' component={() => <Primary />} />
             <Route exact path='/marketplace' component={() => <MarketPlace />} />
             <Route exact path='/marketlist/:id?/:status?' component={() => <MarketList />} />
+            <Route exact path='/activityDetail' component={() => <ActivityDetail />} />
             <Route
               path='/primary-details/:id?/:status?/:blindStatus?/:tokenId?/:tags?/:metadataId?'
               component={() => <PrimaryDetails />}

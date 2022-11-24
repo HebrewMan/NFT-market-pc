@@ -141,7 +141,7 @@ export const General = () => {
               name='name'
               id='name'
               className={requiredName ? 'active-focus' : ''}
-              placeholder={t('userSettings.username')}
+              placeholder={t('userSettings.username') || undefined}
               onBlur={(e) => handleNameBlur(e)}
               value={form.username || ''}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
@@ -164,7 +164,7 @@ export const General = () => {
               name='email'
               id='name'
               className={requiredEmail ? 'active-focus' : ''}
-              placeholder={t('userSettings.email')}
+              placeholder={t('userSettings.email') || undefined}
               onBlur={(e) => handleEmailBlur(e)}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               value={form.email || ''}
@@ -183,7 +183,7 @@ export const General = () => {
             <textarea
               name='bio'
               id='desc'
-              placeholder={t('userSettings.introduction')}
+              placeholder={t('userSettings.introduction') || undefined}
               value={form.bio || ''}
               onChange={(e) => setForm({ ...form, bio: e.target.value })}
             />

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import Portal from '../../components/Dialog';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { Select } from '../marketplace/Select';
 import { formatAdd } from '../marketplace/utils';
 import { Dropdown, Menu, Space, Typography, message, Select as SelectAntd } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../utils/layout';
 import { getGoods, getSelfGoods, getOtherPersonGoods, getGood, createIpfs, getGoodsByCollectionId } from '../../api';
 import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
@@ -35,18 +35,55 @@ interface collectionsDataProps {
   name: string;
   price: number;
 }
+const list = [
+  // 所有过滤条件
+  {
+    label: 'status',
+    name: 'Listed',
+    value: 0,
+  },
+  {
+    label: 'status',
+    name: 'Sold out',
+    value: 1,
+  },
+  {
+    label: 'status',
+    name: 'Canceled',
+    value: 2,
+  },
+  // {
+  //   label: 'status',
+  //   name: 'Force Cancel',
+  //   value: 3,
+  // },
+  {
+    label: 'sort',
+    name: 'Price High to Low',
+    value: 'high',
+  },
+  {
+    label: 'sort',
+    name: 'Price Low to High',
+    value: 'low',
+  },
+];
+const tabsData = ['Collected', 'Favorited'];
 
 export const MaskImage = (props: any) => {
-  const { t } = useTranslation();
   let { width, status, type } = props;
   const maskTitle = (status: number) => {
-    if (status === 3 || type === 2) {
-      return t('primary.soldOut');
-    } else if (status === 0 || status === 1) {
-      return t('primary.begin');
+    if (status === 1 || type === 2) {
+      return 'Sold Out';
+    } else if (status === 2) {
+      return 'Canceled';
     } else {
       return '';
     }
+    // TODO:暂无待开始状态
+    // else if (status === 0 || status === 1) {
+    //   return 'To Begin';
+    // }
   };
   return (
     <div className='spring-logo' style={{ width: width }}>
@@ -56,41 +93,6 @@ export const MaskImage = (props: any) => {
 };
 
 export const Collection: React.FC<any> = () => {
-  const { t } = useTranslation();
-  const list = [
-    // 所有过滤条件
-    {
-      label: 'status',
-      name: t('collection.created'),
-      value: 0,
-    },
-    {
-      label: 'status',
-      name: t('marketplace.details.listings'),
-      value: 1,
-    },
-    {
-      label: 'status',
-      name: t('collection.listed'),
-      value: 2,
-    },
-    {
-      label: 'status',
-      name: t('account.forceCancel'),
-      value: 3,
-    },
-    {
-      label: 'sort',
-      name: t('marketplace.highToLow'),
-      value: 'high',
-    },
-    {
-      label: 'sort',
-      name: t('marketplace.LowToHigh'),
-      value: 'low',
-    },
-  ];
-  const tabsData = [t('account.collected'), t('account.favorited')];
   const [grid, setGrid] = useState(1);
   const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
@@ -142,7 +144,7 @@ export const Collection: React.FC<any> = () => {
   const [mobileLabel, setMobileLabel] = useState([
     {
       value: '0',
-      label: t('account.collected'),
+      label: 'Collected',
     },
   ]);
   // 判断方法回调返回值
@@ -166,7 +168,7 @@ export const Collection: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success(t('hint.avatarUpdated'));
+      message.success('User avatar updated successfully！');
     }
   };
   const handleCopy = (address: string) => {
@@ -178,7 +180,7 @@ export const Collection: React.FC<any> = () => {
     document.execCommand('Copy'); // 执行浏览器复制命令
     const creatDom: any = document.getElementById('creatDom');
     creatDom.parentNode.removeChild(creatDom);
-    message.success(t('hint.copySuccess'));
+    message.success('Copy Successful!');
   };
   const clickedTab = (index: number) => {
     const typeParams = {
@@ -253,17 +255,21 @@ export const Collection: React.FC<any> = () => {
   // 收藏或取消收藏
   const toggleFansCollected = (e: any, item: any) => {
     e.preventDefault();
-
-    const { id, collect } = item;
+    const { tokenId, collect, contractAddr } = item;
     if (collect) {
-      removeFansCollect(id);
+      removeFansCollect(tokenId, contractAddr);
     } else {
       // 关注、收藏
-      addFansCollect(id);
+      addFansCollect(tokenId, contractAddr);
     }
   };
-  const getFansListByNftId = async (id: string | number) => {
-    const res: any = await getFansByGoodsId(id);
+  const getFansListByNftId = async (id: string | number, contractAddr: string) => {
+    const params = {
+      tokenId: id,
+      contractAddr: contractAddr,
+      ownerAddr: ownerAddr,
+    };
+    const res: any = await getFansByGoodsId(params);
     if (res?.message === 'success') {
       const list = collectionsData.map((item: any) => {
         return item.id === id
@@ -278,17 +284,17 @@ export const Collection: React.FC<any> = () => {
     }
   };
   // 添加收藏
-  const addFansCollect = async (id: string | number) => {
-    const res: any = await getFans(id);
+  const addFansCollect = async (tokenId: string | number, contractAddr: string) => {
+    const res: any = await getFans(tokenId, contractAddr);
     if (res.message === 'success') {
-      getFansListByNftId(id);
+      getFansListByNftId(tokenId, contractAddr);
     }
   };
   // 取消收藏
-  const removeFansCollect = async (id: string) => {
-    const res: any = await removeFans(id);
+  const removeFansCollect = async (tokenId: string, contractAddr: string) => {
+    const res: any = await removeFans(tokenId, contractAddr);
     if (res.message === 'success') {
-      getFansListByNftId(id);
+      getFansListByNftId(tokenId, contractAddr);
     }
   };
   // 路由跳转
@@ -338,10 +344,7 @@ export const Collection: React.FC<any> = () => {
   }
 
   useEffect(() => {
-    console.log(accountInfo, '---accountInfo');
   }, [accountInfo]);
-
-  console.log(pageCurrent, '----pageCurrent');
 
   const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, pageCurrent, isMore);
 
@@ -410,6 +413,7 @@ export const Collection: React.FC<any> = () => {
         ...typeParams.data,
         collectionId: id,
         ownerAddr: currentIndex === 0 ? address || walletAccount : '',
+        // first: 1, // 推荐1,不推荐0
       },
       page: typeParams.page,
       size,
@@ -421,6 +425,7 @@ export const Collection: React.FC<any> = () => {
     } else if (address) {
       // 通过地址查询nft
       delete deepParams.data.collectionId;
+      delete deepParams.data.first;
       getOtherAccountGoods(deepParams);
     } else {
       getCollectsById({ page, size });
@@ -470,8 +475,8 @@ export const Collection: React.FC<any> = () => {
     };
     return (
       <SelectAntd labelInValue value={mobileLabel} onChange={handleChange} className='mobileSelect'>
-        <SelectAntd.Option value='0'>{t('account.collected')}</SelectAntd.Option>
-        <SelectAntd.Option value='1'>{t('account.favorited')}</SelectAntd.Option>
+        <SelectAntd.Option value='0'>Collected</SelectAntd.Option>
+        <SelectAntd.Option value='1'>Favorited</SelectAntd.Option>
       </SelectAntd>
     );
   };
@@ -480,7 +485,7 @@ export const Collection: React.FC<any> = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>{t('common.noDataLong')}</p>
+        <p>No data available for the time being.</p>
       </div>
     );
   };
@@ -490,14 +495,14 @@ export const Collection: React.FC<any> = () => {
       return (
         <div className='card' key={index}>
           {/* 合集商品要使用一级市场合约  改成跳转一级市场 */}
-          <Link to={`/primary-details/${item.id}/${0}`}>
+          <Link to={`/product-details/${item.orderId}`}>
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
             </div>
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>{parseFloat(Number(item.price).toFixed(4)) + ' USDT'}</div>
+                <div className='price'>{Math.floor(Number(item.price) * 10000) / 10000 + ' AITD'}</div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
             </div>
@@ -511,7 +516,7 @@ export const Collection: React.FC<any> = () => {
               />
               <span className={!item.collect ? '' : 'favorite'}>{item.collectNum}</span>
             </div>
-            {item?.status !== 2 ? <MaskImage status={item?.status} type={item?.type} /> : <></>}
+            {item?.status !== 0 ? <MaskImage status={item?.status} type={item?.type} /> : <></>}
           </Link>
         </div>
       );
@@ -525,7 +530,7 @@ export const Collection: React.FC<any> = () => {
       </div>
       <div className='collection-content-wrap'>
         <div className='collection-header--main'>
-          <div>
+          <div className={isMobile || width < 768 ? 'mobileImg' : ''}>
             <div className='user-img'>
               <img
                 className='header-img'
@@ -537,7 +542,7 @@ export const Collection: React.FC<any> = () => {
                   <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
                   <div className='ico'>
                     <img src={require('../../assets/edit_white.svg')} alt='' />
-                    <span>{t('account.edit')}</span>
+                    <span>Edit</span>
                   </div>
                 </>
               )}
@@ -582,12 +587,12 @@ export const Collection: React.FC<any> = () => {
                 </label>
               </div>
 
-              <HeaderSearch
+              {/* <HeaderSearch
                 getKeyWord={getKeyWord}
                 reset={reset}
                 keyWord={keyWord}
-                placeholder={t('collection.serach')}
-              />
+                placeholder={'Search items, and accounts'}
+              /> */}
 
               <div className='infoFilter'>
                 <Select
@@ -603,7 +608,7 @@ export const Collection: React.FC<any> = () => {
                 </button> */}
               </div>
             </div>
-            <div className={`info-main info-main--max`}>
+            <div className={`info-main info-main--max ${isMobile ? 'mobile-info-main' : ''}`}>
               <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
                 {collectionsData.length > 0 && CardItem()}
                 {collectionsData.length === 0 && listEmpty()}

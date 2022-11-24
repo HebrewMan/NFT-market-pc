@@ -94,7 +94,7 @@ export const MarketList = () => {
                     <div className='li-price li-details'>
                       <h1>{t('marketplace.price')}</h1>
                       <div className='eth-price'>
-                        <img width='18' src={require('../../../../assets/usdt.png')} alt='' />
+                        <img width='18' src={require('../../../../assets/coin/aitd.svg')} alt='' />
                         <span>{item?.price}</span>
                       </div>
                     </div>

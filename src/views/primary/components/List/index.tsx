@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import { CommTimer } from '../Timer';
 import { useTouchBottom } from '../../../../hooks';
 import { getPrimaryActivityList } from '../../../../api/primary';
 import useWindowDimensions from '../../../../utils/layout';
 import './index.scss';
-import { useTranslation } from "react-i18next"
-import { getViewLang } from "../../../../utils/i18n"
 
 export const MaskImage = (props: any) => {
   // eslint-disable-next-line react/prop-types
-  const { t } = useTranslation()
   const { width, status } = props;
   const maskTitle = (status: any) => {
     if (status === 3 || status === null) {
-      return t('primary.soldOut');
+      return 'Sold Out';
     } else if (status === 2) {
-      return t('primary.end');
+      return 'End';
     } else if (status === 0) {
-      return t('primary.progress');
+      return 'To Begin';
     } else {
       return '';
     }
@@ -57,19 +55,20 @@ export const PList = () => {
   };
   const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, page, isMore);
   const ListItem = ({ activityList }: any) => {
-    const { t } = useTranslation()
     const history = useHistory();
     const handleToMarket = (item: any) => {
-      // 已售罄不可点击查看详情
-      if (item?.status === 3 || item?.status === null) {
-        return;
-      }
       const info = {
         name: item.name,
         description: item.description,
       };
       localStorage.setItem('details', JSON.stringify(info));
-      history.push(`/marketlist/${item.id}/${item.status}`);
+      // type 0.内部 1.外部
+      if (item?.type == 1) {
+        localStorage.setItem('actityDetail', JSON.stringify(item));
+        history.push(`/activityDetail`);
+      } else {
+        history.push(`/marketlist/${item.id}/${item.status}`);
+      }
     };
     const getTimer = (row: any) => {
       return row.status === 3 || row.status === 2 ? [] : row.countdown;
@@ -84,12 +83,12 @@ export const PList = () => {
             {item.status !== 1 ? <MaskImage status={item.status} width={'100%'} /> : <></>}
           </div>
           <div className='wrap-box-right'>
-            <h2>{getViewLang(item.inName)}</h2>
-            <p>{getViewLang(item.inRemark)}</p>
+            <h2>{item.name}</h2>
+            <p>{item.description}</p>
             <CommTimer activityStatus={Number(item.status)} endTime={getTimer(item)} />
             {width > 1024 && (
               <div>
-                <a> {t('primary.more')} → </a>
+                <a> More → </a>
               </div>
             )}
           </div>
@@ -98,7 +97,7 @@ export const PList = () => {
     });
   };
   return (
-    <div className={`primary-list-wrap`}>
+    <div className={`primary-list-wrap ${isMobile ? 'mobile-primary-list-wrap' : ''}`}>
       <div className='list-wrap-box'>
         <ul>
           <ListItem activityList={activityList} />

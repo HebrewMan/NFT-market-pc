@@ -1,14 +1,18 @@
 import React from 'react';
 import Web3 from 'web3';
+import { isMobile } from 'react-device-detect';
 import config from '../config/constants';
 import MarketPlaceAbi from '../config/abi/marketPlace.json';
 import MarketPlacePrimaryAbi from '../config/abi/marketPlacePrimary.json';
 import BankCardsAbi from '../config/abi/bankCards.json';
 import ERC20Abi from '../config/abi/ERC20.json';
+import ERC721Abi from '../config/abi/ERC721.json';
+import ERC1155Abi from '../config/abi/ERC1155.json';
+import marketPlaceAitdV3Abi from '../config/abi/marketPlaceAitdV3.json';
 import { ethers } from 'ethers';
 
 const _chainId = window?.ethereum?.chainId;
-export const chainId = parseInt(_chainId);
+export const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
 
 export const hasWallet = () => Boolean(window?.ethereum);
 
@@ -44,12 +48,23 @@ export const getMarketPlacePrimaryContract = (marketPlaceContractAddr: string, w
 
 // ERC1155合约
 export const getERC1155Contract = (Erc1155ContractAddr: string, web3?: Web3) => {
-  return getContract(BankCardsAbi.abi, Erc1155ContractAddr, web3);
+  return getContract(ERC1155Abi.abi, Erc1155ContractAddr, web3);
 };
 
 // ERC20合约
 export const getERC20Contract = (Erc20ContractAddr: string, web3?: Web3) => {
   return getContract(ERC20Abi.abi, Erc20ContractAddr, web3);
+};
+
+// V2.0.1版本新增合约
+// ERC721合约
+export const getERC721Contract = (Erc711ContractAddr: string, web3?: Web3) => {
+  return getContract(ERC721Abi.abi, Erc711ContractAddr, web3);
+};
+
+// 市场合约
+export const getMarketPlaceAitdV3Abi = (marketPlaceContractAddr: string, web3?: Web3) => {
+  return getContract(marketPlaceAitdV3Abi.abi, marketPlaceContractAddr, web3);
 };
 
 // erc1155授权
@@ -117,6 +132,39 @@ export const getIsApproved = async (owner: string, operator: boolean, Erc20Contr
 export const getBalanceOf = async (Erc20ContractAddr: string, account: string, web3?: Web3) => {
   try {
     const res = await getERC20Contract(Erc20ContractAddr, web3).methods.balanceOf(account).call();
+    return res;
+  } catch (error) {
+    console.log('error:::', error);
+  }
+};
+
+//查看erc721是否授权
+export const getERC711IsApproved = async (
+  // owner: string,
+  // operator: boolean,
+  tokenId: string,
+  Erc711ContractAddr: string,
+  web3?: Web3,
+) => {
+  try {
+    const res = await getERC721Contract(Erc711ContractAddr, web3).methods.getApproved(tokenId).call();
+    return res;
+  } catch (error) {
+    console.log('error:::', error);
+  }
+};
+// erc721授权
+export const getSetERC711ApprovalForAll = async (
+  account: string,
+  operator: string,
+  tokenId: string,
+  Erc711ContractAddr: string,
+  web3?: Web3,
+) => {
+  try {
+    const res = await getERC721Contract(Erc711ContractAddr, web3)
+      .methods.approve(operator, tokenId)
+      .send({ from: account });
     return res;
   } catch (error) {
     console.log('error:::', error);
