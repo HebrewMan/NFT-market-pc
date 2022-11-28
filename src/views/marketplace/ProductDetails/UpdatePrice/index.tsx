@@ -16,7 +16,7 @@ import instanceLoading from '../../../../utils/loading';
 import { getLocalStorage, toPriceDecimals, debounce, getCookie } from '../../../../utils/utils';
 import config, { USDT, isProd, ContractType, CoinType } from '../../../../config/constants';
 import './index.scss';
-
+import { useTranslation } from 'react-i18next';
 const UpdatePriceView = ({
   price,
   tokenId,
@@ -46,6 +46,7 @@ const UpdatePriceView = ({
   close: Function;
   updateGoods: Function;
 }) => {
+  const {t} = useTranslation()
   const web3 = useWeb3();
   const history = useHistory();
   const account = getLocalStorage('wallet') || '';
@@ -84,24 +85,23 @@ const UpdatePriceView = ({
     getUpdateLowerPrice(updateObj)
       .then((res: any) => {
         if (res?.message === 'success') {
-          message.success('Update successful!');
+          // message.success('Update successful!');
           updateClose();
           updateGoods();
         }
       })
       .catch((err: any) => {
-        console.log('getUpdateLowerPrice error', err);
       });
   };
   const getSellOrder = async () => {
     // 上架
     if (!account || !token) {
-      message.error('Please log in first!');
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t('hint.switchMainnet'));
       return;
     }
     const isApproval = isERC721
@@ -111,7 +111,7 @@ const UpdatePriceView = ({
     let orderRes: any = undefined;
     const _price = !updatePrice ? Number(price) : Number(updatePrice);
     if (!price && !updatePrice) {
-      message.error('Price must be set for blind box！');
+      message.error(t('hint.priceSet'));
       return;
     }
     instanceLoading.service();
@@ -141,13 +141,12 @@ const UpdatePriceView = ({
         orderRes = await createMarketItem(web3, obj);
 
       } catch (error: any) {
-        console.log('createMarketItemErc1155 error', error);
         instanceLoading.close();
       }
     }
     if (orderRes?.transactionHash) {
       // 上架通知后台
-      message.success('Order successful!');
+      message.success(t('hint.order'));
        // 上架成功 跳转到个人资产
        history.push(`/account/0/${walletAccount}`)
       updateClose();
@@ -170,12 +169,12 @@ const UpdatePriceView = ({
       account,
     };
     if (!account || !token) {
-      message.error('Please log in first!');
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t('hint.switchMainnet'));
       return;
     }
     instanceLoading.service();
@@ -191,7 +190,6 @@ const UpdatePriceView = ({
         updateLowerPrice(updateObj);
       }
     } catch (error: any) {
-      console.log('createMarketItemErc1155 error', error);
       instanceLoading.close();
     }
     instanceLoading.close();
@@ -209,11 +207,11 @@ const UpdatePriceView = ({
     const reg = /[^\d.]{1,18}/;
 
     if (reg.test(value)) {
-      message.error('Please enter numbers only！');
+      message.error(t('hint.numbersOnly'));
       return;
     }
     if (value <= 0) {
-      message.error('Please only enter numbers greater than zero!');
+      message.error(t('hint.numbersGreater'));
       setUpdatePrice('');
       return;
     }
@@ -251,16 +249,16 @@ const UpdatePriceView = ({
   return (
     <>
       <Modal
-        title={sellOrderFlag ? 'Set the listing price' : 'Update the listing price'}
+        title={sellOrderFlag ? t('marketplace.details.setPrice') : t('marketplace.details.updateListPrice')}
         visible={isModalVisible}
         onOk={getSellOrderOrUpdatePrice}
         onCancel={updateClose}
         footer={[
           <Button key='back' onClick={updateClose}>
-            Never mind
+             {t('marketplace.details.neverMind')}
           </Button>,
           <Button key='submit' type='primary' onClick={getSellOrderOrUpdatePrice}>
-            Complete listing
+            {t('marketplace.details.CompleteList')}
           </Button>,
         ]}
         className='sellOrderAndUpdatePrice'
@@ -278,10 +276,7 @@ const UpdatePriceView = ({
             )} */}
           </div>
           <p></p>
-          <p>
-            Tips: NFT must set the price. You must pay an additional gas fee if you want to cancel this listing at a
-            later point.
-          </p>
+          <p>{t('marketplace.details.sellTips')}</p>
         </div>
       </Modal>
     </>

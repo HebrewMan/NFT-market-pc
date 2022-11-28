@@ -587,12 +587,12 @@ export const Collection: React.FC<any> = () => {
                 </label>
               </div>
 
-              {/* <HeaderSearch
+              <HeaderSearch
                 getKeyWord={getKeyWord}
                 reset={reset}
                 keyWord={keyWord}
                 placeholder={'Search items, and accounts'}
-              /> */}
+              />
 
               <div className='infoFilter'>
                 <Select

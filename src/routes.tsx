@@ -33,7 +33,7 @@ export function Routes() {
               path='/primary-details/:id?/:status?/:blindStatus?/:tokenId?/:tags?/:metadataId?'
               component={() => <PrimaryDetails />}
             />
-            <Route exact path='/product-details/:id' component={() => <ProductionDetails />} />
+            <Route exact path='/product-details/:id/:tokenId?/:contractAddr?' component={() => <ProductionDetails />} />
             <Route exact path='/helpcenter' component={() => <HelpCenter />} />
             <Route exact path='/article-type/:name/:id' component={() => <ArticleType />} />
             <Route exact path='/article-details/:name/:id' component={() => <ArticleDetails />} />
