@@ -33,16 +33,16 @@ ctype nft类型，0 为 ERC721, 1 为 ERC1155
 export const createMarketItem = async (web3: Web3, obj: any) => {
   console.log(commonGasPrice(web3),'dfdfdfdf');
   
-  // const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account, ctype, amounts } =
-  //   obj;
-  // const nftContract = Erc1155ContractAddr; // nft合约地址
-  // // 如果是721类型 amount传1
-  // const count = (ctype === 0 ? 1 : amounts) || 1;
-  // const type = ctype === 'ERC1155' ? 1 : 0;
-  // const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
-  //   .methods.createMarketItem(nftContract, moneyMintAddress, tokenId, amounts, price, type)
-  //   .send({ from: account, gasPrice:commonGasPrice });
-  // return result;
+  const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account, ctype, amounts } =
+    obj;
+  const nftContract = Erc1155ContractAddr; // nft合约地址
+  // 如果是721类型 amount传1
+  const count = (ctype === 0 ? 1 : amounts) || 1;
+  const type = ctype === 'ERC1155' ? 1 : 0;
+  const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
+    .methods.createMarketItem(nftContract, moneyMintAddress, tokenId, amounts, price, type)
+    .send({ from: account, gasPrice:commonGasPrice });
+  return result;
 };
 
 // 下架

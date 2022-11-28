@@ -97,3 +97,13 @@ export function lte(one: IType, two: IType) {
   // 比较两个数字的大小
   return toBigNumber(one).isLessThanOrEqualTo(toBigNumber(two));
 }
+
+export function coverage(num:any) {
+  let str = '0.'
+  if (num) {
+    while (num--) {
+      str += '0'
+    }
+  }
+  return str
+}
