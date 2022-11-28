@@ -10,6 +10,9 @@ const { isDevelopment, isProduction } = require('../env');
 const { imageInlineSizeLimit } = require('../conf');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
+const env = {
+  "APP_MODE":process.env.NODE_ENV
+}
 const getCssLoaders = (importLoaders) => [
   isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
   {
@@ -115,6 +118,9 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       React: 'react',
+    }),
+    new webpack.DefinePlugin({
+        'process.env': JSON.stringify(env)
     }),
     new CopyPlugin({
       patterns: [
