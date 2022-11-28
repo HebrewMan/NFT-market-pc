@@ -6,17 +6,20 @@ import { useTouchBottom } from '../../../../hooks';
 import { getPrimaryActivityList } from '../../../../api/primary';
 import useWindowDimensions from '../../../../utils/layout';
 import './index.scss';
+import { useTranslation } from "react-i18next"
+import { getViewLang } from "../../../../utils/i18n"
 
 export const MaskImage = (props: any) => {
+  const { t } = useTranslation()
   // eslint-disable-next-line react/prop-types
   const { width, status } = props;
   const maskTitle = (status: any) => {
     if (status === 3 || status === null) {
-      return 'Sold Out';
+      return t('primary.soldOut');
     } else if (status === 2) {
-      return 'End';
+      return t('primary.end');
     } else if (status === 0) {
-      return 'To Begin';
+      return t('primary.progress');
     } else {
       return '';
     }
@@ -29,6 +32,7 @@ export const MaskImage = (props: any) => {
 };
 
 export const PList = () => {
+  const { t } = useTranslation()
   const { width } = useWindowDimensions();
   const [activityList, setActivityList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -83,12 +87,12 @@ export const PList = () => {
             {item.status !== 1 ? <MaskImage status={item.status} width={'100%'} /> : <></>}
           </div>
           <div className='wrap-box-right'>
-            <h2>{item.name}</h2>
-            <p>{item.description}</p>
+            <h2>{getViewLang(item.inName)}</h2>
+            <p>{getViewLang(item.inRemark)}</p>
             <CommTimer activityStatus={Number(item.status)} endTime={getTimer(item)} />
             {width > 1024 && (
               <div>
-                <a> More → </a>
+                <a> {t('primary.more')} → </a>
               </div>
             )}
           </div>

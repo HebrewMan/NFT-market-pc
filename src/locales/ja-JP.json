@@ -24,7 +24,7 @@
     "yearAgo": "{{ num }} 年前",
     "signIn": "ウォレットアドレスでログイン"
   },
-  "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://nft.diffgalaxy.com</1>。",
+  "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://www.diffgalaxy.io</1>。",
   "home": {
     "title": "Diffgalaxy NFT アセット トレーディング マーケットへようこそ",
     "subtitle": "Diffgalaxy は NFT 取引を簡単にします。一緒に取引の楽しさを探りましょう",
