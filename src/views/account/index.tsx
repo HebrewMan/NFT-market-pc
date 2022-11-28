@@ -8,13 +8,14 @@ import { Dropdown, Menu, Space, Typography, message, Select as SelectAntd } from
 import { DownOutlined } from '@ant-design/icons';
 import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../utils/layout';
+import { useTranslation } from 'react-i18next';
 import {
-  getGoods,
-  getSelfGoods,
-  getOtherPersonGoods,
-  getGood,
+  // getGoods,
+  // getSelfGoods,
+  // getOtherPersonGoods,
+  // getGood,
   createIpfs,
-  getGoodsByCollectionId,
+  // getGoodsByCollectionId,
   getMyNFTList,
 } from '../../api';
 import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
@@ -42,45 +43,47 @@ interface collectionsDataProps {
   name: string;
   price: number;
 }
-const statusList = [
-  {
-    label: 'status',
-    name: 'All',
-    value: 9,
-  },
-  {
-    label: 'status',
-    name: 'For Sale',
-    value: 1,
-  },
-  {
-    label: 'status',
-    name: 'Selling',
-    value: 2,
-  },
-  {
-    label: 'status',
-    name: 'Force Cancel',
-    value: 3,
-  },
-];
 
-const sortList = [
-  {
-    label: 'sort',
-    name: 'Price High to Low',
-    value: 'high',
-  },
-  {
-    label: 'sort',
-    name: 'Price Low to High',
-    value: 'low',
-  },
-];
 
-const tabsData = ['Collected', 'Favorited'];
 
 export const Account: React.FC<any> = () => {
+  const { t } = useTranslation()
+  const statusList = [
+    {
+      label: 'status',
+      name: t('account.all'),
+      value: 9,
+    },
+    {
+      label: 'status',
+      name: t('account.sale'),
+      value: 1,
+    },
+    {
+      label: 'status',
+      name: t('account.selling'),
+      value: 2,
+    },
+    {
+      label: 'status',
+      name: t('account.forceCancel'),
+      value: 3,
+    },
+  ];
+
+  const sortList = [
+    {
+      label: 'sort',
+      name: t('marketplace.highToLow'),
+      value: 'high',
+    },
+    {
+      label: 'sort',
+      name: t('marketplace.LowToHigh'),
+      value: 'low',
+    },
+  ];
+  const tabsData = [t('account.collected'), t('account.favorited')];
   const [grid, setGrid] = useState(1);
   const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
@@ -132,7 +135,7 @@ export const Account: React.FC<any> = () => {
   const [mobileLabel, setMobileLabel] = useState([
     {
       value: '0',
-      label: 'Collected',
+      label: t('account.collected'),
     },
   ]);
 
@@ -152,8 +155,8 @@ export const Account: React.FC<any> = () => {
       file,
       ['jpg', 'png'],
       1024 * 1024,
-      'Uploading image should be JPG/PNG',
-      'Uploaded image should be less than 1M',
+      t('hint.imageTupe'),
+      t('hint.imageSize'),
     );
     if (!check) {
       return;
@@ -173,7 +176,7 @@ export const Account: React.FC<any> = () => {
   const updateGeneralInfo = async (info: any) => {
     const res: any = await updateUserInfo(info);
     if (res.message === 'success') {
-      message.success('User avatar updated successfully！');
+      message.success(t('hint.avatarUpdated'));
     }
   };
   const handleCopy = (address: string) => {
@@ -185,7 +188,7 @@ export const Account: React.FC<any> = () => {
     document.execCommand('Copy'); // 执行浏览器复制命令
     const creatDom: any = document.getElementById('creatDom');
     creatDom.parentNode.removeChild(creatDom);
-    message.success('Copy Successful!');
+    message.success(t('hint.copySuccess'));
   };
   const clickedTab = (index: number) => {
     const typeParams = {
@@ -258,7 +261,6 @@ export const Account: React.FC<any> = () => {
       ...httpData,
       page: pageCurrent,
     };
-    console.log(params, 'paramsparams');
 
     pageRef.current = 0;
     setSort(item.value === 'high' ? false : true);
@@ -328,8 +330,6 @@ export const Account: React.FC<any> = () => {
             }
           : { ...item };
       });
-      console.log(collectionsData, 'collectionsDatacollectionsData');
-
       setCollectionsData(list);
     }
   };
@@ -496,8 +496,8 @@ export const Account: React.FC<any> = () => {
       file,
       ['jpg', 'png'],
       1024 * 1024 * 5,
-      'Uploading image should be JPG/PNG',
-      'Uploaded image should be less than 5M',
+      t('hint.imageTupe'),
+      t('hint.imageSize'),
     );
     if (!check) {
       return;
@@ -543,9 +543,9 @@ export const Account: React.FC<any> = () => {
         onChange={handleChange}
         className='mobileSelect'
       >
-        <SelectAntd.Option value='0'>Collected</SelectAntd.Option>
+        <SelectAntd.Option value='0'>{t('account.collected')}</SelectAntd.Option>
         {/* <SelectAntd.Option value='1'>Created</SelectAntd.Option> */}
-        <SelectAntd.Option value='1'>Favorited</SelectAntd.Option>
+        <SelectAntd.Option value='1'>{t('account.favorited')}</SelectAntd.Option>
       </SelectAntd>
     );
   };
@@ -554,7 +554,7 @@ export const Account: React.FC<any> = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>No data available for the time being.</p>
+        <p>{t('common.noDataLong')}</p>
       </div>
     );
   };
@@ -563,9 +563,8 @@ export const Account: React.FC<any> = () => {
     return collectionsData.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link
-            to={
-              item.orderId
+          <Link 
+            to={item.orderId
                 ? `/product-details/${item.orderId}`
                 : `/product-details/${0}/${item.tokenId}/${item?.contractAddr}`
             }
@@ -603,12 +602,12 @@ export const Account: React.FC<any> = () => {
       <div className={`banner ${accountInfo?.bannerUrl ? 'set' : ''}`}>
         <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
         <div className='add'>
-          Add a banner ima
+          {t('account.banner')}
           <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
         </div>
         <div className='edit'>
           <img src={require('../../assets/edit_banner.png')} alt='' />
-          <span>Edit Banner</span>
+          <span>{t('account.editBanner')}</span>
           <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
         </div>
       </div>
@@ -626,7 +625,7 @@ export const Account: React.FC<any> = () => {
                   <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
                   <div className='ico'>
                     <img src={require('../../assets/edit_white.svg')} alt='' />
-                    <span>Edit</span>
+                    <span>{t('account.edit')}</span>
                   </div>
                 </>
               )}
@@ -677,7 +676,7 @@ export const Account: React.FC<any> = () => {
                   getKeyWord={getKeyWord}
                   reset={reset}
                   keyWord={keyWord}
-                  placeholder={'Please enter NFT/ collection'}
+                  placeholder={t('marketplace.serach')}
                 />
 
                 <div className='infoFilter'>

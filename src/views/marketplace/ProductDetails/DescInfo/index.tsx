@@ -139,11 +139,11 @@ export const DescInfo = (props: any) => {
             <h2>{t('marketplace.details.properties')}</h2>
           </div>
         </div>
-        <div className={`list-inner ${type === 3 ? 'active' : ''}`} onClick={() => setType(3)}>
+        {/* <div className={`list-inner ${type === 3 ? 'active' : ''}`} onClick={() => setType(3)}>
           <div className='list-title title-point'>
             <h2>{t('marketplace.details.collection')}</h2>
           </div>
-        </div>
+        </div> */}
         <div className={`list-inner ${type === 4 ? 'active' : ''}`} onClick={() => setType(4)}>
           <div className='list-title title-point'>
             <h2>{t('marketplace.details.tokenDetails')}</h2>

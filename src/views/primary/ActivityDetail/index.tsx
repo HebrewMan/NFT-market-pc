@@ -3,9 +3,11 @@ import { Divider } from 'antd';
 import { PHeader } from '../components/Header';
 import { CommTimer } from '../components/Timer';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 // 一级市场外部活动详情页
 export const ActivityDetail = () => {
+  const { t } = useTranslation()
   const details: string = localStorage.getItem('details') ?? '';
   const actityDetail: string = localStorage.getItem('actityDetail') ?? '';
   const primaryObj = JSON.parse(details);
@@ -36,7 +38,7 @@ export const ActivityDetail = () => {
       <PHeader primaryObj={primaryObj} />
       <div className='price-box'>
         <div>
-          <p>Price</p>
+          <p>{t('marketplace.price')}</p>
           <p className='num'>{activeInfo?.price}</p>
         </div>
         <Divider type='vertical' />

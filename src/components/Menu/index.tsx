@@ -145,9 +145,9 @@ export const HeaderMenu = () => {
         </div>
       </div>
       <div className='navbar--items-right'>
-        <div className='search-com'>
+        {/* <div className='search-com'>
           <SelectGroup></SelectGroup>
-        </div>
+        </div> */}
         {/* 多语言 */}
         <div className='langWaper'>
           <Dropdown menu={menuProps} overlayClassName='langDrodown' placement='bottomRight'>

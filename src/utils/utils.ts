@@ -1,8 +1,10 @@
 import { InjectedConnector } from '@web3-react/injected-connector';
+import Web3 from 'web3';
 import dayjs from 'dayjs';
 // import utc from 'dayjs/plugin/utc';
 import BigNumber from 'bignumber.js';
 import { message } from 'antd';
+import { multipliedBy } from './bigNumber'
 
 // dayjs.extend(utc);
 export const cleanName = (name?: string): string | undefined => {

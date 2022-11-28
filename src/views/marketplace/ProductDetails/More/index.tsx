@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { getFans, removeFans, getFansByGoodsId } from '../../../../api/fans';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
+
 export const MoreCollects = (props: any) => {
+  const { t } = useTranslation()
   const [detailsState, setDetailsState] = useState(false);
   const [ownerAddr, setOwnerAddr] = useState('') 
   const grid = 1;
@@ -101,7 +104,7 @@ export const MoreCollects = (props: any) => {
     <div className='more-collection'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
         <img src={require('../../../../assets/view_module.svg')} alt='' className='svg-default-size' />
-        <h2>More from this collection</h2>
+        <h2>{t('marketplace.details.more')}</h2>
         <div className='arrow-icon'>
           <img
             src={

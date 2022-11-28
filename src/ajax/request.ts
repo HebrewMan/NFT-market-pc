@@ -43,8 +43,6 @@ const errorHandler = (error: any) => {
 
 // request interceptor
 request.interceptors.request.use((config: any) => {
-  console.log(requestCount, 'requestCount');
-
   if (config.loading) {
     showLoading();
   }

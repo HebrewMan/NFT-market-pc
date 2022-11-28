@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getCookie } from '../../../utils/utils';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper';
-
+import { useTranslation } from 'react-i18next';
 import 'swiper/scss';
 import './index.scss';
 
@@ -46,6 +46,7 @@ const SwiperComm = (props: any) => {
 
 export const SubjectInner = () => {
   const history = useHistory();
+  const {t} = useTranslation()
   const [swiperList, setSwiperList] = useState<any[]>([]);
   const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({});
   const token = getCookie('web-token') || '';
@@ -83,14 +84,14 @@ export const SubjectInner = () => {
       </div> */}
       <div className='container-flex'>
         <div className='flex-left'>
-          <h1>Welcome to the Diffgalaxy digital art market.</h1>
-          <span>Diffgalaxy makes NFT transactions easier, The joy of exploring and trading together.</span>
+          <h1>{t('home.title')}</h1>
+          <span>{t('home.subtitle')}</span>
           <div className='left-button'>
-            <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
-              Buy
+             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
+              {t('common.buy')}
             </button>
             <button className='button-sell' onClick={clickSell}>
-              Sell
+              {t('common.sell')}
             </button>
           </div>
         </div>
@@ -111,7 +112,7 @@ export const SubjectInner = () => {
             </div>
           </div>
         </div>
-        <p className='text-link link-hidden'>Get featured on the homepage</p>
+        {/* <p className='text-link link-hidden'>Get featured on the homepage</p> */}
       </div>
     </div>
   );

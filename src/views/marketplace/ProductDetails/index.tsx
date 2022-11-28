@@ -8,19 +8,20 @@ import { Trading } from './Trading';
 import { message } from 'antd';
 import { useWeb3React } from '@web3-react/core';
 import useWeb3 from '../../../hooks/useWeb3';
+import { useTranslation } from 'react-i18next';
 import {
-  cancelMarketItemErc1155,
-  createMarketSaleErc1155,
-  createMarketSaleWithTokenErc1155,
+  // cancelMarketItemErc1155,
+  // createMarketSaleErc1155,
+  // createMarketSaleWithTokenErc1155,
   createMarketSale,
   cancelMarketItem,
 } from '../../../hooks/marketplace';
 import { getApproval, getIsApproved } from '../../../hooks/web3Utils';
 import {
-  getGood,
-  getRecommendGoods,
-  getUpdateCancelSellOrder,
-  getUpdateBuyOrder,
+  // getGood,
+  // getRecommendGoods,
+  // getUpdateCancelSellOrder,
+  // getUpdateBuyOrder,
   getNFTDetail,
   getUserNFTDetail,
   getGoodsByCollectionId,
@@ -41,9 +42,10 @@ import './index.scss';
 
 export const ProductionDetails = () => {
   const web3 = useWeb3();
+  const { t } = useTranslation()
   const _chainId = window?.ethereum?.chainId;
   const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
-  const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
+  // const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS;
   const { account } = useWeb3React();
   const [tokenId, setTokenId] = useState<string>('');
@@ -51,15 +53,15 @@ export const ProductionDetails = () => {
   const [ownerAddr, setOwnerAddr] = useState('');
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'));
   const token = getCookie('web-token') || '';
-  const [contractAddr, setContractAddr] = useState('');
-  const [sellStatus, setSellStatus] = useState<Number>(); //售卖状态
+  // const [contractAddr, setContractAddr] = useState('');
+  // const [sellStatus, setSellStatus] = useState<Number>(); //售卖状态
   const [status, setStatus] = useState<Number>();
   const [userNftStatus, setUserNftStatus] = useState<Number>();
   const [belongsId, setBelongsId] = useState<Number | String | null | undefined>();
-  const [collectionId, setCollectionId] = useState('');
-  const [name, setName] = useState('');
+  // const [collectionId, setCollectionId] = useState('');
+  // const [name, setName] = useState('');
   const [fansNum, setFansNum] = useState(0);
-  const [nftId, setNftId] = useState('');
+  // const [nftId, setNftId] = useState('');
   const [fansStatus, setFansStatus] = useState<number | string>('');
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(0); // nft的个数
@@ -84,6 +86,8 @@ export const ProductionDetails = () => {
   //初始化数据
   useEffect(() => {
     // 详情
+    console.log(useParams,'useParamsuseParams');
+    
     init();
   }, [tokenId, goodsId]);
 
@@ -124,7 +128,9 @@ export const ProductionDetails = () => {
     setOrderId(data.orderId);
     setOwnerAddr(data.ownerAddr); //用户钱包地址
     setIsAITD(data?.coin === CoinType.AITD);
-    if (data?.tokenId) {
+    console.log(data?.tokenId,'data?.tokenIddata?.tokenIddata?.tokenId');
+    
+    if (data?.tokenId || data?.tokenId == 0) {
       // getUserAddress(tokenId);
       getFansByGoodsIdData(data?.tokenId, data?.contractAddr);
       getOrderPageData(data?.tokenId, data?.contractAddr);
@@ -192,11 +198,11 @@ export const ProductionDetails = () => {
       contractAddr: contractAddr,
       ownerAddr: address,
     };
-    if (tokenId) {
-      const res: any = await getFansByGoodsId(param);
-      setFansNum(res?.data?.collectNum);
-      setFansStatus(Number(res?.data?.collect));
-    }
+    // if (tokenId) {
+    const res: any = await getFansByGoodsId(param);
+    setFansNum(res?.data?.collectNum);
+    setFansStatus(Number(res?.data?.collect));
+    // }
   };
   // 获取合集详情信息
   const getCollection = async () => {
@@ -257,12 +263,12 @@ export const ProductionDetails = () => {
   const getCancelSellOrder = async () => {
     // 下架合约
     if (!accountAddress || !token) {
-      message.error('Please log in first!');
+      message.error(t('hint.switchMainnet'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.success(t('hint.cancellation'));
       return;
     }
     instanceLoading.service();
@@ -274,7 +280,7 @@ export const ProductionDetails = () => {
         marketPlaceContractAddr,
       );
       if (cancelOrderRes?.transactionHash) {
-        message.success('Cancellation of order successful!');
+        message.success(t('hint.cancellation'));
         updateGoods();
       }
       // if (cancelOrderRes?.transactionHash) {
@@ -346,12 +352,12 @@ export const ProductionDetails = () => {
     };
 
     if (!accountAddress || !token || !Erc20ContractAddr) {
-      message.error('Please log in first!');
+      message.error(t('hint.pleaseLog'));
       history.push('/login');
       return;
     }
     if (chainId !== 1319 && isProd) {
-      message.error('Please switch to mainnet!');
+      message.error(t('hint.switchMainnet'));
       return;
     }
     instanceLoading.service();
@@ -378,12 +384,11 @@ export const ProductionDetails = () => {
         }
       }
       if (!!fillOrderRes?.transactionHash) {
-        message.success('Purchase Successful!');
+        message.success(t('hint.purchaseSuccess'));
         updateGoods();
       }
       instanceLoading.close();
     } catch (error) {
-      console.log('buyNftGoods error', error);
       instanceLoading.close();
     }
 
@@ -415,15 +420,15 @@ export const ProductionDetails = () => {
     const canSell = userTokenId ? amount !== 0 || userNftStatus === 2 : true;
     // 判断属于本人, status 不是正在出售
     if (isOwner() && canSell && status !== 0) {
-      return <button onClick={getSetPriceOrder}>Sell</button>;
+      return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>;
     }
   };
   const cancelBtn = () => {
     if (isCancelSell()) {
       return (
         <>
-          <button onClick={getCancelSellOrder}>Cancel listing</button>
-          <button onClick={getUpdateLowerPriceOrder}>Update price</button>
+          <button onClick={getCancelSellOrder}>{t('marketplace.details.cancelList')}</button>
+          <button onClick={getUpdateLowerPriceOrder}>{t('marketplace.details.update')}</button>
         </>
       );
     }
@@ -438,12 +443,10 @@ export const ProductionDetails = () => {
   };
   // 购买按钮
   const handeClickBuy = () => {
-    console.log('zhixing ');
-
     setBuyModalOpen(true);
   };
 
-  const ownerLink = <Link to={`/account/0/${ownerAddr}`}> you </Link>;
+  const ownerLink = <Link to={`/account/0/${ownerAddr}`}> {t('marketplace.details.you')} </Link>;
   const ownerAddress = (
     <Link to={`/account/0/${ownerAddr}`}>
       {ownerAddr?.startsWith('0x') ? ownerAddr?.substring(2, 8) : ownerAddr?.substring(0, 6)}
@@ -491,13 +494,13 @@ export const ProductionDetails = () => {
                 <div className='auth'>
                   {/* <img src={require('../../../assets/favorite_black.svg')} alt='' className='svg-img' /> */}
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>Owned {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>
                 {DetailData?.price && (
                   <div className='price'>
-                    <p>Current price</p>
+                    <p>{t('marketplace.curPrice')}</p>
                     <p>
                       {Math.floor(Number(DetailData?.price) * 10000) / 10000} {DetailData?.coin || 'AITD'}
                     </p>
@@ -505,7 +508,7 @@ export const ProductionDetails = () => {
                 )}
                 {!isOwner() && (
                   <button disabled={!isBuyNow()} onClick={getBuy}>
-                    Buy Now
+                     {t('common.buyNow')}
                   </button>
                   // <button disabled={!isBuyNow()} onClick={handeClickBuy}>
                   //   Buy Now
