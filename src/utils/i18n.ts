@@ -25,8 +25,9 @@ export const changeLanguage = (lang: Language) => {
 const getInitLang = () => {
   const langCache = localStorage.getItem(LANG_CACHE_KEY);
   if (langCache) return langCache;
-  const browseLang = navigator?.language?.substr(0, 2)?.toLowerCase();
-  return browseLang.includes('zh') ? Language.zh : Language.en;
+  // const browseLang = navigator?.language?.substr(0, 2)?.toLowerCase();
+  // return browseLang.includes('zh') ? Language.zh : Language.en;
+  return Language.en
 };
 
 // 导出后端返回的文案

@@ -266,7 +266,7 @@ const UpdatePriceView = ({
         <div className='update-price'>
           <div className='price'>
             <input defaultValue={CoinType.AITD} disabled />
-            <input placeholder='please enter price' defaultValue={updatePrice} onChange={debounce(handleChange)} />
+            <input placeholder={t('marketplace.details.priceEnter') || undefined} defaultValue={updatePrice} onChange={debounce(handleChange)} />
             {/* {!isERC721 && (
               <input
                 placeholder='please enter amounts'

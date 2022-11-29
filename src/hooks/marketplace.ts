@@ -4,12 +4,12 @@ import instanceLoading from '../utils/loading';
 import { multipliedBy } from '../utils/bigNumber'
 import { web } from 'webpack'
 
-// 定义gasPrice
-export  const commonGasPrice = async (web3: Web3) =>{
-  const _gasPrice = await web3.eth.getGasPrice()
-  const commonGasPrice = Web3.utils.toHex(multipliedBy(_gasPrice,1.1));
-  return commonGasPrice;
-}
+// // 定义gasPrice
+// export  const commonGasPrice = async (web3: Web3) =>{
+//   const _gasPrice = await web3.eth.getGasPrice()
+//   const commonGasPrice = Web3.utils.toHex(multipliedBy(_gasPrice,1.1));
+//   return commonGasPrice;
+// }
 
 // 上架 1155
 export const createMarketItemErc1155 = async (web3: Web3, obj: any) => {
@@ -17,7 +17,7 @@ export const createMarketItemErc1155 = async (web3: Web3, obj: any) => {
   const nftContract = Erc1155ContractAddr; // nft合约地址
   const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
     .methods.createMarketItemErc1155(nftContract, moneyMintAddress, tokenId, price)
-    .send({ from: account, gasPrice:commonGasPrice });
+    .send({ from: account});
   return result;
 };
 
@@ -31,8 +31,6 @@ ctype nft类型，0 为 ERC721, 1 为 ERC1155
 */
 // 最新上架  区分1155 和 721
 export const createMarketItem = async (web3: Web3, obj: any) => {
-  console.log(commonGasPrice(web3),'dfdfdfdf');
-  
   const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account, ctype, amounts } =
     obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
@@ -41,7 +39,7 @@ export const createMarketItem = async (web3: Web3, obj: any) => {
   const type = ctype === 'ERC1155' ? 1 : 0;
   const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
     .methods.createMarketItem(nftContract, moneyMintAddress, tokenId, amounts, price, type)
-    .send({ from: account, gasPrice:commonGasPrice });
+    .send({ from: account});
   return result;
 };
 
@@ -54,7 +52,7 @@ export const cancelMarketItemErc1155 = async (
 ) => {
   const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
     .methods.cancelMarketItemErc1155(orderId)
-    .send({ from: account, gasPrice:commonGasPrice });
+    .send({ from: account });
   return result;
 };
 
@@ -65,7 +63,7 @@ export const cancelMarketItemErc1155 = async (
 export const cancelMarketItem = async (web3: Web3, orderId: number, account: any, marketPlaceContractAddr: string) => {
   const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
     .methods.cancelMarketItem(orderId)
-    .send({ from: account, gasPrice:commonGasPrice });
+    .send({ from: account });
   return result;
 };
 
@@ -79,7 +77,7 @@ export const createMarketSaleErc1155 = async (web3: Web3, obj?: any) => {
       : getMarketPlaceContract(marketPlaceContractAddr, web3)
     ).methods
       .createMarketSaleErc1155(nftContract, orderId)
-      .send({ from: account, value: price, gasPrice:commonGasPrice });
+      .send({ from: account, value: price });
     return result;
   } catch (error: any) {
     console.log('error', error);
@@ -98,7 +96,7 @@ export const createMarketSaleWithTokenErc1155 = async (web3: Web3, obj?: any) =>
       : getMarketPlaceContract(marketPlaceContractAddr, web3)
     ).methods
       .createMarketSaleWithTokenErc1155(nftContract, moneyMintAddress, orderId, price)
-      .send({ from: account, gasPrice:commonGasPrice });
+      .send({ from: account });
     return result;
   } catch (error: any) {
     console.log('error', error);
@@ -109,12 +107,8 @@ export const createMarketSaleWithTokenErc1155 = async (web3: Web3, obj?: any) =>
 // 2.0.1新增 购买NFT
 export const createMarketSale = async (web3: Web3, obj?: any) => {
   const { orderId, price, Erc1155ContractAddr, moneyMintAddress, marketPlaceContractAddr, account, amounts, coin } = obj;
-  const _gasPrice =  await web3.eth.getGasPrice()
-  const commonGasPrice = Web3.utils.toHex(multipliedBy(_gasPrice,1.1));
-  console.log(commonGasPrice,'commonGasPricecommonGasPricecommonGasPrice');
-  
   const nftContract = Erc1155ContractAddr; // nft合约地址
-  let sendObj: any = { from: account, gasPrice:commonGasPrice};
+  let sendObj: any = { from: account};
   // 原生币支付要给value传值, value为发交易的时候支付多少
   if (coin === 'AITD') {
     sendObj = { ...sendObj, value: price };
@@ -145,7 +139,7 @@ export const MarketItemSold = async (web3: Web3, obj?: any) => {
   try {
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
       .methods.MarketItemSold(nftContract, moneyMintAddress, itemId, amount, price)
-      .send({ from: account, gasPrice:commonGasPrice });
+      .send({ from: account });
     return result;
   } catch (error: any) {
     console.log('error', error);
@@ -164,7 +158,7 @@ export const getModifyPrice = async (web3: Web3, obj: any) => {
     // )
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
       .methods.modifyPrice(orderId, newPrice)
-      .send({ from: account, gasPrice:commonGasPrice });
+      .send({ from: account });
     console.log('result', result);
     return result;
   } catch (error: any) {
@@ -179,7 +173,7 @@ export const getPriceChange = async (web3: Web3, obj: any) => {
   try {
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
       .methods.MarketItemPriceChange(orderId, price)
-      .send({ gasPrice:commonGasPrice });
+      .send({});
     console.log('result', result);
     return result;
   } catch (error: any) {

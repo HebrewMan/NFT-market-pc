@@ -19,10 +19,10 @@ export const isProd = process.env.APP_MODE === 'production';
  *  baseURL: 'http://192.168.1.59:4000',
     baseURL: 'https://nft-web-test.helios-a.com/',
     baseURL: 'http://nft-pre.aitd.io',
-    https://nft-pre.diffgalaxy.com/
+    https://www.diffgalaxy.com/
  */
 const devBase = 'http://192.168.1.59:4000'
-const baseURL = isProd ? window.location.origin : 'http://192.168.1.59:4000'; // 预生产要用dev临时配置
+const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
 // const baseURL = window.location.origin === devBase : window.location.origin ; 
 
 const constants = {

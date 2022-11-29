@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { ethers } from 'ethers';
-import { isMobile } from 'react-device-detect';
 import { DescInfo } from './DescInfo';
 import { MoreCollects } from './More';
 import { Trading } from './Trading';
@@ -44,7 +43,7 @@ export const ProductionDetails = () => {
   const web3 = useWeb3();
   const { t } = useTranslation()
   const _chainId = window?.ethereum?.chainId;
-  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
+  const chainId = parseInt(_chainId, 16);
   // const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155;
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS;
   const { account } = useWeb3React();
@@ -502,7 +501,8 @@ export const ProductionDetails = () => {
                   <div className='price'>
                     <p>{t('marketplace.curPrice')}</p>
                     <p>
-                      {Math.floor(Number(DetailData?.price) * 10000) / 10000} {DetailData?.coin || 'AITD'}
+                      {Number(DetailData?.price)} {DetailData?.coin || 'AITD'}
+                      {/* { Math.floor(Number(DetailData?.price) * 10000) / 10000} {DetailData?.coin || 'AITD'} */}
                     </p>
                   </div>
                 )}

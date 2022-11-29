@@ -106,7 +106,8 @@
       "updateListPrice": "Update the listing price",
       "neverMind": "Never mind",
       "CompleteList": "Complete listing",
-      "sellTips": "Tips: NFT must set the price. You must pay an additional gas fee if you want to cancel this listing at a  later point."
+      "sellTips": "Tips: NFT must set the price. You must pay an additional gas fee if you want to cancel this listing at a  later point.",
+      "priceEnter":"please enter price"
     }
   },
   "primary": {
@@ -128,7 +129,10 @@
     "bidding": "bidding",
     "Artist": "Artist",
     "goodsArrived": "The goods have arrived your address!",
-    "deadline": "Deadline"
+    "deadline": "Deadline",
+    "activityDesc":"Activity Description",
+    "WorldCupActivities":"World Cup Activities",
+    "TotalVolume":"Total volume"
   },
   "account": {
     "collected": "Collected",
@@ -162,7 +166,7 @@
     "switchMainnet": "Please switch to mainnet!",
     "pleaseLog": "Please log in first!",
     "cancellation": "Cancellation of order successful!",
-    "priceSet": "Price must be set for blind box！",
+    "priceSet": "Price must be set",
     "order": "Order successful!",
     "numbersOnly": "Please enter numbers only！",
     "numbersGreater": "Please only enter numbers greater than zero!",

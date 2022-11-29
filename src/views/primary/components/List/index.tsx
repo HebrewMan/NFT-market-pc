@@ -62,8 +62,8 @@ export const PList = () => {
     const history = useHistory();
     const handleToMarket = (item: any) => {
       const info = {
-        name: item.name,
-        description: item.description,
+        name: item.inName,
+        description: item.inRemark,
       };
       localStorage.setItem('details', JSON.stringify(info));
       // type 0.内部 1.外部

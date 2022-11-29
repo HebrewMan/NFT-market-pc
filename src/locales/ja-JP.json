@@ -84,7 +84,7 @@
       "more": "他のシリーズの作品",
       "properties": "属性",
       "collection": "Collection Details",
-      "tokenDetails": "Token Details",
+      "tokenDetails": "トークン詳細",
       "description": "説明",
       "info": "情報",
       "address": "コントラクトアドレス",
@@ -107,7 +107,8 @@
       "updateListPrice": "ローンチ価格を更新します",
       "neverMind": "構いません",
       "CompleteList": "ローンチ完了",
-      "sellTips": "ヒント：NFTに価格設定が必須で、もし売らないなら別途にGAS費が払わないといけません"
+      "sellTips": "ヒント：NFTに価格設定が必須で、もし売らないなら別途にGAS費が払わないといけません",
+      "priceEnter":"価格を入力してください"
     }
   },
   "primary": {
@@ -128,7 +129,10 @@
     "bidding": "値段付き",
     "Artist": "芸術家",
     "goodsArrived": "商品がアドレスに確認できました！",
-    "deadline": "締切日"
+    "deadline": "締切日",
+    "activityDesc":"イベント紹介",
+    "WorldCupActivities":"W杯イベント",
+    "TotalVolume":"総量"
   },
   "account": {
     "collected": "私のNFT",
@@ -162,7 +166,7 @@
     "switchMainnet": "メインネットを切り替えてください",
     "pleaseLog": "まずは登録してください",
     "cancellation": "オーダー取り消し完了",
-    "priceSet": "プライドボックスの価格を設定しないといけません",
+    "priceSet": "価格を設定する必要があります",
     "order": "オーダー成功",
     "numbersOnly": "数字だけ入力してください",
     "numbersGreater": "０以上の数字を入力してください",

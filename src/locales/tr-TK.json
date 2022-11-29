@@ -107,7 +107,8 @@
       "updateListPrice": "raf fıyatını güncelle",
       "neverMind": "sıkıntı yok",
       "CompleteList": "Listeyi tamamla",
-      "sellTips": "İpuçları: NFT fiyatı belirlemelidir. Bu listeyi daha sonra iptal etmek isterseniz, ek bir gas ücreti ödemeniz gerekir."
+      "sellTips": "İpuçları: NFT fiyatı belirlemelidir. Bu listeyi daha sonra iptal etmek isterseniz, ek bir gas ücreti ödemeniz gerekir.",
+      "priceEnter":"please enter price"
     }
   },
   "primary": {
@@ -128,7 +129,10 @@
     "bidding": "teklif fiyat",
     "Artist": "sanatçi",
     "goodsArrived": "Ürün adresinize geldi!",
-    "deadline": "zamana kadar"
+    "deadline": "zamana kadar",
+    "activityDesc":"Etkinlik Açıklaması",
+    "WorldCupActivities":"Dünya Kupası Etkinlikleri",
+    "TotalVolume":"toplam "
   },
   "account": {
     "collected": "NFT'lerim",
@@ -162,7 +166,7 @@
     "switchMainnet": "ana sayfaya git",
     "pleaseLog": "önce giriş yap",
     "cancellation": "sipariş iptal edildi",
-    "priceSet": "şansli kutu fiyati belirlemek zorunlu",
+    "priceSet": "fiyati belirlemek zorunlu",
     "order": "Sipariş başarılı!",
     "numbersOnly": "Lütfen sadece sayı girin！",
     "numbersGreater": "Lütfen sadece sıfırdan büyük sayılar giriniz!",

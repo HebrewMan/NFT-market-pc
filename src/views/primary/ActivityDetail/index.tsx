@@ -12,7 +12,9 @@ export const ActivityDetail = () => {
   const actityDetail: string = localStorage.getItem('actityDetail') ?? '';
   const primaryObj = JSON.parse(details);
   const activeInfo = JSON.parse(actityDetail);
-
+  
+  console.log(primaryObj,activeInfo,'activeInfo');
+  
   const handleBuy = () => {
     if (activeInfo?.buyUrl) {
       window.location.href = activeInfo.buyUrl;
@@ -43,12 +45,12 @@ export const ActivityDetail = () => {
         </div>
         <Divider type='vertical' />
         <div>
-          <p>Total volume</p>
+          <p>{t('primary.TotalVolume')}</p>
           <p className='num'>{activeInfo?.totalNum || '-'}</p>
         </div>
       </div>
       <div className='btn-box'>
-        <button onClick={handleBuy}>Buy Now</button>
+        <button onClick={handleBuy}>{t('common.buyNow')}</button>
       </div>
     </div>
   );

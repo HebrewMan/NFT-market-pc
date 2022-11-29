@@ -165,7 +165,8 @@ export const MarketPlace = () => {
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
                 <div className='price'>
-                  {Math.floor(Number(item.price) * 10000) / 10000 + ` ${item?.coin || 'AITD'}`}
+                  {Number(item.price)  + ` ${item?.coin || 'AITD'}`}
+                  {/* {Math.floor(Number(item.price) * 10000) / 10000 + ` ${item?.coin || 'AITD'}`} */}
                 </div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
@@ -293,14 +294,14 @@ export const MarketPlace = () => {
             className='min'
             value={inputMin}
             placeholder={t('marketplace.min') || undefined}
-            style={{ width: !isMobile ? 84 : 50, height: !isMobile ? 41 : 34 }}
+            style={{ width:84, height: 41}}
             onChange={handleChangeMin}
           />
           <span className='to'>{t('marketplace.to')}</span>
           <Input
             placeholder={t('marketplace.max') || undefined}
             value={inputMax}
-            style={{ width: !isMobile ? 84 : 50, height: !isMobile ? 41 : 34 }}
+            style={{ width:84, height:41}}
             onChange={handleChangeMax}
           />
         </div>

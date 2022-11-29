@@ -83,7 +83,7 @@
       "more": "更多来自该系列的作品",
       "properties": "属性",
       "collection": "Collection Details",
-      "tokenDetails": "Token Details",
+      "tokenDetails": "代币详情",
       "description": "描述",
       "info": "信息",
       "address": "合约地址",
@@ -106,7 +106,8 @@
       "updateListPrice": "更新上架价格",
       "neverMind": "没关系",
       "CompleteList": "完成上架",
-      "sellTips": "提示：NFT必须设置一个价格，你需要支付额外的gas费如果你在未来要取消这个上架"
+      "sellTips": "提示：NFT必须设置一个价格，你需要支付额外的gas费如果你在未来要取消这个上架",
+      "priceEnter":"请输入价格"
     }
   },
   "primary": {
@@ -127,7 +128,10 @@
     "bidding": "出价",
     "Artist": "艺术家",
     "goodsArrived": "物品已到达你的地址！",
-    "deadline": "截至时间"
+    "deadline": "截至时间",
+    "activityDesc":"活动描述",
+    "WorldCupActivities":"世界杯活动",
+    "TotalVolume":"总量"
   },
   "account": {
     "collected": "我的NFTs",
@@ -161,7 +165,7 @@
     "switchMainnet": "请先切换到主网",
     "pleaseLog": "请先登录",
     "cancellation": "订单取消成功",
-    "priceSet": "必须设置盲盒价格",
+    "priceSet": "必须设置价格",
     "order": "订单成功",
     "numbersOnly": "请只输入数字",
     "numbersGreater": "请只输入大于0的数字",
