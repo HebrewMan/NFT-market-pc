@@ -22,7 +22,8 @@
     "dayAgo": "{{ num }} 日前",
     "monthAgo": "{{ num }} 月前",
     "yearAgo": "{{ num }} 年前",
-    "signIn": "ウォレットアドレスでログイン"
+    "signIn": "ウォレットアドレスでログイン",
+    "pleaseChoose":"選んでください"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://www.diffgalaxy.io</1>。",
   "home": {
@@ -54,7 +55,7 @@
   },
   "nav": {
     "home": "ホームページ",
-    "primary": "プレミアム",
+    "primary": "発見",
     "market": "市場",
     "help": "ヘルプ",
     "searchTips": "NFT、コレクション、コントラクト、アカウントの検索",
@@ -148,7 +149,12 @@
   "collection": {
     "serach": "名前またはアカウントを検索する",
     "created": "創立",
-    "listed": "ローンチした"
+    "listed": "最近のローンチ",
+    "selling":"販売中",
+    "penddingSell":"販売待ち",
+    "cancellation":"Force Cancellation",
+    "priceHigh":"高価格から低価格へ",
+    "priceLow":"低価格から高価格へ"
   },
   "userSettings": {
     "general": "プロフィール",
