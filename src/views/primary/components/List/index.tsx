@@ -43,7 +43,14 @@ export const PList = () => {
   }, [page]);
   const initList = async () => {
     const res: any = await getPrimaryActivityList({ page, size });
-    setActivityList([...activityList, ...res.data.records]);
+    const list:any = []
+    // 暂时屏蔽内部活动
+    res.data.records.map((item:any) =>{
+      if(item?.type == 1){
+        list.push(item)
+      }
+    })
+    setActivityList([...activityList, ...list]);
     setPage(res?.data?.current);
     if (page >= Math.ceil(res.data.total / size)) {
       setIsMore(false);

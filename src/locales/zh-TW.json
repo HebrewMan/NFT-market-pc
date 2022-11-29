@@ -20,7 +20,8 @@
     "dayAgo": "{{ num }} 天前",
     "monthAgo": "{{ num }} 月前",
     "yearAgo": "{{ num }} 年前",
-    "signIn": "登錄你的錢包"
+    "signIn": "登錄你的錢包",
+    "pleaseChoose":"請選擇"
   },
   "domainNotice": "Diffgalaxy 的唯壹官方域名是<1>https://www.diffgalaxy.io</1>",
   "home": {
@@ -52,7 +53,7 @@
   },
   "nav": {
     "home": "首頁",
-    "primary": "首發",
+    "primary": "發現",
     "market": "市場",
     "help": "幫助",
     "searchTips": "搜索NFT、合集、合約、賬戶",
@@ -146,7 +147,12 @@
   "collection": {
     "serach": "搜索名稱或賬戶",
     "created": "創建",
-    "listed": "已上架"
+    "listed": "最近的上架",
+    "selling":"出售中",
+    "penddingSell":"待出售",
+    "cancellation":"強制取消",
+    "priceHigh":"價格從高到低",
+    "priceLow":"價格從低到高"
   },
   "userSettings": {
     "general": "資料",

@@ -3,10 +3,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import Portal from '../../components/Dialog';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { Select } from '../marketplace/Select';
-import { formatAdd } from '../marketplace/utils';
 import { Dropdown, Menu, Space, Typography, message, Select as SelectAntd } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../utils/layout';
 import { getGoods, getSelfGoods, getOtherPersonGoods, getGood, createIpfs, getGoodsByCollectionId } from '../../api';
 import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
@@ -14,6 +11,7 @@ import { getAccountInfo, updateUserInfo } from '../../api/user';
 import { getCollectionDetails } from '../../api/collection';
 import { useTouchBottom } from '../../hooks';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 interface accountInfoProps {
   name: string;
@@ -35,43 +33,12 @@ interface collectionsDataProps {
   name: string;
   price: number;
 }
-const list = [
-  // 所有过滤条件
-  {
-    label: 'status',
-    name: 'Listed',
-    value: 0,
-  },
-  {
-    label: 'status',
-    name: 'Sold out',
-    value: 1,
-  },
-  {
-    label: 'status',
-    name: 'Canceled',
-    value: 2,
-  },
-  // {
-  //   label: 'status',
-  //   name: 'Force Cancel',
-  //   value: 3,
-  // },
-  {
-    label: 'sort',
-    name: 'Price High to Low',
-    value: 'high',
-  },
-  {
-    label: 'sort',
-    name: 'Price Low to High',
-    value: 'low',
-  },
-];
+
 const tabsData = ['Collected', 'Favorited'];
 
 export const MaskImage = (props: any) => {
   let { width, status, type } = props;
+  const { t } = useTranslation()
   const maskTitle = (status: number) => {
     if (status === 1 || type === 2) {
       return 'Sold Out';
@@ -93,6 +60,40 @@ export const MaskImage = (props: any) => {
 };
 
 export const Collection: React.FC<any> = () => {
+  const { t } = useTranslation()
+  const list = [
+    // 所有过滤条件
+    {
+      label: 'status',
+      name: t("collection.listed"),
+      value: 0,
+    },
+    {
+      label: 'status',
+      name: t("collection.selling"),
+      value: 1,
+    },
+    {
+      label: 'status',
+      name: t("collection.cancellation"),
+      value: 2,
+    },
+    // {
+    //   label: 'status',
+    //   name: 'Force Cancel',
+    //   value: 3,
+    // },
+    {
+      label: 'sort',
+      name: t("collection.priceHigh"),
+      value: 'high',
+    },
+    {
+      label: 'sort',
+      name: t("collection.priceLow"),
+      value: 'low',
+    },
+  ];
   const [grid, setGrid] = useState(1);
   const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
@@ -264,6 +265,7 @@ export const Collection: React.FC<any> = () => {
     }
   };
   const getFansListByNftId = async (id: string | number, contractAddr: string) => {
+    const ownerAddr = localStorage.getItem('wallet')
     const params = {
       tokenId: id,
       contractAddr: contractAddr,
@@ -272,7 +274,7 @@ export const Collection: React.FC<any> = () => {
     const res: any = await getFansByGoodsId(params);
     if (res?.message === 'success') {
       const list = collectionsData.map((item: any) => {
-        return item.id === id
+        return item.tokenId === id
           ? {
               ...item,
               collect: Number(res.data.collect),
@@ -475,8 +477,8 @@ export const Collection: React.FC<any> = () => {
     };
     return (
       <SelectAntd labelInValue value={mobileLabel} onChange={handleChange} className='mobileSelect'>
-        <SelectAntd.Option value='0'>Collected</SelectAntd.Option>
-        <SelectAntd.Option value='1'>Favorited</SelectAntd.Option>
+        <SelectAntd.Option value='0'>{t('account.collected')}</SelectAntd.Option>
+        <SelectAntd.Option value='1'>{t('account.collected')}</SelectAntd.Option>
       </SelectAntd>
     );
   };
@@ -485,7 +487,7 @@ export const Collection: React.FC<any> = () => {
     return (
       <div className='empty-wrap'>
         <img src={require('../../assets/empty.png')} alt='' />
-        <p>No data available for the time being.</p>
+        <p>{t('common.noDataLong')}</p>
       </div>
     );
   };
@@ -530,7 +532,7 @@ export const Collection: React.FC<any> = () => {
       </div>
       <div className='collection-content-wrap'>
         <div className='collection-header--main'>
-          <div className={isMobile || width < 768 ? 'mobileImg' : ''}>
+          <div>
             <div className='user-img'>
               <img
                 className='header-img'
@@ -587,19 +589,19 @@ export const Collection: React.FC<any> = () => {
                 </label>
               </div>
 
-              <HeaderSearch
+              {/* <HeaderSearch
                 getKeyWord={getKeyWord}
                 reset={reset}
                 keyWord={keyWord}
                 placeholder={'Search items, and accounts'}
-              />
+              /> */}
 
               <div className='infoFilter'>
                 <Select
                   value={sort || status}
                   reset={reset}
                   list={list}
-                  placeholder={'Please...'}
+                  placeholder={t("common.pleaseChoose")}
                   change={handleSort}
                 />
 
@@ -608,7 +610,7 @@ export const Collection: React.FC<any> = () => {
                 </button> */}
               </div>
             </div>
-            <div className={`info-main info-main--max ${isMobile ? 'mobile-info-main' : ''}`}>
+            <div className={`info-main info-main--max}`}>
               <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
                 {collectionsData.length > 0 && CardItem()}
                 {collectionsData.length === 0 && listEmpty()}

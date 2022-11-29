@@ -20,10 +20,11 @@ export const isProd = process.env.APP_MODE === 'production';
     baseURL: 'https://nft-web-test.helios-a.com/',
     baseURL: 'http://nft-pre.aitd.io',
     https://www.diffgalaxy.com/
+    本地服务：http://172.16.2.12:7077/
  */
 const devBase = 'http://192.168.1.59:4000'
 const baseURL = isProd ? window.location.origin : window.location.origin; // 预生产要用dev临时配置
-// const baseURL = window.location.origin === devBase : window.location.origin ; 
+// const baseURL = isProd ? window.location.origin : devBase; // dev临时配置
 
 const constants = {
   ZERO_ADDRESS: '0x0000000000000000000000000000000000000000',

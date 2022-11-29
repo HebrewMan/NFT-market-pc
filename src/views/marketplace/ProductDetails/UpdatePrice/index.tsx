@@ -114,6 +114,11 @@ const UpdatePriceView = ({
       message.error(t('hint.priceSet'));
       return;
     }
+    if (_price <= 0) {
+      message.error(t('hint.numbersGreater'));
+      setUpdatePrice('');
+      return;
+    }
     instanceLoading.service();
     // 未授权，先授权
     if (!isApproval) {
@@ -208,11 +213,6 @@ const UpdatePriceView = ({
 
     if (reg.test(value)) {
       message.error(t('hint.numbersOnly'));
-      return;
-    }
-    if (value <= 0) {
-      message.error(t('hint.numbersGreater'));
-      setUpdatePrice('');
       return;
     }
     const posDot = value.indexOf('.');

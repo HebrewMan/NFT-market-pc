@@ -22,7 +22,8 @@
     "dayAgo": "{{ num }} gün önce",
     "monthAgo": "{{ num }} ay önce",
     "yearAgo": "{{ num }} yıl önce",
-    "signIn": "Cüzdanınıza giriş yapın"
+    "signIn": "Cüzdanınıza giriş yapın",
+    "pleaseChoose":"lütfen seç"
   },
   "domainNotice": "Diffgalaxy'nin tek resmi internet adi <1>https://www.diffgalaxy.io</1>",
   "home": {
@@ -54,13 +55,13 @@
   },
   "nav": {
     "home": "ön Sayfa",
-    "primary": "ilk yayinlanan",
+    "primary": "bulmak",
     "market": "pazar",
     "help": "Yardım",
     "searchTips": "NFT'leri, Koleksiyonları, Sözleşmeleri, Hesapları arayın",
     "myNft": "NFT'lerim",
-    "setting": "kurmak",
-    "login": "Giriş yapmak",
+    "setting": "ayar",
+    "login": "Giriş",
     "loginOut": "cik"
   },
   "marketplace": {
@@ -148,7 +149,12 @@
   "collection": {
     "serach": "Bir ad veya hesap arayın",
     "created": "oluştur",
-    "listed": "ürün eklendi"
+    "listed": "en son satişa çikaran",
+    "selling":"Satılık",
+    "penddingSell":"satılık",
+    "cancellation":"Zorla iptal",
+    "priceHigh":"fiyat yüksekten düşüğe",
+    "priceLow":"Düşükten yükseğe fiyatlar"
   },
   "userSettings": {
     "general": "Profil",

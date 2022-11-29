@@ -21,7 +21,8 @@
     "dayAgo": "{{ num }}  day{{ plural }} ago",
     "monthAgo": "{{ num }} month{{ plural }} ago",
     "yearAgo": "{{ num }} year{{ plural }} ago",
-    "signIn": "Sign in to your wallet"
+    "signIn": "Sign in to your wallet",
+    "pleaseChoose":"Please..."
   },
   "domainNotice": "The only official domain for Diffgalaxy is <1>https://www.diffgalaxy.io</1>",
   "home": {
@@ -148,7 +149,12 @@
   "collection": {
     "serach": "Search items, or accounts",
     "created": "Create",
-    "listed": "Listed"
+    "listed": "Recently Listed",
+    "selling":"Selling",
+    "penddingSell":"Pending to sell",
+    "cancellation":"Force Cancellation",
+    "priceHigh":"Price High to Low",
+    "priceLow":"Price Low to High"
   },
   "userSettings": {
     "general": "General",
