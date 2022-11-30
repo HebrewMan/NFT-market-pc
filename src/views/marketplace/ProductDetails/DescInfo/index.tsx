@@ -146,7 +146,7 @@ export const DescInfo = (props: any) => {
         </div> */}
         <div className={`list-inner ${type === 4 ? 'active' : ''}`} onClick={() => setType(4)}>
           <div className='list-title title-point'>
-            <h2>{t('marketplace.details.tokenDetails')}</h2>
+            <h2>{t('marketplace.details.info')}</h2>
           </div>
         </div>
       </div>

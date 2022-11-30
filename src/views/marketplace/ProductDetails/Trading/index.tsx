@@ -49,7 +49,7 @@ export const Trading = (props: any) => {
       case 3:
         return t('marketplace.details.mintTo');
       case 0:
-        return t('marketplace.details.list');
+        return t('marketplace.details.listings');
       case 1:
         return t('marketplace.details.cancel');
       case 2:
