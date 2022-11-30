@@ -58,11 +58,18 @@ export const HeaderMenu = () => {
         setLang(option.label);
       }
     });
-    /** 
-      如果路由是 helpcenter  
-      就要刷新当前页面，因为页面里用了ui组件 必须要刷新 文案才会更新
+    /**   
+      有的路由要刷新当前页面，因为页面里用了ui组件 必须要刷新 文案才会更新
     */
-    if(window.location.pathname == '/helpcenter' || window.location.pathname == '/activityDetail'){   
+    console.log(window.location.pathname,'window.location.pathname');
+   const listPath = [
+    "/marketplace",
+    "/helpcenter",
+    '/activityDetail',
+   ]
+   const product = window.location.pathname.indexOf('/product-details') != -1;
+   const account = window.location.pathname.indexOf('/account') != -1;
+    if(listPath.indexOf(window.location.pathname) != -1 || product || account){  
       window.location.reload();
     }
   };

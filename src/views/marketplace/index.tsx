@@ -203,7 +203,7 @@ export const MarketPlace = () => {
 
   const handleChangeMin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: inputValue } = e.target;
-    const temp = inputValue.match(/\d+(\.\d{0,2})?/);
+    const temp = inputValue.match(/\d+(\.\d{0,8})?/);
 
     if (temp === null && inputMax === '') {
       setInputMin('');
@@ -236,7 +236,7 @@ export const MarketPlace = () => {
 
   const handleChangeMax = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: inputValue } = e.target;
-    const temp = inputValue.match(/\d+(\.\d{0,2})?/);
+    const temp = inputValue.match(/\d+(\.\d{0,8})?/);
 
     if (temp === null && inputMin === '') {
       setInputMax('');

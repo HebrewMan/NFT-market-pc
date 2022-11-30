@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { addHandler, stopBubble, removeHandler } from '../utils';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 interface activeItemProps {
   name: string;
   headUrl: string;
 }
 export const Select = (props: any) => {
-  const { placeholder = 'Please ....', list = [], change, value, reset } = props;
+  const { t } =  useTranslation()
+  const { placeholder = t('common.pleaseChoose'), list = [], change, value, reset } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState<activeItemProps>({ name: '', headUrl: '' });

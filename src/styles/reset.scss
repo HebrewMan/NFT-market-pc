@@ -1,16 +1,22 @@
 $primary-color: #2081e2;
 $screen-sm-min: 768px;
+
 html {
   overflow-y: scroll;
   width: 100%;
   overflow-x: hidden;
 }
+
 #root {
   position: relative;
   height: 100%;
   font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #141414;
+}
+
+button {
+  cursor: pointer;
 }
 
 #root::before {
@@ -62,6 +68,7 @@ h1 {
   font-size: 17px;
   font-weight: 600;
 }
+
 h2 {
   font-size: 16px;
   font-weight: 600;
@@ -70,31 +77,37 @@ h2 {
 img:not([src]) {
   visibility: hidden;
 }
+
 .svg-img {
   width: 18px;
   height: 18px;
   margin-right: 6px;
   margin-bottom: 2px;
 }
+
 .svg-img-16 {
   width: 16px;
   height: 16px;
   margin-right: 10px;
 }
+
 .svg-img-12 {
   width: 12px;
   height: 12px;
   margin-right: 10px;
 }
+
 .svg-default-size {
   width: 20px;
   margin-right: 10px;
   vertical-align: middle;
 }
+
 .close-svg {
   width: 12px;
   vertical-align: middle;
 }
+
 .square div {
   position: relative;
   padding-top: 100% !important;
@@ -102,6 +115,7 @@ img:not([src]) {
   pointer-events: none;
   width: 100%;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -133,10 +147,12 @@ code {
 .ant-card-cover {
   position: relative;
   overflow: hidden;
+
   .ant-image-img,
   video {
     object-fit: cover;
   }
+
   iframe {
     object-fit: cover;
     border: none;
@@ -167,6 +183,7 @@ code {
   margin-left: auto;
   margin-right: auto;
 }
+
 .text-uppercase {
   text-transform: uppercase;
 }
@@ -213,6 +230,7 @@ code {
   cursor: pointer;
   margin-left: 10px;
   color: white;
+
   :hover {
     color: $primary-color;
   }
@@ -227,6 +245,7 @@ code {
 }
 
 .creators {
+
   // display: flex;
   @media (max-width: 475px) {
     flex-wrap: wrap;
@@ -253,18 +272,23 @@ code {
 .ant-btn:hover {
   background-color: transparent !important;
 }
-.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
   color: hsla(0, 0%, 100%, 0.85);
 }
-.ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+
+.ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
   color: hsla(0, 0%, 100%, 0.45);
 }
-.ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+
+.ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon .ant-steps-icon-dot {
   background: hsla(0, 0%, 100%, 0.3);
 }
+
 .ant-card {
   background: #141414;
 }
+
 .ant-card-bordered {
   border: 1px solid #303030;
 }
@@ -272,9 +296,11 @@ code {
 .ant-card-meta-title {
   color: rgba(255, 255, 255, 0.85);
 }
+
 .tab-title {
   color: rgba(255, 255, 255, 0.45);
 }
+
 .ant-btn {
   height: 56px;
   font-weight: 600;
@@ -282,6 +308,7 @@ code {
   line-height: 16px;
   background-color: transparent !important;
   color: white;
+
   &.secondary-btn {
     color: #ffffff;
     background: $primary-color !important;
@@ -335,8 +362,9 @@ model-viewer {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  & > a,
-  & > div {
+
+  &>a,
+  &>div {
     margin: 10px;
     flex: calc(25% - 20px);
     max-width: calc(25% - 20px);
@@ -353,11 +381,12 @@ model-viewer {
 }
 
 .my-masonry-grid_column {
-  padding-left: 32px !important; /* gutter size */
+  padding-left: 32px !important;
+  /* gutter size */
   background-clip: padding-box;
 }
 
-.my-masonry-grid_column > div {
+.my-masonry-grid_column>div {
   /* change div to reference your elements you put in <Masonry> */
   margin-bottom: 20px;
 }
@@ -379,14 +408,16 @@ model-viewer {
   .refresh-overlay {
     border-radius: 8px;
   }
+
   button {
     &:not(.ant-btn-icon-only) {
       padding-right: 0;
     }
+
     border: none;
   }
 
-  & > span {
+  &>span {
     font-weight: bold;
     font-size: 16px;
     line-height: 24px;
@@ -395,8 +426,9 @@ model-viewer {
 
 @media (max-width: 1200px) {
   .artwork-grid {
-    & > a,
-    & > div {
+
+    &>a,
+    &>div {
       flex: calc(33% - 20px);
       max-width: calc(33% - 20px);
     }
@@ -417,12 +449,13 @@ model-viewer {
   cursor: pointer !important;
   width: fit-content;
 
-  & > span {
+  &>span {
     font-weight: bold;
     font-size: 16px;
     line-height: 24px;
   }
 }
+
 .inner-select-list {
   font-size: 25px;
   position: relative;
@@ -440,27 +473,35 @@ model-viewer {
 /* Optional, different gutter size on mobile */
 @media (max-width: 800px) {
   .artwork-grid {
-    & > a,
-    & > div {
+
+    &>a,
+    &>div {
       flex: calc(50% - 20px);
       max-width: calc(50% - 20px);
     }
   }
+
   .my-masonry-grid {
-    margin-left: -15px; /* gutter size offset */
+    margin-left: -15px;
+    /* gutter size offset */
   }
+
   .my-masonry-grid_column {
-    padding-left: 15px; /* gutter size offset */
+    padding-left: 15px;
+    /* gutter size offset */
   }
-  .my-masonry-grid_column > div {
-    margin-bottom: 15px; /* space between items */
+
+  .my-masonry-grid_column>div {
+    margin-bottom: 15px;
+    /* space between items */
   }
 }
 
 @media (max-width: 540px) {
   .artwork-grid {
-    & > a,
-    & > div {
+
+    &>a,
+    &>div {
       flex: calc(100% - 20px);
       max-width: calc(100% - 20px);
     }
@@ -475,11 +516,13 @@ model-viewer {
 .ant-spin-nested-loading {
   height: 100%;
 }
-.ant-spin-nested-loading > div > .ant-spin {
+
+.ant-spin-nested-loading>div>.ant-spin {
   z-index: 1001;
   max-height: 100%;
   background-color: rgba(26, 26, 26, 0.1);
 }
+
 .ant-spin-lg .ant-spin-dot i {
   font-size: 20px;
 }
@@ -487,20 +530,25 @@ model-viewer {
 .ant-select-dropdown {
   background-color: #fff !important;
 }
+
 .ant-select-dropdown,
 .ant-select-item {
   color: #707a83 !important;
 }
+
 .ant-select-item {
   padding: 10px 12px;
+
   &:hover {
     background-color: #eee !important;
     color: #2081e2;
   }
 }
+
 .ant-select-item-option-content {
   display: flex;
   align-items: center;
+
   .option-img {
     height: 100%;
     border-radius: 50%;
