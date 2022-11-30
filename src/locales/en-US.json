@@ -75,7 +75,7 @@
     "min": "Min",
     "to": "To",
     "Owner": "Owned",
-    "curPrice": "Current price",
+    "curPrice": "Fixed Price",
     "details": {
       "cancelList": "Cancel listing",
       "update": "Update price",

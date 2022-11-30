@@ -40,7 +40,7 @@
       "sellRemind": "My NFTリストで販売したいNFTを選択し、NFTの価格を設定して販売ボタンをクリックします。取引が完了すると、NFT は購入者のウォレットに転送され、資金を受け取ります。"
     },
     "advantage": {
-      "title": "ディフギャラクシーの利点",
+      "title": "Diffgalaxy のアドバンテージ",
       "virtueOne": "シンプルで便利で素早い操作",
       "virtueTwo": "最低の手数料",
       "virtueThree": "安全でセキュアなスマート コントラクト"
@@ -100,7 +100,7 @@
       "listings": "ローンチ",
       "cancel": "キャンセル",
       "trade": "取引",
-      "batchMintTo": "大量生産",
+      "batchMintTo": "大量鋳造",
       "updatePrcie": "更新価格",
       "transfer": "移行",
       "list": "リスト",
