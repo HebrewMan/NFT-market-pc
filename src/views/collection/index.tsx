@@ -112,7 +112,7 @@ export const Collection: React.FC<any> = () => {
   const collectRef = useRef(collectionsData);
   const { id, address } = useParams<{ id: string | undefined; address: string }>();
   const [keyWord, setKeyWord] = useState<any>();
-  const [sort, setSort] = useState<any>();
+  const [sort, setSort] = useState<any>("low"); //排序默认价格低-高
   const [status, setStatus] = useState<any>();
   const [collectAddr, setCollectAddr] = useState<any>(null);
   const [ownerAddr, setOwnerAddr] = useState<any>(null);
