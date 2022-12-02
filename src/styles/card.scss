@@ -1,0 +1,113 @@
+.flex-list {
+  // width: 390px;
+  // padding: 0 10px;
+  min-height: 350px;
+  margin-top: 20px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  .list-item {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    &:hover {
+      box-shadow: rgba(4, 17, 29, 0.4) 0px 0px 8px 0px;
+      transition: all 0.1s ease 0s;
+    }
+  }
+
+  .item-img {
+    width: 100%;
+    overflow: hidden;
+    & > img {
+      display: block;
+      width: 100%;
+      min-width: 395px;
+      height: 200px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      object-fit: cover;
+    }
+  }
+
+  .item-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+
+    .small {
+      border-radius: 50%;
+      background-color: rgb(251, 253, 255);
+      border: 3px solid rgb(251, 253, 255);
+      -webkit-box-align: center;
+      align-items: center;
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      max-height: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+      border-radius: 50%;
+      transform: translate(0%, -50%);
+      margin-top: -10px;
+      z-index: 99;
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+      }
+    }
+
+    .author {
+      color: rgb(4, 17, 29);
+      font-weight: 600;
+      font-size: 16px;
+      text-transform: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+      max-width: 200px;
+      margin-top: -20px;
+      line-height: 30px;
+    }
+
+    .creator {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgb(112, 122, 131);
+      margin: 0px;
+      text-transform: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+      max-width: 200px;
+
+      span {
+        font-weight: 600;
+        color: rgb(32, 129, 226);
+      }
+    }
+  }
+
+  .slide-text {
+    font-size: 14px;
+    font-weight: 400;
+    width: 80%;
+    max-width: 300px;
+    min-height: 40px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    color: rgb(112, 122, 131);
+  }
+}

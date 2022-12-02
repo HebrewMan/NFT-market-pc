@@ -1,0 +1,106 @@
+.more-collection {
+  margin-top: 30px;
+  border: 1px solid rgb(229, 232, 235);
+
+  .list-title {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgb(229, 232, 235);
+    box-sizing: border-box;
+    line-height: 1;
+    cursor: pointer;
+
+    .arrow-icon {
+      margin-left: auto;
+      color: rgba(4, 17, 29, 0.4);
+    }
+
+    .svg-icon {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &:hover .arrow-icon {
+      color: #000;
+    }
+  }
+
+  .collection-wrapper {
+    margin: 0 31px;
+    overflow: auto;
+
+    .g-list {
+
+      .card {
+        width: 260px;
+
+        .assets {
+          width: 260px;
+          height: 282px;
+        }
+
+        .fav {
+          right: 12px;
+        }
+      }
+
+    }
+  }
+
+  .wrap-btn {
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgb(229, 232, 235);
+
+    .btn {
+      display: inline-flex;
+      flex-direction: row;
+      -webkit-box-align: center;
+      align-items: center;
+      border-radius: 5px;
+      -webkit-box-pack: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px 20px;
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(32, 129, 226);
+      color: rgb(32, 129, 226);
+
+      &:hover {
+        border: 1px solid rgb(24, 104, 183);
+        color: rgb(24, 104, 183);
+        transition: all 0.2s ease 0s;
+        box-shadow: rgba(4, 17, 29, 0.4) 0px 0px 8px 0px;
+      }
+    }
+  }
+}
+
+.item-bgc {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../../../assets/checked_bgc.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #000;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 63px;
+  z-index: 99;
+  opacity: 0.6;
+  color: #fff;
+
+  span {
+    font-size: 22px;
+  }
+}

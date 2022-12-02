@@ -1,0 +1,128 @@
+.g-select {
+  position: relative;
+  width: 240px;
+
+  .g-select--header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid rgb(229, 232, 235);
+    width: 100%;
+    padding: 9px;
+    min-height: 46px;
+
+    &:hover {
+      box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
+    }
+
+    .expand_more_gray,
+    .expand_less_gray {
+      display: block;
+    }
+
+    .expand_more,
+    .expand_less {
+      display: none;
+    }
+
+    &:hover {
+      .expand_more_gray,
+      .expand_less_gray {
+        display: none;
+      }
+
+      .expand_more,
+      .expand_less {
+        display: block;
+      }
+    }
+
+    .main {
+      display: flex;
+      align-items: center;
+
+      .g-title {
+        font-size: 16px;
+        line-height: 26px;
+        color: rgba(4, 17, 29, 0.75);
+      }
+
+      .img {
+        overflow: hidden;
+        border: 1px solid rgb(229, 232, 235);
+        border-radius: 50%;
+        font-size: 16px;
+        width: 24px;
+        height: 24px;
+        background-color: rgb(255, 255, 255);
+        margin-right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 16px;
+          height: 16px;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+
+  .g-select--options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 99;
+    color: rgb(53, 56, 64);
+    background-color: rgb(251, 253, 255);
+    max-height: 350px;
+    overflow-y: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 16px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(4, 17, 29);
+    max-width: initial;
+    width: 100%;
+    transition-duration: 1000ms;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    outline: 0px;
+    .item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgb(229, 232, 235);
+      width: 100%;
+      font-weight: 600;
+      padding: 16px;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
+      }
+
+      .img {
+        overflow: hidden;
+        border: 1px solid rgb(229, 232, 235);
+        border-radius: 50%;
+        font-size: 16px;
+        width: 24px;
+        height: 24px;
+        background-color: rgb(255, 255, 255);
+        margin-right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 16px;
+          height: 16px;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}

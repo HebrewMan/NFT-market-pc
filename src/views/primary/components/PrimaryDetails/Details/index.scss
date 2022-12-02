@@ -1,0 +1,42 @@
+@import '../../PrimaryDetails/index.scss';
+
+.count {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  line-height: 1;
+  border-radius: 5px;
+  background: #2081e2;
+  border-radius: 5px;
+
+  span {
+    color: #fff;
+  }
+}
+
+.un-count {
+  background-color: #fff;
+}
+
+.dialog-body {
+  .body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    >img {
+      width: 100px;
+      height: 100px;
+      border-radius: 5px;
+    }
+  }
+}
+
+.footer-btn {
+  button {
+    display: block;
+    width: 230px;
+    height: 40px;
+  }
+}
