@@ -5,6 +5,7 @@ import { formatTime } from '../../utils';
 import config from '../../../../config/constants';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
+import { intlFloorFormat } from 'Utils/bigNumber'
 
 export const Trading = (props: any) => {
   const { t } = useTranslation()
@@ -157,7 +158,7 @@ export const Trading = (props: any) => {
             {(
               <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='svg-img' />
             )}
-            {Math.floor(Number(item.price) * 10000) / 10000}
+            {intlFloorFormat(item.price,4)}
           </td>
           <td>
             <a onClick={() => handleChangeFromRoute(item)}>{setAddrFrom(item)}</a>
