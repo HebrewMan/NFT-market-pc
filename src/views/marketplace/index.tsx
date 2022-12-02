@@ -11,7 +11,7 @@ import './index.scss';
 import { isMobile } from 'react-device-detect';
 import { Input, Spin } from 'antd';
 import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
-import { toFixed } from 'Utils/bigNumber'
+import { intlFloorFormat } from 'Utils/bigNumber'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -174,7 +174,7 @@ export const MarketPlace = () => {
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
                 <div className='price'>
-                  {toFixed(item.price,4) + ` ${item?.coin || 'AITD'}`}
+                  {intlFloorFormat(item.price,4) + ` ${item?.coin || 'AITD'}`}
                   {/* {Math.floor(Number(item.price) * 10000) / 10000 + ` ${item?.coin || 'AITD'}`} */}
                 </div>
               </div>

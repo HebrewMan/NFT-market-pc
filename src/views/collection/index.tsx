@@ -12,7 +12,7 @@ import { getCollectionDetails } from '../../api/collection';
 import { useTouchBottom } from '../../hooks';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
-import { toFixed } from 'Utils/bigNumber'
+import { intlFloorFormat } from 'Utils/bigNumber'
 interface accountInfoProps {
   name: string;
   username: string;
@@ -504,7 +504,7 @@ export const Collection: React.FC<any> = () => {
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>{toFixed(item.price,4) + ' AITD'}</div>
+                <div className='price'>{intlFloorFormat(item.price,4) + ' AITD'}</div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
             </div>
