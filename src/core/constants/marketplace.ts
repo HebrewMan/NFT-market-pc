@@ -3,7 +3,12 @@ export const defaultParams = {
   // type: 2, // 1 一级市场，2 二级市场
   status: 0, // 0-正在出售；1-已售空；2-已取消
   // belongs: null,
-  // sort: null,
+  orders:[
+    {
+      asc: false,
+      column: 'o.create_date',
+    },
+  ],
   page: 1,
   size: 12,
 };

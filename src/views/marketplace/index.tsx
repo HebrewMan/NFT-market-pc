@@ -26,6 +26,7 @@ export const MarketPlace = () => {
   const [inputMax, setInputMax] = useState('');
   const [isMore, setIsMore] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState<any>("new");
   const [ownerAddr,setOwnerAddr] = useState('')
   const queryList = [
     { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
@@ -138,11 +139,18 @@ export const MarketPlace = () => {
   const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, params.page, isMore);
 
   const handleChangeQuery = (itemObj: any) => {
+    setSort(itemObj.value)
     setGoodsList([]);
     // 原有逻辑上调整接口后台所需入参 o.xx ..不理解
+    let asc = false;
+    if(itemObj.value === 'new'){
+      asc = false
+    }else{
+      itemObj.value === 'high' ? asc = false : asc = true
+    }
     const orders = [
       {
-        asc: itemObj.value === 'high' ? false : true,
+        asc: asc,
         column: itemObj.value === 'new' ? 'o.create_date' : 'o.price',
       },
     ];
@@ -285,7 +293,7 @@ export const MarketPlace = () => {
         <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} />
 
         <div className='condition'>
-          <Select list={queryList}  placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={params.sort} />
+          <Select list={queryList}  placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
         </div>
 
         <div className='price'>
