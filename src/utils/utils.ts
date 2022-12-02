@@ -177,11 +177,13 @@ export const wallets = [
   },
 ];
 
-export const toPriceDecimals = (price: number, decimals = 6) => {
+export const toPriceDecimals = (price: string | number, decimals = 6) => {
+  console.log(price,decimals,new BigNumber(price).multipliedBy(new BigNumber(10).pow(decimals)).toFixed(),'sty');
+  
   return new BigNumber(price).multipliedBy(new BigNumber(10).pow(decimals)).toFixed();
 };
 
-export const fromPriceDecimals = (price: string, decimals = 6) => {
+export const fromPriceDecimals = (price: string | number, decimals = 6) => {
   return new BigNumber(price).dividedBy(new BigNumber(10).pow(new BigNumber(decimals)));
 };
 

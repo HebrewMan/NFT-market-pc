@@ -8,6 +8,8 @@ import { message } from 'antd';
 import { useWeb3React } from '@web3-react/core';
 import useWeb3 from '../../../hooks/useWeb3';
 import { useTranslation } from 'react-i18next';
+import { toFixed } from 'Utils/bigNumber'
+
 import {
   // cancelMarketItemErc1155,
   // createMarketSaleErc1155,
@@ -501,7 +503,7 @@ export const ProductionDetails = () => {
                   <div className='price'>
                     <p>{t('marketplace.curPrice')}</p>
                     <p>
-                      {Number(DetailData?.price)} {DetailData?.coin || 'AITD'}
+                      {toFixed(DetailData?.price,4)} {DetailData?.coin || 'AITD'}
                       {/* { Math.floor(Number(DetailData?.price) * 10000) / 10000} {DetailData?.coin || 'AITD'} */}
                     </p>
                   </div>
