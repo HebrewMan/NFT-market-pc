@@ -14,7 +14,8 @@ export const ArticleDetails = () => {
     title: '',
     modifyDate: '',
     content: '',
-    inName:{}
+    inName:{},
+    inContent:{}
   });
   const { id } = useParams() as any;
   const [queryId, setQueryId] = useState(id);
@@ -42,7 +43,7 @@ export const ArticleDetails = () => {
               <span>· {form.modifyDate}</span>
             </div>
           </div>
-          <div className='article-info' dangerouslySetInnerHTML={{ __html: form.content }}></div>
+          <div className='article-info' dangerouslySetInnerHTML={{ __html: getViewLang(form.inContent) }}></div>
         </div>
       </div>
     </div>
