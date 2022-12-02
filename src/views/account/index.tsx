@@ -9,6 +9,8 @@ import { DownOutlined } from '@ant-design/icons';
 import { isMobile } from 'react-device-detect';
 import useWindowDimensions from '../../utils/layout';
 import { useTranslation } from 'react-i18next';
+import { toFixed } from 'Utils/bigNumber'
+
 import {
   // getGoods,
   // getSelfGoods,
@@ -576,7 +578,7 @@ export const Account: React.FC<any> = () => {
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
                 <div className='price'>
-                  {item.status === 0 ? Math.floor(Number(item.price) * 10000) / 10000 + ' AITD' : 0 + 'AITD'}
+                  {item.status === 0 ? toFixed(item.price,4) + ' AITD' : 0 + 'AITD'}
                 </div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>

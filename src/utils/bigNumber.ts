@@ -32,7 +32,7 @@ export function toFixed(params: any, decimalsToAppear: number = 2) {
         floatArr[0].replace('.', '').slice(0, decimalsToAppear - 1)
       );
     }
-    return '0.0';
+    return '0.00';
   }
   const arr = integerArr[0].match(reg) || [0];
   return integerArr[1] ? arr[0] + integerArr[1] : arr[0];
