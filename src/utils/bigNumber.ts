@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import lodash from 'lodash'
 
 type IType = string | BigNumber | number;
 type ITypeArr = IType[];
@@ -13,6 +14,7 @@ export function toFixed(params: any, decimalsToAppear: number = 2) {
     return '';
   }
   bigNumber = toBigNumber(bigNumber);
+  
   if (Number(decimalsToAppear) === 0) {
     return bigNumber.toFixed(0);
   }
@@ -23,6 +25,7 @@ export function toFixed(params: any, decimalsToAppear: number = 2) {
     // floatArr = bigNumber.split(/(e\-\d+)/);
     floatArr = bigNumber.split(/(e-\d+)/);
   // 小数点指定位数后面截断，不使用四舍五入
+  
   if (floatArr.length > 1) {
     const e = floatArr[1].replace('e-', '');
     if (e < decimalsToAppear) {
@@ -32,7 +35,7 @@ export function toFixed(params: any, decimalsToAppear: number = 2) {
         floatArr[0].replace('.', '').slice(0, decimalsToAppear - 1)
       );
     }
-    return '0.0';
+    return '0.00';
   }
   const arr = integerArr[0].match(reg) || [0];
   return integerArr[1] ? arr[0] + integerArr[1] : arr[0];
@@ -107,3 +110,26 @@ export function coverage(num:any) {
   }
   return str
 }
+  /**
+   * 国际数字格式化
+   * 支持千分位,小数按照精度舍去，截断(向下保留)
+   * @param num
+   * @param precision 精度
+   * @param zero 精度不足时是否补零
+   * @param onlyInteger 小数点后都为零，是否直接显示整数
+   */
+   export function intlFloorFormat(num: number, precision = 0, zero = false, onlyInteger = false): string | number {
+    if (num === 0 || isNaN(num)) {
+      return 0.00
+    }
+    let result = ''
+    let reg = new RegExp(`^\\d+(?:\\.\\d{0,${precision}})?`);
+    let trimNum:any = num.toString().match(reg)
+
+    if (trimNum == '0.0000') {
+      result =  '0.00'
+    }else{
+      result = trimNum
+    }
+    return result
+  }

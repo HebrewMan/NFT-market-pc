@@ -109,7 +109,9 @@ const UpdatePriceView = ({
       : await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr, web3);
     let approvalRes: any = undefined;
     let orderRes: any = undefined;
-    const _price = !updatePrice ? Number(price) : Number(updatePrice);
+    const _price = !updatePrice ? price : updatePrice;
+    // console.log(_price, typeof _price,'_price_price_price');
+    
     if (!price && !updatePrice) {
       message.error(t('hint.priceSet'));
       return;
@@ -165,7 +167,7 @@ const UpdatePriceView = ({
     instanceLoading.close();
   };
   const getUpdatePrice = async () => {
-    const _price = !updatePrice ? Number(price) : Number(updatePrice);
+    const _price = !updatePrice ? (price) : (updatePrice);
     const obj = {
       orderId, // 订单id
       newPrice: toPriceDecimals(_price, isAITD ? 18 : USDT.decimals), // 价格
@@ -209,6 +211,8 @@ const UpdatePriceView = ({
 
   const handleChange = (event: any) => {
     const value = event.target.value;
+    console.log(value, typeof value,'dddddd');
+    
     const reg = /[^\d.]{1,18}/;
 
     if (reg.test(value)) {
