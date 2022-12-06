@@ -4,9 +4,9 @@
   "description": "Diffgalaxy aitd.",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=pre node scripts/server",
+    "start": "cross-env NODE_ENV=start node scripts/server",
     "build:test": "cross-env NODE_ENV=development NODE_OPTIONS='--max-old-space-size=4096' webpack --config ./scripts/config/webpack.prod.js",
-    "build:pre": "cross-env NODE_ENV=production NODE_OPTIONS='--max-old-space-size=4096' webpack --config ./scripts/config/webpack.prod.js",
+    "build:pre": "cross-env NODE_ENV=pre NODE_OPTIONS='--max-old-space-size=4096' webpack --config ./scripts/config/webpack.prod.js",
     "build:prd": "cross-env NODE_ENV=production NODE_OPTIONS='--max-old-space-size=4096' webpack --config ./scripts/config/webpack.prod.js"
   },
   "browserslist": [
