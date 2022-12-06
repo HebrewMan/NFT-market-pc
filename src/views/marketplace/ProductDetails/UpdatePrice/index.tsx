@@ -111,7 +111,6 @@ const UpdatePriceView = ({
     let orderRes: any = undefined;
     const _price = !updatePrice ? price : updatePrice;
     // console.log(_price, typeof _price,'_price_price_price');
-    
     if (!price && !updatePrice) {
       message.error(t('hint.priceSet'));
       return;
@@ -136,13 +135,14 @@ const UpdatePriceView = ({
         // moneyMintAddress: (config as any)?.ZERO_ADDRESS, // 购买nft的token合约地址，原生币传0地址
         moneyMintAddress: moneyAddr || (config as any)?.ZERO_ADDRESS, // 后台返回币种地址，否则默认原生币
         tokenId, // nft ID
-        price: toPriceDecimals(_price, isAITD ? 18 : USDT.decimals),
+        price: toPriceDecimals(_price, 18), // nft 价格
         Erc1155ContractAddr: contractAddr,
         marketPlaceContractAddr,
         account,
         ctype: contractType,
         amounts: sellAmounts,
       };
+      console.log(obj,'commints price');
 
       try {
         orderRes = await createMarketItem(web3, obj);
@@ -170,7 +170,7 @@ const UpdatePriceView = ({
     const _price = !updatePrice ? (price) : (updatePrice);
     const obj = {
       orderId, // 订单id
-      newPrice: toPriceDecimals(_price, isAITD ? 18 : USDT.decimals), // 价格
+      newPrice: toPriceDecimals(_price, 18), // 价格
       marketType: 2, // 二级市场
       marketPlaceContractAddr,
       account,

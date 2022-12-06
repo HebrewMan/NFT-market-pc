@@ -189,7 +189,7 @@ export const ProDetails = (props: any) => {
     let allowance = 0;
     const obj = {
       orderId: nftGoods.orderId, // 订单id
-      price: toPriceDecimals(_price, USDT.decimals), // nft 价格
+      price: toPriceDecimals(_price, 18), // nft 价格
       marketType: 1, // 用于标注一级市场
       Erc1155ContractAddr: nftGoods.contractAddr,
       moneyMintAddress: USDT?.address,

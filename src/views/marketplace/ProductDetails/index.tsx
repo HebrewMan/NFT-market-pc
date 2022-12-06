@@ -340,7 +340,7 @@ export const ProductionDetails = () => {
 
     const obj = {
       orderId, // 订单id
-      price: toPriceDecimals(DetailData?.price, isAITD ? 18 : USDT.decimals), // nft 价格 USDT.decimals
+      price: toPriceDecimals(DetailData?.price, 18), // nft 价格 USDT.decimals
       // marketType: 2, // 用于标注二级市场
       Erc1155ContractAddr: DetailData?.contractAddr,
       moneyMintAddress: DetailData?.moneyAddr,
