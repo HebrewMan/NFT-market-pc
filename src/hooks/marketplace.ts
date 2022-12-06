@@ -34,6 +34,8 @@ export const createMarketItem = async (web3: Web3, obj: any) => {
   const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account, ctype, amounts } =
     obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
+  console.log(price,'List contract price');
+  
   // 如果是721类型 amount传1
   const count = (ctype === 0 ? 1 : amounts) || 1;
   const type = ctype === 'ERC1155' ? 1 : 0;

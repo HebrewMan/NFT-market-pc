@@ -143,6 +143,7 @@ const UpdatePriceView = ({
         ctype: contractType,
         amounts: sellAmounts,
       };
+      console.log(obj,'commints price');
 
       try {
         orderRes = await createMarketItem(web3, obj);
