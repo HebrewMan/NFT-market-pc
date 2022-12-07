@@ -9,7 +9,7 @@ const paths = require('../paths');
 const { isDevelopment, isProduction } = require('../env');
 const { imageInlineSizeLimit } = require('../conf');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
-
+const path = require('path');
 const env = {
   "APP_MODE":process.env.NODE_ENV
 }
@@ -90,6 +90,16 @@ module.exports = {
               sourceMap: isDevelopment,
             },
           },
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              sourceMap: true,
+              resources: [
+                path.resolve(__dirname, '../../src/styles/theme.scss')
+                // resources('src/styles/theme.scss'),
+              ]
+            }
+          }
         ],
       },
       {
