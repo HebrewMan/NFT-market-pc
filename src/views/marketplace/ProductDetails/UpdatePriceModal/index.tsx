@@ -16,6 +16,7 @@ import {
 import instanceLoading from 'Utils/loading'
 import { getModifyPrice, createMarketItem } from 'Src/hooks/marketplace'
 import { getUpdateLowerPrice } from 'Src/api/index'
+import MessageModal from '../MessageModal'
 
 const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
@@ -33,6 +34,14 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const [updatePrice, setUpdatePrice] = useState('') // 价格
 	const isERC721: boolean = contractType === ContractType.ERC721
 	const walletAccount = localStorage.getItem('wallet') || ''
+	const [messageVisible, setMessageVisible] = useState<boolean>(false)
+
+	const MessageData = {
+    tokenId:tokenId,
+    collectionName:data?.collectionName,
+    imageUrl:data?.nftMetadata?.imageUrl,
+    name:data?.nftMetadata?.name
+  }
 
 	// 初始化
 	useEffect(() => {
@@ -149,8 +158,9 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		if (orderRes?.transactionHash) {
 			// 上架通知后台
 			message.success(t('hint.order'))
+			setMessageVisible(true)
 			// 上架成功 跳转到个人资产
-			history.push(`/account/0/${walletAccount}`)
+			// history.push(`/account/0/${walletAccount}`)
 			props?.onCancel()
 			props?.updateGoods()
 
@@ -252,6 +262,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>确认上架</div>
 			</Modal>
+			 {/*上架改价成功 过度弹窗 */}
+			 <MessageModal data={MessageData} visible={messageVisible} title={props?.sellOrderFlag ? '上架成功' : '改价成功'}/>
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-$primary-color: #2081e2;
+$primary-color: #2585D9;
 $screen-sm-min: 768px;
 
 html {
@@ -306,10 +306,17 @@ code {
   font-weight: 600;
   font-size: 16px;
   line-height: 16px;
-  background-color: transparent !important;
+  border-radius: 8px;
 
   &.ant-btn-primary {
-    color: $tq-primary-color;
+    background: $tq-primary-color;
+    color: $tq-color-white;
+
+    &:hover,
+    &:focus {
+      background-color: #1868b7 !important;
+      color: $tq-color-white;
+    }
   }
 
   &.ant-btn-sm {
@@ -321,45 +328,50 @@ code {
     border-radius: 4px;
   }
 
+  &.ant-btn-lg {
+    height: 48px;
+    font-size: $tq-font-size-5;
+  }
+
   // color: white;
 
-  &.secondary-btn {
-    color: #ffffff;
-    background: $primary-color !important;
-    border-color: $primary-color !important;
-    box-shadow: 0px 0px 24px rgba(26, 26, 26, 0.12);
-    border-radius: 8px;
-    width: fit-content;
+  // &.secondary-btn {
+  //   color: #ffffff;
+  //   background: $primary-color !important;
+  //   border-color: $primary-color !important;
+  //   box-shadow: 0px 0px 24px rgba(26, 26, 26, 0.12);
+  //   border-radius: 8px;
+  //   width: fit-content;
 
-    &:hover,
-    &:focus {
-      background: transparent !important;
-      border-color: $primary-color !important;
-      color: $primary-color !important;
-    }
+  //   &:hover,
+  //   &:focus {
+  //     background: transparent !important;
+  //     border-color: $primary-color !important;
+  //     color: $primary-color !important;
+  //   }
 
-    &:disabled,
-    &:disabled &:hover {
-      color: rgba(255, 255, 255, 0.5) !important;
-      background: #1e1e1e !important;
-      border: none;
-    }
-  }
+  //   &:disabled,
+  //   &:disabled &:hover {
+  //     color: rgba(255, 255, 255, 0.5) !important;
+  //     background: #1e1e1e !important;
+  //     border: none;
+  //   }
+  // }
 
-  &.black-btn {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    width: fit-content;
+  // &.black-btn {
+  //   color: #ffffff;
+  //   background: rgba(255, 255, 255, 0.05);
+  //   border-color: rgba(255, 255, 255, 0.05);
+  //   border-radius: 8px;
+  //   width: fit-content;
 
-    &:hover,
-    &:focus {
-      background: transparent;
-      border-color: rgba(255, 255, 255, 0.05);
-      color: #ffffff;
-    }
-  }
+  //   &:hover,
+  //   &:focus {
+  //     background: transparent;
+  //     border-color: rgba(255, 255, 255, 0.05);
+  //     color: #ffffff;
+  //   }
+  // }
 }
 
 model-viewer {

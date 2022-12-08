@@ -1,0 +1,47 @@
+.contentWaper {
+  .datatTitle {
+    margin-top: 50px;
+    width: 100%;
+    font-size: $tq-font-size-3;
+    color: $tq-font-color-title;
+    text-align: center;
+  }
+
+  .info {
+    text-align: center;
+
+    img {
+      margin: 20px auto;
+      display: block;
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+    }
+
+    .name {
+      font-size: $tq-font-size-3;
+      color: $tq-font-color-title;
+      margin-bottom: 9px;
+    }
+
+    .contractName {
+      width: fit-content;
+      margin: 0 auto;
+      padding: 0 14px;
+      box-sizing: border-box;
+      height: 32px;
+      line-height: 32px;
+      background: $tq-color-bg;
+      border-radius: 20px;
+      font-size: $tq-font-size-6;
+      color: $tq-font-color-body;
+    }
+
+    .ant-btn {
+      margin: 106px 0px 50px;
+      width: 200px;
+    }
+
+  }
+
+}

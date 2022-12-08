@@ -9,12 +9,7 @@ import { useWeb3React } from '@web3-react/core'
 import useWeb3 from '../../../hooks/useWeb3'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
-
-import {
-  createMarketSale,
-  cancelMarketItem,
-} from '../../../hooks/marketplace'
-import { getApproval, getIsApproved } from '../../../hooks/web3Utils'
+import { cancelMarketItem } from 'Src/hooks/marketplace'
 import {
   getNFTDetail,
   getUserNFTDetail,
@@ -23,17 +18,14 @@ import {
 import { getOrderEventPage } from '../../../api/order'
 import { getCollectionDetails } from '../../../api/collection'
 import { getFans, getFansByGoodsId, removeFans } from '../../../api/fans'
-import { getCookie, getLocalStorage, toPriceDecimals } from '../../../utils/utils'
-import UpdatePriceView from './UpdatePrice/index'
-// import { useMarketTrading, useCancelMarketTrading } from "../../../hooks/sellContract"
-// import { useOwnerAddress } from '../../../hooks/useContract';
-import config, { USDT, ContractType, CoinType } from '../../../config/constants'
-import instanceLoading from '../../../utils/loading'
-import { isProd } from '../../../config/constants'
+import { getCookie, getLocalStorage, toPriceDecimals } from 'Utils/utils'
+import config, { USDT, ContractType, CoinType } from 'Src/config/constants'
+import instanceLoading from 'Utils/loading'
+import { isProd } from 'Src/config/constants'
 import BugModal from './bugModal'
 import UpdatePriceModal from './UpdatePriceModal'
-
 import './index.scss'
+
 
 export const ProductionDetails = () => {
   const web3 = useWeb3()
@@ -57,6 +49,7 @@ export const ProductionDetails = () => {
   const [collectionsData, setCollectionsData] = useState({})
   const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [collectGoodsData, setCollectGoodsData] = useState([])
+  const [messageVisible, setMessageVisible] = useState(false)
   const history = useHistory()
   const {
     id: goodsId,
@@ -251,73 +244,7 @@ export const ProductionDetails = () => {
     history.push(`/collection/${DetailData?.collectionId}`)
   }
 
-  // 买nft合约
-  const getBuy = async () => {
-    // 未链接钱包跳转
-    if (!account) {
-      return history.push(`/login`)
-    }
-    const Erc20ContractAddr = USDT.address || ''
-    let approvedRes: any = undefined
-    let fillOrderRes: any = undefined
-    let allowance = 0
-
-    const obj = {
-      orderId, // 订单id
-      price: toPriceDecimals(DetailData?.price, 18), // nft 价格 USDT.decimals
-      // marketType: 2, // 用于标注二级市场
-      Erc1155ContractAddr: DetailData?.contractAddr,
-      moneyMintAddress: DetailData?.moneyAddr,
-      marketPlaceContractAddr: DetailData?.marketAddr,
-      account: accountAddress,
-      tokenId: DetailData?.tokenId,
-      ctype: contractType === ContractType.ERC721 ? 0 : 1,
-      amounts: 1, // TODO: 暂时写死
-      coin: DetailData?.coin,
-    }
-
-    if (!accountAddress || !token || !Erc20ContractAddr) {
-      message.error(t('hint.pleaseLog'))
-      history.push('/login')
-      return
-    }
-    if (chainId !== 1319 && isProd) {
-      message.error(t('hint.switchMainnet'))
-      return
-    }
-    instanceLoading.service()
-    try {
-      // 非原生币需要授权
-      if (isAITD) {
-        fillOrderRes = await createMarketSale(web3, obj)
-      } else {
-        // 查看erc20是否已授权, 获取授权余额
-        const _allowance = await getIsApproved(accountAddress, marketPlaceContractAddr, Erc20ContractAddr, web3)
-        allowance = Number(_allowance) - Number(price)
-        if (allowance <= 0) {
-          // 授权erc20 币种到市场合约
-          approvedRes = await getApproval(
-            accountAddress,
-            marketPlaceContractAddr,
-            ethers.constants.MaxUint256,
-            Erc20ContractAddr,
-            web3,
-          )
-        }
-        if (allowance > 0 || !!approvedRes?.transactionHash) {
-          fillOrderRes = await createMarketSale(web3, obj)
-        }
-      }
-      if (!!fillOrderRes?.transactionHash) {
-        message.success(t('hint.purchaseSuccess'))
-        updateGoods()
-      }
-      instanceLoading.close()
-    } catch (error) {
-      instanceLoading.close()
-    }
-
-  }
+ 
   const sellBtn = () => {
     // 用户资产跳转过来状态为用户撤单 或 个数不为0
     const canSell = userTokenId ? amount !== 0 || userNftStatus === 2 : true
@@ -339,6 +266,7 @@ export const ProductionDetails = () => {
   const updateGoods = () => {
     init()
     getFansByGoodsIdData(DetailData?.tokenId, DetailData?.contractAddr)
+
   }
   const notify = (status: number | string) => {
     setFansStatus(status)
@@ -398,9 +326,6 @@ export const ProductionDetails = () => {
                   </div>
                 )}
                 {!isOwner() && (
-                  // <button disabled={!isBuyNow()} onClick={getBuy}>
-                  //    {t('common.buyNow')}
-                  // </button>
                   <button disabled={!isBuyNow()} onClick={handeClickBuy}>
                     {t('common.buyNow')}
                   </button>
@@ -431,26 +356,10 @@ export const ProductionDetails = () => {
           collectionId={DetailData?.collectionId}
           notify={notify}
         />
-        {/* 价格弹框 */}
-        {/* <UpdatePriceView
-          price={DetailData.price}
-          tokenId={DetailData.tokenId}
-          contractAddr={DetailData.contractAddr}
-          isAITD={isAITD}
-          contractType={contractType}
-          accountAddress={accountAddress}
-          moneyAddr={DetailData.moneyAddr}
-          goodsId={userTokenId ? DetailData.id : goodsId}
-          orderId={Number(orderId)}
-          isOpen={isOpen}
-          sellOrderFlag={sellOrderFlag}
-          close={updateClose}
-          updateGoods={updateGoods}
-        /> */}
         {/* 上架改价 */}
         <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />
         {/* 购买弹窗 */}
-        <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} />
+        <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />
       </div>
     </div>
   )
