@@ -1,0 +1,123 @@
+.modalWaper.ant-modal-body {
+	padding-top: 0px;
+}
+
+.modalContent {
+	padding: 20px 0px;
+	display: flex;
+	justify-content: flex-start;
+	border-top: 1px solid rgba(29, 36, 59, 0.1);
+	border-bottom: 1px solid rgba(29, 36, 59, 0.1);
+
+	.contentLeft {
+		width: 160px;
+		height: 160px;
+		border-radius: 10px;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.contentRight {
+		margin-top: 24px;
+		margin-left: 24px;
+		flex: 1;
+
+		.name {
+			font-size: $tq-font-size-4;
+			color: $tq-font-color-title;
+		}
+
+		.info {
+			margin-top: 12px;
+			display: flex;
+			justify-content: space-between;
+			font-size: $tq-font-size-5;
+			color: #1D243B;
+		}
+
+		.fontWeight {
+			font-weight: bold;
+		}
+	}
+}
+
+.PriceWpaer {
+	margin-top: 24px;
+
+	.label {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: $tq-font-size-5;
+		color: $tq-font-color-title;
+	}
+
+	.inputWaper {
+		margin-top: 8px;
+		display: flex;
+
+		input {
+			padding: 0 24px;
+			width: 403px;
+			height: 48px;
+			background: $tq-color-white;
+			border-radius: 8px;
+			border: 1px solid $tq-split-line-color;
+			font-size: $tq-font-size-3;
+			flex: 1;
+
+			&::placeholder {
+				font-size: $tq-font-size-6;
+				color: $tq-font-color-help;
+			}
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
+
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+
+		button {
+			margin-left: 16px;
+			display: inline-block;
+			width: 83px;
+			height: 48px;
+			background: $tq-color-white;
+			border-radius: 8px;
+			border: 1px solid $tq-split-line-color;
+		}
+	}
+}
+
+.payWaper {
+	margin-top: 24px;
+	font-size: $tq-font-size-5;
+	color: $tq-font-color-title;
+
+	.title {
+		font-size: $tq-font-size-5;
+		color: $tq-font-color-title;
+	}
+}
+
+.BuyBtn {
+	margin-bottom: 20px;
+	margin-top: 40px;
+	width: 100%;
+	height: 48px;
+	line-height: 48px;
+	background: $tq-primary-color;
+	border-radius: 8px;
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+	cursor: pointer;
+}

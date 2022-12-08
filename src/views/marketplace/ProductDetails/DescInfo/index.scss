@@ -5,9 +5,8 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    border-radius: 32px;
-    border: 1px solid rgba(29, 36, 59, 0.1);
-    padding: 6px 14px 6px 12px;
+    border-bottom: 1px solid $tq-split-line-color;
+    padding: 6px 14px 0px 12px;
     margin-bottom: 24px;
 
     .list-title {
@@ -15,23 +14,22 @@
       align-items: center;
       box-sizing: border-box;
       line-height: 1;
-      padding: 3px 12px;
+      padding: 3px 12px 6px 12px;
 
       h2 {
         font-size: 16px;
         font-weight: 400;
-        color: #4b5163;
+        color: $tq-font-color-gary;
         line-height: 22px;
       }
     }
 
     .list-inner.active .list-title {
-      background-color: #000;
-      border-radius: 32px;
+      border-bottom: 2px solid $tq-font-color-title;
 
       h2 {
         font-weight: 600;
-        color: #ffffff;
+        color: $tq-font-color-title;
       }
     }
 
@@ -214,6 +212,36 @@
           }
         }
       }
+    }
+  }
+}
+
+// 多订单表格
+
+.MultipleOrders {
+  .TableWaper {
+    // height: 210px;
+    // overflow-y: scroll;
+
+    .ant-table-thead>tr>th {
+      border-bottom: none;
+      background: none;
+      font-size: $tq-font-size-7;
+      color: $tq-font-color-body;
+
+      ::before {
+        width: 0px;
+      }
+    }
+
+    .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+      width: 0px;
+      content: '';
+    }
+
+    .ant-table-tbody>tr>td {
+      border-bottom: 0px;
+      color: $tq-font-color-title;
     }
   }
 }

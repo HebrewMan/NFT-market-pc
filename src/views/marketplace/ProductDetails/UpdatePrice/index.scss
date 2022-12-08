@@ -4,22 +4,27 @@
     max-width: calc(100vw - 16px);
     margin: 0 auto;
   }
+
   .ant-modal-content {
     .ant-modal-close-x {
-      color: #000;
+      color: $tq-font-color-title;
     }
+
     .ant-modal-title {
-      text-align: center;
+      text-align: left;
       font-weight: 600;
       font-size: 20px;
       color: #04111d;
     }
+
     .ant-modal-footer {
       text-align: center;
       padding: 30px;
+
       @media screen and (min-width: 410px) and (max-width: 539px) {
         padding: 30px 20px;
       }
+
       button {
         display: inline-flex;
         flex-direction: row;
@@ -32,9 +37,11 @@
         width: 165px;
         border: 1px solid #2081e2;
         color: #fff;
+
         &.ant-btn-primary {
           background-color: #2081e2 !important;
         }
+
         &:first-of-type {
           background-color: #fff;
           border: 1px solid #e5e8eb;
@@ -42,21 +49,26 @@
           margin-right: 20px;
           margin-bottom: 15px;
         }
+
         @media screen and (max-width: 539px) {
           &:first-of-type {
             margin-right: 0;
           }
+
           &:last-of-type {
             margin-left: 0;
           }
         }
+
         @media screen and (min-width: 410px) and (max-width: 539px) {
           &:last-of-type {
             margin-left: 8px;
           }
         }
+
         @media screen and (max-width: 409px) {
           width: 100%;
+
           &:last-of-type {
             margin-left: 0px !important;
           }
@@ -65,6 +77,7 @@
     }
   }
 }
+
 .update-price {
   width: 100%;
   display: flex;
@@ -75,6 +88,7 @@
   font-weight: 400;
   font-size: 16px;
   color: rgb(112, 122, 131);
+
   .price {
     input {
       width: 45%;
@@ -84,17 +98,21 @@
       border-radius: 8px;
       padding-left: 10px;
       outline: none;
+
       &:first-of-type {
         margin-right: 10px;
       }
+
       &:focus {
         border: 1px solid #e5e8eb;
       }
     }
   }
+
   p {
     padding: 24px 0 10px;
   }
+
   .btn {
     display: flex;
     -webkit-box-pack: center;
@@ -102,6 +120,7 @@
     width: 100%;
     padding: 40px 0;
     border-top: 1px solid #e5e8eb;
+
     button {
       display: inline-flex;
       flex-direction: row;
@@ -116,18 +135,21 @@
       background-color: rgb(32, 129, 226);
       border: 1px solid rgb(32, 129, 226);
       color: rgb(255, 255, 255);
+
       &:first-of-type {
         background-color: rgb(255, 255, 255);
         border: 1px solid rgb(229, 232, 235);
         color: rgb(112, 122, 131);
         margin-right: 20px;
       }
+
       &:focus {
         border: 1px solid #e5e8eb;
       }
     }
   }
 }
+
 .sellOrderAndUpdatePrice {
   .ant-modal-content {
     .ant-modal-header {

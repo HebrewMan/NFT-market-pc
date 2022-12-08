@@ -9,11 +9,11 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: rgb(255, 255, 255);
     border-radius: 20px;
     width: 378px;
     cursor: pointer;
-
+    background: $tq-color-white;
+    border: 1px solid $tq-split-line-color;
     // &:hover {
     //   box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
     //   transition: all 0.1s ease 0s;
@@ -87,34 +87,37 @@
         object-fit: cover;
         width: 100%;
         height: 100%;
-        border-radius: 20px;
       }
     }
 
     .assets-info {
+      padding: 14px;
 
       .desc {
-        margin-top: 10px;
         display: flex;
         justify-content: space-between;
 
         .name {
           height: 22px;
           line-height: 22px;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 500;
-          color: #1D243B;
+          color: $tq-font-color-title;
         }
+      }
 
-        .price {
-          padding: 0 8px;
-          height: 22px;
-          font-size: 12px;
-          font-weight: 600;
-          border-radius: 4px;
-          border: 2px solid #00B563;
-          color: #00B563;
-          background: #FFFFFF;
+      .price {
+        display: flex;
+        align-items: center;
+        margin-top: 16px;
+        font-size: $tq-font-size-4;
+        font-weight: 600;
+        color: $tq-primary-color;
+
+        .coin-img {
+          margin-right: 5px;
+          width: 15px;
+          height: 15px;
         }
       }
 
@@ -122,9 +125,9 @@
         margin-top: 6px;
         height: 20px;
         line-height: 20px;
-        font-size: 14px;
+        font-size: $tq-font-size-5;
         font-weight: 400;
-        color: #1D243B;
+        color: $tq-font-color-body;
       }
 
     }

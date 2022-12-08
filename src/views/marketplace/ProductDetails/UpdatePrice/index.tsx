@@ -211,8 +211,6 @@ const UpdatePriceView = ({
 
   const handleChange = (event: any) => {
     const value = event.target.value;
-    console.log(value, typeof value,'dddddd');
-    
     const reg = /[^\d.]{1,18}/;
 
     if (reg.test(value)) {

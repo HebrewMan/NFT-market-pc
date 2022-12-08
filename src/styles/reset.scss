@@ -302,12 +302,26 @@ code {
 }
 
 .ant-btn {
-  height: 56px;
+  // height: 56px;
   font-weight: 600;
   font-size: 16px;
   line-height: 16px;
   background-color: transparent !important;
-  color: white;
+
+  &.ant-btn-primary {
+    color: $tq-primary-color;
+  }
+
+  &.ant-btn-sm {
+    padding: 0 25px;
+    box-sizing: border-box;
+    height: 28px;
+    line-height: 28px;
+    font-size: $tq-font-size-6;
+    border-radius: 4px;
+  }
+
+  // color: white;
 
   &.secondary-btn {
     color: #ffffff;
@@ -559,4 +573,9 @@ model-viewer {
 .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector input {
   height: 100%;
   color: #141414;
+}
+
+.ant-modal-header {
+  border-bottom: 0px;
+  padding-bottom: 0px;
 }

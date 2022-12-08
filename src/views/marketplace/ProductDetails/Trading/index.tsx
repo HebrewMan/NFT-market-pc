@@ -173,11 +173,11 @@ export const Trading = (props: any) => {
               rel='noreferrer'
             >
               <span>{formatTime(item?.createDate)}</span>
-              {item.txHash ? (
+              {/* {item.txHash ? (
                 <img src={require('../../../../assets/linkEth.svg')} style={{ marginLeft: 10 }} alt='' />
               ) : (
                 <></>
-              )}
+              )} */}
             </a>
           </td>
         </tr>

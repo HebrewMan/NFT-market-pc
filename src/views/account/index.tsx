@@ -577,11 +577,14 @@ export const Account: React.FC<any> = () => {
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>
+                {/* <div className='price'>
+                  {item.status === 0 ? intlFloorFormat(item.price,4) + ' AITD' : 0 + 'AITD'}
+                </div> */}
+              </div>
+              {/* <div className='collection-name'>{item.collectionName}</div> */}
+              <div className='price'>
                   {item.status === 0 ? intlFloorFormat(item.price,4) + ' AITD' : 0 + 'AITD'}
                 </div>
-              </div>
-              <div className='collection-name'>{item.collectionName}</div>
             </div>
 
             <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>

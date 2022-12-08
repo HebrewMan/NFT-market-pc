@@ -173,12 +173,12 @@ export const MarketPlace = () => {
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>
-                  {intlFloorFormat(item.price,4) + ` ${item?.coin || 'AITD'}`}
-                  {/* {Math.floor(Number(item.price) * 10000) / 10000 + ` ${item?.coin || 'AITD'}`} */}
-                </div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
+              <div className='price'>
+                <img src={require('../../assets/coin/aitd.svg')} alt='' className='coin-img' />
+                {intlFloorFormat(item.price,4) + ` ${item?.coin || 'AITD'}`}
+              </div>
             </div>
 
             <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>

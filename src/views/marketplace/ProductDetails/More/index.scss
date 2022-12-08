@@ -32,17 +32,22 @@
   }
 
   .collection-wrapper {
-    margin: 0 31px;
+    padding-left: 30px;
     overflow: auto;
+    background: $tq-color-bg;
 
     .g-list {
 
       .card {
+        background: $tq-color-white;
         width: 260px;
+        height: 375px;
+        border-radius: 20px;
+        border: 1px solid $tq-split-line-color;
 
         .assets {
           width: 260px;
-          height: 282px;
+          height: 256px;
         }
 
         .fav {

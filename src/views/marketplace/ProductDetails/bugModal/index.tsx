@@ -1,41 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Modal } from 'antd';
-import './index.scss';
-const decreaseImg = require('../../../../assets/decrease.png');
-const increaseImg = require('../../../../assets/increase.png');
+import React, { useEffect, useState } from 'react'
+import { Button, Modal } from 'antd'
+import './index.scss'
+const decreaseImg = require('../../../../assets/marketPlace/decrease.png')
+const increaseImg = require('../../../../assets/marketPlace/increase.png')
 const ReceiveModal: React.FC<any> = (props) => {
-  console.log(props, 'propsprops');
-  const { data } = props;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [subNum, setSubNum] = useState(1);
-  const [paymentPrice, setPaymentPrice] = useState(0);
+  const { data } = props
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [subNum, setSubNum] = useState(1)
+  const [paymentPrice, setPaymentPrice] = useState(0)
 
   // 初始化
   useEffect(() => {
-    setIsModalOpen(props.visible);
-    setPaymentPrice(props?.data.price);
-  }, [props]);
+    setIsModalOpen(props.visible)
+    setPaymentPrice(props?.data.price)
+  }, [props])
 
   // 关闭
   const onCancel = () => {
-    props?.onCancel();
-  };
+    props?.onCancel()
+  }
 
   useEffect(() => {
-    setPaymentPrice(Number(data.price * subNum));
-  }, [subNum]);
+    setPaymentPrice(Number(data.price * subNum))
+  }, [subNum])
   // 增加
   const increase = () => {
     if (subNum >= 0) {
-      setSubNum(subNum + 1);
+      setSubNum(subNum + 1)
     }
-  };
+  }
   // 减少
   const decrease = () => {
     if (subNum != 1) {
-      setSubNum(subNum - 1);
+      setSubNum(subNum - 1)
     }
-  };
+  }
 
   return (
     <div className='modalWaper'>
@@ -56,11 +55,11 @@ const ReceiveModal: React.FC<any> = (props) => {
         {data?.contractType === 'ERC1155' && (
           <div className='numberWaper'>
             <div onClick={decrease}>
-              <img src={increaseImg} alt='' />
+              <img src={decreaseImg} alt='' />
             </div>
             <input type='text' className='num_box' value={subNum} />
             <div onClick={increase}>
-              <img src={decreaseImg} alt='' />
+              <img src={increaseImg} alt='' />
             </div>
           </div>
         )}
@@ -72,7 +71,7 @@ const ReceiveModal: React.FC<any> = (props) => {
         <div className='BuyBtn'>to pay</div>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default ReceiveModal;
+export default ReceiveModal

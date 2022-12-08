@@ -15,12 +15,17 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
+    // "paths": {
+    //   "@/*": [
+    //     "src/*"
+    //   ]
+    // },
     "paths": {
-      "@/*": [
+      "Src/*": [
         "src/*"
       ],
       "Components/*": [
-        "src/components/*"
+        "components/*"
       ],
       "Utils/*": [
         "src/utils/*"

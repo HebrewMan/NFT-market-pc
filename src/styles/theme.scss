@@ -7,14 +7,20 @@ $tq-color-green: #00B563;
 $tq-color-warn: #ECB356;
 $tq-color-fail: #EC685B;
 
+// 背景颜色
+$tq-color-bg: #F8FBFE;
 // 字体颜色
 
 /* 标题文字 */
 $tq-font-color-title: #1D243B;
 /* 辅助文字 */
 $tq-font-color-body: #757A8A;
-
+$tq-font-color-gary: #A6ABBB;
 $tq-font-color-help: #CCCCCC;
+
+// 其他颜色
+$tq-color-white: #ffffff;
+$tq-color-black: #000000;
 
 // 字体大小
 $tq-font-size-1: 40px;
@@ -23,7 +29,7 @@ $tq-font-size-3: 20px;
 $tq-font-size-4: 18px;
 $tq-font-size-5: 16px;
 $tq-font-size-6: 14px;
-$tq-font-size-6: 12px;
+$tq-font-size-7: 12px;
 
 // 分割线颜色 边框颜色
 $tq-split-line-color: #E8E8E8;

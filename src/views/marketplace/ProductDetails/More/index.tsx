@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { getFans, removeFans, getFansByGoodsId } from '../../../../api/fans';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
+import { intlFloorFormat } from 'Utils/bigNumber' 
 
 export const MoreCollects = (props: any) => {
   const { t } = useTranslation()
@@ -72,11 +73,12 @@ export const MoreCollects = (props: any) => {
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>
-                  {Math.floor(Number(item.price) * 10000) / 10000 + ` ${item?.coin || 'AITD'}`}
-                </div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
+              <div className='price'>
+                <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='coin-img' />
+                {intlFloorFormat(item.price,4) + ` ${item?.coin || 'AITD'}`} 
+              </div>
             </div>
 
             <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>

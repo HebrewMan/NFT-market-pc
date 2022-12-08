@@ -22,19 +22,20 @@
     }
 
     .contentRight {
+        margin-top: 24px;
         margin-left: 24px;
         flex: 1;
 
         .name {
-            font-size: 16px;
-            color: #1D243B;
+            font-size: $tq-font-size-4;
+            color: $tq-font-color-title;
         }
 
         .info {
             margin-top: 12px;
             display: flex;
             justify-content: space-between;
-            font-size: 16px;
+            font-size: $tq-font-size-5;
             color: #1D243B;
         }
 
@@ -53,11 +54,12 @@
 }
 
 .BuyBtn {
+    margin-bottom: 20px;
     margin-top: 40px;
     width: 100%;
     height: 48px;
-    line-height: 38px;
-    background: #2585D9;
+    line-height: 48px;
+    background: $tq-primary-color;
     border-radius: 8px;
     text-align: center;
     color: #fff;

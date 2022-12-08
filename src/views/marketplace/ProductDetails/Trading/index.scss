@@ -1,11 +1,14 @@
 .trading-history {
   margin-top: 30px;
   border: 1px solid rgb(229, 232, 235);
+  border-radius: 16px;
 
   .list-title {
+    padding: 0 32px;
+    height: 56px;
+    line-height: 56px;
     display: flex;
     align-items: center;
-    padding: 20px;
     border-bottom: 1px solid rgb(229, 232, 235);
     box-sizing: border-box;
     line-height: 1;
@@ -36,6 +39,7 @@
     border-bottom: 1px solid rgb(229, 232, 235);
 
     .details-top {
+      background: $tq-color-bg;
       padding: 20px;
     }
 
@@ -50,10 +54,11 @@
       border-top-right-radius: 5px;
       cursor: pointer;
       position: relative;
+      background: $tq-color-white;
 
       .filter-checkbox {
         width: 100%;
-        background-color: #fff;
+        background-color: $tq-color-white;
         position: absolute;
         top: 40px;
         z-index: 99;
@@ -95,6 +100,7 @@
       align-items: center;
       flex-wrap: wrap;
       padding: 0 20px 20px;
+      background: $tq-color-bg;
 
       button {
         font-size: 16px;
@@ -102,14 +108,14 @@
         align-items: center;
         cursor: pointer;
         display: flex;
-        min-height: 54px;
-        padding: 10px 20px;
+        min-height: 32;
+        padding: 5px 10px;
         border-width: 1px;
         border-style: solid;
         background-color: rgba(21, 178, 229, 0.06);
-        border-color: rgb(21, 178, 229);
+        border-color: $tq-primary-color;
         border-radius: 5px;
-        border: 1px solid rgb(21, 178, 229);
+        border: 1px solid $tq-primary-color;
         overflow: hidden;
         margin-right: 10px;
 
@@ -120,11 +126,11 @@
 
       span {
         cursor: pointer;
-        color: rgb(21, 178, 229);
+        color: $tq-primary-color;
       }
 
       span:hover {
-        color: rgb(32, 129, 226);
+        color: $tq-primary-color;
       }
 
       button:hover {
@@ -151,13 +157,14 @@
 
     tr {
       border-bottom: 1px solid rgb(229, 232, 235);
+      background: $tq-color-bg;
 
       .svg-icon {
         margin-right: 10px;
       }
 
       a {
-        color: rgb(32, 129, 226);
+        color: $tq-primary-color;
       }
     }
   }

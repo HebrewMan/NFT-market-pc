@@ -115,10 +115,8 @@ export function coverage(num:any) {
    * 支持千分位,小数按照精度舍去，截断(向下保留)
    * @param num
    * @param precision 精度
-   * @param zero 精度不足时是否补零
-   * @param onlyInteger 小数点后都为零，是否直接显示整数
    */
-   export function intlFloorFormat(num: number, precision = 0, zero = false, onlyInteger = false): string | number {
+   export function intlFloorFormat(num: number, precision = 0): string | number {
     if (num === 0 || isNaN(num)) {
       return 0.00
     }
