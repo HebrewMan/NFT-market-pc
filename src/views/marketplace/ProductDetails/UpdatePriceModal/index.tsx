@@ -227,12 +227,12 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			>
 				<div className='modalContent'>
 					<div className='contentLeft'>
-						<img src={data?.nftMetadata?.imageUrl} alt='' />
+						<img src={data?.nftMetadata?.imageUrl || data.imageUrl} alt='' />
 					</div>
 					<div className='contentRight'>
 						<div className='name'>{data?.collectionName}</div>
 						<div className='info'>
-							<section className='fontWeight'>{data?.nftMetadata?.name + '#' + data?.tokenId}</section>
+							<section className='fontWeight'>{data?.nftMetadata?.name || data?.name + '#' + data?.tokenId}</section>
 						</div>
 					</div>
 				</div>

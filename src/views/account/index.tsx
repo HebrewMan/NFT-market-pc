@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import Portal from '../../components/Dialog';
+import {useHistory, useParams } from 'react-router-dom';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { Select } from '../marketplace/Select';
 import { formatAdd } from '../marketplace/utils';
-import { Dropdown, Menu, Space, Typography, message, Select as SelectAntd } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import { isMobile } from 'react-device-detect';
-import useWindowDimensions from '../../utils/layout';
+import { message, Select as SelectAntd } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { intlFloorFormat } from 'Utils/bigNumber'
-
+import UpdatePriceModal from '../marketplace/ProductDetails/UpdatePriceModal';
+import { isProd } from 'Src/config/constants'
+import instanceLoading from 'Utils/loading'
+import useWeb3 from 'Src/hooks/useWeb3'
+import { cancelMarketItem } from 'Src/hooks/marketplace'
+import config, { USDT, ContractType, CoinType } from 'Src/config/constants'
 import {
   // getGoods,
   // getSelfGoods,
@@ -26,7 +27,7 @@ import { getCollectionDetails } from '../../api/collection';
 import { uploadFileCheck } from '../../utils/utils';
 import { useTouchBottom } from '../../hooks';
 import './index.scss';
-
+import { getCookie, getLocalStorage, toPriceDecimals } from 'Utils/utils'
 interface accountInfoProps {
   name: string;
   username: string;
@@ -50,6 +51,7 @@ interface collectionsDataProps {
 
 export const Account: React.FC<any> = () => {
   const { t } = useTranslation()
+  const web3 = useWeb3()
   const statusList = [
     {
       label: 'status',
@@ -87,7 +89,6 @@ export const Account: React.FC<any> = () => {
   ];
   const tabsData = [t('account.collected'), t('account.favorited')];
   const [grid, setGrid] = useState(1);
-  const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
     name: '',
     username: '',
@@ -97,18 +98,19 @@ export const Account: React.FC<any> = () => {
     bannerUrl: '',
     id: '',
   });
-
-  const [collectionsData, setCollectionsData] = useState<collectionsDataProps[]>([]);
+  const _chainId = window?.ethereum?.chainId
+  const chainId = parseInt(_chainId, 16)
+  const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
+  const [collectionsData, setCollectionsData] = useState<any>([]);
   const collectRef = useRef(collectionsData);
   const { id, address } = useParams<{ id: string | undefined; address: string }>();
   const [keyWord, setKeyWord] = useState<any>();
   const [sort, setSort] = useState<any>();
   const [status, setStatus] = useState<any>();
   const [collectAddr, setCollectAddr] = useState<any>(null);
-  // const [createAddr, setCreateAddr] = useState<any>(null);
   const [ownerAddr, setOwnerAddr] = useState<any>(null);
   const [reset, setReset] = useState(false);
-  const [mobileSelect, setMobileSelect] = useState(0);
+  const [isOpen, setIsOpen] = useState(false)
 
   const defaultData = {
     collectAddr: collectAddr,
@@ -124,27 +126,20 @@ export const Account: React.FC<any> = () => {
     data: { ...defaultData },
   });
   const [isMore, setIsMore] = useState(false);
-  const [goodsId, setGoodsId] = useState<Number>();
   const walletAccount: string = localStorage.getItem('wallet') || '';
-  const [visible, setVisible] = useState(false);
-  const [errorReason, setErrorReason] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const history = useHistory();
   const defaultHeader = require('../../assets/default_header.png');
   const defaulBannerUrl = require('../../assets/default_banner.jpg');
   const [total, setTotal] = useState(0);
   const { page, size } = httpData;
-  const [mobileLabel, setMobileLabel] = useState([
-    {
-      value: '0',
-      label: t('account.collected'),
-    },
-  ]);
-
+  const token = getCookie('web-token') || '';
+  const [detailData, setDetailData] = useState({})
   // 初始化
   useEffect(() => {
     setCollectionsData([]);
   }, [address]);
+
   // 判断方法回调返回值
   const isOwner = () => {
     return (accountInfo?.userAddr && accountInfo?.userAddr === walletAccount) || address === walletAccount;
@@ -284,103 +279,33 @@ export const Account: React.FC<any> = () => {
     // setHttpData(() => ({ ...httpData.data, page: 1,orders:orders}));
   };
 
-  const handleStatus = (item: any) => {
-    const params = {
-      ...httpData,
-      page: pageCurrent,
-    };
-    pageRef.current = 0;
-    setStatus(item.value);
-    // params.data.status = item.value;
-    // params.data.sort = '';
-    setPageCurrent(1);
-    setCollectionsData([]);
-    if (Math.ceil(total / size) > page) {
-      setIsMore(true);
-    }
-    setHttpData(() => ({ ...params, page: 1 }));
-  };
-
-  // 收藏或取消收藏
-  const toggleFansCollected = (e: any, item: any) => {
-    e.preventDefault();
-    const { tokenId, collect, contractAddr } = item;
-    if (collect) {
-      console.log('quxiao');
-
-      removeFansCollect(tokenId, contractAddr);
-    } else {
-      console.log('shouc');
-      // 关注、收藏
-      addFansCollect(tokenId, contractAddr);
-    }
-  };
-  const getFansListByNftId = async (id: string | number, contractAddr: string) => {
-    const params = {
-      tokenId: id,
-      contractAddr: contractAddr,
-      ownerAddr: address,
-    };
-    const res: any = await getFansByGoodsId(params);
-    if (res?.message === 'success') {
-      const list = collectionsData.map((item: any) => {
-        return item.tokenId === id
-          ? {
-              ...item,
-              collect: Number(res.data.collect),
-              collectNum: Number(res.data.collectNum),
-            }
-          : { ...item };
-      });
-      setCollectionsData(list);
-    }
-  };
-  // 添加收藏
-  const addFansCollect = async (tokenId: string | number, contractAddr: string) => {
-    const res: any = await getFans(tokenId, contractAddr);
-    if (res.message === 'success') {
-      getFansListByNftId(tokenId, contractAddr);
-    }
-  };
-  // 取消收藏
-  const removeFansCollect = async (tokenId: string, contractAddr: string) => {
-    const res: any = await removeFans(tokenId, contractAddr);
-    if (res.message === 'success') {
-      getFansListByNftId(tokenId, contractAddr);
-    }
-  };
-  // 路由跳转
-  const handleToDetails = (item: any) => {
-    // 跳转到一级市场活动商品
-    if (item.type === 1) {
-      return history.push(`/primary-details/${item.id}/${0}`);
-    }
-    if (item.belongsId === 0) {
-      return history.push(`/product-details/${item.id}`); // 跳转二级市场商品详情页
-    } else {
-      // 跳转至盲盒详情页
-      return history.push(
-        `/primary-details/${item.id}/${item.status}/${true}/${item.tokenId}/${item.openStatus}/${item.metadataId}`,
-      );
-    }
-  };
-  // const getErrorReason = async (id: string) => {
-  //   const res: any = await getGood(id);
-  //   if (res.message === 'success') {
-  //     setVisible(true);
-  //     setErrorReason(res.data.auditDetails);
-  //     setGoodsId(res.data.metadata.goodsId);
+  // const getFansListByNftId = async (id: string | number, contractAddr: string) => {
+  //   const params = {
+  //     tokenId: id,
+  //     contractAddr: contractAddr,
+  //     ownerAddr: address,
+  //   };
+  //   const res: any = await getFansByGoodsId(params);
+  //   if (res?.message === 'success') {
+  //     const list = collectionsData.map((item: any) => {
+  //       return item.tokenId === id
+  //         ? {
+  //             ...item,
+  //             collect: Number(res.data.collect),
+  //             collectNum: Number(res.data.collectNum),
+  //           }
+  //         : { ...item };
+  //     });
+  //     setCollectionsData(list);
   //   }
   // };
-  // const handleChecked = () => {
-  //   history.push(`/create/${goodsId}`);
-  // };
   // 初始化页面详情数据
-  useEffect(() => {
-    if (id && id !== '0') {
-      getAccountInfoById();
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id && id !== '0') {
+  //     getAccountInfoById();
+  //   }
+  // }, [id]);
+  
   useEffect(() => {
     if (address) {
       getAccountInfoByAddress();
@@ -406,22 +331,22 @@ export const Account: React.FC<any> = () => {
       if (accountInfo?.userAddr == address) {
         setCollectionsData([]);
       }
+      // getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
       setTimeout(() => {
         getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
       }, 200);
-      // getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
     }
   }, [httpData, accountInfo?.userAddr, accountInfo?.id]);
 
   // 通过合集id获取账户详情基本信息
-  const getAccountInfoById = async () => {
-    setCollectionsData([]);
-    const res = await getCollectionDetails(Number(id));
-    setAccountInfo(res.data);
-    if (accountInfo?.id) {
-      getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
-    }
-  };
+  // const getAccountInfoById = async () => {
+  //   setCollectionsData([]);
+  //   const res = await getCollectionDetails(Number(id));
+  //   setAccountInfo(res.data);
+  //   if (accountInfo?.id) {
+  //     getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
+  //   }
+  // };
   // 根据用户地址获取账户信息
   const getAccountInfoByAddress = async () => {
     setCollectionsData([]);
@@ -431,22 +356,6 @@ export const Account: React.FC<any> = () => {
       getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
     }
   };
-  // // 统一处理列表渲染及是否需要加载
-  // const loaderList = (data: any, total: number, flag: boolean) => {
-  //   if (!flag) {
-  //     setCollectionsData(() => {
-  //       return data;
-  //     });
-  //   } else {
-  //     setCollectionsData(() => {
-  //       return [...collectionsData, ...data];
-  //     });
-  //   }
-  //   setTotal(total);
-  //   if (Math.ceil(total / size) > page) {
-  //     setIsMore(true);
-  //   }
-  // };
 
   // 获取用户当前账号所有的资产
   const getAccountNFTList = async (typeParams: any) => {
@@ -471,25 +380,25 @@ export const Account: React.FC<any> = () => {
     };
     getAccountNFTList(newParams);
   };
-  const handleReset = () => {
-    setKeyWord('');
-    setSort('');
-    setStatus(undefined);
-    setReset(!reset);
-    const resetParams = {
-      ...httpData,
-      page: 1,
-      size,
-    };
-    resetParams.data.name = '';
-    pageRef.current = 0;
-    setPageCurrent(1);
-    setCollectionsData([]);
-    if (Math.ceil(total / size) > page) {
-      setIsMore(true);
-    }
-    setHttpData(() => ({ ...resetParams }));
-  };
+  // const handleReset = () => {
+  //   setKeyWord('');
+  //   setSort('');
+  //   setStatus(undefined);
+  //   setReset(!reset);
+  //   const resetParams = {
+  //     ...httpData,
+  //     page: 1,
+  //     size,
+  //   };
+  //   resetParams.data.name = '';
+  //   pageRef.current = 0;
+  //   setPageCurrent(1);
+  //   setCollectionsData([]);
+  //   if (Math.ceil(total / size) > page) {
+  //     setIsMore(true);
+  //   }
+  //   setHttpData(() => ({ ...resetParams }));
+  // };
 
   const handleBannerImage = (e: any) => {
     const file = e.target.files[0];
@@ -528,29 +437,51 @@ export const Account: React.FC<any> = () => {
     );
   };
 
-  const MobileTabs = (props: any) => {
-    const handleChange = (value: any) => {
-      const _value: any = JSON.parse(JSON.stringify(value));
-      setMobileLabel([{ value: _value?.value, label: _value?.label }]);
-      props.clickedTab(Number(_value?.value));
-    };
-    return (
-      <SelectAntd
-        labelInValue
-        // defaultValue={{
-        //   value: '0',
-        //   label: 'Collected',
-        // }}
-        value={mobileLabel}
-        onChange={handleChange}
-        className='mobileSelect'
-      >
-        <SelectAntd.Option value='0'>{t('account.collected')}</SelectAntd.Option>
-        {/* <SelectAntd.Option value='1'>Created</SelectAntd.Option> */}
-        <SelectAntd.Option value='1'>{t('account.favorited')}</SelectAntd.Option>
-      </SelectAntd>
-    );
-  };
+  const handleJump = (item:any) =>{
+    item.orderId ? history.push(`/product-details/${item.orderId}`) :  history.push(`/product-details/${0}/${item.tokenId}/${item?.contractAddr}`)
+  }
+  // 售出 和取消上架
+  const handleChange = (e:any,item:any) =>{
+    e.stopPropagation();
+    console.log(item,'iii');
+    // 下架
+    if(item === 0){
+      getCancelSellOrder(item)
+    }else{
+      setIsOpen(true)
+      setDetailData(item)
+    }
+    
+  }
+ 
+  // 取消上架 // 下架合约
+  const getCancelSellOrder = async (item:any) => {
+    if (!walletAccount || !token) {
+      message.error(t('hint.switchMainnet'))
+      history.push('/login')
+      return
+    }
+    if (chainId !== 1319 && isProd) {
+      message.success(t('hint.cancellation'))
+      return
+    }
+    instanceLoading.service()
+    try {
+      const cancelOrderRes = await cancelMarketItem(
+        web3,
+        Number(item?.orderId),
+        walletAccount,
+        marketPlaceContractAddr,
+      )
+      if (cancelOrderRes?.transactionHash) {
+        message.success(t('hint.cancellation'))
+        // updateGoods()
+      }
+      instanceLoading.close()
+    } catch (error: any) {
+      instanceLoading.close()
+    }
+  }
 
   const listEmpty = () => {
     return (
@@ -565,11 +496,8 @@ export const Account: React.FC<any> = () => {
     return collectionsData.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link 
-            to={item.orderId
-                ? `/product-details/${item.orderId}`
-                : `/product-details/${0}/${item.tokenId}/${item?.contractAddr}`
-            }
+          <div 
+            onClick={()=>handleJump(item)}
           >
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
@@ -577,26 +505,18 @@ export const Account: React.FC<any> = () => {
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                {/* <div className='price'>
-                  {item.status === 0 ? intlFloorFormat(item.price,4) + ' AITD' : 0 + 'AITD'}
-                </div> */}
               </div>
-              {/* <div className='collection-name'>{item.collectionName}</div> */}
+              <div className='collection-name'>{item.collectionName}</div>
               <div className='price'>
-                  {item.status === 0 ? intlFloorFormat(item.price,4) + ' AITD' : 0 + 'AITD'}
+                <div>{item.status === 0 ? intlFloorFormat(item.price,4) + ' AITD' : '0.00' + ' AITD'}</div>
+                <div className='btn'  onClick={(e)=>handleChange(e,item)}>
+                  <img src="Src/assets/account/buy.png" alt=""/>
+                  {item.status === 0 ? '下架' : '上架'}
                 </div>
+              </div>
+              
             </div>
-
-            <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
-              <img
-                className={!item.collect ? 'favorite_border_gray' : 'favorite_red'}
-                src={!item.collect ? require('../../assets/fg.png') : require('../../assets/fr.png')}
-                onClick={(e) => toggleFansCollected(e, item)}
-                alt=''
-              />
-              <span className={!item.collect ? '' : 'favorite'}>{item.collectNum}</span>
-            </div>
-          </Link>
+          </div>
         </div>
       );
     });
@@ -606,10 +526,6 @@ export const Account: React.FC<any> = () => {
     <div className='account'>
       <div className={`banner ${accountInfo?.bannerUrl ? 'set' : ''}`}>
         <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
-        <div className='add'>
-          {t('account.banner')}
-          <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
-        </div>
         <div className='edit'>
           <img src={require('../../assets/edit_banner.png')} alt='' />
           <span>{t('account.editBanner')}</span>
@@ -618,7 +534,7 @@ export const Account: React.FC<any> = () => {
       </div>
       <div className='account-content-wrap'>
         <div className='account-header--main'>
-          <div>
+          <div className='account-header-top'>
             <div className='user-img'>
               <img
                 className='header-img'
@@ -629,34 +545,42 @@ export const Account: React.FC<any> = () => {
                 <>
                   <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
                   <div className='ico'>
-                    <img src={require('../../assets/edit_white.svg')} alt='' />
+                    <img src={require('Src/assets/account/edit_white.svg')} alt='' />
                     <span>{t('account.edit')}</span>
                   </div>
                 </>
               )}
             </div>
+            <div className='account-info'>
+              <div className='account-flex'>
+                <div className='account-title'>
+                  {(accountInfo?.username?.startsWith('0x')
+                    ? accountInfo?.username?.substr(2, 6)
+                    : accountInfo?.username) ||
+                    accountInfo?.name ||
+                    'Unnamed'}
+                </div>
+                <div className='account-subtitle'>
+                  <strong>{formatAdd(address)}</strong>
+                  {address && (
+                    <img
+                      src={require('Src/assets/account/content_copy_gray.png')}
+                      className='svg-img'
+                      alt=''
+                      onClick={() => handleCopy(address)}
+                    />
+                  )}
+                </div>
+              </div>
+              
+              <div className='moreinfo'>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod...</p>
+                <label>更多</label>
+              </div>
+          </div>
           </div>
 
-          <div className='account-info'>
-            <div className='account-title'>
-              {(accountInfo?.username?.startsWith('0x')
-                ? accountInfo?.username?.substr(2, 6)
-                : accountInfo?.username) ||
-                accountInfo?.name ||
-                'Unnamed'}
-            </div>
-            <div className='account-subtitle'>
-              <strong>{formatAdd(address)}</strong>
-              {address && (
-                <img
-                  src={require('../../assets/content_copy_gray.svg')}
-                  className='svg-img'
-                  alt=''
-                  onClick={() => handleCopy(address)}
-                />
-              )}
-            </div>
-          </div>
+          
 
           {address && <div className='select-wrap'>{<Tabs clickedTab={clickedTab} />}</div>}
         </div>
@@ -664,19 +588,6 @@ export const Account: React.FC<any> = () => {
           <div className='info'>
             <div className='info-collections'>
               <div className='info-flex'>
-                <div className='grid'>
-                  <label className={`el ${grid == 1 ? 'active' : ''}`} onClick={() => setGrid(1)}>
-                    <input type='radio' name='grid' value={1} />
-                    <img src={require('../../assets/grid_view_gray.png')} className='grid_view_gray' alt='' />
-                    <img src={require('../../assets/grid_view_blue.png')} className='grid_view_black' alt='' />
-                  </label>
-                  <label className={`el ${grid == 2 ? 'active' : ''}`} onClick={() => setGrid(2)}>
-                    <input type='radio' name='grid' value={2} />
-                    <img src={require('../../assets/apps_gray.png')} className='apps_gray' alt='' />
-                    <img src={require('../../assets/apps_blue.png')} className='apps_black' alt='' />
-                  </label>
-                </div>
-
                 <HeaderSearch
                   getKeyWord={getKeyWord}
                   reset={reset}
@@ -693,8 +604,20 @@ export const Account: React.FC<any> = () => {
                     Reset
                   </button> */}
                 </div>
+                <div className='grid'>
+                  <label className={`el ${grid == 1 ? 'active' : ''}`} onClick={() => setGrid(1)}>
+                    <input type='radio' name='grid' value={1} />
+                    <img src={require('../../assets/grid_view_gray.png')} className='grid_view_gray' alt='' />
+                    <img src={require('../../assets/grid_view_blue.png')} className='grid_view_black' alt='' />
+                  </label>
+                  <label className={`el ${grid == 2 ? 'active' : ''}`} onClick={() => setGrid(2)}>
+                    <input type='radio' name='grid' value={2} />
+                    <img src={require('../../assets/apps_gray.png')} className='apps_gray' alt='' />
+                    <img src={require('../../assets/apps_blue.png')} className='apps_black' alt='' />
+                  </label>
+                </div>
               </div>
-              <div className={`info-main info-main--max ${isMobile ? 'mobile-info-main' : ''}`}>
+              <div className={`info-main info-main--max`}>
                 <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
                   {collectionsData.length > 0 && CardItem()}
                   {collectionsData.length === 0 && listEmpty()}
@@ -704,14 +627,10 @@ export const Account: React.FC<any> = () => {
           </div>
         </div>
       </div>
-      {/* <Portal
-        closeText={'取消'}
-        checkedText={'去编辑'}
-        content={<Content />}
-        visible={visible}
-        close={() => setVisible(false)}
-        checked={handleChecked}
-      /> */}
+      {/* 上架 */}
+      {
+        isOpen &&  <UpdatePriceModal isOpen={isOpen} sellOrderFlag={false}  data={detailData} onCancel={() => setIsOpen(false)}/>
+      }   
     </div>
   );
 };

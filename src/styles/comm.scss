@@ -14,6 +14,11 @@
     cursor: pointer;
     background: $tq-color-white;
     border: 1px solid $tq-split-line-color;
+
+    &:hover {
+      border: 1px solid $tq-primary-color;
+    }
+
     // &:hover {
     //   box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
     //   transition: all 0.1s ease 0s;
@@ -87,6 +92,8 @@
         object-fit: cover;
         width: 100%;
         height: 100%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
       }
     }
 
@@ -123,7 +130,7 @@
 
       .collection-name {
         margin-top: 6px;
-        height: 20px;
+        // height: 20px;
         line-height: 20px;
         font-size: $tq-font-size-5;
         font-weight: 400;
@@ -335,31 +342,4 @@
 
 .w-100 {
   width: 100px;
-}
-
-@media screen and (max-width: 768px) {
-  .g-list {
-    grid-row-gap: 0px;
-
-    .card {
-      width: 345px;
-      margin-bottom: 15px;
-
-      .assets {
-        height: auto;
-      }
-    }
-
-    &.small {
-      .card {
-        width: 224px;
-      }
-    }
-
-    .empty-wrap {
-      img {
-        width: 343px;
-      }
-    }
-  }
 }

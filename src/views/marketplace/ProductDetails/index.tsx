@@ -185,9 +185,8 @@ export const ProductionDetails = () => {
   const updateClose = (open: boolean) => {
     setIsOpen(open)
   }
-  // 取消上架
+  // 取消上架 // 下架合约
   const getCancelSellOrder = async () => {
-    // 下架合约
     if (!accountAddress || !token) {
       message.error(t('hint.switchMainnet'))
       history.push('/login')
