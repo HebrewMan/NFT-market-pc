@@ -135,26 +135,56 @@
     max-height: fit-content;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    overflow-y: auto;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 16px;
+    // overflow-y: auto;
+    box-shadow: 0px 0px 12px 1px rgba(29, 36, 59, 0.1216);
     background-color: rgb(255, 255, 255);
     color: rgb(4, 17, 29);
     max-width: initial;
     width: 170px;
-    border-radius: 5px;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
     outline: 0px;
     transition-property: transform, visibility, opacity;
     position: absolute;
-    right: 0;
+    right: 48px;
     top: 73px;
     opacity: 0;
     z-index: 1;
 
+    &::after {
+      content: '';
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 12px solid rgba(29, 36, 59, 0.1216);
+      position: absolute;
+      top: -14px;
+      right: 12px;
+      // margin-left: -10px;
+      z-index: -1;
+      filter: blur(2px);
+
+    }
+
+    &::before {
+      content: '';
+      // background: #FCFCFD;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 12px solid #fff;
+      position: absolute;
+      top: -12px;
+      right: 12px;
+      z-index: 1;
+      // -webkit-filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, .6))
+    }
+
     &.opacity {
       opacity: 1;
     }
+
   }
 
   .tippy-content {
@@ -164,7 +194,7 @@
     z-index: 1;
 
     ul {
-      border-radius: 5px;
+      border-radius: 12px;
       margin: 0px;
       padding-left: 0;
       list-style-type: none;
@@ -173,20 +203,16 @@
       li {
         list-style-type: none;
 
-        &:not(:last-child) {
-          border-bottom: 1px solid rgb(229, 232, 235);
-        }
-
         &:first-child {
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
         }
 
         a {
+          height: 46px;
           width: 100%;
           font-weight: 600;
-          padding: 16px;
-          border: none;
+          padding: 0 16px;
           opacity: 0.85;
           color: rgb(53, 56, 64);
           display: flex;
@@ -194,8 +220,7 @@
 
           &:hover {
             transition: all 0.2s ease 0s;
-            box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
-            background-color: rgb(251, 253, 255);
+            background-color: #DCEFFF;
             opacity: 1;
           }
 
@@ -229,14 +254,14 @@
             margin-left: 14px;
             margin-right: 16px;
             overflow: hidden;
-            font-size: 16px;
+            font-size: 14px;
             height: 30px;
             line-height: 30px;
 
             span {
-              font-weight: 600;
+              // font-weight: 600;
               font-size: 16px;
-              color: rgb(4, 17, 29);
+              color: #1D243B;
             }
           }
         }
@@ -309,5 +334,15 @@
         color: #2585D9;
       }
     }
+  }
+}
+
+.linkWallet {
+  margin-left: 12px;
+  height: 41px !important;
+  font-size: $tq-font-size-5;
+
+  img {
+    margin-right: 14px;
   }
 }

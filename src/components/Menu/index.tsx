@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, NavLink } from 'react-router-dom';
-import type { MenuProps } from 'antd';
+import { Button, MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { SelectGroup } from '../HeaderSearch';
 import { getCookie, removeCookie, removeLocalStorage } from '../../utils/utils';
@@ -159,62 +159,80 @@ export const HeaderMenu = () => {
         <div className='langWaper'>
           <Dropdown menu={menuProps} overlayClassName='langDrodown' placement='bottomRight'>
             <Space>
-              <img className='language-img' src={require('../../assets/common/lang.png')} alt='language' />
+              <img className='language-img' src={require('Src/assets/common/lang.png')} alt='language' />
               {lang}
             </Space>
           </Dropdown>
         </div>
-
-        <div className='item' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
-          <Link
-            to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}
-            className={`account-menu ${dom === 'js-account' ? 'active' : ''}`}
-          >
-            <img src={accountImg} className='account-active' alt='' />
-          </Link>
-
-          {dom === 'js-account' ? (
-            <div
-              id='js-account'
-              className={`tippy-box ${dom === 'js-account' ? 'opacity' : ''}`}
-              onMouseLeave={() => hideMenu()}
-              onMouseOver={() => showMenu('js-account')}
+        {/* 已登录显示菜单 */}
+        {
+          !token && !walletAccount ? (
+            <Button type='primary' className='linkWallet' onClick={getLogOut}>
+              <img className='language-img' src={require('Src/assets/common/linkWallet.png')} alt='language' />
+              链接钱包
+            </Button>
+          ) : 
+          (
+            <div className='' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
+            <Link
+              to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}
+              className={`account-menu ${dom === 'js-account' ? 'active' : ''}`}
             >
-              <div className='tippy-content'>
-                <ul>
-                  {token && walletAccount && (
+              <img src={accountImg} className='account-active' alt='' />
+            </Link>
+
+            {dom === 'js-account' ? (
+              <div
+                id='js-account'
+                className={`tippy-box ${dom === 'js-account' ? 'opacity' : ''}`}
+                onMouseLeave={() => hideMenu()}
+                onMouseOver={() => showMenu('js-account')}
+              >
+                <div className='tippy-content'>
+                  <ul>
                     <li>
                       <Link to={`/account/0/${walletAccount}`}>
-                        <img src={require('../../assets/account-my-NFTs.png')} alt='' />
+                        <img src={require('Src/assets/common/account-my-NFTs.png')} alt='' />
                         <div className='txt'>
                           <span>{t('nav.myNft')}</span>
                         </div>
                       </Link>
                     </li>
-                  )}
-                  <li>
-                    <Link to={`/user-settings`}>
-                      <img src={require('../../assets/account-setting.png')} alt='' />
-                      <div className='txt'>
-                        <span>{t('nav.setting')}</span>
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <a onClick={getLogOut}>
-                      <img src={require('../../assets/account-log-out.png')} alt='' />
-                      <div className='txt'>
-                        <span>{isLogin ? t('nav.loginOut') : t('nav.login')}</span>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
+                    <li>
+                      <Link to={`/account/0/${walletAccount}`}>
+                        <img src={require('Src/assets/common/account-my-collection.png')} alt='' />
+                        <div className='txt'>
+                          <span>{t('nav.myCollection')}</span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`/user-settings`}>
+                        <img src={require('Src/assets/common/account-setting.png')} alt='' />
+                        <div className='txt'>
+                          <span>{t('nav.setting')}</span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <a onClick={getLogOut}>
+                        <img src={require('Src/assets/common/account-log-out.png')} alt='' />
+                        <div className='txt'>
+                          <span>{isLogin ? t('nav.loginOut') : t('nav.login')}</span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
+            ) : (
+              <></>
+            )}
+          </div>
+          )
+        }
+        
+        
 
         {/* <div className='item'>
           <button className='wallet-menu' type='button' onClick={() => setShowDropper(!showDropper)}>
