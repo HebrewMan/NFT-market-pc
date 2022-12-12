@@ -543,7 +543,7 @@ export const Collection: React.FC<any> = () => {
                 <>
                   <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
                   <div className='ico'>
-                    <img src={require('../../assets/edit_white.svg')} alt='' />
+                    <img src={require('../../assets/account/edit_white.svg')} alt='' />
                     <span>Edit</span>
                   </div>
                 </>

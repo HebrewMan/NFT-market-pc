@@ -18,7 +18,7 @@ import { HsHome } from './views/home';
 import history from './utils/history';
 import { Slider } from './components/Slider';
 import { ChainIds } from './config/constants';
-
+import { GatherList } from './views/account/gatherList';
 export function Routes() {
   return (
     <>
@@ -39,6 +39,7 @@ export function Routes() {
             <Route exact path='/article-details/:name/:id' component={() => <ArticleDetails />} />
             <Route exact path='/login' component={() => <Login />} />
             <Route exact path='/account/:id?/:address?' component={() => <Account />} />
+            <Route exact path='/gather' component={() => <GatherList />} />
             <Route exact path='/collection/:id' component={() => <Collection />} />
             <Route exact path='/user-settings' component={() => <UserSetting />} />
             <Route exact path='/wallet' component={() => <Slider />} />
