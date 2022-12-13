@@ -9,7 +9,7 @@
     justify-content: space-between;
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
-    border: 1px solid rgb(229, 232, 235);
+    border: 1px solid$tq-split-line-color;
     width: 100%;
     padding: 9px;
     min-height: 46px;
@@ -29,6 +29,7 @@
     }
 
     &:hover {
+
       .expand_more_gray,
       .expand_less_gray {
         display: none;
@@ -91,6 +92,7 @@
     font-size: 14px;
     font-weight: 600;
     outline: 0px;
+
     .item {
       display: flex;
       align-items: center;

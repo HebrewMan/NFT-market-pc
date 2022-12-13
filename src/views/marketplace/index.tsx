@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Select } from './Select';
 import { HeaderSearch } from '../../components/HeaderSearch';
 import { useTranslation } from 'react-i18next';
 import { getGoods, getListedNftList } from '../../api';
-import { getFans, removeFans, getFansByGoodsId } from '../../api/fans';
 import { useTouchBottom } from '../../hooks';
 import { defaultParams, blindType, queryList } from '../../core/constants/marketplace';
 import './index.scss';
@@ -12,6 +11,8 @@ import { isMobile } from 'react-device-detect';
 import { Input, Spin } from 'antd';
 import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
 import { intlFloorFormat } from 'Utils/bigNumber'
+import ListItem from 'Src/components/ListItem'
+import AEmpty from "Src/components/Empty";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -19,7 +20,7 @@ export const MarketPlace = () => {
   const { t } = useTranslation()
   const [goodsList, setGoodsList] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
-  const [grid, setGrid] = useState(1);
+  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'));
   const [params, setParams] = useState<any>({ ...defaultParams });
   const [collect, setCollect] = useState(false); // 收藏状态
   const [keyWord, setKeyWord] = useState('');
@@ -34,6 +35,7 @@ export const MarketPlace = () => {
     { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
     { name: `${t('marketplace.highToLow')}`, value: 'high' },
   ];
+
   useEffect(() => {
     initData(params);
   }, [params, collect]);
@@ -66,63 +68,6 @@ export const MarketPlace = () => {
     } catch (err: any) {
       setLoading(false);
     }
-  };
-  const toggleFansCollected = (e: any, item: any) => {
-    e.preventDefault();
-
-    const { tokenId, collect, contractAddr,ownerAddr } = item;
-    setOwnerAddr(ownerAddr)
-    
-    if (collect) {
-      removeFansData(tokenId, contractAddr);
-    } else {
-      // 关注、收藏
-      getFansCount(tokenId, contractAddr);
-    }
-  };
-  // 取消收藏
-  const removeFansData = (tokenId: string, contractAddr: string) => {
-    removeFans(tokenId, contractAddr)
-      .then((res: any) => {
-        if (res && res.message === 'success') {
-          modifyFansStatus(tokenId, contractAddr,);
-        }
-      })
-      .catch((err: unknown) => {
-        console.log('removeFans error', err);
-      });
-  };
-  // 添加收藏
-  const getFansCount = (tokenId: string, contractAddr: string) => {
-    getFans(tokenId, contractAddr)
-      .then((res: any) => {
-        if (res && res.message === 'success') {
-          modifyFansStatus(tokenId, contractAddr);
-        }
-      })
-      .catch((err: any) => {
-        console.log('getFans error', err);
-      });
-  };
-  const modifyFansStatus = (id: string, contractAddr: string) => {
-    const params = {
-      tokenId:id,
-      contractAddr:contractAddr,
-      ownerAddr:ownerAddr
-    }
-    getFansByGoodsId(params).then((res: any) => {
-      if (res && res?.data !== null) {
-        const data = res.data;
-        setGoodsList([]);
-        setCollect(!collect);
-        goodsList.forEach((item: any) => {
-          if (item.id === id) {
-            item.collect = Number(data.collect);
-            item.collectNum = data.collectNum;
-          }
-        });
-      }
-    });
   };
 
   // 触底加载
@@ -180,30 +125,12 @@ export const MarketPlace = () => {
                 {intlFloorFormat(item.price,4) + ` ${item?.coin || 'AITD'}`}
               </div>
             </div>
-
-            <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
-              <img
-                className={!item.collect ? 'favorite_border_gray' : 'favorite_red'}
-                src={!item.collect ? require('../../assets/fg.png') : require('../../assets/fr.png')}
-                onClick={(e) => toggleFansCollected(e, item)}
-                alt=''
-              />
-              <span className={!item.collect ? '' : 'favorite'}>{item.collectNum}</span>
-            </div>
           </Link>
         </div>
       );
     });
   };
 
-  const listEmpty = () => {
-    return (
-      <div className='empty-wrap'>
-        <img src={require('../../assets/empty.png')} alt='' />
-        <p>{t('common.noDataLong')}</p>
-      </div>
-    );
-  };
 
   const getKeyWord = (value: string) => {
     setGoodsList([]);
@@ -278,19 +205,7 @@ export const MarketPlace = () => {
   return (
     <div className='marketplace'>
       <div className='filter'>
-        <div className='grid'>
-          <label className={`el ${grid == 1 ? 'active' : ''}`} onClick={() => setGrid(1)}>
-            <input type='radio' name='grid' value={1} />
-            <img src={require('../../assets/grid_view_gray.png')} className='grid_view_gray' alt='' />
-            <img src={require('../../assets/grid_view_blue.png')} className='grid_view_black' alt='' />
-          </label>
-          <label className={`el ${grid == 2 ? 'active' : ''}`} onClick={() => setGrid(2)}>
-            <input type='radio' name='grid' value={2} />
-            <img src={require('../../assets/apps_gray.png')} className='apps_gray' alt='' />
-            <img src={require('../../assets/apps_blue.png')} className='apps_black' alt='' />
-          </label>
-        </div>
-
+        <ListItem handleGrid={() =>{ setGrid(localStorage.getItem('listItenGrid')) }}/>
         <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} />
 
         <div className='condition'>
@@ -315,9 +230,9 @@ export const MarketPlace = () => {
           />
         </div>
       </div>
-      <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
+      <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
         {goodsList.length > 0 && CardItem()}
-        {goodsList.length === 0 && listEmpty()}
+        {goodsList.length === 0 && <AEmpty />}
       </div>
       {loading ? (
         <div className='loading-wrap'>

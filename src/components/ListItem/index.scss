@@ -1,0 +1,79 @@
+.grid {
+  display: flex;
+
+  .el {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(229, 232, 235);
+    color: #707a83;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    font-size: 24px;
+
+    &:hover {
+      transition: all 0.2s ease 0s;
+      box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
+    }
+
+    &.active {
+      cursor: default;
+      box-shadow: transparent 0px 0px 8px 0px;
+    }
+
+    input {
+      position: absolute;
+      left: -9999rem;
+      top: -9999rem;
+    }
+
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:focus-within,
+    &.active {
+      background-color: rgb(229, 232, 235);
+      color: #04111d;
+      opacity: 1;
+    }
+
+    .apps_black,
+    .grid_view_black {
+      display: none;
+    }
+
+    .apps_gray,
+    .grid_view_gray {
+      display: block;
+    }
+
+    &:focus-within,
+    &.active,
+    &:hover {
+
+      .apps_black,
+      .grid_view_black {
+        display: block;
+      }
+
+      .apps_gray,
+      .grid_view_gray {
+        display: none;
+      }
+    }
+  }
+}

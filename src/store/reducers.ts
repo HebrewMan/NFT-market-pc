@@ -2,9 +2,12 @@ import { OPENLOADING, CLOSELOADING } from './actionsType';
 import { LoadingAction } from './actions';
 export interface StoreState {
   loading: boolean;
+  gaidState:string,
 }
 const defaultStatus = {
   loading: false,
+  gaidState:'1',
+
 };
 
 export function actionReducer(

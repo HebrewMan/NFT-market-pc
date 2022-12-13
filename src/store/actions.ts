@@ -1,4 +1,4 @@
-import { OPENLOADINGS, CLOSELOADINGS, OPENLOADING, CLOSELOADING } from "./actionsType"
+import { OPENLOADINGS, CLOSELOADINGS, OPENLOADING, CLOSELOADING,} from "./actionsType"
 
 export interface openLoadings {
   type: OPENLOADINGS
@@ -6,6 +6,8 @@ export interface openLoadings {
 export interface closeLoadings {
   type: CLOSELOADINGS
 }
+
+
 
 export type LoadingAction = openLoadings | closeLoadings
 // export const openLoading = () => ({
@@ -27,3 +29,4 @@ export function closeLoading(): closeLoadings {
     type: CLOSELOADING,
   }
 }
+

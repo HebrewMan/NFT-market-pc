@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import request from 'Src/ajax/request'
 import './index.scss'
+import { useHistory } from 'react-router-dom'
 
 export const GatherList: React.FC<any> = () => {
+  const history = useHistory();
   // const [dataSource, setDataSource] = useState<any>([])
   const total  = 11
   const curPage = 1
+
+  const handleChnage = (e:any,id:string) =>{
+    e.stopPropagation();
+    history.push(`/gather-detail/${id}`)
+  }
   const dataSource = [{
     price: '5 USDT',
     amount: 32,
@@ -163,7 +170,7 @@ export const GatherList: React.FC<any> = () => {
     <div className='gatherList-waper'>
       <div className='gatherListTitle'>我的集合</div>
       <div className='gatherList'>
-        <div className='gatherList-item'>
+        <div className='gatherList-item' onClick={(e) => handleChnage(e,'1')}>
           <div className='item-img'>
             <img src="https://images.crypoball.io/images/22Canada.jpg" alt="" className='img-cover'/>
             <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit'/>

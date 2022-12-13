@@ -578,12 +578,15 @@
         }
 
         &.small {
+          gap: 25px;
+          margin-left: 0px;
+
           .card {
-            width: 280px;
+            width: 220px;
 
             .assets {
-              width: 280px;
-              height: 280px;
+              width: 220px;
+              height: 220px;
             }
           }
         }
@@ -602,6 +605,14 @@
     align-items: center;
     justify-content: space-between;
     gap: 18px;
+
+    section {
+      display: flex;
+
+      .g-search {
+        margin-right: 32px;
+      }
+    }
 
     &>div {
       &.g-search {

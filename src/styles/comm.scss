@@ -10,7 +10,7 @@
     flex-direction: column;
     height: 100%;
     border-radius: 20px;
-    width: 378px;
+    width: 270px;
     cursor: pointer;
     background: $tq-color-white;
     border: 1px solid $tq-split-line-color;
@@ -81,8 +81,8 @@
     }
 
     .assets {
-      height: 378px;
-      width: 378px;
+      height: 270px;
+      width: 270px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -141,12 +141,14 @@
   }
 
   &.small {
+    gap: 25px;
+
     .card {
-      width: 276px;
+      width: 220px;
 
       .assets {
-        height: 276px;
-        width: 276px;
+        height: 220px;
+        width: 220px;
       }
     }
   }

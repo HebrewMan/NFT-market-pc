@@ -13,6 +13,9 @@ import { useTouchBottom } from '../../hooks';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
 import { intlFloorFormat } from 'Utils/bigNumber'
+import ListItem from 'Src/components/ListItem'
+import AEmpty from "Src/components/Empty";
+
 interface accountInfoProps {
   name: string;
   username: string;
@@ -94,7 +97,7 @@ export const Collection: React.FC<any> = () => {
       value: 'low',
     },
   ];
-  const [grid, setGrid] = useState(1);
+  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'));
   const { width } = useWindowDimensions();
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
     name: '',
@@ -252,67 +255,6 @@ export const Collection: React.FC<any> = () => {
       setIsMore(true);
     }
     setHttpData(() => ({ ...params, page: 1 }));
-  };
-  // 收藏或取消收藏
-  const toggleFansCollected = (e: any, item: any) => {
-    e.preventDefault();
-    const { tokenId, collect, contractAddr } = item;
-    if (collect) {
-      removeFansCollect(tokenId, contractAddr);
-    } else {
-      // 关注、收藏
-      addFansCollect(tokenId, contractAddr);
-    }
-  };
-  const getFansListByNftId = async (id: string | number, contractAddr: string) => {
-    const ownerAddr = localStorage.getItem('wallet')
-    const params = {
-      tokenId: id,
-      contractAddr: contractAddr,
-      ownerAddr: ownerAddr,
-    };
-    const res: any = await getFansByGoodsId(params);
-    if (res?.message === 'success') {
-      const list = collectionsData.map((item: any) => {
-        return item.tokenId === id
-          ? {
-              ...item,
-              collect: Number(res.data.collect),
-              collectNum: Number(res.data.collectNum),
-            }
-          : { ...item };
-      });
-      setCollectionsData(list);
-    }
-  };
-  // 添加收藏
-  const addFansCollect = async (tokenId: string | number, contractAddr: string) => {
-    const res: any = await getFans(tokenId, contractAddr);
-    if (res.message === 'success') {
-      getFansListByNftId(tokenId, contractAddr);
-    }
-  };
-  // 取消收藏
-  const removeFansCollect = async (tokenId: string, contractAddr: string) => {
-    const res: any = await removeFans(tokenId, contractAddr);
-    if (res.message === 'success') {
-      getFansListByNftId(tokenId, contractAddr);
-    }
-  };
-  // 路由跳转
-  const handleToDetails = (item: any) => {
-    // 跳转到一级市场活动商品
-    if (item.type === 1) {
-      return history.push(`/primary-details/${item.id}/${0}`);
-    }
-    if (item.belongsId === 0) {
-      return history.push(`/product-details/${item.id}`); // 跳转二级市场商品详情页
-    } else {
-      // 跳转至盲盒详情页
-      return history.push(
-        `/primary-details/${item.id}/${item.status}/${true}/${item.tokenId}/${item.openStatus}/${item.metadataId}`,
-      );
-    }
   };
 
   // 初次获取数据
@@ -504,12 +446,12 @@ export const Collection: React.FC<any> = () => {
             <div className='assets-info'>
               <div className='desc'>
                 <div className='name'>{item.name + '#' + item.tokenId}</div>
-                <div className='price'>{intlFloorFormat(item.price,4) + ' AITD'}</div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
+              <div className='price'>{intlFloorFormat(item.price,4) + ' AITD'}</div>
             </div>
 
-            <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
+            {/* <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
               <img
                 className={!item.collect ? 'favorite_border_gray' : 'favorite_red'}
                 src={!item.collect ? require('../../assets/fg.png') : require('../../assets/fr.png')}
@@ -517,7 +459,7 @@ export const Collection: React.FC<any> = () => {
                 alt=''
               />
               <span className={!item.collect ? '' : 'favorite'}>{item.collectNum}</span>
-            </div>
+            </div> */}
             {item?.status !== 0 ? <MaskImage status={item?.status} type={item?.type} /> : <></>}
           </Link>
         </div>
@@ -576,18 +518,7 @@ export const Collection: React.FC<any> = () => {
         <div className='info'>
           <div className='info-collections'>
             <div className='info-flex'>
-              <div className='grid'>
-                <label className={`el ${grid == 1 ? 'active' : ''}`} onClick={() => setGrid(1)}>
-                  <input type='radio' name='grid' value={1} />
-                  <img src={require('../../assets/grid_view_gray.png')} className='grid_view_gray' alt='' />
-                  <img src={require('../../assets/grid_view_blue.png')} className='grid_view_black' alt='' />
-                </label>
-                <label className={`el ${grid == 2 ? 'active' : ''}`} onClick={() => setGrid(2)}>
-                  <input type='radio' name='grid' value={2} />
-                  <img src={require('../../assets/apps_gray.png')} className='apps_gray' alt='' />
-                  <img src={require('../../assets/apps_blue.png')} className='apps_black' alt='' />
-                </label>
-              </div>
+              <ListItem handleGrid={() =>{ setGrid(localStorage.getItem('listItenGrid')) }}/>
 
               {/* <HeaderSearch
                 getKeyWord={getKeyWord}
@@ -611,9 +542,9 @@ export const Collection: React.FC<any> = () => {
               </div>
             </div>
             <div className={`info-main info-main--max}`}>
-              <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
+              <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
                 {collectionsData.length > 0 && CardItem()}
-                {collectionsData.length === 0 && listEmpty()}
+                {collectionsData.length === 0 && <AEmpty />}
               </div>
             </div>
           </div>

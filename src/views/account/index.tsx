@@ -11,23 +11,22 @@ import { isProd } from 'Src/config/constants'
 import instanceLoading from 'Utils/loading'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { cancelMarketItem } from 'Src/hooks/marketplace'
-import config, { USDT, ContractType, CoinType } from 'Src/config/constants'
+import config from 'Src/config/constants'
+import ListItem from 'Src/components/ListItem'
+
 import {
-  // getGoods,
-  // getSelfGoods,
-  // getOtherPersonGoods,
-  // getGood,
   createIpfs,
-  // getGoodsByCollectionId,
   getMyNFTList,
 } from '../../api';
-import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
+// import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
 import { getAccountInfo, updateUserInfo } from '../../api/user';
-import { getCollectionDetails } from '../../api/collection';
+// import { getCollectionDetails } from '../../api/collection';
 import { uploadFileCheck } from '../../utils/utils';
 import { useTouchBottom } from '../../hooks';
 import './index.scss';
-import { getCookie, getLocalStorage, toPriceDecimals } from 'Utils/utils'
+import { getCookie } from 'Utils/utils'
+import AEmpty from "Src/components/Empty";
+
 interface accountInfoProps {
   name: string;
   username: string;
@@ -88,7 +87,7 @@ export const Account: React.FC<any> = () => {
     },
   ];
   const tabsData = [t('account.collected'), t('account.favorited')];
-  const [grid, setGrid] = useState(1);
+  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'));
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
     name: '',
     username: '',
@@ -443,7 +442,6 @@ export const Account: React.FC<any> = () => {
   // 售出 和取消上架
   const handleChange = (e:any,item:any) =>{
     e.stopPropagation();
-    console.log(item,'iii');
     // 下架
     if(item === 0){
       getCancelSellOrder(item)
@@ -482,15 +480,6 @@ export const Account: React.FC<any> = () => {
       instanceLoading.close()
     }
   }
-
-  const listEmpty = () => {
-    return (
-      <div className='empty-wrap'>
-        <img src={require('../../assets/empty.png')} alt='' />
-        <p>{t('common.noDataLong')}</p>
-      </div>
-    );
-  };
 
   const CardItem = () => {
     return collectionsData.map((item: any, index: number) => {
@@ -588,39 +577,30 @@ export const Account: React.FC<any> = () => {
           <div className='info'>
             <div className='info-collections'>
               <div className='info-flex'>
-                <HeaderSearch
-                  getKeyWord={getKeyWord}
-                  reset={reset}
-                  keyWord={keyWord}
-                  placeholder={t('marketplace.serach')}
-                />
+                <section>
+                  <HeaderSearch
+                    getKeyWord={getKeyWord}
+                    reset={reset}
+                    keyWord={keyWord}
+                    placeholder={t('marketplace.serach')}
+                  />
 
-                <div className='infoFilter'>
-                  <Select value={sort} list={sortList} change={handleSort} />
+                  <div className='infoFilter'>
+                    <Select value={sort} list={sortList} change={handleSort} />
 
-                  {/* <Select value={status} list={statusList} change={handleStatus} /> */}
+                    {/* <Select value={status} list={statusList} change={handleStatus} /> */}
 
-                  {/* <button className='reset-btn' onClick={handleReset}>
-                    Reset
-                  </button> */}
-                </div>
-                <div className='grid'>
-                  <label className={`el ${grid == 1 ? 'active' : ''}`} onClick={() => setGrid(1)}>
-                    <input type='radio' name='grid' value={1} />
-                    <img src={require('../../assets/grid_view_gray.png')} className='grid_view_gray' alt='' />
-                    <img src={require('../../assets/grid_view_blue.png')} className='grid_view_black' alt='' />
-                  </label>
-                  <label className={`el ${grid == 2 ? 'active' : ''}`} onClick={() => setGrid(2)}>
-                    <input type='radio' name='grid' value={2} />
-                    <img src={require('../../assets/apps_gray.png')} className='apps_gray' alt='' />
-                    <img src={require('../../assets/apps_blue.png')} className='apps_black' alt='' />
-                  </label>
-                </div>
+                    {/* <button className='reset-btn' onClick={handleReset}>
+                      Reset
+                    </button> */}
+                  </div>
+                </section>
+                <ListItem handleGrid={() =>{ setGrid(localStorage.getItem('listItenGrid')) }}/>
               </div>
               <div className={`info-main info-main--max`}>
-                <div className={`g-list ${grid == 2 ? 'small' : ''}`}>
+                <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
                   {collectionsData.length > 0 && CardItem()}
-                  {collectionsData.length === 0 && listEmpty()}
+                  {collectionsData.length === 0 && <AEmpty/>}
                 </div>
               </div>
             </div>

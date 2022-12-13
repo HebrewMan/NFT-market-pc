@@ -1,7 +1,7 @@
 .g-search {
   align-items: center;
   background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(229, 232, 235);
+  border: 1px solid $tq-split-line-color;
   border-radius: 5px;
   color: rgba(4, 17, 29, 0.75);
   display: flex;
@@ -37,6 +37,7 @@
   .ant-select-selector {
     height: 40px !important;
     border-radius: 6px !important;
+
     input {
       text-indent: 2em;
     }
