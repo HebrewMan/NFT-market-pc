@@ -20,6 +20,8 @@ import { Slider } from './components/Slider';
 import { ChainIds } from './config/constants';
 import { GatherList } from './views/account/gatherList';
 import { GatherDetail } from "./views/account/gatherDetail";
+import { GatherEdit } from "./views/account/gatherEdit"
+
 export function Routes() {
   return (
     <>
@@ -42,6 +44,7 @@ export function Routes() {
             <Route exact path='/account/:id?/:address?' component={() => <Account />} />
             <Route exact path='/gather' component={() => <GatherList />} />
             <Route exact path='/gather-detail/:id' component={() => <GatherDetail />} />
+            <Route exact path='/gather-edit/:id' component={() => <GatherEdit />} />
             <Route exact path='/collection/:id' component={() => <Collection />} />
             <Route exact path='/user-settings' component={() => <UserSetting />} />
             <Route exact path='/wallet' component={() => <Slider />} />

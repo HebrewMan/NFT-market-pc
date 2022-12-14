@@ -319,6 +319,17 @@ code {
     }
   }
 
+  &.ant-btn-primary[disabled] {
+    background: $tq-font-color-help;
+    color: $tq-color-white;
+
+    &:hover,
+    &:focus {
+      background-color: $tq-font-color-help !important;
+      // color: $tq-color-white;
+    }
+  }
+
   &.ant-btn-sm {
     padding: 0 25px;
     box-sizing: border-box;
@@ -596,4 +607,9 @@ model-viewer {
   margin-top: 20px;
   font-size: 16px;
   color: #757A8A;
+}
+
+.ant-tooltip-inner {
+  padding: 20px;
+  background: #2D3241;
 }

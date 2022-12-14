@@ -1,0 +1,167 @@
+.gatherEdit {
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 80px;
+
+  .imgWidth {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .caption {
+    font-size: 26px;
+    color: $tq-font-color-title;
+    font-weight: bold;
+
+    span {
+      margin-left: 8px;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 400;
+
+      em {
+        font-style: normal;
+        font-weight: bold;
+        color: #FB5353;
+      }
+    }
+  }
+
+  .formWaper {
+    padding-bottom: 50px;
+    width: 760px;
+    margin-top: 50px;
+
+    .imgTitle {
+      font-size: $tq-font-size-5;
+
+      ::before {
+        content: "*";
+        color: #FB5353;
+        margin-left: 5px;
+      }
+
+      span {
+        font-size: $tq-font-size-7;
+      }
+    }
+
+    .sumbit {
+      margin-top: 80px;
+      width: 160px;
+      height: 46px;
+      // background: $tq-primary-color;
+      border-radius: 6px;
+      opacity: 1;
+    }
+
+    .ant-input-affix-wrapper {
+      padding: 0 10px;
+      height: 46px;
+      border: 1px solid #CDD5DC;
+      border-radius: 6px;
+
+      .ant-input {
+        height: 44px !important;
+        border: none !important;
+      }
+    }
+
+    .ant-form-item-label>label {
+      font-size: $tq-font-size-5;
+      color: $tq-font-color-title;
+      font-weight: 400;
+    }
+
+
+
+    .ant-form-item-control-input {
+      min-height: 46px;
+      font-size: 16px;
+
+      .ant-input-textarea .ant-input {
+        height: 200px;
+      }
+
+      .ant-input {
+        height: 46px;
+        line-height: 46px;
+        padding: 0 10px;
+        border-radius: 6px;
+        border: 1px solid #CDD5DC;
+      }
+
+    }
+
+    .ant-upload.ant-upload-drag p.ant-upload-drag-icon {
+      margin-bottom: 0px;
+    }
+
+    .ant-upload {
+      .ant-btn {
+        padding: 0px;
+      }
+    }
+
+    // 头像
+    .editAvatar {
+      width: 110px;
+      height: 110px;
+      line-height: 100px;
+      background: #F9F9F9;
+      border-radius: 100%;
+      opacity: 1;
+      border: 0px;
+
+      &:hover {
+        background: #F9F9F9 !important;
+      }
+
+      .imgWidth {
+        border-radius: 50%;
+      }
+    }
+
+    // 封面
+    .editCover {
+      width: 300px;
+      height: 180px;
+      background: #F9F9F9;
+      border-radius: 6px;
+      opacity: 1;
+      border: 0px;
+
+      &:hover {
+        background: #F9F9F9 !important;
+      }
+    }
+
+    .editBgImage {
+      width: 760px;
+      height: 150px;
+      background: #F9F9F9;
+      border-radius: 6px;
+      opacity: 1;
+      border: 0px;
+
+      &:hover {
+        background: #F9F9F9 !important;
+      }
+    }
+
+  }
+
+  .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+    color: #FB5353;
+    position: absolute;
+    right: -14px;
+  }
+
+  .royalties {
+    position: absolute;
+    right: -35px;
+    top: 4px;
+  }
+}

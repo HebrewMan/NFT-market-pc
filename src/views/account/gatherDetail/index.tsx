@@ -144,9 +144,10 @@ export const GatherDetail: React.FC<any> = () => {
             <a href='http://www.baidu.com' target="_window">
               <img src={require('Src/assets/account/icon-Medium.png')} alt=""/>
             </a>
-            <a href='http://www.baidu.com' target="_window">
-              <img src={require('Src/assets/account/icon-edit.png')} alt=""/>
-            </a>
+            <Link to={'/gather-edit/1'}>
+             <img src={require('Src/assets/account/icon-edit.png')} alt=""/>
+            </Link>
+            
           </div>
       </div>
       <div className='marketplace-waper'>

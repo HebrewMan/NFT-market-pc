@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import request from 'Src/ajax/request'
 import './index.scss'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 export const GatherList: React.FC<any> = () => {
   const history = useHistory();
@@ -166,6 +166,12 @@ export const GatherList: React.FC<any> = () => {
       // onChange: (page: number) => loadData(page),
     }
   }
+
+  const handleEditChnage = (e:any,id:any) =>{
+    e.stopPropagation();
+    history.push(`/gather-edit/${id}`)
+  }
+
   return (
     <div className='gatherList-waper'>
       <div className='gatherListTitle'>我的集合</div>
@@ -173,7 +179,7 @@ export const GatherList: React.FC<any> = () => {
         <div className='gatherList-item' onClick={(e) => handleChnage(e,'1')}>
           <div className='item-img'>
             <img src="https://images.crypoball.io/images/22Canada.jpg" alt="" className='img-cover'/>
-            <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit'/>
+            <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e)=> handleEditChnage(e,'2')}/>        
           </div>
           <div className='item-info'>
             <img src="" alt="" />

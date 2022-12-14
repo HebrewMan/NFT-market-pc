@@ -200,3 +200,27 @@ export const uploadFileCheck = (file: File, fileTypes: Array<string>, maxSize: n
   }
   return true
 }
+// 校验上传文件大小
+export const fileSizeValidator = (file: any, maxSize:number) => {
+  if(file.size / 1024 / 1024 > maxSize){
+   message.error('文件大小超出限制')
+   return  false
+  }
+  return true
+}
+
+// export const fileUploadValidator = (file:any,maxSize:number) => {
+//   // const typeFlag = fileTypeValidator(file, typeStr);
+//   // if (!typeFlag) {
+//   //   message.error(L('kyc.scene.upload.file.type.error'));
+//   //   return false;
+//   // }
+
+//   const sizeFlag = fileSizeValidator(file,maxSize);
+//   if (!sizeFlag) {
+//     message.error('文件大小超出限制');
+//     return false;
+//   }
+
+//   return true;
+// }

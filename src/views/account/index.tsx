@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {useHistory, useParams } from 'react-router-dom';
-import { HeaderSearch } from '../../components/HeaderSearch';
-import { Select } from '../marketplace/Select';
-import { formatAdd } from '../marketplace/utils';
-import { message, Select as SelectAntd } from 'antd';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useRef, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { HeaderSearch } from '../../components/HeaderSearch'
+import { Select } from '../marketplace/Select'
+import { formatAdd } from '../marketplace/utils'
+import { message, Select as SelectAntd } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
-import UpdatePriceModal from '../marketplace/ProductDetails/UpdatePriceModal';
+import UpdatePriceModal from '../marketplace/ProductDetails/UpdatePriceModal'
 import { isProd } from 'Src/config/constants'
 import instanceLoading from 'Utils/loading'
 import useWeb3 from 'Src/hooks/useWeb3'
@@ -17,33 +17,33 @@ import ListItem from 'Src/components/ListItem'
 import {
   createIpfs,
   getMyNFTList,
-} from '../../api';
+} from '../../api'
 // import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
-import { getAccountInfo, updateUserInfo } from '../../api/user';
+import { getAccountInfo, updateUserInfo } from '../../api/user'
 // import { getCollectionDetails } from '../../api/collection';
-import { uploadFileCheck } from '../../utils/utils';
-import { useTouchBottom } from '../../hooks';
-import './index.scss';
+import { uploadFileCheck } from '../../utils/utils'
+import { useTouchBottom } from '../../hooks'
+import './index.scss'
 import { getCookie } from 'Utils/utils'
-import AEmpty from "Src/components/Empty";
+import AEmpty from "Src/components/Empty"
 
 interface accountInfoProps {
-  name: string;
-  username: string;
-  userAddr: string;
-  imageUrl: string;
-  headUrl: string;
-  bannerUrl: string;
-  id: string;
+  name: string
+  username: string
+  userAddr: string
+  imageUrl: string
+  headUrl: string
+  bannerUrl: string
+  id: string
 }
 interface collectionsDataProps {
-  id: number;
-  collect: number;
-  collectNum: number;
-  imageUrl: string;
-  collectionName: string;
-  name: string;
-  price: number;
+  id: number
+  collect: number
+  collectNum: number
+  imageUrl: string
+  collectionName: string
+  name: string
+  price: number
 }
 
 
@@ -72,7 +72,7 @@ export const Account: React.FC<any> = () => {
       name: t('account.forceCancel'),
       value: 3,
     },
-  ];
+  ]
 
   const sortList = [
     {
@@ -85,9 +85,9 @@ export const Account: React.FC<any> = () => {
       name: t('marketplace.LowToHigh'),
       value: 'low',
     },
-  ];
-  const tabsData = [t('account.collected'), t('account.favorited')];
-  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'));
+  ]
+  const tabsData = [t('account.collected'), t('account.favorited')]
+  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
     name: '',
     username: '',
@@ -96,19 +96,19 @@ export const Account: React.FC<any> = () => {
     headUrl: '',
     bannerUrl: '',
     id: '',
-  });
+  })
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
-  const [collectionsData, setCollectionsData] = useState<any>([]);
-  const collectRef = useRef(collectionsData);
-  const { id, address } = useParams<{ id: string | undefined; address: string }>();
-  const [keyWord, setKeyWord] = useState<any>();
-  const [sort, setSort] = useState<any>();
-  const [status, setStatus] = useState<any>();
-  const [collectAddr, setCollectAddr] = useState<any>(null);
-  const [ownerAddr, setOwnerAddr] = useState<any>(null);
-  const [reset, setReset] = useState(false);
+  const [collectionsData, setCollectionsData] = useState<any>([])
+  const collectRef = useRef(collectionsData)
+  const { id, address } = useParams<{ id: string | undefined; address: string }>()
+  const [keyWord, setKeyWord] = useState<any>()
+  const [sort, setSort] = useState<any>()
+  const [status, setStatus] = useState<any>()
+  const [collectAddr, setCollectAddr] = useState<any>(null)
+  const [ownerAddr, setOwnerAddr] = useState<any>(null)
+  const [reset, setReset] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
   const defaultData = {
@@ -116,36 +116,36 @@ export const Account: React.FC<any> = () => {
     ownerAddr: ownerAddr || address,
     name: keyWord,
     // status: status,
-  };
+  }
 
-  const [pageCurrent, setPageCurrent] = useState(1);
+  const [pageCurrent, setPageCurrent] = useState(1)
   const [httpData, setHttpData] = useState({
     page: pageCurrent,
     size: 12,
     data: { ...defaultData },
-  });
-  const [isMore, setIsMore] = useState(false);
-  const walletAccount: string = localStorage.getItem('wallet') || '';
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const history = useHistory();
-  const defaultHeader = require('../../assets/default_header.png');
-  const defaulBannerUrl = require('../../assets/default_banner.jpg');
-  const [total, setTotal] = useState(0);
-  const { page, size } = httpData;
-  const token = getCookie('web-token') || '';
+  })
+  const [isMore, setIsMore] = useState(false)
+  const walletAccount: string = localStorage.getItem('wallet') || ''
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const history = useHistory()
+  const defaultHeader = require('../../assets/default_header.png')
+  const defaulBannerUrl = require('../../assets/default_banner.jpg')
+  const [total, setTotal] = useState(0)
+  const { page, size } = httpData
+  const token = getCookie('web-token') || ''
   const [detailData, setDetailData] = useState({})
   // 初始化
   useEffect(() => {
-    setCollectionsData([]);
-  }, [address]);
+    setCollectionsData([])
+  }, [address])
 
   // 判断方法回调返回值
   const isOwner = () => {
-    return (accountInfo?.userAddr && accountInfo?.userAddr === walletAccount) || address === walletAccount;
-  };
+    return (accountInfo?.userAddr && accountInfo?.userAddr === walletAccount) || address === walletAccount
+  }
   // 上传图片
   const handleUploadFile = async (e: any) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]
 
     const check: boolean = uploadFileCheck(
       file,
@@ -153,77 +153,77 @@ export const Account: React.FC<any> = () => {
       1024 * 1024,
       t('hint.imageTupe'),
       t('hint.imageSize'),
-    );
+    )
     if (!check) {
-      return;
+      return
     }
 
-    const params = new FormData();
-    params.append('file', file);
-    const res: any = await createIpfs(params);
+    const params = new FormData()
+    params.append('file', file)
+    const res: any = await createIpfs(params)
     const info = {
       ...accountInfo,
       imageUrl: res.data,
-    };
-    setAccountInfo({ ...accountInfo, imageUrl: res.data });
-    await updateGeneralInfo(info);
-  };
+    }
+    setAccountInfo({ ...accountInfo, imageUrl: res.data })
+    await updateGeneralInfo(info)
+  }
   // 更新头像接口
   const updateGeneralInfo = async (info: any) => {
-    const res: any = await updateUserInfo(info);
+    const res: any = await updateUserInfo(info)
     if (res.message === 'success') {
-      message.success(t('hint.avatarUpdated'));
+      message.success(t('hint.avatarUpdated'))
     }
-  };
+  }
   const handleCopy = (address: string) => {
-    const domUrl = document.createElement('input');
-    domUrl.value = address;
-    domUrl.id = 'creatDom';
-    document.body.appendChild(domUrl);
-    domUrl.select(); // 选择对象
-    document.execCommand('Copy'); // 执行浏览器复制命令
-    const creatDom: any = document.getElementById('creatDom');
-    creatDom.parentNode.removeChild(creatDom);
-    message.success(t('hint.copySuccess'));
-  };
+    const domUrl = document.createElement('input')
+    domUrl.value = address
+    domUrl.id = 'creatDom'
+    document.body.appendChild(domUrl)
+    domUrl.select() // 选择对象
+    document.execCommand('Copy') // 执行浏览器复制命令
+    const creatDom: any = document.getElementById('creatDom')
+    creatDom.parentNode.removeChild(creatDom)
+    message.success(t('hint.copySuccess'))
+  }
   const clickedTab = (index: number) => {
     const typeParams = {
       ...httpData,
       page: pageCurrent,
-    };
-    pageRef.current = 0;
-    const cloneAddr = isOwner() ? walletAccount : address;
+    }
+    pageRef.current = 0
+    const cloneAddr = isOwner() ? walletAccount : address
     if (index === 0) {
-      typeParams.data.collectAddr = null;
+      typeParams.data.collectAddr = null
       // typeParams.data.createAddr = null;
-      typeParams.data.ownerAddr = cloneAddr;
-      setOwnerAddr(cloneAddr);
+      typeParams.data.ownerAddr = cloneAddr
+      setOwnerAddr(cloneAddr)
       // } else if (index === 1) {
       //   typeParams.data.collectAddr = null;
       //   typeParams.data.createAddr = cloneAddr;
       //   typeParams.data.ownerAddr = null;
       //   setCreateAddr(cloneAddr);
     } else if (index === 1) {
-      typeParams.data.collectAddr = cloneAddr;
+      typeParams.data.collectAddr = cloneAddr
       // typeParams.data.createAddr = null;
-      typeParams.data.ownerAddr = null;
-      setCollectAddr(cloneAddr);
+      typeParams.data.ownerAddr = null
+      setCollectAddr(cloneAddr)
     }
-    setCollectionsData([]);
+    setCollectionsData([])
     if (Math.ceil(total / size) > page) {
-      setIsMore(true);
+      setIsMore(true)
     }
-    setCurrentIndex(index);
-    setHttpData(() => ({ ...typeParams }));
-  };
+    setCurrentIndex(index)
+    setHttpData(() => ({ ...typeParams }))
+  }
 
   const getKeyWord = (value: string) => {
     setHttpData(() => {
-      setKeyWord(value);
+      setKeyWord(value)
       if (Math.ceil(total / size) > page) {
-        setIsMore(true);
+        setIsMore(true)
       }
-      setCollectionsData([]);
+      setCollectionsData([])
       return {
         page: pageCurrent,
         size,
@@ -231,9 +231,9 @@ export const Account: React.FC<any> = () => {
           ...httpData.data,
           name: value,
         },
-      };
-    });
-  };
+      }
+    })
+  }
 
   const handleSort = (item: any) => {
     const orders = [
@@ -241,7 +241,7 @@ export const Account: React.FC<any> = () => {
         asc: item.value === 'high' ? false : true,
         column: 'o.price',
       },
-    ];
+    ]
     setHttpData(() => {
       return {
         page: pageCurrent,
@@ -250,20 +250,20 @@ export const Account: React.FC<any> = () => {
           ...httpData.data,
           orders: orders,
         },
-      };
-    });
+      }
+    })
     // sort === 'high' ? false : true
     const params = {
       ...httpData,
       page: pageCurrent,
-    };
+    }
 
-    pageRef.current = 0;
-    setSort(item.value === 'high' ? false : true);
-    setPageCurrent(1);
-    setCollectionsData([]);
+    pageRef.current = 0
+    setSort(item.value === 'high' ? false : true)
+    setPageCurrent(1)
+    setCollectionsData([])
     if (Math.ceil(total / size) > page) {
-      setIsMore(true);
+      setIsMore(true)
     }
     setHttpData(() => {
       return {
@@ -273,10 +273,10 @@ export const Account: React.FC<any> = () => {
           ...httpData.data,
           orders: orders,
         },
-      };
-    });
+      }
+    })
     // setHttpData(() => ({ ...httpData.data, page: 1,orders:orders}));
-  };
+  }
 
   // const getFansListByNftId = async (id: string | number, contractAddr: string) => {
   //   const params = {
@@ -304,38 +304,38 @@ export const Account: React.FC<any> = () => {
   //     getAccountInfoById();
   //   }
   // }, [id]);
-  
+
   useEffect(() => {
     if (address) {
-      getAccountInfoByAddress();
+      getAccountInfoByAddress()
     }
-  }, [address]);
+  }, [address])
 
   // 触底加载
   const handleLoadMore = () => {
     if (isMoreRef.current) {
-      const newPage = pageRef.current + 1;
-      setPageCurrent(newPage);
-      setHttpData({ ...httpData, page: newPage });
+      const newPage = pageRef.current + 1
+      setPageCurrent(newPage)
+      setHttpData({ ...httpData, page: newPage })
     } else {
-      pageRef.current = 1;
+      pageRef.current = 1
     }
-  };
+  }
 
-  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, httpData.page, isMore);
+  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, httpData.page, isMore)
 
   useEffect(() => {
     if (accountInfo?.userAddr || accountInfo?.id) {
-      const address = localStorage.getItem('wallet');
+      const address = localStorage.getItem('wallet')
       if (accountInfo?.userAddr == address) {
-        setCollectionsData([]);
+        setCollectionsData([])
       }
       // getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
       setTimeout(() => {
-        getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
-      }, 200);
+        getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } })
+      }, 200)
     }
-  }, [httpData, accountInfo?.userAddr, accountInfo?.id]);
+  }, [httpData, accountInfo?.userAddr, accountInfo?.id])
 
   // 通过合集id获取账户详情基本信息
   // const getAccountInfoById = async () => {
@@ -348,27 +348,27 @@ export const Account: React.FC<any> = () => {
   // };
   // 根据用户地址获取账户信息
   const getAccountInfoByAddress = async () => {
-    setCollectionsData([]);
-    const res: any = await getAccountInfo(address);
-    setAccountInfo(res.data);
+    setCollectionsData([])
+    const res: any = await getAccountInfo(address)
+    setAccountInfo(res.data)
     if (accountInfo?.userAddr) {
-      getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
+      getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } })
     }
-  };
+  }
 
   // 获取用户当前账号所有的资产
   const getAccountNFTList = async (typeParams: any) => {
-    const res: any = await getMyNFTList(typeParams);
-    const { records, total, current } = res.data;
-    collectRef.current = records;
-    setPageCurrent(current);
-    setCollectionsData([...collectionsData, ...records]);
+    const res: any = await getMyNFTList(typeParams)
+    const { records, total, current } = res.data
+    collectRef.current = records
+    setPageCurrent(current)
+    setCollectionsData([...collectionsData, ...records])
     if (httpData.page >= Math.ceil(total / httpData.size)) {
-      setIsMore(false);
+      setIsMore(false)
     } else {
-      setIsMore(true);
+      setIsMore(true)
     }
-  };
+  }
 
   const getCollectGoods = (typeParams: any) => {
     const newParams = {
@@ -376,9 +376,9 @@ export const Account: React.FC<any> = () => {
       page: typeParams.page,
       size,
       ownerAddr: address,
-    };
-    getAccountNFTList(newParams);
-  };
+    }
+    getAccountNFTList(newParams)
+  }
   // const handleReset = () => {
   //   setKeyWord('');
   //   setSort('');
@@ -400,7 +400,7 @@ export const Account: React.FC<any> = () => {
   // };
 
   const handleBannerImage = (e: any) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]
 
     const check: boolean = uploadFileCheck(
       file,
@@ -408,23 +408,23 @@ export const Account: React.FC<any> = () => {
       1024 * 1024 * 5,
       t('hint.imageTupe'),
       t('hint.imageSize'),
-    );
+    )
     if (!check) {
-      return;
+      return
     }
 
-    const params = new FormData();
-    params.append('file', file);
+    const params = new FormData()
+    params.append('file', file)
     createIpfs(params).then((res: any) => {
-      setAccountInfo({ ...accountInfo, bannerUrl: res.data });
-      updateGeneralInfo({ ...accountInfo, bannerUrl: res.data });
-    });
-  };
+      setAccountInfo({ ...accountInfo, bannerUrl: res.data })
+      updateGeneralInfo({ ...accountInfo, bannerUrl: res.data })
+    })
+  }
 
   const Tabs = (props: any) => {
     const changeIndex = (index: number) => {
-      props.clickedTab(index);
-    };
+      props.clickedTab(index)
+    }
     return (
       <ul className='account-tabz'>
         {tabsData.map((item, index) => (
@@ -433,27 +433,27 @@ export const Account: React.FC<any> = () => {
           </li>
         ))}
       </ul>
-    );
-  };
+    )
+  }
 
-  const handleJump = (item:any) =>{
-    item.orderId ? history.push(`/product-details/${item.orderId}`) :  history.push(`/product-details/${0}/${item.tokenId}/${item?.contractAddr}`)
+  const handleJump = (item: any) => {
+    item.orderId ? history.push(`/product-details/${item.orderId}`) : history.push(`/product-details/${0}/${item.tokenId}/${item?.contractAddr}`)
   }
   // 售出 和取消上架
-  const handleChange = (e:any,item:any) =>{
-    e.stopPropagation();
+  const handleChange = (e: any, item: any) => {
+    e.stopPropagation()
     // 下架
-    if(item === 0){
+    if (item === 0) {
       getCancelSellOrder(item)
-    }else{
+    } else {
       setIsOpen(true)
       setDetailData(item)
     }
-    
+
   }
- 
+
   // 取消上架 // 下架合约
-  const getCancelSellOrder = async (item:any) => {
+  const getCancelSellOrder = async (item: any) => {
     if (!walletAccount || !token) {
       message.error(t('hint.switchMainnet'))
       history.push('/login')
@@ -485,8 +485,8 @@ export const Account: React.FC<any> = () => {
     return collectionsData.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <div 
-            onClick={()=>handleJump(item)}
+          <div
+            onClick={() => handleJump(item)}
           >
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
@@ -497,19 +497,19 @@ export const Account: React.FC<any> = () => {
               </div>
               <div className='collection-name'>{item.collectionName}</div>
               <div className='price'>
-                <div>{item.status === 0 ? intlFloorFormat(item.price,4) + ' AITD' : '0.00' + ' AITD'}</div>
-                <div className='btn'  onClick={(e)=>handleChange(e,item)}>
-                  <img src="Src/assets/account/buy.png" alt=""/>
+                <div>{item.status === 0 ? intlFloorFormat(item.price, 4) + ' AITD' : '0.00' + ' AITD'}</div>
+                <div className='btn' onClick={(e) => handleChange(e, item)}>
+                  <img src="Src/assets/account/buy.png" alt="" />
                   {item.status === 0 ? '下架' : '上架'}
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
-      );
-    });
-  };
+      )
+    })
+  }
 
   return (
     <div className='account'>
@@ -561,15 +561,15 @@ export const Account: React.FC<any> = () => {
                   )}
                 </div>
               </div>
-              
+
               <div className='moreinfo'>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod...</p>
                 <label>更多</label>
               </div>
-          </div>
+            </div>
           </div>
 
-          
+
 
           {address && <div className='select-wrap'>{<Tabs clickedTab={clickedTab} />}</div>}
         </div>
@@ -595,12 +595,12 @@ export const Account: React.FC<any> = () => {
                     </button> */}
                   </div>
                 </section>
-                <ListItem handleGrid={() =>{ setGrid(localStorage.getItem('listItenGrid')) }}/>
+                <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
               </div>
               <div className={`info-main info-main--max`}>
                 <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
                   {collectionsData.length > 0 && CardItem()}
-                  {collectionsData.length === 0 && <AEmpty/>}
+                  {collectionsData.length === 0 && <AEmpty />}
                 </div>
               </div>
             </div>
@@ -609,8 +609,8 @@ export const Account: React.FC<any> = () => {
       </div>
       {/* 上架 */}
       {
-        isOpen &&  <UpdatePriceModal isOpen={isOpen} sellOrderFlag={false}  data={detailData} onCancel={() => setIsOpen(false)}/>
-      }   
+        isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={false} data={detailData} onCancel={() => setIsOpen(false)} />
+      }
     </div>
-  );
-};
+  )
+}
