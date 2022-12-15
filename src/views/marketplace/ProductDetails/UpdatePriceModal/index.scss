@@ -45,6 +45,23 @@
 	}
 }
 
+.royalties {
+	padding-bottom: 20px;
+	margin-top: 20px;
+	border-bottom: 1px solid rgba(29, 36, 59, 0.1);
+
+	.royalties-fee {
+		margin-bottom: 10px;
+	}
+
+	.fee {
+		display: flex;
+		justify-content: space-between;
+		font-size: $tq-font-size-5;
+		color: $tq-font-color-title;
+	}
+}
+
 .PriceWpaer {
 	margin-top: 24px;
 

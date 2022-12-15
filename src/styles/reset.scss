@@ -330,8 +330,15 @@ code {
     }
   }
 
+  &.ant-btn-default {
+    border-color: $tq-primary-color;
+    color: $tq-primary-color;
+  }
+
   &.ant-btn-sm {
-    padding: 0 25px;
+    min-width: 72px;
+    max-width: 72px;
+    // padding: 0 25px;
     box-sizing: border-box;
     height: 28px;
     line-height: 28px;

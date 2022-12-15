@@ -12,56 +12,56 @@ export const MoreCollects = (props: any) => {
   const grid = 1;
   const history = useHistory();
   const collectGoodsData = props.collectGoodsData || [];
-  const handleToDetails = (item: any) => {
-    if (item.type === 1) {
-      history.push(`/primary-details/${item.id}`);
-    } else {
-      history.push(`/product-details/${item.id}`);
-    }
-  };
-  const toggleFansCollected = (e: any, item: any) => {
-    e.preventDefault();
-    const { tokenId, collect, contractAddr,ownerAddr } = item;
-    setOwnerAddr(ownerAddr)
-    if (collect) {
-      removeFansData(tokenId, contractAddr);
-    } else {
-      // 关注、收藏
-      getFansData(tokenId, contractAddr);
-    }
-  };
-  const removeFansData = async (tokenId: string, contractAddr: string) => {
-    const res: any = await removeFans(tokenId, contractAddr);
-    if (res.message === 'success') {
-      modifyCollectStatus(tokenId, contractAddr);
-    }
-  };
-  const getFansData = async (tokenId: string, contractAddr: string) => {
-    const res: any = await getFans(tokenId, contractAddr);
-    if (res.message === 'success') {
-      modifyCollectStatus(tokenId, contractAddr);
-    }
-  };
-  const modifyCollectStatus = (id: string, contractAddr: string) => {
-    const params = {
-      tokenId:id,
-      contractAddr:contractAddr,
-      ownerAddr:ownerAddr
-    }
-    getFansByGoodsId(params).then((res: any) => {
-      if (res && res.message === 'success') {
-        const data: any = res.data;
-        collectGoodsData.map((item: any) => {
-          if (item.id === id) {
-            item.collect = Number(data.collect);
-            item.collectNum = data.collectNum;
-            props.notify(Number(data.collect));
-            // this.$emit('modifyCollectStatus', item.id);
-          }
-        });
-      }
-    });
-  };
+  // const handleToDetails = (item: any) => {
+  //   if (item.type === 1) {
+  //     history.push(`/primary-details/${item.id}`);
+  //   } else {
+  //     history.push(`/product-details/${item.id}`);
+  //   }
+  // };
+  // const toggleFansCollected = (e: any, item: any) => {
+  //   e.preventDefault();
+  //   const { tokenId, collect, contractAddr,ownerAddr } = item;
+  //   setOwnerAddr(ownerAddr)
+  //   if (collect) {
+  //     removeFansData(tokenId, contractAddr);
+  //   } else {
+  //     // 关注、收藏
+  //     getFansData(tokenId, contractAddr);
+  //   }
+  // };
+  // const removeFansData = async (tokenId: string, contractAddr: string) => {
+  //   const res: any = await removeFans(tokenId, contractAddr);
+  //   if (res.message === 'success') {
+  //     modifyCollectStatus(tokenId, contractAddr);
+  //   }
+  // };
+  // const getFansData = async (tokenId: string, contractAddr: string) => {
+  //   const res: any = await getFans(tokenId, contractAddr);
+  //   if (res.message === 'success') {
+  //     modifyCollectStatus(tokenId, contractAddr);
+  //   }
+  // };
+  // const modifyCollectStatus = (id: string, contractAddr: string) => {
+  //   const params = {
+  //     tokenId:id,
+  //     contractAddr:contractAddr,
+  //     ownerAddr:ownerAddr
+  //   }
+  //   getFansByGoodsId(params).then((res: any) => {
+  //     if (res && res.message === 'success') {
+  //       const data: any = res.data;
+  //       collectGoodsData.map((item: any) => {
+  //         if (item.id === id) {
+  //           item.collect = Number(data.collect);
+  //           item.collectNum = data.collectNum;
+  //           props.notify(Number(data.collect));
+  //           // this.$emit('modifyCollectStatus', item.id);
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
   const WrapItem = () =>
     collectGoodsData.map((item: any, index: number) => {
       return (
@@ -81,7 +81,7 @@ export const MoreCollects = (props: any) => {
               </div>
             </div>
 
-            <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
+            {/* <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
               <img
                 className={!item.collect ? 'favorite_border_gray' : 'favorite_red'}
                 src={!item.collect ? require('../../../../assets/fg.png') : require('../../../../assets/fr.png')}
@@ -89,7 +89,7 @@ export const MoreCollects = (props: any) => {
                 alt=''
               />
               <span className={!item.collect ? '' : 'favorite'}>{item.collectNum}</span>
-            </div>
+            </div> */}
           </Link>
         </div>
       );

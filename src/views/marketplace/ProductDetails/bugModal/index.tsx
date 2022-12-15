@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Modal,message } from 'antd'
+import { Button, Modal, message } from 'antd'
 import { useWeb3React } from '@web3-react/core'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { ethers } from 'ethers'
@@ -19,11 +19,13 @@ import { getApproval, getIsApproved } from 'Src/hooks/web3Utils'
 import MessageModal from '../MessageModal'
 
 const ReceiveModal: React.FC<any> = (props) => {
+  console.log(props, 'props')
+
   const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()
-  const { data } = props;
-  const { orderId, price, contractAddr, moneyAddr, tokenId, amount, coin, marketAddr ,contractType } = props.data;
+  const { data } = props
+  const { orderId, price, contractAddr, moneyAddr, tokenId, amount, coin, marketAddr, contractType } = props.data
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId, 16)
@@ -36,10 +38,10 @@ const ReceiveModal: React.FC<any> = (props) => {
   const [isAITD, setIsAITD] = useState<boolean>(false)
   const [messageVisible, setMessageVisible] = useState<boolean>(false)
   const MessageData = {
-    tokenId:tokenId,
-    collectionName:data?.collectionName,
-    imageUrl:data?.nftMetadata?.imageUrl,
-    name:data?.nftMetadata?.name
+    tokenId: tokenId,
+    collectionName: data?.collectionName,
+    imageUrl: data?.nftMetadata?.imageUrl,
+    name: data?.nftMetadata?.name
   }
   // 初始化
   useEffect(() => {
@@ -69,11 +71,11 @@ const ReceiveModal: React.FC<any> = (props) => {
     }
   }
 
-   // 买nft合约
-   const getBuy = async () => {
-    if(subNum > amount){
-      message.error('购买数量超过NFT数量');
-      return;
+  // 买nft合约
+  const getBuy = async () => {
+    if (subNum > amount) {
+      message.error('购买数量超过NFT数量')
+      return
     }
     // 未链接钱包跳转
     if (!account) {
@@ -88,14 +90,14 @@ const ReceiveModal: React.FC<any> = (props) => {
       orderId, // 订单id
       price: toPriceDecimals(price, 18), // nft 价格 USDT.decimals
       // marketType: 2, // 用于标注二级市场
-      Erc1155ContractAddr:contractAddr,
+      Erc1155ContractAddr: contractAddr,
       moneyMintAddress: moneyAddr,
       marketPlaceContractAddr: marketAddr,
       account: accountAddress,
-      tokenId:tokenId,
+      tokenId: tokenId,
       ctype: contractType === ContractType.ERC721 ? 0 : 1,
       amounts: subNum, // 购买数量
-      coin:coin,
+      coin: coin,
     }
 
     if (!accountAddress || !token || !Erc20ContractAddr) {
@@ -148,12 +150,12 @@ const ReceiveModal: React.FC<any> = (props) => {
       <Modal title='Buy NFTs' visible={isModalOpen} footer={null} onCancel={onCancel}>
         <div className='modalContent'>
           <div className='contentLeft'>
-            <img src={data?.nftMetadata?.imageUrl} alt='' />
+            <img src={data?.nftMetadata?.imageUrl || data?.imageUrl} alt='' />
           </div>
           <div className='contentRight'>
             <div className='name'>{data?.collectionName}</div>
             <div className='info'>
-              <section className='fontWeight'>{data?.nftMetadata?.name}</section>
+              <section className='fontWeight'>{data?.nftMetadata?.name || data?.name}</section>
               <section>{data?.price} AITD</section>
             </div>
           </div>
@@ -177,8 +179,8 @@ const ReceiveModal: React.FC<any> = (props) => {
         </div>
         <div className='BuyBtn' onClick={getBuy}>to pay</div>
       </Modal>
-        {/* 购买成功& 上架改加成功 过度弹窗 */}
-        <MessageModal data={MessageData} visible={messageVisible} title={'购买成功'}/>
+      {/* 购买成功& 上架改加成功 过度弹窗 */}
+      <MessageModal data={MessageData} visible={messageVisible} title={'购买成功'} />
     </div>
   )
 }

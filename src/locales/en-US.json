@@ -1,6 +1,6 @@
 {
   "common": {
-    "buy": "Purchase",
+    "buy": "Buy",
     "sell": "Sell",
     "noData": "No Data",
     "noDataLong": "No data available for the time being",

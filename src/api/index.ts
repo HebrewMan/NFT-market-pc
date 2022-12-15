@@ -122,9 +122,10 @@ export function recommendHomePage(params: any) {
   return post(`/v1/api/nft/findHomePage`, params);
 }
 
+// 首页搜索
 export function getSearchGoods(params: any) {
   return post(`/v1/api/nft/homeSearchPage`, {
-    data: { ...params },
+     ...params,
   });
 }
 

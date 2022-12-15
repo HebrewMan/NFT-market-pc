@@ -443,7 +443,7 @@ export const Account: React.FC<any> = () => {
   const handleChange = (e: any, item: any) => {
     e.stopPropagation()
     // 下架
-    if (item === 0) {
+    if (item.status === 0) {
       getCancelSellOrder(item)
     } else {
       setIsOpen(true)
@@ -609,7 +609,7 @@ export const Account: React.FC<any> = () => {
       </div>
       {/* 上架 */}
       {
-        isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={false} data={detailData} onCancel={() => setIsOpen(false)} />
+        isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={true} data={detailData} onCancel={() => setIsOpen(false)} />
       }
     </div>
   )

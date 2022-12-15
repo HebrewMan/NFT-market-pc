@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Modal, Input, message } from 'antd'
+import { Modal, Input, message } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { multipliedBy } from 'Utils/bigNumber'
@@ -17,6 +17,7 @@ import instanceLoading from 'Utils/loading'
 import { getModifyPrice, createMarketItem } from 'Src/hooks/marketplace'
 import { getUpdateLowerPrice } from 'Src/api/index'
 import MessageModal from '../MessageModal'
+import _ from 'lodash'
 
 const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
@@ -29,19 +30,22 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const chainId = parseInt(_chainId) //链id
 	const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
 	const { data } = props
+	console.log(data, 'data')
+
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const [amountNum, setAmountNum] = useState('') // 数量
 	const [updatePrice, setUpdatePrice] = useState('') // 价格
+	const [defaultAmountNum, setDefaultAmountNum] = useState(1)//上架数量
 	const isERC721: boolean = contractType === ContractType.ERC721
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
 
 	const MessageData = {
-    tokenId:tokenId,
-    collectionName:data?.collectionName,
-    imageUrl:data?.nftMetadata?.imageUrl,
-    name:data?.nftMetadata?.name
-  }
+		tokenId: tokenId,
+		collectionName: data?.collectionName,
+		imageUrl: data?.nftMetadata?.imageUrl,
+		name: data?.nftMetadata?.name
+	}
 
 	// 初始化
 	useEffect(() => {
@@ -52,8 +56,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 
 	// 当数量变化时，价格重新计算
 	useEffect(() => {
-		setUpdatePrice(multipliedBy(updatePrice, amountNum, 18))
-	}, [amountNum])
+		setUpdatePrice(multipliedBy(updatePrice, defaultAmountNum, 18))
+	}, [defaultAmountNum])
 	// 关闭
 	const onCancel = () => {
 		props?.onCancel()
@@ -97,11 +101,16 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		if (value <= 0) {
 			message.error('Please only enter numbers greater than zero!')
 		}
-		setAmountNum(value)
+		setDefaultAmountNum(value)
 	}
 	const getSellOrderOrUpdatePrice = () => {
 		if (props?.sellOrderFlag) {
-			getSellOrder()
+			if (Number(updatePrice) <= 0 || _.isUndefined(updatePrice)) {
+				message.error(t('hint.numbersGreater'))
+			} else {
+				getSellOrder()
+			}
+
 		} else {
 			getUpdatePrice()
 		}
@@ -123,11 +132,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		let approvalRes: any = undefined
 		let orderRes: any = undefined
 		const _price = updatePrice
-		// if (_price <= 0) {
-		// 	message.error(t('hint.numbersGreater'))
-		// 	setUpdatePrice('')
-		// 	return
-		// }
 		instanceLoading.service()
 		// 未授权，先授权
 		if (!isApproval) {
@@ -146,8 +150,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				Erc1155ContractAddr: contractAddr,
 				marketPlaceContractAddr,
 				account,
-				ctype: contractType,
-				amounts: amount,
+				ctype: contractType || data.contractType,
+				amounts: defaultAmountNum,
 			}
 			try {
 				orderRes = await createMarketItem(web3, obj)
@@ -236,6 +240,13 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 						</div>
 					</div>
 				</div>
+				{props?.sellOrderFlag &&
+					<div className='royalties'>
+						<div className='royalties-fee fee'><span>版税</span><span>5%</span></div>
+						<div className='fee'><span>手续费</span><span>1%</span></div>
+					</div>
+				}
+
 				<div className='PriceWpaer'>
 					<section className='label'>价格</section>
 					<section className='inputWaper'>
@@ -244,14 +255,14 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 					</section>
 				</div>
 				{/* 如果合约是1155 才显示数量 */}
-				{data?.contractType === 'ERC1155' && (
+				{(data?.contractType === 'ERC1155' && props?.sellOrderFlag) && (
 					<div className='PriceWpaer'>
 						<div className='label'>
 							<span>数量</span>
 							<span>拥有: {data?.leftAmount || amountNum}</span>
 						</div>
 						<section className='inputWaper'>
-							<Input type='Number' defaultValue={amountNum} className='num_box' placeholder={t('marketplace.details.amountEnter') || undefined} onChange={debounce(handleNumChange)} />
+							<Input type='Number' defaultValue={defaultAmountNum} className='num_box' placeholder={t('marketplace.details.amountEnter') || undefined} onChange={debounce(handleNumChange)} />
 						</section>
 					</div>
 				)}
@@ -262,8 +273,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>确认上架</div>
 			</Modal>
-			 {/*上架改价成功 过度弹窗 */}
-			 <MessageModal data={MessageData} visible={messageVisible} title={props?.sellOrderFlag ? '上架成功' : '改价成功'}/>
+			{/*上架改价成功 过度弹窗 */}
+			<MessageModal data={MessageData} visible={messageVisible} title={props?.sellOrderFlag ? '上架成功' : '改价成功'} />
 		</div>
 	)
 }

@@ -290,7 +290,7 @@ export const ProductionDetails = () => {
             <div className='header-image'>
               <div className='prod-image'>
                 <img src={detailMetadata?.imageUrl} alt='' />
-                <div>
+                <div className='fav'>
                   <img
                     className={!fansStatus ? 'favorite_border_gray' : 'favorite_red'}
                     src={!fansStatus ? require('../../../assets/fg.png') : require('../../../assets/fr.png')}
@@ -356,9 +356,9 @@ export const ProductionDetails = () => {
           notify={notify}
         />
         {/* 上架改价 */}
-        <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />
+        {isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />}
         {/* 购买弹窗 */}
-        <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />
+       {bugModalOpen && <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />} 
       </div>
     </div>
   )

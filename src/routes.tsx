@@ -1,30 +1,34 @@
-import React from 'react';
-import { Route, Switch, Router } from 'react-router-dom';
-import { UseWalletProvider } from './providers';
-import { Primary } from './views';
-import { MarketPlace } from './views/marketplace';
-import { MarketList } from './views/primary/components/MarketList';
-import { ActivityDetail } from './views/primary/ActivityDetail';
-import { PrimaryDetails } from './views/primary/components/PrimaryDetails';
-import { ProductionDetails } from './views/marketplace/ProductDetails';
-import { HelpCenter } from './views/helpcenter';
-import { ArticleType } from './views/helpcenter/ArticleType';
-import { ArticleDetails } from './views/helpcenter/ArticleDetails';
-import { Collection } from './views/collection';
-import { Account } from './views/account';
-import { Login } from './views/login';
-import { UserSetting } from './views/userSetting';
-import { HsHome } from './views/home';
-import history from './utils/history';
-import { Slider } from './components/Slider';
-import { ChainIds } from './config/constants';
-import { GatherList } from './views/account/gatherList';
-import { GatherDetail } from "./views/account/gatherDetail";
+import React, { useEffect } from 'react'
+import { Route, Switch, Router } from 'react-router-dom'
+import { UseWalletProvider } from './providers'
+import { Primary } from './views'
+import { MarketPlace } from './views/marketplace'
+import { MarketList } from './views/primary/components/MarketList'
+import { ActivityDetail } from './views/primary/ActivityDetail'
+import { PrimaryDetails } from './views/primary/components/PrimaryDetails'
+import { ProductionDetails } from './views/marketplace/ProductDetails'
+import { HelpCenter } from './views/helpcenter'
+import { ArticleType } from './views/helpcenter/ArticleType'
+import { ArticleDetails } from './views/helpcenter/ArticleDetails'
+import { Collection } from './views/collection'
+import { Account } from './views/account'
+import { Login } from './views/login'
+import { UserSetting } from './views/userSetting'
+import { HsHome } from './views/home'
+import history from './utils/history'
+import { Slider } from './components/Slider'
+import { ChainIds } from './config/constants'
+import { GatherList } from './views/account/gatherList'
+import { GatherDetail } from "./views/account/gatherDetail"
 import { GatherEdit } from "./views/account/gatherEdit"
 
 export function Routes() {
+  // useEffect(() => {
+  //   window.scrollTo(0, 0)
+  // }, [window.location.pathname])
   return (
     <>
+
       <Router history={history}>
         <UseWalletProvider connectors={ChainIds}>
           <Switch>
@@ -53,5 +57,5 @@ export function Routes() {
         </UseWalletProvider>
       </Router>
     </>
-  );
+  )
 }

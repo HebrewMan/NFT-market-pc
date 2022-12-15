@@ -63,7 +63,7 @@ export const SelectGroup = () => {
   }, 1000);
   const initList = async () => {
     const res: any = await getSearchGoods({ keyWord });
-    setNftGoodsList(res?.data[1] || []);
+    setNftGoodsList(res?.data.records || []);
     // setBlindGoodsList(res?.data[0] || [])
   };
   useEffect(() => {
