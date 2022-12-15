@@ -209,6 +209,16 @@ export const fileSizeValidator = (file: any, maxSize:number) => {
   return true
 }
 
+export const formatTokenId = (name: string, tokenId: string) => {
+  if (!name) return;
+  const arr = name.split('#');
+  // #符号分割且后缀为数字 则认为是 名称+tokenId 的组合
+  if (arr.length > 1 && /^\d+$/.test(arr[arr.length - 1])) {
+    return name;
+  } else {
+    return `${name}#${tokenId}`;
+  }
+};
 // export const fileUploadValidator = (file:any,maxSize:number) => {
 //   // const typeFlag = fileTypeValidator(file, typeStr);
 //   // if (!typeFlag) {

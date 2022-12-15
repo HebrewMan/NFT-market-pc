@@ -1,97 +1,97 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { Select } from './Select';
-import { HeaderSearch } from '../../components/HeaderSearch';
-import { useTranslation } from 'react-i18next';
-import { getGoods, getListedNftList } from '../../api';
-import { useTouchBottom } from '../../hooks';
-import { defaultParams, blindType, queryList } from '../../core/constants/marketplace';
-import './index.scss';
-import { isMobile } from 'react-device-detect';
-import { Input, Spin } from 'antd';
-import { LoadingOutlined, SyncOutlined } from '@ant-design/icons';
+import React, { useEffect, useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { Select } from './Select'
+import { HeaderSearch } from '../../components/HeaderSearch'
+import { useTranslation } from 'react-i18next'
+import { getGoods, getListedNftList } from '../../api'
+import { useTouchBottom } from '../../hooks'
+import { defaultParams, blindType, queryList } from '../../core/constants/marketplace'
+import './index.scss'
+import { Input, Spin } from 'antd'
+import { LoadingOutlined, SyncOutlined } from '@ant-design/icons'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import ListItem from 'Src/components/ListItem'
-import AEmpty from "Src/components/Empty";
+import AEmpty from "Src/components/Empty"
+import { formatTokenId } from 'Utils/utils'
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 export const MarketPlace = () => {
   const { t } = useTranslation()
-  const [goodsList, setGoodsList] = useState<any[]>([]);
-  const [total, setTotal] = useState(0);
-  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'));
-  const [params, setParams] = useState<any>({ ...defaultParams });
-  const [collect, setCollect] = useState(false); // 收藏状态
-  const [keyWord, setKeyWord] = useState('');
-  const [inputMin, setInputMin] = useState('');
-  const [inputMax, setInputMax] = useState('');
-  const [isMore, setIsMore] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [sort, setSort] = useState<any>("new");
-  const [ownerAddr,setOwnerAddr] = useState('')
+  const [goodsList, setGoodsList] = useState<any[]>([])
+  const [total, setTotal] = useState(0)
+  const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
+  const [params, setParams] = useState<any>({ ...defaultParams })
+  const [collect, setCollect] = useState(false) // 收藏状态
+  const [keyWord, setKeyWord] = useState('')
+  const [inputMin, setInputMin] = useState('')
+  const [inputMax, setInputMax] = useState('')
+  const [isMore, setIsMore] = useState(true)
+  const [loading, setLoading] = useState(true)
+  const [sort, setSort] = useState<any>("new")
+  const [ownerAddr, setOwnerAddr] = useState('')
   const queryList = [
     { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
     { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
     { name: `${t('marketplace.highToLow')}`, value: 'high' },
-  ];
+  ]
 
   useEffect(() => {
-    initData(params);
-  }, [params, collect]);
+    initData(params)
+  }, [params, collect])
 
   const initData = async (data: any) => {
     // const userWallet = localStorage.getItem('wallet') || null
     // const param = {
     //   ...data,
     // }
-    setLoading(true);
+    setLoading(true)
     try {
       // getListedNftList getGoods
-      const res: any = await getListedNftList(data);
-      setTotal(res.data.total);
+      const res: any = await getListedNftList(data)
+      setTotal(res.data.total)
 
       // 过滤掉没有元数据的脏数据
-      const list: any = [];
+      const list: any = []
       res.data.records.map((item: any, index: string) => {
         if (item?.imageUrl != null) {
-          list.push(item);
+          list.push(item)
         }
-      });
-      setGoodsList([...goodsList, ...list]);
-      setLoading(false);
+      })
+      setGoodsList([...goodsList, ...list])
+      setLoading(false)
       if (data.page >= Math.ceil(res.data.total / data.size)) {
-        setIsMore(false);
+        setIsMore(false)
       } else {
-        setIsMore(true);
+        setIsMore(true)
       }
     } catch (err: any) {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   // 触底加载
   const handleLoadMore = () => {
     if (isMoreRef.current) {
-      const newPage = pageRef.current + 1;
+      const newPage = pageRef.current + 1
       setParams((params: any) => {
-        return { ...params, page: newPage };
-      });
+        return { ...params, page: newPage }
+      })
     } else {
-      pageRef.current = 1;
+      pageRef.current = 1
     }
-  };
+  }
 
-  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, params.page, isMore);
+  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, params.page, isMore)
 
   const handleChangeQuery = (itemObj: any) => {
     setSort(itemObj.value)
-    setGoodsList([]);
+    setGoodsList([])
     // 原有逻辑上调整接口后台所需入参 o.xx ..不理解
-    let asc = false;
-    if(itemObj.value === 'new'){
+    let asc = false
+    if (itemObj.value === 'new') {
       asc = false
-    }else{
+    } else {
       itemObj.value === 'high' ? asc = false : asc = true
     }
     const orders = [
@@ -99,14 +99,14 @@ export const MarketPlace = () => {
         asc: asc,
         column: itemObj.value === 'new' ? 'o.create_date' : 'o.price',
       },
-    ];
-    setParams({ ...params, orders, page: 1 });
+    ]
+    setParams({ ...params, orders, page: 1 })
 
     // useTouchBottom 页码不对的问题 修改
     if (pageRef.current > 1) {
-      pageRef.current = 0;
+      pageRef.current = 0
     }
-  };
+  }
   const CardItem = () => {
     return goodsList.map((item: any, index: number) => {
       return (
@@ -117,99 +117,99 @@ export const MarketPlace = () => {
             </div>
             <div className='assets-info'>
               <div className='desc'>
-                <div className='name'>{item.name + '#' + item.tokenId}</div>
+                <div className='name'>{formatTokenId(item.name, item.tokenId)}</div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
               <div className='price'>
                 <img src={require('../../assets/coin/aitd.svg')} alt='' className='coin-img' />
-                {intlFloorFormat(item.price,4) + ` ${item?.coin || 'AITD'}`}
+                {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
               </div>
             </div>
           </Link>
         </div>
-      );
-    });
-  };
+      )
+    })
+  }
 
 
   const getKeyWord = (value: string) => {
-    setGoodsList([]);
-    setParams({ ...params, name: value, page: 1 });
-  };
+    setGoodsList([])
+    setParams({ ...params, name: value, page: 1 })
+  }
 
   const handleChangeMin = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: inputValue } = e.target;
-    const temp = inputValue.match(/\d+(\.\d{0,8})?/);
+    const { value: inputValue } = e.target
+    const temp = inputValue.match(/\d+(\.\d{0,8})?/)
 
     if (temp === null && inputMax === '') {
-      setInputMin('');
-      setGoodsList([]);
-      setParams({ ...params, maxPrice: undefined, minPrice: undefined, page: 1 });
-      return;
+      setInputMin('')
+      setGoodsList([])
+      setParams({ ...params, maxPrice: undefined, minPrice: undefined, page: 1 })
+      return
     }
 
     if (temp) {
       // 非法校验 输入字符砖 @等符号 取消请求
       if (temp[0] && inputMin === temp[0]) {
-        return;
+        return
       }
 
-      setInputMin(temp[0]);
+      setInputMin(temp[0])
 
       // max > min 取消请求
       if (Number(inputMax) < Number(temp[0])) {
-        return;
+        return
       }
 
       if (inputMax) {
-        setGoodsList([]);
-        setParams({ ...params, minPrice: Number(temp[0]), maxPrice: Number(inputMax), page: 1 });
+        setGoodsList([])
+        setParams({ ...params, minPrice: Number(temp[0]), maxPrice: Number(inputMax), page: 1 })
       }
     } else {
-      setInputMin('');
+      setInputMin('')
     }
-  };
+  }
 
   const handleChangeMax = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: inputValue } = e.target;
-    const temp = inputValue.match(/\d+(\.\d{0,8})?/);
+    const { value: inputValue } = e.target
+    const temp = inputValue.match(/\d+(\.\d{0,8})?/)
 
     if (temp === null && inputMin === '') {
-      setInputMax('');
-      setGoodsList([]);
-      setParams({ ...params, maxPrice: undefined, minPrice: undefined, page: 1 });
+      setInputMax('')
+      setGoodsList([])
+      setParams({ ...params, maxPrice: undefined, minPrice: undefined, page: 1 })
 
-      return;
+      return
     }
 
     if (temp) {
       if (temp[0] && inputMax === temp[0]) {
-        return;
+        return
       }
 
-      setInputMax(temp[0]);
+      setInputMax(temp[0])
 
       if (Number(inputMin) > Number(temp[0])) {
-        return;
+        return
       }
 
       if (inputMin) {
-        setGoodsList([]);
-        setParams({ ...params, minPrice: Number(inputMin), maxPrice: Number(temp[0]), page: 1 });
+        setGoodsList([])
+        setParams({ ...params, minPrice: Number(inputMin), maxPrice: Number(temp[0]), page: 1 })
       }
     } else {
-      setInputMax('');
+      setInputMax('')
     }
-  };
+  }
 
   return (
     <div className='marketplace'>
       <div className='filter'>
-        <ListItem handleGrid={() =>{ setGrid(localStorage.getItem('listItenGrid')) }}/>
+        <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
         <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} />
 
         <div className='condition'>
-          <Select list={queryList}  placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
+          <Select list={queryList} placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
         </div>
 
         <div className='price'>
@@ -218,14 +218,14 @@ export const MarketPlace = () => {
             className='min'
             value={inputMin}
             placeholder={t('marketplace.min') || undefined}
-            style={{ width:84, height: 41}}
+            style={{ width: 84, height: 41 }}
             onChange={handleChangeMin}
           />
           <span className='to'>{t('marketplace.to')}</span>
           <Input
             placeholder={t('marketplace.max') || undefined}
             value={inputMax}
-            style={{ width:84, height:41}}
+            style={{ width: 84, height: 41 }}
             onChange={handleChangeMax}
           />
         </div>
@@ -242,5 +242,5 @@ export const MarketPlace = () => {
         <></>
       )}
     </div>
-  );
-};
+  )
+}

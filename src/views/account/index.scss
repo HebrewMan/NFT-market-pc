@@ -559,6 +559,11 @@
             display: flex;
             justify-content: space-between;
 
+            .priceCenter {
+              display: flex;
+              align-items: center;
+            }
+
             .btn {
               display: flex;
               align-items: center;

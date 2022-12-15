@@ -18,7 +18,7 @@ import {
 import { getOrderEventPage } from '../../../api/order'
 import { getCollectionDetails } from '../../../api/collection'
 import { getFans, getFansByGoodsId, removeFans } from '../../../api/fans'
-import { getCookie, getLocalStorage, toPriceDecimals } from 'Utils/utils'
+import { getCookie, getLocalStorage, formatTokenId, } from 'Utils/utils'
 import config, { USDT, ContractType, CoinType } from 'Src/config/constants'
 import instanceLoading from 'Utils/loading'
 import { isProd } from 'Src/config/constants'
@@ -243,7 +243,7 @@ export const ProductionDetails = () => {
     history.push(`/collection/${DetailData?.collectionId}`)
   }
 
- 
+
   const sellBtn = () => {
     // 用户资产跳转过来状态为用户撤单 或 个数不为0
     const canSell = userTokenId ? amount !== 0 || userNftStatus === 2 : true
@@ -308,11 +308,11 @@ export const ProductionDetails = () => {
               <p className='collections-name' onClick={handleToCollection}>
                 {DetailData?.collectionName}
               </p>
-              <h1 className='name'>{detailMetadata?.name + '#' + (detailMetadata?.tokenId || DetailData.tokenId)}</h1>
+              <h1 className='name'>{formatTokenId(detailMetadata?.name, (detailMetadata?.tokenId || DetailData.tokenId))}</h1>
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && DetailData.amount} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>
@@ -358,7 +358,7 @@ export const ProductionDetails = () => {
         {/* 上架改价 */}
         {isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />}
         {/* 购买弹窗 */}
-       {bugModalOpen && <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />} 
+        {bugModalOpen && <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />}
       </div>
     </div>
   )

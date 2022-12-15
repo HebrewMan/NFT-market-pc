@@ -28,3 +28,8 @@ export function getAccountInfo(address: string) {
 export function getAccountWallet() {
   return get(`/v1/api/user/wallet`);
 }
+
+// 获取手续费配置
+export function getHandlingFee(params: any) {
+  return post(`/v1/api/config/getValue`, params);
+}

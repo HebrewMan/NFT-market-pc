@@ -24,7 +24,7 @@ import { getAccountInfo, updateUserInfo } from '../../api/user'
 import { uploadFileCheck } from '../../utils/utils'
 import { useTouchBottom } from '../../hooks'
 import './index.scss'
-import { getCookie } from 'Utils/utils'
+import { getCookie, formatTokenId } from 'Utils/utils'
 import AEmpty from "Src/components/Empty"
 
 interface accountInfoProps {
@@ -493,11 +493,14 @@ export const Account: React.FC<any> = () => {
             </div>
             <div className='assets-info'>
               <div className='desc'>
-                <div className='name'>{item.name + '#' + item.tokenId}</div>
+                <div className='name'>{formatTokenId(item.name, item.tokenId)}</div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
               <div className='price'>
-                <div>{item.status === 0 ? intlFloorFormat(item.price, 4) + ' AITD' : '0.00' + ' AITD'}</div>
+                <div className='priceCenter'>
+                  <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
+                  {item.status === 0 ? intlFloorFormat(item.price, 4) + ' AITD' : '0.00' + ' AITD'}
+                </div>
                 <div className='btn' onClick={(e) => handleChange(e, item)}>
                   <img src="Src/assets/account/buy.png" alt="" />
                   {item.status === 0 ? '下架' : '上架'}

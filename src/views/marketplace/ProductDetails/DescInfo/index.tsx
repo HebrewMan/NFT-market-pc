@@ -84,7 +84,6 @@ const ContentDetail = (props: any) => {
     }
     const data: any = await getOrderList(useParams)
     setDataSource(data.data.records)
-    console.log(data, 'dddddd')
 
   }
   // 购买

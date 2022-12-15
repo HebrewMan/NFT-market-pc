@@ -3,10 +3,10 @@ import { Modal, Input, message } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { multipliedBy } from 'Utils/bigNumber'
-import { getLocalStorage, toPriceDecimals, debounce, getCookie } from 'Utils/utils'
+import { getLocalStorage, toPriceDecimals, debounce, getCookie, formatTokenId } from 'Utils/utils'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { useHistory } from 'react-router-dom'
-import config, { isProd, ContractType, CoinType } from 'Src/config/constants'
+import config, { isProd, ContractType } from 'Src/config/constants'
 import {
 	getIsApprovedForAll,
 	getSetApprovalForAll,
@@ -18,9 +18,11 @@ import { getModifyPrice, createMarketItem } from 'Src/hooks/marketplace'
 import { getUpdateLowerPrice } from 'Src/api/index'
 import MessageModal from '../MessageModal'
 import _ from 'lodash'
+import { getHandlingFee } from 'Src/api/user'
 
 const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
+	const { data } = props
 	const { contractAddr, tokenId, contractType, moneyAddr = null, price, amount, orderId } = props.data
 	const web3 = useWeb3()
 	const history = useHistory()
@@ -29,17 +31,16 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const _chainId = window?.ethereum?.chainId
 	const chainId = parseInt(_chainId) //链id
 	const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
-	const { data } = props
-	console.log(data, 'data')
-
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
-	const [amountNum, setAmountNum] = useState('') // 数量
+	const [amountNum, setAmountNum] = useState('') // 拥有数量
 	const [updatePrice, setUpdatePrice] = useState('') // 价格
 	const [defaultAmountNum, setDefaultAmountNum] = useState(1)//上架数量
 	const isERC721: boolean = contractType === ContractType.ERC721
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
+	const [handlingFee, setHandlingFee] = useState(0)
 
+	// 过渡弹窗 显示字段
 	const MessageData = {
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
@@ -51,8 +52,17 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	useEffect(() => {
 		setIsModalVisible(props.isOpen)
 		setUpdatePrice(price)
+		console.log(typeof (updatePrice), 'updatePrice')
+
 		setAmountNum(amount)
+		// 获取手续费配置
+		HandlingFeeData()
 	}, [props])
+
+	const HandlingFeeData = async () => {
+		const data: any = await getHandlingFee({ name: 'transaction_fee' })
+		setHandlingFee(data.data.value)
+	}
 
 	// 当数量变化时，价格重新计算
 	useEffect(() => {
@@ -236,14 +246,14 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 					<div className='contentRight'>
 						<div className='name'>{data?.collectionName}</div>
 						<div className='info'>
-							<section className='fontWeight'>{data?.nftMetadata?.name || data?.name + '#' + data?.tokenId}</section>
+							<section className='fontWeight'>{formatTokenId((data?.nftMetadata?.name || data?.name), data?.tokenId)}</section>
 						</div>
 					</div>
 				</div>
 				{props?.sellOrderFlag &&
 					<div className='royalties'>
-						<div className='royalties-fee fee'><span>版税</span><span>5%</span></div>
-						<div className='fee'><span>手续费</span><span>1%</span></div>
+						<div className='royalties-fee fee'><span>版税</span><span>{data.royalty} %</span></div>
+						<div className='fee'><span>手续费</span><span>{handlingFee} %</span></div>
 					</div>
 				}
 
@@ -268,7 +278,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				)}
 
 				<div className='payWaper'>
-					<div className='title'>以 {updatePrice} USDT 的价格上架</div>
+					{Number(updatePrice) > 0 && <div className='title'>以 {updatePrice} USDT 的价格上架</div>}
 					<div className='info'>{t('marketplace.details.sellTips')}</div>
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>确认上架</div>
