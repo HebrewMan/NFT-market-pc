@@ -312,7 +312,7 @@ export const ProductionDetails = () => {
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && DetailData.amount} {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && DetailData.amountTotal} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>

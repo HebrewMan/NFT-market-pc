@@ -23,7 +23,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   const { t } = useTranslation()
   const history = useHistory()
   const { data } = props
-  const { orderId, price, contractAddr, moneyAddr, tokenId, amount, coin, marketAddr, contractType } = props.data
+  const { orderId, price, contractAddr, moneyAddr, tokenId, leftAmount, coin, marketAddr, contractType } = props.data
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId, 16)
@@ -71,7 +71,7 @@ const ReceiveModal: React.FC<any> = (props) => {
 
   // 买nft合约
   const getBuy = async () => {
-    if (subNum > amount) {
+    if (subNum > leftAmount) {
       message.error('购买数量超过NFT数量')
       return
     }
@@ -86,7 +86,7 @@ const ReceiveModal: React.FC<any> = (props) => {
 
     const obj = {
       orderId, // 订单id
-      price: toPriceDecimals(price, 18), // nft 价格 USDT.decimals
+      price: toPriceDecimals(paymentPrice, 18), // nft 价格 USDT.decimals
       // marketType: 2, // 用于标注二级市场
       Erc1155ContractAddr: contractAddr,
       moneyMintAddress: moneyAddr,
@@ -173,7 +173,7 @@ const ReceiveModal: React.FC<any> = (props) => {
 
         <div className='pay'>
           <div className='name'>payment amount</div>
-          <div className='price'>{paymentPrice} USDT</div>
+          <div className='price'>{paymentPrice} AITD</div>
         </div>
         <div className='BuyBtn' onClick={getBuy}>to pay</div>
       </Modal>

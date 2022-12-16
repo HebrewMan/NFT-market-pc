@@ -63,9 +63,9 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	}
 
 	// 当数量变化时，价格重新计算
-	useEffect(() => {
-		setUpdatePrice(multipliedBy(updatePrice, defaultAmountNum, 18))
-	}, [defaultAmountNum])
+	// useEffect(() => {
+	// 	setUpdatePrice(multipliedBy(updatePrice, defaultAmountNum, 18))
+	// }, [defaultAmountNum])
 	// 关闭
 	const onCancel = () => {
 		props?.onCancel()
