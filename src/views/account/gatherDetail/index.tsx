@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Input } from 'antd'
+import { Input, Typography } from 'antd'
 import { Select } from 'Src/views/marketplace/Select'
 import { getListedNftList } from 'Src/api'
 import './index.scss'
@@ -20,6 +20,8 @@ export const GatherDetail: React.FC<any> = () => {
   const [inputMin, setInputMin] = useState('')
   const [inputMax, setInputMax] = useState('')
   const [listData, setListData] = useState<any[]>([])
+  const [infoVisible, setInfoVisible] = useState(false)
+
   const queryList = [
     { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
     { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
@@ -44,6 +46,36 @@ export const GatherDetail: React.FC<any> = () => {
   }
   const handleChangeQuery = () => {
 
+  }
+
+  const getDescInfo = () => {
+    const { Paragraph } = Typography
+    const article = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit'
+    return (
+      <Paragraph
+        ellipsis={
+          infoVisible
+            ? false
+            : {
+              rows: 3,
+              expandable: true,
+              symbol: (
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setInfoVisible(true)
+                  }}
+                >
+                  展开
+                </span>
+              ),
+            }
+        }
+      >
+        {article}
+        {infoVisible && <a onClick={() => setInfoVisible(false)}>收起</a>}
+      </Paragraph>
+    )
   }
   const CardItem = () => {
     return listData.map((item: any, index: number) => {
@@ -84,8 +116,7 @@ export const GatherDetail: React.FC<any> = () => {
                 <div>创作者：0x5d25...01ded2 <img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
               </div>
               <div className='moreinfo'>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod...</p>
-                <label>更多</label>
+                {getDescInfo()}
               </div>
               <div className='detail-amount'>
                 <section>

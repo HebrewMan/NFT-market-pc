@@ -139,7 +139,7 @@ const ContentDetail = (props: any) => {
     },
     {
       title: 'Amount',
-      dataIndex: 'amount',
+      dataIndex: 'leftAmount',
     },
     {
       title: 'Address',

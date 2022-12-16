@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { HeaderSearch } from '../../components/HeaderSearch'
 import { Select } from '../marketplace/Select'
 import { formatAdd } from '../marketplace/utils'
-import { message, Select as SelectAntd } from 'antd'
+import { message, Select as SelectAntd, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import UpdatePriceModal from '../marketplace/ProductDetails/UpdatePriceModal'
@@ -13,14 +13,8 @@ import useWeb3 from 'Src/hooks/useWeb3'
 import { cancelMarketItem } from 'Src/hooks/marketplace'
 import config from 'Src/config/constants'
 import ListItem from 'Src/components/ListItem'
-
-import {
-  createIpfs,
-  getMyNFTList,
-} from '../../api'
-// import { getFans, getFansByGoodsId, removeFans } from '../../api/fans';
+import { createIpfs, getMyNFTList } from '../../api'
 import { getAccountInfo, updateUserInfo } from '../../api/user'
-// import { getCollectionDetails } from '../../api/collection';
 import { uploadFileCheck } from '../../utils/utils'
 import { useTouchBottom } from '../../hooks'
 import './index.scss'
@@ -134,6 +128,8 @@ export const Account: React.FC<any> = () => {
   const { page, size } = httpData
   const token = getCookie('web-token') || ''
   const [detailData, setDetailData] = useState({})
+  const [infoVisible, setInfoVisible] = useState(false)
+
   // 初始化
   useEffect(() => {
     setCollectionsData([])
@@ -379,26 +375,6 @@ export const Account: React.FC<any> = () => {
     }
     getAccountNFTList(newParams)
   }
-  // const handleReset = () => {
-  //   setKeyWord('');
-  //   setSort('');
-  //   setStatus(undefined);
-  //   setReset(!reset);
-  //   const resetParams = {
-  //     ...httpData,
-  //     page: 1,
-  //     size,
-  //   };
-  //   resetParams.data.name = '';
-  //   pageRef.current = 0;
-  //   setPageCurrent(1);
-  //   setCollectionsData([]);
-  //   if (Math.ceil(total / size) > page) {
-  //     setIsMore(true);
-  //   }
-  //   setHttpData(() => ({ ...resetParams }));
-  // };
-
   const handleBannerImage = (e: any) => {
     const file = e.target.files[0]
 
@@ -420,6 +396,36 @@ export const Account: React.FC<any> = () => {
       updateGeneralInfo({ ...accountInfo, bannerUrl: res.data })
     })
   }
+  const getDescInfo = () => {
+    const { Paragraph } = Typography
+    const article = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit'
+    return (
+      <Paragraph
+        ellipsis={
+          infoVisible
+            ? false
+            : {
+              rows: 3,
+              expandable: true,
+              symbol: (
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setInfoVisible(true)
+                  }}
+                >
+                  展开
+                </span>
+              ),
+            }
+        }
+      >
+        {article}
+        {infoVisible && <a onClick={() => setInfoVisible(false)}>收起</a>}
+      </Paragraph>
+    )
+  }
+
 
   const Tabs = (props: any) => {
     const changeIndex = (index: number) => {
@@ -566,8 +572,7 @@ export const Account: React.FC<any> = () => {
               </div>
 
               <div className='moreinfo'>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod...</p>
-                <label>更多</label>
+                {getDescInfo()}
               </div>
             </div>
           </div>

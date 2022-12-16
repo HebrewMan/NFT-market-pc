@@ -19,8 +19,6 @@ import { getApproval, getIsApproved } from 'Src/hooks/web3Utils'
 import MessageModal from '../MessageModal'
 
 const ReceiveModal: React.FC<any> = (props) => {
-  console.log(props, 'props')
-
   const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()

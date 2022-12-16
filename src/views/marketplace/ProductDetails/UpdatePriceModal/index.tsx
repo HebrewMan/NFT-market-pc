@@ -52,8 +52,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	useEffect(() => {
 		setIsModalVisible(props.isOpen)
 		setUpdatePrice(price)
-		console.log(typeof (updatePrice), 'updatePrice')
-
 		setAmountNum(amount)
 		// 获取手续费配置
 		HandlingFeeData()
@@ -250,6 +248,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 						</div>
 					</div>
 				</div>
+				{/* 上架显示版税和手续费 */}
 				{props?.sellOrderFlag &&
 					<div className='royalties'>
 						<div className='royalties-fee fee'><span>版税</span><span>{data.royalty} %</span></div>
@@ -278,7 +277,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				)}
 
 				<div className='payWaper'>
-					{Number(updatePrice) > 0 && <div className='title'>以 {updatePrice} USDT 的价格上架</div>}
+					{Number(updatePrice) > 0 && <div className='title'>以 {updatePrice} AITD的价格上架</div>}
 					<div className='info'>{t('marketplace.details.sellTips')}</div>
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>确认上架</div>
