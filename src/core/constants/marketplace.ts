@@ -10,7 +10,7 @@ export const defaultParams = {
     },
   ],
   page: 1,
-  size: 12,
+  size:20,
 };
 export const blindType = [
   { value: 1, name: '盲盒' },

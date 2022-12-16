@@ -111,9 +111,9 @@ export const createMarketSale = async (web3: Web3, obj?: any) => {
   const { orderId, price, Erc1155ContractAddr, moneyMintAddress, marketPlaceContractAddr, account, amounts, coin } = obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
   let sendObj: any = { from: account};
-  // 原生币支付要给value传值, value为发交易的时候支付多少
+  // 原生币支付要给value传值, value为发交易的时候支付多少    购买多个value要 * 数量amounts
   if (coin === 'AITD') {
-    sendObj = { ...sendObj, value: price };
+    sendObj = { ...sendObj, value: multipliedBy(price,amounts,18)};
   }
   try {
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)

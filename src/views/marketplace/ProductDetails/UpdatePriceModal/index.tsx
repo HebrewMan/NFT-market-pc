@@ -169,13 +169,9 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		}
 		if (orderRes?.transactionHash) {
 			// 上架通知后台
-			message.success(t('hint.order'))
 			setMessageVisible(true)
-			// 上架成功 跳转到个人资产
-			// history.push(`/account/0/${walletAccount}`)
-			props?.onCancel()
-			props?.updateGoods()
-
+			message.success(t('hint.order'))
+			setIsModalVisible(false)
 		}
 		instanceLoading.close()
 	}
@@ -283,7 +279,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>确认上架</div>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}
-			<MessageModal data={MessageData} visible={messageVisible} title={props?.sellOrderFlag ? '上架成功' : '改价成功'} />
+			<MessageModal visible={messageVisible} data={MessageData} title={props?.sellOrderFlag ? '上架成功' : '改价成功'} />
 		</div>
 	)
 }

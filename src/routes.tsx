@@ -47,7 +47,7 @@ export function Routes() {
             <Route exact path='/login' component={() => <Login />} />
             <Route exact path='/account/:id?/:address?' component={() => <Account />} />
             <Route exact path='/gather' component={() => <GatherList />} />
-            <Route exact path='/gather-detail/:id' component={() => <GatherDetail />} />
+            <Route exact path='/gather-detail' component={() => <GatherDetail />} />
             <Route exact path='/gather-edit/:id' component={() => <GatherEdit />} />
             <Route exact path='/collection/:id' component={() => <Collection />} />
             <Route exact path='/user-settings' component={() => <UserSetting />} />

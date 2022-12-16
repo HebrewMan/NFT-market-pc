@@ -1,19 +1,23 @@
 
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Input, Typography } from 'antd'
 import { Select } from 'Src/views/marketplace/Select'
 import { getListedNftList } from 'Src/api'
 import './index.scss'
 import { HeaderSearch } from 'Src/components/HeaderSearch'
 import { useTranslation } from 'react-i18next'
-import { intlFloorFormat } from 'Utils/bigNumber'
+import { intlFloorFormat, NumUnitFormat } from 'Utils/bigNumber'
 import AEmpty from "Src/components/Empty"
 import ListItem from 'Src/components/ListItem'
-import { formatTokenId } from 'Utils/utils'
+import { formatTokenId, } from 'Utils/utils'
+import { formatAdd } from '../../marketplace/utils'
+import _ from 'lodash'
 
 export const GatherDetail: React.FC<any> = () => {
   const { t } = useTranslation()
+  const history = useHistory()
+  const [data, setData] = useState<any>(history.location.state)
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
   const [sort, setSort] = useState<any>("new")
   const [keyWord, setKeyWord] = useState('')
@@ -28,6 +32,10 @@ export const GatherDetail: React.FC<any> = () => {
     { name: `${t('marketplace.highToLow')}`, value: 'high' },
   ]
   useEffect(() => {
+    const state: any = history.location.state
+    console.log(state?.item, 'state?.itemstate?.item')
+
+    state && setData(state?.item)
     getList()
   }, [])
 
@@ -50,7 +58,7 @@ export const GatherDetail: React.FC<any> = () => {
 
   const getDescInfo = () => {
     const { Paragraph } = Typography
-    const article = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit'
+    const article = data.description
     return (
       <Paragraph
         ellipsis={
@@ -110,10 +118,10 @@ export const GatherDetail: React.FC<any> = () => {
           <div className='info-waper'>
             <img src="https://aitd-nft-images-test.s3.amazonaws.com/4e0fd1d406994e05a2ffe73006b1f0cf.jpg" alt="cover" className='cover' />
             <div className='info-list'>
-              <section className='name'>Star Minebronze</section>
+              <section className='name'>{data.name}</section>
               <div className='info-address'>
-                <div>合约：0x5d25...01ded2 <img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
-                <div>创作者：0x5d25...01ded2 <img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
+                <div>合约：{formatAdd(data.contractAddr)}<img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
+                <div>创作者: {formatAdd(data.createAddr)} <img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
               </div>
               <div className='moreinfo'>
                 {getDescInfo()}
@@ -123,62 +131,69 @@ export const GatherDetail: React.FC<any> = () => {
                   <p className='label'>地板价</p>
                   <div className='text'>
                     <img src={require('Src/assets/coin/aitd.svg')} alt="" />
-                    <span>0.5</span>
+                    <span>{intlFloorFormat(data.lowestPrice)}</span>
                   </div>
                 </section>
                 <section>
                   <p className='label'>总成交量</p>
                   <div className='text'>
                     <img src={require('Src/assets/coin/aitd.svg')} alt="" />
-                    <span>2354.45</span>
+                    <span>{NumUnitFormat(data.totalTransaction)}</span>
                   </div>
                 </section>
                 <section>
                   <p className='label'>总数</p>
                   <div className='text'>
-                    <span>120k</span>
+                    <span>{NumUnitFormat(data.totalTokens)}</span>
                   </div>
                 </section>
                 <section>
                   <p className='label'>持有者</p>
                   <div className='text'>
-                    <span>0x5d25...01ded2</span>
+                    <span>{NumUnitFormat(data.totalHolder)}</span>
                   </div>
                 </section>
                 <section>
                   <p className='label'>总挂单</p>
                   <div className='text'>
-                    <span>232.08k</span>
+                    <span>{NumUnitFormat(data.totalOrder)}</span>
                   </div>
                 </section>
                 <section>
                   <p className='label'>版税</p>
                   <div className='text'>
-                    <span>5%</span>
+                    <span>{data.royalty}%</span>
                   </div>
                 </section>
               </div>
             </div>
           </div>
           <div className='shareLink'>
-            <a href='http://www.baidu.com' target="_window">
+            {!_.isNull(data.linkSkypegmwcn) && <a href={data.linkSkypegmwcn} target="_window">
               <img src={require('Src/assets/account/icon-gw.png')} alt="" />
             </a>
-            <a href='http://www.baidu.com' target="_window">
+            }
+            {!_.isNull(data.linkTwitter) && <a href={data.linkTwitter} target="_window">
               <img src={require('Src/assets/account/icon-Twitter.png')} alt="" />
             </a>
-            <a href='http://www.baidu.com' target="_window">
+            }
+            {!_.isNull(data.linkDiscord) && <a href={data.linkDiscord} target="_window">
               <img src={require('Src/assets/account/icon-Discord.png')} alt="" />
             </a>
-            <a href='http://www.baidu.com' target="_window">
+            }
+            {!_.isNull(data.linkInstagram) && <a href={data.linkInstagram} target="_window">
               <img src={require('Src/assets/account/icon-Instagram.png')} alt="" />
             </a>
-            <a href='http://www.baidu.com' target="_window">
+            }
+            {!_.isNull(data.linkMedium) && <a href={data.linkMedium} target="_window">
               <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
             </a>
-            <Link to={'/gather-edit/1'}>
-              <img src={require('Src/assets/account/icon-edit.png')} alt="" />
-            </Link>
+            }
+            {data.createAddr === data.ownerAddr &&
+              <Link to={{ pathname: '/gather-edit', state: data }}>
+                <img src={require('Src/assets/account/icon-edit.png')} alt="" />
+              </Link>
+            }
 
           </div>
         </div>
@@ -189,7 +204,7 @@ export const GatherDetail: React.FC<any> = () => {
               <div className='condition'>
                 <Select list={queryList} placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
               </div>
-              <div className='price'>
+              {/* <div className='price'>
                 {t('marketplace.price')}
                 <Input
                   className='min'
@@ -205,7 +220,7 @@ export const GatherDetail: React.FC<any> = () => {
                   style={{ width: 84, height: 41 }}
                 // onChange={handleChangeMax}
                 />
-              </div>
+              </div> */}
             </section>
             <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
           </div>

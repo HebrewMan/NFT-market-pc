@@ -131,3 +131,17 @@ export function coverage(num:any) {
     }
     return result
   }
+
+/**
+   * 数值单位转换
+   * @param num
+   * @param precision 精度
+   */
+ export function NumUnitFormat(num: IType) {
+  if(num >= 10000){
+    num = Math.round(Number(num) / 1000) / 10 + 'w';
+  }else if (num >= 1000){
+    num = Math.round(Number(num) / 100) / 10 + 'k';
+  }
+  return num
+}

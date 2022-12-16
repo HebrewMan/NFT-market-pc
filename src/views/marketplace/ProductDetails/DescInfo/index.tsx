@@ -171,7 +171,13 @@ const ContentDetail = (props: any) => {
   const handlerMultipleOrders = () => {
     return (
       <div className='MultipleOrders'>
-        <Table columns={columns} dataSource={dataSource} size="small" pagination={false} className={'TableWaper'} />
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          size="small"
+          pagination={false}
+          className={'TableWaper'}
+          scroll={props?.DetailData?.price ? { y: 180 } : { y: 285 }} />
         {ModalOpen && <BugModal visible={ModalOpen} onCancel={() => setModalOpen(false)} data={DetailData} />}
         {/* 上架改价 */}
         {isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />}
