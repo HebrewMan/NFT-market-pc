@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { formatAdd } from '../../utils'
 import config from 'Src/config/constants'
 import './index.scss'
-import { Table, Button, message } from 'antd'
+import { Table, Button, message, ConfigProvider } from 'antd'
 import { getOrderList } from 'Src/api/order'
 import BugModal from '../bugModal'
 import { getCookie } from 'Utils/utils'
@@ -13,6 +13,9 @@ import instanceLoading from 'Utils/loading'
 import { cancelMarketItem } from 'Src/hooks/marketplace'
 import useWeb3 from 'Src/hooks/useWeb3'
 import UpdatePriceModal from '../UpdatePriceModal'
+import InfiniteScroll from "react-infinite-scroll-component"
+import { intlFloorFormat } from 'Utils/bigNumber'
+import AEmpty from "Src/components/Empty"
 
 export const DescInfo = (props: any) => {
   const [type, setType] = useState(0)
@@ -69,6 +72,9 @@ const ContentDetail = (props: any) => {
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const [isOpen, setIsOpen] = useState(false)
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false)
+  const [hasMore, setHasMore] = useState(true)
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
 
   // 获取订单列表
   useEffect(() => {
@@ -79,12 +85,13 @@ const ContentDetail = (props: any) => {
     const useParams = {
       tokenId: tokenId,
       contractAddr: contractAddr,
-      page: 1,
-      size: 10,
+      page: page,
+      size: 20,
     }
     const data: any = await getOrderList(useParams)
-    setDataSource(data.data.records)
 
+    setDataSource(dataSource.concat(data.data.records))
+    setTotal(data.data.total)
   }
   // 购买
   const handleBuy = (record: any) => {
@@ -134,7 +141,7 @@ const ContentDetail = (props: any) => {
       title: 'Price',
       dataIndex: 'price',
       render: (r: string, t: any) => {
-        return <>{t.price + ' ' + t.coin}</>
+        return <>{intlFloorFormat(t.price, 4) + ' ' + t.coin}</>
       }
     },
     {
@@ -166,18 +173,38 @@ const ContentDetail = (props: any) => {
     },
   ]
 
+  const fetchMoreData = () => {
+    if (total <= 20) {
+      setHasMore(false)
+      return
+    }
+    setTimeout(() => {
+      setPage(page + 1)
+      IntGetOrderList()
+    }, 500)
+  }
 
   // 多订单
   const handlerMultipleOrders = () => {
     return (
       <div className='MultipleOrders'>
-        <Table
-          columns={columns}
-          dataSource={dataSource}
-          size="small"
-          pagination={false}
-          className={'TableWaper'}
-          scroll={props?.DetailData?.price ? { y: 180 } : { y: 285 }} />
+        <InfiniteScroll
+          dataLength={dataSource.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={false}
+          height={props?.DetailData?.price ? 180 : 285}
+        >
+          <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              size="small"
+              pagination={false}
+              className={'TableWaper'}
+            />
+          </ConfigProvider>
+        </InfiniteScroll>
         {ModalOpen && <BugModal visible={ModalOpen} onCancel={() => setModalOpen(false)} data={DetailData} />}
         {/* 上架改价 */}
         {isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />}

@@ -29,6 +29,8 @@ interface accountInfoProps {
   headUrl: string
   bannerUrl: string
   id: string
+  bio: string
+
 }
 interface collectionsDataProps {
   id: number
@@ -90,6 +92,7 @@ export const Account: React.FC<any> = () => {
     headUrl: '',
     bannerUrl: '',
     id: '',
+    bio: ''
   })
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId, 16)
@@ -115,7 +118,7 @@ export const Account: React.FC<any> = () => {
   const [pageCurrent, setPageCurrent] = useState(1)
   const [httpData, setHttpData] = useState({
     page: pageCurrent,
-    size: 12,
+    size: 20,
     data: { ...defaultData },
   })
   const [isMore, setIsMore] = useState(false)
@@ -398,7 +401,7 @@ export const Account: React.FC<any> = () => {
   }
   const getDescInfo = () => {
     const { Paragraph } = Typography
-    const article = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit'
+    const article = accountInfo.bio
     return (
       <Paragraph
         ellipsis={
@@ -443,7 +446,13 @@ export const Account: React.FC<any> = () => {
   }
 
   const handleJump = (item: any) => {
-    item.orderId ? history.push(`/product-details/${item.orderId}`) : history.push(`/product-details/${0}/${item.tokenId}/${item?.contractAddr}`)
+    const orderId = item?.orderId
+    const tokenId = item?.tokenId
+    const contractAddr = item?.contractAddr
+    history.push({
+      pathname: "/product-details",
+      state: { orderId, tokenId, contractAddr, source: 'assets' }
+    })
   }
   // 售出 和取消上架
   const handleChange = (e: any, item: any) => {
@@ -504,9 +513,15 @@ export const Account: React.FC<any> = () => {
               <div className='collection-name'>{item.collectionName}</div>
               <div className='price'>
                 <div className='priceCenter'>
-                  <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                  {item.status === 0 ? intlFloorFormat(item.price, 4) + ' AITD' : '0.00' + ' AITD'}
+                  {item.price != null &&
+                    <>
+                      <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
+                      {item.status === 0 ? intlFloorFormat(item.price, 4) + ' AITD' : '0.00' + ' AITD'}
+                    </>
+                  }
                 </div>
+
+
                 <div className='btn' onClick={(e) => handleChange(e, item)}>
                   <img src="Src/assets/account/buy.png" alt="" />
                   {item.status === 0 ? '下架' : '上架'}

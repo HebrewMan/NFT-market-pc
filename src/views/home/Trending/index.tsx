@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Autoplay, Navigation } from 'swiper';
-import { isMobile } from 'react-device-detect';
-import useWindowDimensions from '../../../utils/layout';
-import { getRecommendCollection } from '../../../api/collection';
-import 'swiper/scss';
-import './index.scss';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Autoplay, Navigation } from 'swiper'
+import { isMobile } from 'react-device-detect'
+import useWindowDimensions from '../../../utils/layout'
+import { getRecommendCollection } from '../../../api/collection'
+import 'swiper/scss'
+import './index.scss'
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation])
 
 const TrendSwiper = (props: any) => {
-  const { collections, setCurrentSwiperObject } = props;
+  const { collections, setCurrentSwiperObject } = props
 
   return (
     <Swiper
@@ -31,33 +31,33 @@ const TrendSwiper = (props: any) => {
         prevEl: '.swiper-button-prev',
       }}
       onSlideChange={(swiper) => {
-        setCurrentSwiperObject(collections[swiper.activeIndex]);
+        setCurrentSwiperObject(collections[swiper.activeIndex])
       }}
       onProgress={(swiper, progress: number) => {
-        const slides: any = swiper.slides;
+        const slides: any = swiper.slides
         for (let i = 0; i < slides.length; i++) {
-          var slide = slides.eq(i);
-          var slideProgress = slides[i].progress;
-          let modify = 1;
+          var slide = slides.eq(i)
+          var slideProgress = slides[i].progress
+          let modify = 1
           if (Math.abs(slideProgress) > 1) {
-            modify = (Math.abs(slideProgress) - 1) * 0.18 + 1;
+            modify = (Math.abs(slideProgress) - 1) * 0.18 + 1
           }
-          const translate = slideProgress * modify * 142 + 'px';
-          const scale = 1 - Math.abs(slideProgress) / 5;
-          const zIndex = 999 - Math.abs(Math.round(10 * slideProgress));
-          slide.transform('translateX(' + translate + ') scale(' + scale + ')');
-          slide.css('zIndex', zIndex);
-          slide.css('opacity', 1);
+          const translate = slideProgress * modify * 142 + 'px'
+          const scale = 1 - Math.abs(slideProgress) / 5
+          const zIndex = 999 - Math.abs(Math.round(10 * slideProgress))
+          slide.transform('translateX(' + translate + ') scale(' + scale + ')')
+          slide.css('zIndex', zIndex)
+          slide.css('opacity', 1)
           if (Math.abs(slideProgress) > 3) {
-            slide.css('opacity', 0);
+            slide.css('opacity', 0)
           }
         }
       }}
       onSetTransition={(swiper, transition: number) => {
-        const slides: any = swiper.slides;
+        const slides: any = swiper.slides
         for (var i = 0; i < slides.length; i++) {
-          var slide = slides.eq(i);
-          slide.transition(transition);
+          var slide = slides.eq(i)
+          slide.transition(transition)
         }
       }}
     >
@@ -65,7 +65,7 @@ const TrendSwiper = (props: any) => {
         <SwiperSlide key={index}>
           <div className='swiper-items'>
             <div className='swiper-item'>
-              <Link to={`/collection/${item.id}`}>
+              <Link to={`/gather-detail/${item.id}`}>
                 <img src={item.coverUrl} alt='' />
               </Link>
             </div>
@@ -73,11 +73,11 @@ const TrendSwiper = (props: any) => {
         </SwiperSlide>
       ))}
     </Swiper>
-  );
-};
+  )
+}
 
 const TrendSwiperMobile = (props: any) => {
-  const { collections } = props;
+  const { collections } = props
   return (
     <Swiper
       modules={[Autoplay]}
@@ -99,18 +99,18 @@ const TrendSwiperMobile = (props: any) => {
               </div>
             </div>
           </SwiperSlide>
-        );
+        )
       })}
     </Swiper>
-  );
-};
+  )
+}
 
 export const Trending = () => {
-  const { t } = useTranslation();
-  const { width } = useWindowDimensions();
-  const [collections, setCollections] = useState<any[]>([]);
-  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({});
-  const styles: object = { textAlign: 'center', paddingTop: '40px', fontWeight: 600 };
+  const { t } = useTranslation()
+  const { width } = useWindowDimensions()
+  const [collections, setCollections] = useState<any[]>([])
+  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({})
+  const styles: object = { textAlign: 'center', paddingTop: '40px', fontWeight: 600 }
 
   const init = async () => {
     const params = {
@@ -120,16 +120,16 @@ export const Trending = () => {
       },
       page: 1,
       size: 6,
-    };
-    const res: any = await getRecommendCollection(params);
-    setCollections(res.data.records);
+    }
+    const res: any = await getRecommendCollection(params)
+    setCollections(res.data.records)
 
-    setCurrentSwiperObject(res?.data?.records[0]);
-  };
+    setCurrentSwiperObject(res?.data?.records[0])
+  }
 
   useEffect(() => {
-    init();
-  }, []);
+    init()
+  }, [])
 
   return (
     <>
@@ -169,5 +169,5 @@ export const Trending = () => {
         </div>
         )} */}
     </>
-  );
-};
+  )
+}

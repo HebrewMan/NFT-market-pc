@@ -35,7 +35,8 @@ export const ProductionDetails = () => {
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const { account } = useWeb3React()
   const [tokenId, setTokenId] = useState<string>('')
-  const [orderId, setOrderId] = useState<number>()
+  const [orderId, setOrderId] = useState<string>('')
+  const [userContractAddr, setUserContractAddr] = useState('')
   const [ownerAddr, setOwnerAddr] = useState('')
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const token = getCookie('web-token') || ''
@@ -51,11 +52,11 @@ export const ProductionDetails = () => {
   const [collectGoodsData, setCollectGoodsData] = useState([])
   const [messageVisible, setMessageVisible] = useState(false)
   const history = useHistory()
-  const {
-    id: goodsId,
-    tokenId: userTokenId,
-    contractAddr: userContractAddr,
-  } = useParams<{ id: string; tokenId: string; contractAddr: string }>() // 路由参数id tokenId
+  // const {
+  //   id: goodsId,
+  //   tokenId: userTokenId,
+  //   contractAddr: userContractAddr,
+  // } = useParams<{ id: string; tokenId: string; contractAddr: string }>() // 路由参数id tokenId
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false)
   const [noticeStatus, setNoticeStatus] = useState<number | string>('')
@@ -64,12 +65,15 @@ export const ProductionDetails = () => {
   const [contractType, setContractType] = useState(null)
   const [bugModalOpen, setBuyModalOpen] = useState(false)
   const [isAITD, setIsAITD] = useState<boolean>(false)
-
   //初始化数据
   useEffect(() => {
+    const state: any = history.location.state
+    setOrderId(state?.orderId)
+    setTokenId(state?.tokenId)
+    setUserContractAddr(state?.contractAddr)
     // 详情
-    init()
-  }, [tokenId, goodsId])
+    init(state?.orderId)
+  }, [])
 
   useEffect(() => {
     if (noticeStatus === '') return
@@ -81,17 +85,23 @@ export const ProductionDetails = () => {
       getCollection()
     }
   }, [DetailData?.collectionId])
-  const init = async () => {
+  const init = async (orderId: string) => {
+    const state: any = history.location.state
     const params = {
-      orderId: goodsId,
+      orderId: orderId,
     }
     const useParams = {
-      orderId: goodsId || '',
-      tokenId: userTokenId,
-      contractAddr: userContractAddr,
-      marketAddr: marketPlaceContractAddr,
+      tokenId: state?.tokenId,
+      contractAddr: state?.contractAddr,
     }
-    let { data } = userTokenId ? await getUserNFTDetail(useParams) : await getNFTDetail(params)
+    let datas: any = {}
+    //1 如果是从资产跳转过来  并且没有 order id
+    if (state?.source === 'assets' && orderId == null) {
+      datas = await getUserNFTDetail(useParams)
+    } else {
+      datas = await getNFTDetail(orderId == null ? useParams : params)
+    }
+    let { data } = datas
     setStatus(data.status) //售卖状态
     setAmount(data.amount)
     setDetailMetadata(data?.nftMetadata)
@@ -151,7 +161,6 @@ export const ProductionDetails = () => {
   }
   // 请求Trading History
   const getOrderPageData = async (tokenId: number, contractAddr: string) => {
-    console.log(contractAddr, 'contractAddr')
 
     const obj = {
       tokenId: tokenId,
@@ -169,7 +178,7 @@ export const ProductionDetails = () => {
   const isCancelSell = () => {
 
     // 用户资产跳过来进行出售操作，刷新后用数量判断
-    const canEdit = userTokenId && amount === 0
+    const canEdit = tokenId && amount === 0
     // userNftStatus用于判断nft是否正在出售
     return isOwner() && (canEdit || userNftStatus === 0 || status === 0)
   }
@@ -246,7 +255,7 @@ export const ProductionDetails = () => {
 
   const sellBtn = () => {
     // 用户资产跳转过来状态为用户撤单 或 个数不为0
-    const canSell = userTokenId ? amount !== 0 || userNftStatus === 2 : true
+    const canSell = tokenId ? amount !== 0 || userNftStatus === 2 : true
     // 判断属于本人, status 不是正在出售
     if (isOwner() && canSell && status !== 0) {
       return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>
@@ -263,7 +272,7 @@ export const ProductionDetails = () => {
     }
   }
   const updateGoods = () => {
-    init()
+    init(orderId)
     getFansByGoodsIdData(DetailData?.tokenId, DetailData?.contractAddr)
 
   }
@@ -312,7 +321,7 @@ export const ProductionDetails = () => {
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && DetailData.amountTotal} {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && DetailData.amount} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>

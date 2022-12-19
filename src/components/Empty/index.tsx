@@ -1,24 +1,24 @@
-import React, { ReactNode } from 'react';
-import  './index';
+import React, { ReactNode } from 'react'
+import './index'
 import { Empty } from 'antd'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 
 const AEmpty: React.FC<IProps> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const NO_DATA_IMG = require('Src/assets/empty.png')
   const {
     description = t('common.noDataLong'),
     image = NO_DATA_IMG,
-    imageStyle = {height: 90,},
+    imageStyle = { height: 90, },
     style,
     ...rest
   } = props
 
   const myStyle = {
-    paddingTop:'80px',
-    height: '300px',
-    width:'100%',
+    paddingTop: '80px',
+    height: '220px',
+    width: '100%',
     ...style,
   }
 
@@ -33,8 +33,8 @@ const AEmpty: React.FC<IProps> = (props) => {
     >
       {props.children}
     </Empty>
-  );
-};
+  )
+}
 
 interface IProps {
   image?: string | ReactNode,
@@ -44,4 +44,4 @@ interface IProps {
   style?: any,
 }
 
-export default AEmpty;
+export default AEmpty

@@ -13,11 +13,12 @@ import { intlFloorFormat } from 'Utils/bigNumber'
 import ListItem from 'Src/components/ListItem'
 import AEmpty from "Src/components/Empty"
 import { formatTokenId } from 'Utils/utils'
-
+import { useHistory } from 'react-router-dom'
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 export const MarketPlace = () => {
   const { t } = useTranslation()
+  const history = useHistory()
   const [goodsList, setGoodsList] = useState<any[]>([])
   const [total, setTotal] = useState(0)
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
@@ -107,11 +108,17 @@ export const MarketPlace = () => {
       pageRef.current = 0
     }
   }
+  const handleJump = (item: any) => {
+    history.push({
+      pathname: "/product-details",
+      state: { orderId: item.orderId }
+    })
+  }
   const CardItem = () => {
     return goodsList.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link to={`/product-details/${item.orderId}`}>
+          <div onClick={() => handleJump(item)}>
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
             </div>
@@ -125,7 +132,7 @@ export const MarketPlace = () => {
                 {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
               </div>
             </div>
-          </Link>
+          </div>
         </div>
       )
     })

@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { Input, Typography } from 'antd'
 import { Select } from 'Src/views/marketplace/Select'
-import { getListedNftList } from 'Src/api'
+import { getGoodsByCollectionId } from 'Src/api'
 import './index.scss'
 import { HeaderSearch } from 'Src/components/HeaderSearch'
 import { useTranslation } from 'react-i18next'
@@ -13,47 +13,103 @@ import ListItem from 'Src/components/ListItem'
 import { formatTokenId, } from 'Utils/utils'
 import { formatAdd } from '../../marketplace/utils'
 import _ from 'lodash'
+import { getCollectionDetails } from 'Src/api/collection'
 
 export const GatherDetail: React.FC<any> = () => {
   const { t } = useTranslation()
   const history = useHistory()
-  const [data, setData] = useState<any>(history.location.state)
+  const { id: id } = useParams<{ id: string }>() // 路由参数id
+  const [data, setData] = useState<any>([])
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
-  const [sort, setSort] = useState<any>("new")
+  const [sort, setSort] = useState<any>("low")
   const [keyWord, setKeyWord] = useState('')
-  const [inputMin, setInputMin] = useState('')
-  const [inputMax, setInputMax] = useState('')
   const [listData, setListData] = useState<any[]>([])
   const [infoVisible, setInfoVisible] = useState(false)
-
+  const [collectionsData, setCollectionsData] = useState<any>([])
+  const [page, setPage] = useState(1)
   const queryList = [
-    { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
-    { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
-    { name: `${t('marketplace.highToLow')}`, value: 'high' },
+    // 所有过滤条件
+    {
+      label: 'status',
+      name: t("collection.listed"),
+      value: 0,
+    },
+    {
+      label: 'status',
+      name: t("collection.selling"),
+      value: 1,
+    },
+    {
+      label: 'status',
+      name: t("collection.cancellation"),
+      value: 2,
+    },
+    // {
+    //   label: 'status',
+    //   name: 'Force Cancel',
+    //   value: 3,
+    // },
+    {
+      label: 'sort',
+      name: t("collection.priceHigh"),
+      value: 'high',
+    },
+    {
+      label: 'sort',
+      name: t("collection.priceLow"),
+      value: 'low',
+    },
   ]
+  // const queryList = [
+  //   { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
+  //   { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
+  //   { name: `${t('marketplace.highToLow')}`, value: 'high' },
+  // ]
+
   useEffect(() => {
-    const state: any = history.location.state
-    console.log(state?.item, 'state?.itemstate?.item')
+    getList(id)
+    getAccountInfoById(Number(id))
+  }, [id])
 
-    state && setData(state?.item)
-    getList()
-  }, [])
 
-  // 获取集合列表
-  const getList = async () => {
-    const res: any = await getListedNftList({
-      page: 1,
-      size: 12,
-    })
+  // 通过合集id获取账户详情基本信息
+  const getAccountInfoById = async (id: number) => {
+    setCollectionsData([])
+    const res: any = await getCollectionDetails(Number(id))
+    setData(res.data)
+  }
+  // g根据集合id 获取相关Nft列表
+  const getList = async (id: string) => {
+    const deepParams: any = {
+      data: {
+        keyWord: keyWord,
+        sort: sort,
+        collectionId: id,
+      },
+      page: page,
+      size: 20,
+    }
+    const res: any = await getGoodsByCollectionId(deepParams)
     setListData(res.data.records)
     // setTotal(res.data.total);
   }
+
   const getKeyWord = (value: string) => {
+    console.log(value, 'value')
+
     // setGoodsList([]);
     // setParams({ ...params, name: value, page: 1 });
   }
   const handleChangeQuery = () => {
 
+  }
+
+
+  const handleJump = (item: any) => {
+    history.push({
+      pathname: "/product-details",
+      state: { orderId: item?.orderId, tokenId: item?.tokenId, contractAddr: item?.contractAddr }
+    })
   }
 
   const getDescInfo = () => {
@@ -89,7 +145,7 @@ export const GatherDetail: React.FC<any> = () => {
     return listData.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link to={`/product-details/${item.orderId}`}>
+          <div onClick={() => handleJump(item)}>
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
             </div>
@@ -98,12 +154,15 @@ export const GatherDetail: React.FC<any> = () => {
                 <div className='name'>{formatTokenId(item.name, item.tokenId)}</div>
               </div>
               <div className='collection-name'>{item.collectionName}</div>
-              <div className='price'>
-                <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
-              </div>
+              {item.price != null &&
+                <div className='price'>
+                  <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
+                  {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
+                </div>
+              }
+
             </div>
-          </Link>
+          </div>
         </div>
       )
     })
@@ -131,7 +190,7 @@ export const GatherDetail: React.FC<any> = () => {
                   <p className='label'>地板价</p>
                   <div className='text'>
                     <img src={require('Src/assets/coin/aitd.svg')} alt="" />
-                    <span>{intlFloorFormat(data.lowestPrice)}</span>
+                    <span>{intlFloorFormat(data.lowestPrice, 4)}</span>
                   </div>
                 </section>
                 <section>
@@ -204,23 +263,6 @@ export const GatherDetail: React.FC<any> = () => {
               <div className='condition'>
                 <Select list={queryList} placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
               </div>
-              {/* <div className='price'>
-                {t('marketplace.price')}
-                <Input
-                  className='min'
-                  value={inputMin}
-                  placeholder={t('marketplace.min') || undefined}
-                  style={{ width: 84, height: 41 }}
-                // onChange={handleChangeMin}
-                />
-                <span className='to'>{t('marketplace.to')}</span>
-                <Input
-                  placeholder={t('marketplace.max') || undefined}
-                  value={inputMax}
-                  style={{ width: 84, height: 41 }}
-                // onChange={handleChangeMax}
-                />
-              </div> */}
             </section>
             <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
           </div>

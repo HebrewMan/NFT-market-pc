@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import lodash from 'lodash'
+import _ from 'lodash'
 
 type IType = string | BigNumber | number;
 type ITypeArr = IType[];
@@ -117,13 +117,12 @@ export function coverage(num:any) {
    * @param precision 精度
    */
    export function intlFloorFormat(num: number, precision = 0): string | number {
-    if (num === 0 || isNaN(num)) {
-      return 0.00
+    if (num === 0 || num == null || num == undefined) {
+      return '0.00'
     }
     let result = ''
     let reg = new RegExp(`^\\d+(?:\\.\\d{0,${precision}})?`);
     let trimNum:any = num.toString().match(reg)
-
     if (trimNum == '0.0000') {
       result =  '0.00'
     }else{

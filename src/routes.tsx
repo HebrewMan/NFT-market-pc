@@ -40,14 +40,14 @@ export function Routes() {
               path='/primary-details/:id?/:status?/:blindStatus?/:tokenId?/:tags?/:metadataId?'
               component={() => <PrimaryDetails />}
             />
-            <Route exact path='/product-details/:id/:tokenId?/:contractAddr?' component={() => <ProductionDetails />} />
+            <Route exact path='/product-details' component={() => <ProductionDetails />} />
             <Route exact path='/helpcenter' component={() => <HelpCenter />} />
             <Route exact path='/article-type/:name/:id' component={() => <ArticleType />} />
             <Route exact path='/article-details/:name/:id' component={() => <ArticleDetails />} />
             <Route exact path='/login' component={() => <Login />} />
             <Route exact path='/account/:id?/:address?' component={() => <Account />} />
             <Route exact path='/gather' component={() => <GatherList />} />
-            <Route exact path='/gather-detail' component={() => <GatherDetail />} />
+            <Route exact path='/gather-detail/:id' component={() => <GatherDetail />} />
             <Route exact path='/gather-edit/:id' component={() => <GatherEdit />} />
             <Route exact path='/collection/:id' component={() => <Collection />} />
             <Route exact path='/user-settings' component={() => <UserSetting />} />

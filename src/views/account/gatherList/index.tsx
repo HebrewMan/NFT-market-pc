@@ -24,10 +24,7 @@ export const GatherList: React.FC<any> = () => {
 
   const handleChnage = (e: any, item: any) => {
     e.stopPropagation()
-    history.push({
-      pathname: "/gather-detail",
-      state: { item }
-    })
+    history.push(`/gather-detail/${item.id}`)
   }
 
   const dataSource = [{
@@ -182,7 +179,6 @@ export const GatherList: React.FC<any> = () => {
       // onChange: (page: number) => loadData(page),
     }
   }
-
   const handleEditChnage = (e: any, id: any) => {
     e.stopPropagation()
     history.push(`/gather-edit/${id}`)
@@ -200,7 +196,7 @@ export const GatherList: React.FC<any> = () => {
                   <div className='gatherList-item' onClick={(e) => handleChnage(e, item)} key={index}>
                     <div className='item-img'>
                       <img src={item.coverUrl} alt="" className='img-cover' />
-                      {item.createAddr === item.ownerAddr && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, '2')} />}
+                      {item.createAddr === item.ownerAddr && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.id)} />}
                     </div>
                     <div className='item-info'>
                       <img src={item.headUrl} alt="" />
@@ -209,7 +205,7 @@ export const GatherList: React.FC<any> = () => {
                     <div className='item-centen'>
                       <section>
                         <div className='label'>地板价</div>
-                        <p><img src={require('Src/assets/coin/aitd.svg')} alt="icon" className='coin'></img>{intlFloorFormat(item.lowestPrice)}</p>
+                        <p><img src={require('Src/assets/coin/aitd.svg')} alt="icon" className='coin'></img>{intlFloorFormat(item.lowestPrice, 4)}</p>
                       </section>
                       <section>
                         <div className='label'>总成交量</div>

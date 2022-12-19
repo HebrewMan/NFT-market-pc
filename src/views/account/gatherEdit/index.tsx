@@ -6,6 +6,8 @@ import { fileSizeValidator } from 'Utils/utils'
 import { useTranslation } from 'react-i18next'
 import { createIpfs } from 'Src/api'
 const { TextArea } = Input
+import { useParams } from 'react-router-dom'
+import { getCollectionDetails } from 'Src/api/collection'
 
 export const GatherEdit: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -14,6 +16,24 @@ export const GatherEdit: React.FC<any> = () => {
   const [fileAvatar, setFileAvatar] = useState(null) //头像
   const [fileCover, setFileCover] = useState(null) //封面图
   const [fileBackgroundImage, setFileBackgroundImage] = useState(null) //背景图
+  const { id: id } = useParams<{ id: string }>() // 路由参数id
+
+  useEffect(() => {
+    console.log(id, 'ududdddd')
+    getAccountInfoById(id)
+  }, [id])
+
+  // 通过合集id获取基本信息
+  const getAccountInfoById = async (id: string) => {
+    // setCollectionsData([])
+    const res: any = await getCollectionDetails(Number(id))
+
+    console.log(res, 'resssss')
+
+    // setData(res.data)
+  }
+
+
   // 表单基础校验
   const handelFieldsChange = (changedFields: any[], allFields: any[]) => {
 
