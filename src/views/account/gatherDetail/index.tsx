@@ -10,10 +10,11 @@ import { useTranslation } from 'react-i18next'
 import { intlFloorFormat, NumUnitFormat } from 'Utils/bigNumber'
 import AEmpty from "Src/components/Empty"
 import ListItem from 'Src/components/ListItem'
-import { formatTokenId, } from 'Utils/utils'
+import { formatTokenId, handleCopy } from 'Utils/utils'
 import { formatAdd } from '../../marketplace/utils'
 import _ from 'lodash'
 import { getCollectionDetails } from 'Src/api/collection'
+import InfiniteScroll from "react-infinite-scroll-component"
 
 export const GatherDetail: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -25,8 +26,13 @@ export const GatherDetail: React.FC<any> = () => {
   const [keyWord, setKeyWord] = useState('')
   const [listData, setListData] = useState<any[]>([])
   const [infoVisible, setInfoVisible] = useState(false)
-  const [collectionsData, setCollectionsData] = useState<any>([])
   const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const [total, setTotal] = useState(0)
+  const [createAddr, setCreateAddr] = useState('')
+  const walletAccount: string = localStorage.getItem('wallet') || ''
+
+
   const queryList = [
     // 所有过滤条件
     {
@@ -44,11 +50,6 @@ export const GatherDetail: React.FC<any> = () => {
       name: t("collection.cancellation"),
       value: 2,
     },
-    // {
-    //   label: 'status',
-    //   name: 'Force Cancel',
-    //   value: 3,
-    // },
     {
       label: 'sort',
       name: t("collection.priceHigh"),
@@ -60,22 +61,21 @@ export const GatherDetail: React.FC<any> = () => {
       value: 'low',
     },
   ]
-  // const queryList = [
-  //   { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
-  //   { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
-  //   { name: `${t('marketplace.highToLow')}`, value: 'high' },
-  // ]
 
   useEffect(() => {
     getList(id)
     getAccountInfoById(Number(id))
   }, [id])
 
+  useEffect(() => {
+    getList(id)
+  }, [keyWord, sort, page])
+
 
   // 通过合集id获取账户详情基本信息
   const getAccountInfoById = async (id: number) => {
-    setCollectionsData([])
     const res: any = await getCollectionDetails(Number(id))
+    setCreateAddr(res.data.createAddr)
     setData(res.data)
   }
   // g根据集合id 获取相关Nft列表
@@ -90,18 +90,30 @@ export const GatherDetail: React.FC<any> = () => {
       size: 20,
     }
     const res: any = await getGoodsByCollectionId(deepParams)
-    setListData(res.data.records)
-    // setTotal(res.data.total);
+    setListData(listData.concat(res.data.records))
+    setTotal(res.data.total)
+  }
+
+  // 下拉加载
+  const fetchMoreData = () => {
+    if (total <= 20) {
+      setHasMore(false)
+      return
+    }
+    setTimeout(() => {
+      setPage(page + 1)
+    }, 200)
   }
 
   const getKeyWord = (value: string) => {
-    console.log(value, 'value')
-
-    // setGoodsList([]);
-    // setParams({ ...params, name: value, page: 1 });
+    setKeyWord(value)
+    setListData([])
+    setPage(1)
   }
-  const handleChangeQuery = () => {
-
+  const handleChangeQuery = (value: any) => {
+    setSort(value?.value)
+    setListData([])
+    setPage(1)
   }
 
 
@@ -170,17 +182,21 @@ export const GatherDetail: React.FC<any> = () => {
   return (
     <div className='gatherDetail-body'>
       <div className='gatherDetail-banner'>
-        <img src={require('Src/assets/account/bg-banner.png')} alt="" />
+        <img src={data.backgroundUrl == null ? require('Src/assets/account/bg-banner.png') : data.backgroundUrl} alt="" />
       </div>
       <div className='gatherDetail-center'>
         <div className='gatherDetail-info'>
           <div className='info-waper'>
-            <img src="https://aitd-nft-images-test.s3.amazonaws.com/4e0fd1d406994e05a2ffe73006b1f0cf.jpg" alt="cover" className='cover' />
+            <img src={data.headUrl} alt="cover" className='cover' />
             <div className='info-list'>
               <section className='name'>{data.name}</section>
               <div className='info-address'>
-                <div>合约：{formatAdd(data.contractAddr)}<img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
-                <div>创作者: {formatAdd(data.createAddr)} <img src={require('Src/assets/account/content_copy_gray.png')} alt="" /></div>
+                <div>
+                  合约：{formatAdd(data.contractAddr)}
+                  <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.contractAddr)} /></div>
+                <div>
+                  创作者: {formatAdd(data.createAddr)}
+                  <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.createAddr)} /></div>
               </div>
               <div className='moreinfo'>
                 {getDescInfo()}
@@ -248,8 +264,8 @@ export const GatherDetail: React.FC<any> = () => {
               <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
             </a>
             }
-            {data.createAddr === data.ownerAddr &&
-              <Link to={{ pathname: '/gather-edit', state: data }}>
+            {createAddr.toUpperCase == walletAccount.toUpperCase &&
+              <Link to={`/gather-edit/${data.id}`}>
                 <img src={require('Src/assets/account/icon-edit.png')} alt="" />
               </Link>
             }
@@ -266,9 +282,16 @@ export const GatherDetail: React.FC<any> = () => {
             </section>
             <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
           </div>
-          <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-            {listData.length > 0 ? CardItem() : <AEmpty />}
-          </div>
+          <InfiniteScroll
+            dataLength={listData.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={false}
+          >
+            <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
+              {listData.length > 0 ? CardItem() : <AEmpty />}
+            </div>
+          </InfiniteScroll>
         </div>
       </div>
     </div>

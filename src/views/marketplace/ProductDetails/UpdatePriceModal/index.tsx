@@ -39,14 +39,12 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
 	const [handlingFee, setHandlingFee] = useState(0)
-
-	// 过渡弹窗 显示字段
-	const MessageData = {
+	const [messageData, setMessageData] = useState<any>({
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
-		imageUrl: data?.nftMetadata?.imageUrl,
-		name: data?.nftMetadata?.name
-	}
+		imageUrl: data?.nftMetadata?.imageUrl || data.imageUrl,
+		name: data?.nftMetadata?.name || data?.name
+	})
 
 	// 初始化
 	useEffect(() => {
@@ -217,8 +215,10 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		getUpdateLowerPrice(updateObj)
 			.then((res: any) => {
 				if (res?.message === 'success') {
-					props?.onCancel()
-					props?.updateGoods()
+					setMessageVisible(true)
+					setIsModalVisible(false)
+					// props?.onCancel()
+					// props?.updateGoods()
 				}
 			})
 			.catch((err: any) => {
@@ -246,7 +246,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				</div>
 				{/* 上架显示版税和手续费 */}
 				{props?.sellOrderFlag &&
-					<div className='royalties'>
+					<div className='royalties-waper'>
 						<div className='royalties-fee fee'><span>版税</span><span>{data.royalty} %</span></div>
 						<div className='fee'><span>手续费</span><span>{handlingFee} %</span></div>
 					</div>
@@ -279,7 +279,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>确认上架</div>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}
-			<MessageModal visible={messageVisible} data={MessageData} title={props?.sellOrderFlag ? '上架成功' : '改价成功'} />
+			<MessageModal visible={messageVisible} data={messageData} title={props?.sellOrderFlag ? '上架成功' : '改价成功'} />
 		</div>
 	)
 }

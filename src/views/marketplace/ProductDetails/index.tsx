@@ -68,6 +68,8 @@ export const ProductionDetails = () => {
   //初始化数据
   useEffect(() => {
     const state: any = history.location.state
+    console.log(state, 'state')
+
     setOrderId(state?.orderId)
     setTokenId(state?.tokenId)
     setUserContractAddr(state?.contractAddr)
@@ -249,7 +251,7 @@ export const ProductionDetails = () => {
     }
   }
   const handleToCollection = () => {
-    history.push(`/collection/${DetailData?.collectionId}`)
+    history.push(`/gather-detail/${DetailData?.collectionId}`)
   }
 
 

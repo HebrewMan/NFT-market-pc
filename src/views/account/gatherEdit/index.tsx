@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { createIpfs } from 'Src/api'
 const { TextArea } = Input
 import { useParams } from 'react-router-dom'
-import { getCollectionDetails } from 'Src/api/collection'
+import { getCollectionDetails, editMyGatherList } from 'Src/api/collection'
 
 export const GatherEdit: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -15,22 +15,35 @@ export const GatherEdit: React.FC<any> = () => {
   const [disabled, setDisabled] = useState(false)
   const [fileAvatar, setFileAvatar] = useState(null) //头像
   const [fileCover, setFileCover] = useState(null) //封面图
-  const [fileBackgroundImage, setFileBackgroundImage] = useState(null) //背景图
+  const [backgroundImage, setBackgroundImage] = useState(null) //背景图
   const { id: id } = useParams<{ id: string }>() // 路由参数id
-
+  const linkUrl = window.location.origin
   useEffect(() => {
-    console.log(id, 'ududdddd')
     getAccountInfoById(id)
   }, [id])
 
   // 通过合集id获取基本信息
   const getAccountInfoById = async (id: string) => {
-    // setCollectionsData([])
-    const res: any = await getCollectionDetails(Number(id))
-
-    console.log(res, 'resssss')
-
-    // setData(res.data)
+    const { data } = await getCollectionDetails(Number(id))
+    setFileAvatar(data.headUrl)
+    setFileCover(data.coverUrl)
+    setBackgroundImage(data.backgroundUrl)
+    // 初始化数据
+    form.setFieldsValue({
+      name: data.name,
+      linkCollection: data.linkCollection,
+      description: data.description,
+      fileAvatar: data.headUrl,
+      coverUrl: data.fileCover,
+      backgroundUrl: data.backgroundUrl,
+      royalty: data.royalty,
+      royaltyAddr: data.royaltyAddr,
+      linkDiscord: data.linkDiscord,
+      linkInstagram: data.linkInstagram,
+      linkMedium: data.linkMedium,
+      linkTwitter: data.linkTwitter,
+      linkSkypegmwcn: data.linkSkypegmwcn
+    })
   }
 
 
@@ -38,24 +51,33 @@ export const GatherEdit: React.FC<any> = () => {
   const handelFieldsChange = (changedFields: any[], allFields: any[]) => {
 
   }
-  // 提交表达
+  // 提交表单
   const onFinish = () => {
-    console.log(fileAvatar, _.isNull(fileAvatar), 'fileAvatar')
-
     // 检查图片是否都上传
     if (_.isNull(fileAvatar)) {
       message.warn('请上传集合头像')
     } else if (_.isNull(fileCover)) {
       message.warn('请上传集合封面')
-    } else if (_.isNull(fileBackgroundImage)) {
+    } else if (_.isNull(backgroundImage)) {
       message.warn('请上传集合背景')
     } else {
       form.validateFields().then((values: any) => {
-        console.log(values, '333333')
+        const data: any = {
+          ...values,
+          headUrl: fileAvatar,
+          coverUrl: fileCover,
+          backgroundUrl: backgroundImage,
+          id: id
+        }
+        editMyGatherList(data).then((res: any) => {
+          message.success('编辑成功')
+        })
+          .catch((err: any) => {
+
+          })
+
       })
     }
-
-
   }
   // 版税校验规则
   const royaltiesRules: any = [
@@ -90,13 +112,11 @@ export const GatherEdit: React.FC<any> = () => {
           setFileCover(res.data)
           break
         case '3':
-          setFileBackgroundImage(res.data)
+          setBackgroundImage(res.data)
           break
         default:
           break
       }
-
-      // updateGeneralInfo({ ...accountInfo, bannerUrl: res.data });
     })
 
   }
@@ -120,14 +140,14 @@ export const GatherEdit: React.FC<any> = () => {
             <Input placeholder="你的合集名称" />
           </Form.Item>
           <Form.Item
-            name="urL"
+            name="linkCollection"
             label="集合链接"
             rules={[{ required: true, message: '该字段为必填项' }]}
           >
-            <Input prefix="https://diffgalaxy.io/collection/" placeholder="自定义你的合集URL" />
+            <Input prefix={linkUrl} placeholder="自定义你的合集URL" />
           </Form.Item>
           <Form.Item
-            name="describe"
+            name="description"
             label="集合描述"
             rules={[{ required: true, message: '该字段为必填项' }]}
           >
@@ -140,7 +160,7 @@ export const GatherEdit: React.FC<any> = () => {
                 <span>（支持JPG、PNG、SVG，建议200x200，最大1M）</span>
               </div>
             }
-            name="avatar">
+          >
 
             <Upload
               beforeUpload={(file) => fileSizeValidator(file, 1)}
@@ -160,7 +180,7 @@ export const GatherEdit: React.FC<any> = () => {
               <span>（支持JPG、PNG、SVG，建议600x400，最大3M）</span>
             </div>
           }
-            name="cover">
+          >
             <Upload
               beforeUpload={(file) => fileSizeValidator(file, 3)}
               customRequest={(options) => customRequest(options, '2')}
@@ -180,7 +200,7 @@ export const GatherEdit: React.FC<any> = () => {
               <span>（支持JPG、PNG、SVG，建议1900x350，最大10M）</span>
             </div>
           }
-            name="backgroundImage">
+          >
             <Upload
               beforeUpload={(file) => fileSizeValidator(file, 10)}
               customRequest={(options) => customRequest(options, '3')}
@@ -189,7 +209,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editBgImage'>
-                {fileBackgroundImage == null ? <img src='Src/assets/account/upload.png'></img> : <img src={fileBackgroundImage} className="imgWidth" />}
+                {backgroundImage == null ? <img src='Src/assets/account/upload.png'></img> : <img src={backgroundImage} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
@@ -204,31 +224,31 @@ export const GatherEdit: React.FC<any> = () => {
                     </Tooltip>
                   </div>
                 }
-                name="royalties"
+                name="royalty"
                 rules={royaltiesRules}>
                 <Input suffix="%" />
               </Form.Item>
             </Col>
             <Col span={18}>
-              <Form.Item label="收款地址" name='address' rules={[{ required: true, message: '请设置版税收益收款地址' }]}>
+              <Form.Item label="收款地址" name='royaltyAddr' rules={[{ required: true, message: '请设置版税收益收款地址' }]}>
                 <Input placeholder='添加你的收款地址（如：0x85K86...02rf03）' />
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="官网链接" name="website" rules={LinKValidator}>
+          <Form.Item label="官网链接" name="linkSkypegmwcn" rules={LinKValidator}>
             <Input placeholder='你的项目官网链接' />
           </Form.Item>
           <Form.Item>
-            <Form.Item label="Twitter链接" name="Twitter" rules={LinKValidator}>
+            <Form.Item label="Twitter链接" name="linkTwitter" rules={LinKValidator}>
               <Input type='href' placeholder='你的项目Twitter链接' />
             </Form.Item>
-            <Form.Item label="Discord链接" name="Discord" rules={LinKValidator}>
+            <Form.Item label="Discord链接" name="linkDiscord" rules={LinKValidator}>
               <Input placeholder='你的项目Discord链接' />
             </Form.Item>
-            <Form.Item label="Instagram链接" name="Instagram" rules={LinKValidator}>
+            <Form.Item label="Instagram链接" name="linkInstagram" rules={LinKValidator}>
               <Input placeholder='你的项目Instagram链接' />
             </Form.Item>
-            <Form.Item label="Medium链接" name="Medium" rules={LinKValidator}>
+            <Form.Item label="Medium链接" name="linkMedium" rules={LinKValidator}>
               <Input placeholder='你的项目Medium链接' />
             </Form.Item>
             <Button type="primary" htmlType="submit" disabled={disabled} className="sumbit">

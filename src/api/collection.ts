@@ -16,8 +16,8 @@ export function getMyGatherList() {
 }
 
 // 更新编辑集合
-export function EditMyGatherList() {
-  return get(`/v1/api/collections/update`);
+export function editMyGatherList(params:any) {
+  return post(`/v1/api/collections/update`,{...params});
 }
 
 // 

@@ -71,6 +71,9 @@
           margin-left: 68px;
           font-size: $tq-font-size-3;
           color: $tq-font-color-title;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
 

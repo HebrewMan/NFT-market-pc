@@ -38,8 +38,8 @@ const ReceiveModal: React.FC<any> = (props) => {
   const MessageData = {
     tokenId: tokenId,
     collectionName: data?.collectionName,
-    imageUrl: data?.nftMetadata?.imageUrl,
-    name: data?.nftMetadata?.name
+    imageUrl: data?.nftMetadata?.imageUrl || data?.imageUrl,
+    name: data?.nftMetadata?.name || data?.name
   }
   // 初始化
   useEffect(() => {
@@ -133,8 +133,9 @@ const ReceiveModal: React.FC<any> = (props) => {
       if (!!fillOrderRes?.transactionHash) {
         message.success(t('hint.purchaseSuccess'))
         setMessageVisible(true)
-        props?.onCancel()
-        props?.updateGoods()
+        setIsModalOpen(false)
+        // props?.onCancel()
+        // props?.updateGoods()
       }
       instanceLoading.close()
     } catch (error) {

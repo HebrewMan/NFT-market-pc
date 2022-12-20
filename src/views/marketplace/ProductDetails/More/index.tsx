@@ -14,11 +14,18 @@ export const MoreCollects = (props: any) => {
   const history = useHistory()
   const collectGoodsData = props.collectGoodsData || []
 
+  const handleJump = (item: any) => {
+    window.location.reload()
+    history.push({
+      pathname: "/product-details",
+      state: { orderId: item.orderId }
+    })
+  }
   const WrapItem = () =>
     collectGoodsData.map((item: any, index: number) => {
       return (
         <div className='card' key={index}>
-          <Link to={`/product-details/${item.orderId}`}>
+          <div onClick={() => handleJump(item)}>
             <div className='assets'>
               <img src={item.imageUrl} alt='' />
             </div>
@@ -32,17 +39,7 @@ export const MoreCollects = (props: any) => {
                 {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
               </div>
             </div>
-
-            {/* <div className={`fav ${item % 2 == 0 ? 'active' : ''}`}>
-              <img
-                className={!item.collect ? 'favorite_border_gray' : 'favorite_red'}
-                src={!item.collect ? require('../../../../assets/fg.png') : require('../../../../assets/fr.png')}
-                onClick={(e) => toggleFansCollected(e, item)}
-                alt=''
-              />
-              <span className={!item.collect ? '' : 'favorite'}>{item.collectNum}</span>
-            </div> */}
-          </Link>
+          </div>
         </div>
       )
     })

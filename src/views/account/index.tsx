@@ -18,7 +18,7 @@ import { getAccountInfo, updateUserInfo } from '../../api/user'
 import { uploadFileCheck } from '../../utils/utils'
 import { useTouchBottom } from '../../hooks'
 import './index.scss'
-import { getCookie, formatTokenId } from 'Utils/utils'
+import { getCookie, formatTokenId, handleCopy } from 'Utils/utils'
 import AEmpty from "Src/components/Empty"
 
 interface accountInfoProps {
@@ -174,17 +174,17 @@ export const Account: React.FC<any> = () => {
       message.success(t('hint.avatarUpdated'))
     }
   }
-  const handleCopy = (address: string) => {
-    const domUrl = document.createElement('input')
-    domUrl.value = address
-    domUrl.id = 'creatDom'
-    document.body.appendChild(domUrl)
-    domUrl.select() // 选择对象
-    document.execCommand('Copy') // 执行浏览器复制命令
-    const creatDom: any = document.getElementById('creatDom')
-    creatDom.parentNode.removeChild(creatDom)
-    message.success(t('hint.copySuccess'))
-  }
+  // const handleCopy = (address: string) => {
+  //   const domUrl = document.createElement('input')
+  //   domUrl.value = address
+  //   domUrl.id = 'creatDom'
+  //   document.body.appendChild(domUrl)
+  //   domUrl.select() // 选择对象
+  //   document.execCommand('Copy') // 执行浏览器复制命令
+  //   const creatDom: any = document.getElementById('creatDom')
+  //   creatDom.parentNode.removeChild(creatDom)
+  //   message.success(t('hint.copySuccess'))
+  // }
   const clickedTab = (index: number) => {
     const typeParams = {
       ...httpData,
@@ -277,32 +277,6 @@ export const Account: React.FC<any> = () => {
     // setHttpData(() => ({ ...httpData.data, page: 1,orders:orders}));
   }
 
-  // const getFansListByNftId = async (id: string | number, contractAddr: string) => {
-  //   const params = {
-  //     tokenId: id,
-  //     contractAddr: contractAddr,
-  //     ownerAddr: address,
-  //   };
-  //   const res: any = await getFansByGoodsId(params);
-  //   if (res?.message === 'success') {
-  //     const list = collectionsData.map((item: any) => {
-  //       return item.tokenId === id
-  //         ? {
-  //             ...item,
-  //             collect: Number(res.data.collect),
-  //             collectNum: Number(res.data.collectNum),
-  //           }
-  //         : { ...item };
-  //     });
-  //     setCollectionsData(list);
-  //   }
-  // };
-  // 初始化页面详情数据
-  // useEffect(() => {
-  //   if (id && id !== '0') {
-  //     getAccountInfoById();
-  //   }
-  // }, [id]);
 
   useEffect(() => {
     if (address) {
@@ -329,22 +303,12 @@ export const Account: React.FC<any> = () => {
       if (accountInfo?.userAddr == address) {
         setCollectionsData([])
       }
-      // getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
       setTimeout(() => {
         getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } })
       }, 200)
     }
   }, [httpData, accountInfo?.userAddr, accountInfo?.id])
 
-  // 通过合集id获取账户详情基本信息
-  // const getAccountInfoById = async () => {
-  //   setCollectionsData([]);
-  //   const res = await getCollectionDetails(Number(id));
-  //   setAccountInfo(res.data);
-  //   if (accountInfo?.id) {
-  //     getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } });
-  //   }
-  // };
   // 根据用户地址获取账户信息
   const getAccountInfoByAddress = async () => {
     setCollectionsData([])

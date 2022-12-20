@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import BigNumber from 'bignumber.js';
 import { message } from 'antd';
 import { multipliedBy } from './bigNumber'
+import i18n from 'i18next'
 
 // dayjs.extend(utc);
 export const cleanName = (name?: string): string | undefined => {
@@ -219,6 +220,19 @@ export const formatTokenId = (name: string, tokenId: string) => {
     return `${name}#${tokenId}`;
   }
 };
+
+// 复制函数
+export const handleCopy = (address: string) => {
+  const domUrl = document.createElement('input')
+  domUrl.value = address
+  domUrl.id = 'creatDom'
+  document.body.appendChild(domUrl)
+  domUrl.select() // 选择对象
+  document.execCommand('Copy') // 执行浏览器复制命令
+  const creatDom: any = document.getElementById('creatDom')
+  creatDom.parentNode.removeChild(creatDom)
+  message.success(i18n.t('hint.copySuccess'))
+}
 // export const fileUploadValidator = (file:any,maxSize:number) => {
 //   // const typeFlag = fileTypeValidator(file, typeStr);
 //   // if (!typeFlag) {
