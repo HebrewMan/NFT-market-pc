@@ -11,15 +11,15 @@ import { web } from 'webpack'
 //   return commonGasPrice;
 // }
 
-// 上架 1155
-export const createMarketItemErc1155 = async (web3: Web3, obj: any) => {
-  const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account } = obj;
-  const nftContract = Erc1155ContractAddr; // nft合约地址
-  const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
-    .methods.createMarketItemErc1155(nftContract, moneyMintAddress, tokenId, price)
-    .send({ from: account});
-  return result;
-};
+// // 上架 1155
+// export const createMarketItemErc1155 = async (web3: Web3, obj: any) => {
+//   const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account } = obj;
+//   const nftContract = Erc1155ContractAddr; // nft合约地址
+//   const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
+//     .methods.createMarketItemErc1155(nftContract, moneyMintAddress, tokenId, price)
+//     .send({ from: account});
+//   return result;
+// };
 
 /*
 nftContract nft合约地址
@@ -45,18 +45,18 @@ export const createMarketItem = async (web3: Web3, obj: any) => {
   return result;
 };
 
-// 下架
-export const cancelMarketItemErc1155 = async (
-  web3: Web3,
-  orderId: number,
-  account: any,
-  marketPlaceContractAddr: string,
-) => {
-  const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
-    .methods.cancelMarketItemErc1155(orderId)
-    .send({ from: account });
-  return result;
-};
+// // 下架
+// export const cancelMarketItemErc1155 = async (
+//   web3: Web3,
+//   orderId: number,
+//   account: any,
+//   marketPlaceContractAddr: string,
+// ) => {
+//   const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
+//     .methods.cancelMarketItemErc1155(orderId)
+//     .send({ from: account });
+//   return result;
+// };
 
 // 最新下架
 /*
@@ -169,17 +169,3 @@ export const getModifyPrice = async (web3: Web3, obj: any) => {
   }
 };
 
-// 最新修改价格
-export const getPriceChange = async (web3: Web3, obj: any) => {
-  const { orderId, price, marketPlaceContractAddr } = obj;
-  try {
-    const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
-      .methods.MarketItemPriceChange(orderId, price)
-      .send({});
-    console.log('result', result);
-    return result;
-  } catch (error: any) {
-    console.log('error', error);
-    instanceLoading.close();
-  }
-};

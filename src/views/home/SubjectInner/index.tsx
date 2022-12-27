@@ -1,17 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { getCookie } from '../../../utils/utils';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper';
-import { useTranslation } from 'react-i18next';
-import 'swiper/scss';
-import './index.scss';
+import React, { useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { getCookie } from '../../../utils/utils'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper'
+import { useTranslation } from 'react-i18next'
+import 'swiper/scss'
+import './index.scss'
 
-SwiperCore.use([EffectCards, Pagination]);
+SwiperCore.use([EffectCards, Pagination])
 
-import { recommendHomePage } from '../../../api/index';
+import { recommendHomePage } from '../../../api/index'
 const SwiperComm = (props: any) => {
-  const { swiperList, setCurrentSwiperObject } = props;
+  const { swiperList, setCurrentSwiperObject } = props
+  const history = useHistory()
+  const handleJump = (item: any) => {
+    const orderId = item?.orderId
+    history.push({
+      pathname: "/product-details",
+      state: { orderId }
+    })
+  }
+
   return (
     <Swiper
       modules={[Autoplay]}
@@ -32,50 +41,48 @@ const SwiperComm = (props: any) => {
       {swiperList.map((item: any, index: number) => {
         return (
           <SwiperSlide key={index}>
-            <Link to={Number(item.type) === 1 ? `/primary-details/${item.id}` : `/product-details/${item.orderId}`}>
-              <div className='right-inner'>
-                <img className='pic' src={item.imageUrl} alt='' />
-              </div>
-            </Link>
+            <div className='right-inner' onClick={() => handleJump(item)}>
+              <img className='pic' src={item.imageUrl} alt='' />
+            </div>
           </SwiperSlide>
-        );
+        )
       })}
     </Swiper>
-  );
-};
+  )
+}
 
 export const SubjectInner = () => {
-  const history = useHistory();
-  const {t} = useTranslation()
-  const [swiperList, setSwiperList] = useState<any[]>([]);
-  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({});
-  const token = getCookie('web-token') || '';
-  const walletAccount = localStorage.getItem('wallet') || '';
-  const [isLogin, setIsLogin] = useState(false);
+  const history = useHistory()
+  const { t } = useTranslation()
+  const [swiperList, setSwiperList] = useState<any[]>([])
+  const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({})
+  const token = getCookie('web-token') || ''
+  const walletAccount = localStorage.getItem('wallet') || ''
+  const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
-    init();
-  }, []);
+    init()
+  }, [])
   const init = async () => {
-    const res: any = await recommendHomePage({ page: 1, size: 3 });
-    setSwiperList(res.data.records);
-    setCurrentSwiperObject(res?.data?.records[0]);
-  };
+    const res: any = await recommendHomePage({ page: 1, size: 3 })
+    setSwiperList(res.data.records)
+    setCurrentSwiperObject(res?.data?.records[0])
+  }
 
   useEffect(() => {
     if (!walletAccount || !token) {
-      setIsLogin(false);
+      setIsLogin(false)
     } else {
-      setIsLogin(true);
+      setIsLogin(true)
     }
-  }, [walletAccount, token]);
+  }, [walletAccount, token])
 
   const clickSell = () => {
     if (isLogin) {
-      history.push(`/account/0/${walletAccount}`);
+      history.push(`/account/0/${walletAccount}`)
     } else {
-      history.push(`/login`);
+      history.push(`/login`)
     }
-  };
+  }
 
   return (
     <div className='container-banner'>
@@ -87,7 +94,7 @@ export const SubjectInner = () => {
           <h1>{t('home.title')}</h1>
           <span>{t('home.subtitle')}</span>
           <div className='left-button'>
-             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
+            <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
               {t('common.buy')}
             </button>
             <button className='button-sell' onClick={clickSell}>
@@ -115,5 +122,5 @@ export const SubjectInner = () => {
         {/* <p className='text-link link-hidden'>Get featured on the homepage</p> */}
       </div>
     </div>
-  );
-};
+  )
+}

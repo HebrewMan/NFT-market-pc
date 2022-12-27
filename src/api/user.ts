@@ -33,3 +33,13 @@ export function getAccountWallet() {
 export function getHandlingFee(params: any) {
   return post(`/v1/api/config/getValue`, params);
 }
+
+// 获取版税信息
+export function getNFTRoyalty() {
+  return get(`/v1/api/nftRoyalty/summaryByCurrentUser`);
+}
+
+// 获取版税列表
+export function getNFTRoyaltyList(params: any) {
+  return post(`/v1/api/nftRoyalty/pageByCurrentUser`,params);
+}

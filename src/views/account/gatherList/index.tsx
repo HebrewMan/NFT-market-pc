@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'antd'
+import { Table, ConfigProvider } from 'antd'
 import './index.scss'
 import { useHistory } from 'react-router-dom'
 import { getMyGatherList } from 'Src/api/collection'
 import AEmpty from 'Src/components/Empty'
 import { NumUnitFormat, intlFloorFormat } from 'Utils/bigNumber'
+import { getNFTRoyalty, getNFTRoyaltyList } from 'Src/api/user'
+import config, { CoinType } from 'Src/config/constants'
 
 export const GatherList: React.FC<any> = () => {
   const history = useHistory()
-  const total = 11
-  const curPage = 1
+  const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(1)
   const [gatherListData, setGatherListData] = useState<any>([])
+  const [royaltyData, setRoyaltyData] = useState<any>({})
+  const [dataSource, setDataSource] = useState<any>([])
+
   // 初始化
   useEffect(() => {
     getGatherData()
+    // 版税信息
+    getNFTRoyaltyData()
+
   }, [])
 
   // 获取集合数据
@@ -21,85 +29,100 @@ export const GatherList: React.FC<any> = () => {
     const data: any = await getMyGatherList()
     setGatherListData(data.data)
   }
+  // 获取版税信息
+  const getNFTRoyaltyData = async () => {
+    const data: any = await getNFTRoyalty()
+    setRoyaltyData(data.data)
+  }
+
+  const loadData = async (page: number) => {
+    const params = {
+      page: page,
+      size: 10,
+    }
+    const dataList: any = await getNFTRoyaltyList(params)
+    setDataSource(dataList.records)
+
+  }
 
   const handleChnage = (e: any, item: any) => {
     e.stopPropagation()
     history.push(`/gather-detail/${item.id}`)
   }
 
-  const dataSource = [{
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524  ETH',
-    time: '2021-12-10'
+  // const dataSource = [{
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524  ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: '5 USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: '5 USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }, {
-    price: ' 5USDT',
-    amount: 32,
-    title: 'AUDFYSDSYJFFD',
-    totalPrice: '302',
-    RoyaltyIncome: '1.524 ETH',
-    time: '2021-12-10'
+  // }, {
+  //   price: ' 5USDT',
+  //   amount: 32,
+  //   title: 'AUDFYSDSYJFFD',
+  //   totalPrice: '302',
+  //   RoyaltyIncome: '1.524 ETH',
+  //   time: '2021-12-10'
 
-  }]
+  // }]
   const columns = [
     {
       id: 1,
@@ -172,11 +195,11 @@ export const GatherList: React.FC<any> = () => {
     }
     return {
       pageSize: 10,
-      current: curPage,
+      current: page,
       total: total,
       hideOnSinglePage: true,
       showSizeChanger: false,
-      // onChange: (page: number) => loadData(page),
+      onChange: (page: number) => loadData(page),
     }
   }
   const handleEditChnage = (e: any, id: any) => {
@@ -228,15 +251,17 @@ export const GatherList: React.FC<any> = () => {
       <div className='royaltiesTop'>
         <div>
           <p className='name'>总版税收益</p>
-          <section className='price'>52.854854 ETH</section>
+          <section className='price'>{intlFloorFormat(royaltyData?.totalTrans, 4)} {CoinType.AITD}</section>
         </div>
         <div>
           <p className='name'>总版税收益</p>
-          <section className='price'>52.854854 ETH</section>
+          <section className='price'>{intlFloorFormat(royaltyData?.totalTransToday, 4)} {CoinType.AITD}</section>
         </div>
       </div>
       <div className='TableWaper'>
-        <Table columns={columns} dataSource={dataSource} className="gatgerTable" pagination={pagination()} />
+        <ConfigProvider renderEmpty={() => <AEmpty />}>
+          <Table columns={columns} dataSource={dataSource} className="gatgerTable" pagination={pagination()} />
+        </ConfigProvider>
       </div>
     </div>
   )

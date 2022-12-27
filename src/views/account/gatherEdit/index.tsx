@@ -70,7 +70,11 @@ export const GatherEdit: React.FC<any> = () => {
           id: id
         }
         editMyGatherList(data).then((res: any) => {
-          message.success('编辑成功')
+          if (res.code == 0) {
+            message.success('编辑成功')
+            history.go(-1)
+          }
+
         })
           .catch((err: any) => {
 
