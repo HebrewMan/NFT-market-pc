@@ -9,6 +9,7 @@ import ERC20Abi from '../config/abi/ERC20.json';
 import ERC721Abi from '../config/abi/ERC721.json';
 import ERC1155Abi from '../config/abi/ERC1155.json';
 import marketPlaceAitdV3Abi from '../config/abi/marketPlaceAitdV3.json';
+import marketPlaceAitdV2_1Abi from '../config/abi/marketPlaceAitdV2_1.json';
 import { ethers } from 'ethers';
 
 const _chainId = window?.ethereum?.chainId;
@@ -65,6 +66,10 @@ export const getERC721Contract = (Erc711ContractAddr: string, web3?: Web3) => {
 // 市场合约
 export const getMarketPlaceAitdV3Abi = (marketPlaceContractAddr: string, web3?: Web3) => {
   return getContract(marketPlaceAitdV3Abi.abi, marketPlaceContractAddr, web3);
+};
+
+export const getMarketPlaceAitdV2_1Abi = (marketPlaceContractAddr: string, web3?: Web3) => {
+  return getContract(marketPlaceAitdV2_1Abi.abi, marketPlaceContractAddr, web3);
 };
 
 // erc1155授权

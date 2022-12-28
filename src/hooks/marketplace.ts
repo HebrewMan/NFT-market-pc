@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { getMarketPlaceContract, getMarketPlacePrimaryContract, getMarketPlaceAitdV3Abi } from './web3Utils';
+import { getMarketPlaceContract, getMarketPlacePrimaryContract, getMarketPlaceAitdV3Abi, getMarketPlaceAitdV2_1Abi } from './web3Utils';
 import instanceLoading from '../utils/loading';
 import { multipliedBy } from '../utils/bigNumber'
 import { web } from 'webpack'
@@ -169,3 +169,26 @@ export const getModifyPrice = async (web3: Web3, obj: any) => {
   }
 };
 
+
+
+/*
+ * 设置版税
+ *
+ * collectionAddress 合集地址
+ * receiver 版税接收者
+ * rateNumerator 版税汇率分子，分母默认10000 例如版税 10%，rateNumerator = 100
+ */
+export const setRoyaltyRateData = async (web3: Web3, obj: any) => {
+  const { marketPlaceContractAddr, contractAddr, royaltyAddr, royalty,account } = obj;
+  const rateNumerator = Number(royalty) * 100;
+  try {
+    const result = await getMarketPlaceAitdV2_1Abi(marketPlaceContractAddr, web3)
+      .methods.setRoyaltyRate(contractAddr, royaltyAddr, rateNumerator)
+      .send({ from: account });
+    console.log('result', result);
+    return result;
+  } catch (error: any) {
+    console.log('error', error);
+    instanceLoading.close();
+  }
+};

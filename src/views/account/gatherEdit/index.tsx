@@ -8,16 +8,33 @@ import { createIpfs } from 'Src/api'
 const { TextArea } = Input
 import { useParams } from 'react-router-dom'
 import { getCollectionDetails, editMyGatherList } from 'Src/api/collection'
+import config, { isProd } from 'Src/config/constants'
+import Web3 from 'web3'
+import { getNonce } from 'Src/api/index'
+import { getLocalStorage, getCookie } from 'Utils/utils'
+import { useHistory } from 'react-router-dom'
+import { setRoyaltyRateData } from 'Src/hooks/marketplace'
+import instanceLoading from 'Utils/loading'
+import useWeb3 from 'Src/hooks/useWeb3'
 
+let Ethweb3: any
 export const GatherEdit: React.FC<any> = () => {
   const { t } = useTranslation()
+  const history = useHistory()
   const [form] = Form.useForm()
+  const web3 = useWeb3()
   const [disabled, setDisabled] = useState(false)
   const [fileAvatar, setFileAvatar] = useState(null) //头像
   const [fileCover, setFileCover] = useState(null) //封面图
   const [backgroundImage, setBackgroundImage] = useState(null) //背景图
   const { id: id } = useParams<{ id: string }>() // 路由参数id
   const linkUrl = window.location.origin
+  const account = getLocalStorage('wallet') || ''
+  const token = getCookie('web-token') || ''
+  const _chainId = window?.ethereum?.chainId
+  const chainId = parseInt(_chainId) //链id
+  const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
+  const [contractAddr, setContractAddr] = useState('')
   useEffect(() => {
     getAccountInfoById(id)
   }, [id])
@@ -28,6 +45,7 @@ export const GatherEdit: React.FC<any> = () => {
     setFileAvatar(data.headUrl)
     setFileCover(data.coverUrl)
     setBackgroundImage(data.backgroundUrl)
+    setContractAddr(data.contractAddr)
     // 初始化数据
     form.setFieldsValue({
       name: data.name,
@@ -62,27 +80,88 @@ export const GatherEdit: React.FC<any> = () => {
       message.warn('请上传集合背景')
     } else {
       form.validateFields().then((values: any) => {
-        const data: any = {
-          ...values,
-          headUrl: fileAvatar,
-          coverUrl: fileCover,
-          backgroundUrl: backgroundImage,
-          id: id
-        }
-        editMyGatherList(data).then((res: any) => {
-          if (res.code == 0) {
-            message.success('编辑成功')
-            history.go(-1)
-          }
-
-        })
-          .catch((err: any) => {
-
-          })
-
+        //调用签名
+        useSignature(account)
       })
     }
   }
+  // 调用签名
+  const useSignature = (account: string) => {
+    const _web3 = Ethweb3 || new Web3(window?.ethereum)
+    if (!account) {
+      return
+    }
+    return new Promise(() => {
+      getNonce(account)
+        .then((sign: any) => {
+          _web3?.eth?.personal
+            ?.sign(sign.data, account)
+            .then((value: string) => {
+              // 设置版税
+              setRoyalty()
+            })
+            .catch((err: any) => {
+              window.location.reload()
+            })
+        })
+        .catch((err: any) => {
+          window.location.reload()
+        })
+    })
+  }
+
+  // 设置版税
+  const setRoyalty = async () => {
+    const obj = {
+      marketPlaceContractAddr,
+      contractAddr,
+      royaltyAddr: form.getFieldValue('royaltyAddr'),
+      royalty: form.getFieldValue('royalty'),
+      account
+    }
+    if (!account || !token) {
+      message.error(t('hint.pleaseLog'))
+      history.push('/login')
+      return
+    }
+    if (chainId !== 1319 && isProd) {
+      message.error(t('hint.switchMainnet'))
+      return
+    }
+    instanceLoading.service()
+    try {
+      const modifyPriceRes = await setRoyaltyRateData(web3, obj)
+      if (modifyPriceRes?.transactionHash) {
+        // 设置成功之后 调用后端接口存数据
+        setFormData()
+      }
+    } catch (error: any) {
+      instanceLoading.close()
+    }
+    instanceLoading.close()
+  }
+  // 调接口 存数据
+  const setFormData = () => {
+    const values = form.getFieldsValue()
+    const data: any = {
+      ...values,
+      headUrl: fileAvatar,
+      coverUrl: fileCover,
+      backgroundUrl: backgroundImage,
+      id: id
+    }
+    editMyGatherList(data).then((res: any) => {
+      if (res.code == 0) {
+        message.success('编辑成功')
+        history.go(-1)
+      }
+
+    })
+      .catch((err: any) => {
+
+      })
+  }
+
   // 版税校验规则
   const royaltiesRules: any = [
     { required: true, message: '该字段为必填项' },
