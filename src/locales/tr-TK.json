@@ -23,7 +23,9 @@
     "monthAgo": "{{ num }} ay önce",
     "yearAgo": "{{ num }} yıl önce",
     "signIn": "Cüzdanınıza giriş yapın",
-    "pleaseChoose":"lütfen seç"
+    "pleaseChoose":"lütfen seç",
+    "royalty":"patent vergisi",
+    "moreText":"Daha çok"
   },
   "domainNotice": "Diffgalaxy'nin tek resmi internet adi <1>https://www.diffgalaxy.io</1>",
   "home": {
@@ -62,10 +64,12 @@
     "myNft": "NFT'lerim",
     "setting": "ayar",
     "login": "Giriş",
-    "loginOut": "cik"
+    "loginOut": "cik",
+    "cnnectWallet":"Cüzdan bağlayın",
+    "myCollection":"Benim topladıklarım"
   },
   "marketplace": {
-    "serach": "NFT veya koleksiyon adını arayın",
+    "serach": "NFT ismi,TokeID ara",
     "sortBy": "göre sırala",
     "recentlyListed": "en son satişa çikaran",
     "highToLow": "fiyat yüksekten düşüğe",
@@ -104,12 +108,26 @@
       "updatePrcie": "Fiyatı güncelle",
       "transfer": "Aktar",
       "list": "Liste",
-      "setPrice": "raf fıyatını belirle",
-      "updateListPrice": "raf fıyatını güncelle",
+      "setPrice": "NFT satışa çıkar",
+      "updateListPrice": "NFT fiyat değiştir",
       "neverMind": "sıkıntı yok",
       "CompleteList": "Listeyi tamamla",
       "sellTips": "İpuçları: NFT fiyatı belirlemelidir. Bu listeyi daha sonra iptal etmek isterseniz, ek bir gas ücreti ödemeniz gerekir.",
-      "priceEnter":"please enter price"
+      "priceEnter":"please enter price",
+      "purchaseNFT":"NFT Satın Alın",
+      "unitPrice":"Tek fiyat",
+      "amount":"Miktar",
+      "available":"Kullanabilir",
+      "payAmount":"Ödenecek tutar",
+      "pay":"Ödeme",
+      "buysuccessfullyInfo":"Tebrikler ! Bu NFT'yi satın aldınız",
+      "checkNFTs":"Benim NFT'lerimi görüntüle",
+      "handlingFees":"işlem ücreti",
+      "confirmListing":"Satışa çıkarmayı onayla",
+      "dollarsInfo":"{{price}}fiyatında satışa çıkarıldı,işlem sonrası alabileceğinizXXX",
+      "checkDetails":"Detaylarına bak",
+      "confirmChanging":"Değişikliği onayla",
+      "successfullyLaunched":"Tebrikler,NFT satışa çıkarıldı"
     }
   },
   "primary": {
@@ -144,7 +162,9 @@
     "all": "tüm",
     "sale": "satılık",
     "selling": "Satılık",
-    "forceCancel": "Zorla iptal"
+    "forceCancel": "Zorla iptal",
+    "NFTCancel":"İptal",
+    "NFTSell":"Sat"
   },
   "collection": {
     "serach": "Bir ad veya hesap arayın",
@@ -186,5 +206,26 @@
     "imageSize": "Yüklenen resim 5M'den az olmalıdır",
     "succeed": "başardı",
     "faile": "başamadı"
+  },
+  "gather":{
+    "title":"Benim topladıklarım",
+    "priceFloor":"Deep fiyat",
+    "totalVolume":"Toplam işlem miktari",
+    "totalNum":"Toplam sayı",
+    "royaltyEarnings":"Patent kazancı",
+    "totalRoyaltyEarnings":"Toplam patent kazncı",
+    "todayRoyaltyEarnings":"Bugünlük paten kazancı",
+    "NFTName":"NFTs Adı",
+    "totalPrice":"Toplam gerçekleşen fiyat",
+    "time":"Zaman",
+    "noCollectionData":"Toplamalar yok",
+    "noTemporarily":"Şimdilik kazanç yok",
+    "contract":"Vadeli",
+    "creators":"Üretici",
+    "holders":"Sahip olan",
+    "totalListings":"Toplam emir",
+    "loadMore":"Daha çok yükle",
+    "price":"Tek fiyat",
+    "amount":"Miktar"
   }
 }

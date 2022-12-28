@@ -7,8 +7,11 @@ import AEmpty from 'Src/components/Empty'
 import { NumUnitFormat, intlFloorFormat } from 'Utils/bigNumber'
 import { getNFTRoyalty, getNFTRoyaltyList } from 'Src/api/user'
 import config, { CoinType } from 'Src/config/constants'
+import { useTranslation } from 'react-i18next'
+
 
 export const GatherList: React.FC<any> = () => {
+  const { t } = useTranslation()
   const history = useHistory()
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
@@ -21,6 +24,7 @@ export const GatherList: React.FC<any> = () => {
     getGatherData()
     // 版税信息
     getNFTRoyaltyData()
+    loadData(page)
 
   }, [])
 
@@ -126,7 +130,7 @@ export const GatherList: React.FC<any> = () => {
   const columns = [
     {
       id: 1,
-      title: 'NFTs名称',
+      title: t('gather.NFTName'),
       dataIndex: 'title',
       render: (t: string) => {
         return (
@@ -139,7 +143,7 @@ export const GatherList: React.FC<any> = () => {
     },
     {
       id: 2,
-      title: '单价',
+      title: t('gather.price'),
       dataIndex: 'price',
       render: (t: string) => {
         return (
@@ -152,12 +156,12 @@ export const GatherList: React.FC<any> = () => {
     },
     {
       id: 3,
-      title: '数量',
+      title: t('gather.amount'),
       dataIndex: 'amount',
     },
     {
       id: 4,
-      title: '总成交价',
+      title: t('gather.totalPrice'),
       dataIndex: 'totalPrice',
       render: (t: string) => {
         return (
@@ -170,7 +174,7 @@ export const GatherList: React.FC<any> = () => {
     },
     {
       id: 5,
-      title: '版税收益',
+      title: t('gather.royaltyEarnings'),
       dataIndex: 'RoyaltyIncome',
       render: (t: string) => {
         return (
@@ -183,7 +187,7 @@ export const GatherList: React.FC<any> = () => {
     },
     {
       id: 6,
-      title: '时间',
+      title: t('gather.time'),
       dataIndex: 'time',
     }
   ]
@@ -209,7 +213,7 @@ export const GatherList: React.FC<any> = () => {
 
   return (
     <div className='gatherList-waper'>
-      <div className='gatherListTitle'>我的集合</div>
+      <div className='gatherListTitle'>{t('gather.title')}</div>
       <div className='gatherList'>
         {gatherListData.length > 0 ?
           <>
@@ -227,15 +231,15 @@ export const GatherList: React.FC<any> = () => {
                     </div>
                     <div className='item-centen'>
                       <section>
-                        <div className='label'>地板价</div>
+                        <div className='label'>{t('gather.priceFloor')}</div>
                         <p><img src={require('Src/assets/coin/aitd.svg')} alt="icon" className='coin'></img>{intlFloorFormat(item.lowestPrice, 4)}</p>
                       </section>
                       <section>
-                        <div className='label'>总成交量</div>
+                        <div className='label'>{t('gather.totalVolume')}</div>
                         <p><img src={require('Src/assets/coin/aitd.svg')} alt="icon" className='coin'></img>{NumUnitFormat(item.totalTransaction)}</p>
                       </section>
                       <section>
-                        <div className='label'>总数</div>
+                        <div className='label'>{t('gather.totalNum')}</div>
                         <p>{NumUnitFormat(item.totalTokens)}</p>
                       </section>
                     </div>
@@ -244,22 +248,22 @@ export const GatherList: React.FC<any> = () => {
               })
             }
           </>
-          : <AEmpty description="暂无集合" />}
+          : <AEmpty description={t('gather.noCollectionData')} />}
       </div>
 
-      <div className='gatherListTitle'>版税收益</div>
+      <div className='gatherListTitle'>{t('gather.royaltyEarnings')}</div>
       <div className='royaltiesTop'>
         <div>
-          <p className='name'>总版税收益</p>
+          <p className='name'>{t('gather.totalRoyaltyEarnings')}</p>
           <section className='price'>{intlFloorFormat(royaltyData?.totalTrans, 4)} {CoinType.AITD}</section>
         </div>
         <div>
-          <p className='name'>总版税收益</p>
+          <p className='name'>{t('gather.todayRoyaltyEarnings')}</p>
           <section className='price'>{intlFloorFormat(royaltyData?.totalTransToday, 4)} {CoinType.AITD}</section>
         </div>
       </div>
       <div className='TableWaper'>
-        <ConfigProvider renderEmpty={() => <AEmpty />}>
+        <ConfigProvider renderEmpty={() => <AEmpty description={t('gather.noTemporarily')} />}>
           <Table columns={columns} dataSource={dataSource} className="gatgerTable" pagination={pagination()} />
         </ConfigProvider>
       </div>

@@ -142,14 +142,13 @@ export const GatherDetail: React.FC<any> = () => {
                     setInfoVisible(true)
                   }}
                 >
-                  展开
+                  {t('common.moreText')}
                 </span>
               ),
             }
         }
       >
         {article}
-        {infoVisible && <a onClick={() => setInfoVisible(false)}>收起</a>}
       </Paragraph>
     )
   }
@@ -192,10 +191,10 @@ export const GatherDetail: React.FC<any> = () => {
               <section className='name'>{data.name}</section>
               <div className='info-address'>
                 <div>
-                  合约：{formatAdd(data.contractAddr)}
+                  {t('gather.contract')}: {formatAdd(data.contractAddr)}
                   <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.contractAddr)} /></div>
                 <div>
-                  创作者: {formatAdd(data.createAddr)}
+                  {t('gather.creators')}: {formatAdd(data.createAddr)}
                   <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.createAddr)} /></div>
               </div>
               <div className='moreinfo'>
@@ -203,39 +202,39 @@ export const GatherDetail: React.FC<any> = () => {
               </div>
               <div className='detail-amount'>
                 <section>
-                  <p className='label'>地板价</p>
+                  <p className='label'>{t('gather.priceFloor')}</p>
                   <div className='text'>
                     <img src={require('Src/assets/coin/aitd.svg')} alt="" />
                     <span>{intlFloorFormat(data.lowestPrice, 4)}</span>
                   </div>
                 </section>
                 <section>
-                  <p className='label'>总成交量</p>
+                  <p className='label'>{t('gather.totalVolume')}</p>
                   <div className='text'>
                     <img src={require('Src/assets/coin/aitd.svg')} alt="" />
                     <span>{NumUnitFormat(data.totalTransaction)}</span>
                   </div>
                 </section>
                 <section>
-                  <p className='label'>总数</p>
+                  <p className='label'>{t('gather.totalNum')}</p>
                   <div className='text'>
                     <span>{NumUnitFormat(data.totalTokens)}</span>
                   </div>
                 </section>
                 <section>
-                  <p className='label'>持有者</p>
+                  <p className='label'>{t('gather.holders')}</p>
                   <div className='text'>
                     <span>{NumUnitFormat(data.totalHolder)}</span>
                   </div>
                 </section>
                 <section>
-                  <p className='label'>总挂单</p>
+                  <p className='label'>{t('gather.totalListings')}</p>
                   <div className='text'>
                     <span>{NumUnitFormat(data.totalOrder)}</span>
                   </div>
                 </section>
                 <section>
-                  <p className='label'>版税</p>
+                  <p className='label'>{t('common.royalty')}</p>
                   <div className='text'>
                     <span>{data.royalty}%</span>
                   </div>

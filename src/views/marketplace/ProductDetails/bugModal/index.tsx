@@ -174,13 +174,13 @@ const ReceiveModal: React.FC<any> = (props) => {
         )}
 
         <div className='pay'>
-          <div className='name'>payment amount</div>
+          <div className='name'>{t('marketplace.details.payAmount')}</div>
           <div className='price'>{paymentPrice} AITD</div>
         </div>
-        <div className='BuyBtn' onClick={getBuy}>to pay</div>
+        <div className='BuyBtn' onClick={getBuy}>{t('marketplace.details.pay')}</div>
       </Modal>
       {/* 购买成功& 上架改加成功 过度弹窗 */}
-      <MessageModal data={MessageData} visible={messageVisible} title={'购买成功'} />
+      <MessageModal data={MessageData} visible={messageVisible} title={t('marketplace.details.buysuccessfullyInfo')} />
     </div>
   )
 }

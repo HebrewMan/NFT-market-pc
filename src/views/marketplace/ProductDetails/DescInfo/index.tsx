@@ -138,25 +138,27 @@ const ContentDetail = (props: any) => {
   // columns
   const columns: any = [
     {
-      title: 'Price',
+      width: 130,
+      title: t('marketplace.details.unitPrice'),
       dataIndex: 'price',
       render: (r: string, t: any) => {
         return <>{intlFloorFormat(t.price, 4) + ' ' + t.coin}</>
       }
     },
     {
-      title: 'Amount',
+      width: 120,
+      title: t('marketplace.details.amount'),
       dataIndex: 'leftAmount',
     },
     {
-      title: 'Address',
+      width: 120,
+      title: t('marketplace.Owner'),
       dataIndex: 'ownerAddr',
       render: (r: string, t: any) => {
         return t.ownerAddr?.substring(0, 6)
       }
     },
     {
-      width: 170,
       title: '',
       dataIndex: 'status',
       align: 'right',
@@ -165,7 +167,7 @@ const ContentDetail = (props: any) => {
           {record.ownerAddr === walletAccount ?
             <div className='flex'>
               <Button size={'small'} onClick={() => getCancelSellOrder(record)}>{t('common.cancel')}</Button>
-              <Button size={'small'} onClick={() => getSellUpdate(record)} style={{ marginLeft: '10px' }}>{'Update'}</Button>
+              <Button size={'small'} onClick={() => getSellUpdate(record)} style={{ marginLeft: '10px' }}>{t('marketplace.details.updatePrcie')}</Button>
             </div>
             : <Button size={'small'} onClick={() => handleBuy(record)}>{t('common.buy')}</Button>}
         </div>

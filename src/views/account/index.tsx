@@ -381,14 +381,13 @@ export const Account: React.FC<any> = () => {
                     setInfoVisible(true)
                   }}
                 >
-                  展开
+                  {t('common.moreText')}
                 </span>
               ),
             }
         }
       >
         {article}
-        {infoVisible && <a onClick={() => setInfoVisible(false)}>收起</a>}
       </Paragraph>
     )
   }
@@ -488,7 +487,7 @@ export const Account: React.FC<any> = () => {
 
                 <div className='btn' onClick={(e) => handleChange(e, item)}>
                   <img src="Src/assets/account/buy.png" alt="" />
-                  {item.status === 0 ? '下架' : '上架'}
+                  {item.status === 0 ? t('account.NFTCancel') : t('account.NFTSell')}
                 </div>
               </div>
 

@@ -22,7 +22,9 @@
     "monthAgo": "{{ num }} 月前",
     "yearAgo": "{{ num }} 年前",
     "signIn": "登录你的钱包",
-    "pleaseChoose":"请选择"
+    "pleaseChoose":"请选择",
+    "royalty":"版稅",
+    "moreText":"更多"
   },
   "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://www.diffgalaxy.io</1>",
   "home": {
@@ -61,10 +63,12 @@
     "myNft": "我的NFTs",
     "setting": "设置",
     "login": "登录",
-    "loginOut": "退出"
+    "loginOut": "退出",
+    "cnnectWallet":"连接钱包",
+    "myCollection":"我的集合"
   },
   "marketplace": {
-    "serach": "搜索NFT或合集名称",
+    "serach": "搜索NFT名称、TokenID",
     "sortBy": "排序方式",
     "recentlyListed": "最近的上架",
     "highToLow": "价格从高到低",
@@ -100,15 +104,29 @@
       "cancel": "取消",
       "trade": "交易",
       "batchMintTo": "批量铸造",
-      "updatePrcie": "更新价格",
+      "updatePrcie": "改价",
       "transfer": "转移",
       "list": "列表",
-      "setPrice": "设置上架价格",
-      "updateListPrice": "更新上架价格",
+      "setPrice": "上架NFT",
+      "updateListPrice": "更改NFT价格",
       "neverMind": "没关系",
       "CompleteList": "完成上架",
       "sellTips": "提示：NFT必须设置一个价格，你需要支付额外的gas费如果你在未来要取消这个上架",
-      "priceEnter":"请输入价格"
+      "priceEnter":"请输入价格",
+      "purchaseNFT":"购买NFT",
+      "unitPrice":"单价",
+      "amount":"数量",
+      "available":"可用",
+      "payAmount":"支付金额",
+      "pay":"支付",
+      "buysuccessfullyInfo":"恭喜！你已成功购买该NFT",
+      "checkNFTs":"查看我的NFTs",
+      "handlingFees":"交易手续费",
+      "confirmListing":"确认上架",
+      "dollarsInfo":"以{{price}}的价格上架，成交后可获得XXX",
+      "checkDetails":"查看详情",
+      "confirmChanging":"确认更改",
+      "successfullyLaunched":"恭喜！你的NFT已上架"
     }
   },
   "primary": {
@@ -143,7 +161,9 @@
     "all": "全部",
     "sale": "待出售",
     "selling": "出售中",
-    "forceCancel": "强制取消"
+    "forceCancel": "强制取消",
+    "NFTCancel":"取消",
+    "NFTSell":"出售"
   },
   "collection": {
     "serach": "搜索名称或账户",
@@ -185,5 +205,26 @@
     "imageSize": "上传的图片应该小于5M",
     "succeed": "成功",
     "faile": "失败"
+  },
+  "gather":{
+    "title":"我的集合",
+    "priceFloor":"地板价",
+    "totalVolume":"总交易量",
+    "totalNum":"总数",
+    "royaltyEarnings":"版税收益",
+    "totalRoyaltyEarnings":"总版税收益",
+    "todayRoyaltyEarnings":"今日版税收益",
+    "NFTName":"NFTs名称",
+    "totalPrice":"总成交价",
+    "time":"时间",
+    "noCollectionData":"暂无集合",
+    "noTemporarily":"暂无收益",
+    "contract":"合约",
+    "creators":"创作者",
+    "holders":"持有者",
+    "totalListings":"总挂单",
+    "loadMore":"加载更多",
+    "price":"单价",
+    "amount":"数量"
   }
 }

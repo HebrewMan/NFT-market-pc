@@ -110,6 +110,9 @@
           font-size: 14px;
           font-weight: 500;
           color: $tq-font-color-title;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
 
@@ -130,11 +133,13 @@
 
       .collection-name {
         margin-top: 6px;
-        // height: 20px;
         line-height: 20px;
         font-size: $tq-font-size-5;
         font-weight: 400;
         color: $tq-font-color-body;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
     }
@@ -155,7 +160,7 @@
         font-size: 14px;
 
         .btn {
-          padding: 0 14px !important;
+          padding: 0 8px !important;
         }
       }
 

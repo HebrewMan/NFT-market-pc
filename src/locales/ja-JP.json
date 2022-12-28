@@ -23,7 +23,9 @@
     "monthAgo": "{{ num }} 月前",
     "yearAgo": "{{ num }} 年前",
     "signIn": "ウォレットアドレスでログイン",
-    "pleaseChoose":"選んでください"
+    "pleaseChoose":"選んでください",
+    "royalty":"印税",
+    "moreText":"もっと"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://www.diffgalaxy.io</1>。",
   "home": {
@@ -62,10 +64,12 @@
     "myNft": "私のNFT",
     "setting": "設定",
     "login": "ログイン",
-    "loginOut": "ログアウト"
+    "loginOut": "ログアウト",
+    "cnnectWallet":"ウォレットリンク",
+    "myCollection":"私の集合"
   },
   "marketplace": {
-    "serach": "NFTまたはコレクション名で検索",
+    "serach": "NFTの名前やトークンIDで検索します",
     "sortBy": "並び替え",
     "recentlyListed": "最近のローンチ",
     "highToLow": "高価格から低価格へ",
@@ -104,12 +108,26 @@
       "updatePrcie": "更新価格",
       "transfer": "移行",
       "list": "リスト",
-      "setPrice": "ローンチ価格を設置します",
-      "updateListPrice": "ローンチ価格を更新します",
+      "setPrice": "NFTをリリースします",
+      "updateListPrice": "NFT価格を変更します",
       "neverMind": "構いません",
       "CompleteList": "ローンチ完了",
       "sellTips": "ヒント：NFTに価格設定が必須で、もし売らないなら別途にGAS費が払わないといけません",
-      "priceEnter":"価格を入力してください"
+      "priceEnter":"価格を入力してください",
+      "purchaseNFT":"NFT購入",
+      "unitPrice":"単価",
+      "amount":"数量",
+      "available":"利用可能",
+      "payAmount":"支払う金額",
+      "pay":"支払う",
+      "buysuccessfullyInfo":"おめでとうございます！NFT購入が成功しました",
+      "checkNFTs":"私のNFTｓをチェック",
+      "handlingFees":"取引手数料",
+      "confirmListing":"リリース確認",
+      "dollarsInfo":"{{price}}価格でリリースして、取引成功したら、XXXを獲得できます",
+      "checkDetails":"詳細チェック",
+      "confirmChanging":"変更確認",
+      "successfullyLaunched":"おめでとうございます！NFTのリリースが成功しました"
     }
   },
   "primary": {
@@ -144,7 +162,9 @@
     "all": "全て",
     "sale": "販売待ち",
     "selling": "販売中",
-    "forceCancel": "強制キャンセル"
+    "forceCancel": "強制キャンセル",
+    "NFTCancel":"取り消し",
+    "NFTSell":"セール"
   },
   "collection": {
     "serach": "名前またはアカウントを検索する",
@@ -186,5 +206,26 @@
     "imageSize": "アップロードする画像のサイズは5M以下",
     "succeed": "成功",
     "faile": "失敗"
+  },
+  "gather":{
+    "title":"私の集合",
+    "priceFloor":"最低値",
+    "totalVolume":"取引総量",
+    "totalNum":"総量",
+    "royaltyEarnings":"印税収益",
+    "totalRoyaltyEarnings":"印税総収益",
+    "todayRoyaltyEarnings":"本日の印税収益",
+    "NFTName":"NFTｓの名称",
+    "totalPrice":"取引成功総価格",
+    "time":"時間",
+    "noCollectionData":"今集合なし",
+    "noTemporarily":"今収益なし",
+    "contract":"コントラクト",
+    "creators":"創作者",
+    "holders":"保有者",
+    "totalListings":"注文総量",
+    "loadMore":"もっと見る",
+    "price":"単価",
+    "amount":"数量"
   }
 }
