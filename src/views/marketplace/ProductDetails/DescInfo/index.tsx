@@ -81,11 +81,11 @@ const ContentDetail = (props: any) => {
     tokenId && IntGetOrderList()
   }, [tokenId])
 
-  const IntGetOrderList = async () => {
+  const IntGetOrderList = async (curPage = 1) => {
     const useParams = {
       tokenId: tokenId,
       contractAddr: contractAddr,
-      page: page,
+      page: curPage,
       size: 20,
     }
     const data: any = await getOrderList(useParams)
@@ -138,7 +138,7 @@ const ContentDetail = (props: any) => {
   // columns
   const columns: any = [
     {
-      width: 130,
+      width: 150,
       title: t('marketplace.details.unitPrice'),
       dataIndex: 'price',
       render: (r: string, t: any) => {
@@ -182,7 +182,7 @@ const ContentDetail = (props: any) => {
     }
     setTimeout(() => {
       setPage(page + 1)
-      IntGetOrderList()
+      IntGetOrderList(page + 1)
     }, 500)
   }
 

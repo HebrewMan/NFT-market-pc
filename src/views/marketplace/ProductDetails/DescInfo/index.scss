@@ -219,6 +219,8 @@
 // 多订单表格
 
 .MultipleOrders {
+  position: relative;
+
   .TableWaper {
     // height: 210px;
     // overflow-y: scroll;
@@ -243,5 +245,56 @@
       border-bottom: 0px;
       color: $tq-font-color-title;
     }
+  }
+
+  .ant-spin-nested-loading,
+  .ant-spin-container,
+  .ant-table {
+    position: static;
+  }
+
+  .ant-table table {
+    padding-top: 40px;
+  }
+
+  // 解决table 下拉滚动表头固定功能
+  .ant-table-thead {
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: #fff;
+
+    tr {
+      display: flex;
+
+      th {
+        width: 25%;
+      }
+      th:nth-child(2) {
+        width: 120px;
+      }
+    }
+  }
+
+  /*里面的代码可以根据自己需求去进行更改*/
+  /* 设置滚动条的样式 */
+  ::-webkit-scrollbar {
+    width: 3px;
+    z-index: 100;
+  }
+
+  /* 滚动槽 */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    display: none;
+  }
+
+  /* 滚动条滑块 */
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
   }
 }
