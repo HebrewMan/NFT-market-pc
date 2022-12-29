@@ -188,7 +188,37 @@ export const GatherDetail: React.FC<any> = () => {
           <div className='info-waper'>
             <img src={data.headUrl} alt="cover" className='cover' />
             <div className='info-list'>
-              <section className='name'>{data.name}</section>
+              <div className='nameWaper'>
+                <section className='name'>{data.name}</section>
+                <div className='shareLink'>
+                  {!_.isNull(data.linkSkypegmwcn) && <a href={data.linkSkypegmwcn} target="_window">
+                    <img src={require('Src/assets/account/icon-gw.png')} alt="" />
+                  </a>
+                  }
+                  {!_.isNull(data.linkTwitter) && <a href={data.linkTwitter} target="_window">
+                    <img src={require('Src/assets/account/icon-Twitter.png')} alt="" />
+                  </a>
+                  }
+                  {!_.isNull(data.linkDiscord) && <a href={data.linkDiscord} target="_window">
+                    <img src={require('Src/assets/account/icon-Discord.png')} alt="" />
+                  </a>
+                  }
+                  {!_.isNull(data.linkInstagram) && <a href={data.linkInstagram} target="_window">
+                    <img src={require('Src/assets/account/icon-Instagram.png')} alt="" />
+                  </a>
+                  }
+                  {!_.isNull(data.linkMedium) && <a href={data.linkMedium} target="_window">
+                    <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
+                  </a>
+                  }
+                  {data?.ownerAddr && data?.ownerAddr.toUpperCase() === walletAccount.toUpperCase() &&
+                    <Link to={`/gather-edit/${data.id}`}>
+                      <img src={require('Src/assets/account/icon-edit.png')} alt="" />
+                    </Link>
+                  }
+
+                </div>
+              </div>
               <div className='info-address'>
                 <div>
                   {t('gather.contract')}: {formatAdd(data.contractAddr)}
@@ -242,34 +272,6 @@ export const GatherDetail: React.FC<any> = () => {
               </div>
             </div>
           </div>
-          <div className='shareLink'>
-            {!_.isNull(data.linkSkypegmwcn) && <a href={data.linkSkypegmwcn} target="_window">
-              <img src={require('Src/assets/account/icon-gw.png')} alt="" />
-            </a>
-            }
-            {!_.isNull(data.linkTwitter) && <a href={data.linkTwitter} target="_window">
-              <img src={require('Src/assets/account/icon-Twitter.png')} alt="" />
-            </a>
-            }
-            {!_.isNull(data.linkDiscord) && <a href={data.linkDiscord} target="_window">
-              <img src={require('Src/assets/account/icon-Discord.png')} alt="" />
-            </a>
-            }
-            {!_.isNull(data.linkInstagram) && <a href={data.linkInstagram} target="_window">
-              <img src={require('Src/assets/account/icon-Instagram.png')} alt="" />
-            </a>
-            }
-            {!_.isNull(data.linkMedium) && <a href={data.linkMedium} target="_window">
-              <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
-            </a>
-            }
-            {createAddr && createAddr.toUpperCase == walletAccount.toUpperCase &&
-              <Link to={`/gather-edit/${data.id}`}>
-                <img src={require('Src/assets/account/icon-edit.png')} alt="" />
-              </Link>
-            }
-
-          </div>
         </div>
         <div className='marketplace-waper'>
           <div className='filter'>
@@ -293,6 +295,6 @@ export const GatherDetail: React.FC<any> = () => {
           </InfiniteScroll>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

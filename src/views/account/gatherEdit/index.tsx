@@ -35,6 +35,10 @@ export const GatherEdit: React.FC<any> = () => {
   const chainId = parseInt(_chainId) //链id
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
   const [contractAddr, setContractAddr] = useState('')
+  const requireMsg = t('userSettings.required')
+
+
+
   useEffect(() => {
     getAccountInfoById(id)
   }, [id])
@@ -47,21 +51,22 @@ export const GatherEdit: React.FC<any> = () => {
     setBackgroundImage(data.backgroundUrl)
     setContractAddr(data.contractAddr)
     // 初始化数据
-    form.setFieldsValue({
-      name: data.name,
-      linkCollection: data.linkCollection,
-      description: data.description,
-      fileAvatar: data.headUrl,
-      coverUrl: data.fileCover,
-      backgroundUrl: data.backgroundUrl,
-      royalty: data.royalty,
-      royaltyAddr: data.royaltyAddr,
-      linkDiscord: data.linkDiscord,
-      linkInstagram: data.linkInstagram,
-      linkMedium: data.linkMedium,
-      linkTwitter: data.linkTwitter,
-      linkSkypegmwcn: data.linkSkypegmwcn
-    })
+    form.setFieldsValue(data)
+    // {
+    //   name: data.name,
+    //   linkCollection: data.linkCollection,
+    //   description: data.description,
+    //   fileAvatar: data.headUrl,
+    //   coverUrl: data.fileCover,
+    //   backgroundUrl: data.backgroundUrl,
+    //   royalty: data.royalty,
+    //   royaltyAddr: data.royaltyAddr,
+    //   linkDiscord: data.linkDiscord,
+    //   linkInstagram: data.linkInstagram,
+    //   linkMedium: data.linkMedium,
+    //   linkTwitter: data.linkTwitter,
+    //   linkSkypegmwcn: data.linkSkypegmwcn
+    // }
   }
 
 
@@ -101,11 +106,11 @@ export const GatherEdit: React.FC<any> = () => {
               setRoyalty()
             })
             .catch((err: any) => {
-              window.location.reload()
+              // window.location.reload()
             })
         })
         .catch((err: any) => {
-          window.location.reload()
+          // window.location.reload()
         })
     })
   }
@@ -148,18 +153,15 @@ export const GatherEdit: React.FC<any> = () => {
       headUrl: fileAvatar,
       coverUrl: fileCover,
       backgroundUrl: backgroundImage,
-      id: id
+      id: id,
+      contractAddr: contractAddr,
     }
     editMyGatherList(data).then((res: any) => {
       if (res.code == 0) {
         message.success('编辑成功')
         history.go(-1)
       }
-
     })
-      .catch((err: any) => {
-
-      })
   }
 
   // 版税校验规则
@@ -207,7 +209,7 @@ export const GatherEdit: React.FC<any> = () => {
   return (
     <div className='gatherEdit'>
       <div className='caption'>{t('gather.edit.title')}
-        {/* <span>( <em>*</em> 为必填项 )</span> */}
+        <span>( <em>*</em> 为必填项 )</span>
       </div>
       <div className='formWaper'>
         <Form
@@ -220,21 +222,21 @@ export const GatherEdit: React.FC<any> = () => {
           <Form.Item
             name="name"
             label={t('gather.edit.collectionName')}
-            rules={[{ required: true, message: '该字段为必填项' }]}
+            rules={[{ required: true, message: requireMsg }]}
           >
             <Input placeholder={t('gather.edit.placeholderName') || undefined} />
           </Form.Item>
           <Form.Item
             name="linkCollection"
             label={t('gather.edit.collectionLink')}
-            rules={[{ required: true, message: '该字段为必填项' }]}
+            rules={[{ required: true, message: requireMsg }]}
           >
             <Input prefix={linkUrl} placeholder={t('gather.edit.placeholderLink') || undefined} />
           </Form.Item>
           <Form.Item
             name="description"
             label={t('gather.edit.collectionDesc')}
-            rules={[{ required: true, message: '该字段为必填项' }]}
+            rules={[{ required: true, message: requireMsg }]}
           >
             <TextArea rows={4} placeholder={t('gather.edit.placeholderDesc') || undefined} maxLength={500} showCount />
           </Form.Item>
@@ -255,7 +257,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editAvatar'>
-                {fileAvatar == null ? <img src='Src/assets/account/upload.png'></img> : <img src={fileAvatar} className="imgWidth" />}
+                {fileAvatar == null || fileAvatar == '' ? <img src='Src/assets/account/upload.png'></img> : <img src={fileAvatar} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
@@ -274,7 +276,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editCover'>
-                {fileCover == null ? <img src='Src/assets/account/upload.png'></img> : <img src={fileCover} className="imgWidth" />}
+                {fileCover == null || fileCover == '' ? <img src='Src/assets/account/upload.png'></img> : <img src={fileCover} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>

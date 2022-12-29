@@ -122,7 +122,7 @@
       "checkNFTs":"查看我的NFTs",
       "handlingFees":"交易手續費",
       "confirmListing":"確認上架",
-      "dollarsInfo":"以{{price}}的價格上架，成交後可獲得XXX ",
+      "dollarsInfo":"以{{price}}的價格上架，成交後可獲得{{getPrice}}",
       "checkDetails":"查看詳情",
       "confirmChanging":"確認更改",
       "successfullyLaunched":"恭喜！你的NFT已上架"

@@ -124,7 +124,7 @@
       "checkNFTs":"Benim NFT'lerimi görüntüle",
       "handlingFees":"işlem ücreti",
       "confirmListing":"Satışa çıkarmayı onayla",
-      "dollarsInfo":"{{price}}fiyatında satışa çıkarıldı,işlem sonrası alabileceğinizXXX",
+      "dollarsInfo":"{{price}}fiyatında satışa çıkarıldı,işlem sonrası alabileceğiniz{{getPrice}}",
       "checkDetails":"Detaylarına bak",
       "confirmChanging":"Değişikliği onayla",
       "successfullyLaunched":"Tebrikler,NFT satışa çıkarıldı"

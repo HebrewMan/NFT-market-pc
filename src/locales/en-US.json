@@ -124,7 +124,7 @@
       "checkNFTs":"Check My NFTs",
       "handlingFees":"Handling Fees",
       "confirmListing":"Confirm Listing",
-      "dollarsInfo":"it will be listed in {{price}} dollars, you are able to get XXX after successfully traded",
+      "dollarsInfo":"it will be listed in {{price}} dollars, you are able to get {{getPrice}} after successfully traded",
       "checkDetails":"Check Details",
       "confirmChanging":"Confirm Changing",
       "successfullyLaunched":"Congratulations!Your NFT has been listed"

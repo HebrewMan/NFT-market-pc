@@ -8,7 +8,7 @@ import { NumUnitFormat, intlFloorFormat } from 'Utils/bigNumber'
 import { getNFTRoyalty, getNFTRoyaltyList } from 'Src/api/user'
 import config, { CoinType } from 'Src/config/constants'
 import { useTranslation } from 'react-i18next'
-
+import { getLocalStorage } from 'Utils/utils'
 
 export const GatherList: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -18,6 +18,7 @@ export const GatherList: React.FC<any> = () => {
   const [gatherListData, setGatherListData] = useState<any>([])
   const [royaltyData, setRoyaltyData] = useState<any>({})
   const [dataSource, setDataSource] = useState<any>([])
+  const account = getLocalStorage('wallet') || ''
 
   // 初始化
   useEffect(() => {
@@ -223,7 +224,7 @@ export const GatherList: React.FC<any> = () => {
                   <div className='gatherList-item' onClick={(e) => handleChnage(e, item)} key={index}>
                     <div className='item-img'>
                       <img src={item.coverUrl} alt="" className='img-cover' />
-                      {item.createAddr === item.ownerAddr && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.id)} />}
+                      {item.ownerAddr === account && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.id)} />}
                     </div>
                     <div className='item-info'>
                       <img src={item.headUrl} alt="" />

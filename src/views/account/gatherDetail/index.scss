@@ -19,7 +19,6 @@
 
   .gatherDetail-info {
     padding-bottom: 70px;
-    display: flex;
     justify-content: space-between;
 
     .info-waper {
@@ -37,6 +36,12 @@
 
       .info-list {
         margin-left: 20px;
+        flex: 1;
+
+        .nameWaper {
+          display: flex;
+          justify-content: space-between;
+        }
 
         .name {
           font-size: 26px;

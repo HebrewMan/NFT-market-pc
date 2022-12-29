@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Input, message } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { multipliedBy } from 'Utils/bigNumber'
+import { intlFloorFormat } from 'Utils/bigNumber'
 import { getLocalStorage, toPriceDecimals, debounce, getCookie, formatTokenId } from 'Utils/utils'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { useHistory } from 'react-router-dom'
@@ -38,7 +38,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const isERC721: boolean = contractType === ContractType.ERC721
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
-	const [handlingFee, setHandlingFee] = useState(0)
+	const [handlingFee, setHandlingFee] = useState(0) //手续费
+	const [getPrice, setGetPrice] = useState(0)  //最终获得价格
 	const [messageData, setMessageData] = useState<any>({
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
@@ -96,6 +97,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			return
 		}
 		setUpdatePrice(value.substring(0, posDot + 19))
+		setGetPrice(value * handlingFee * data.royalty)
 	}
 	// 数量
 	const handleNumChange = (event: any) => {
@@ -273,7 +275,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				)}
 
 				<div className='payWaper'>
-					{Number(updatePrice) > 0 && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice })}</div>}
+					{Number(updatePrice) > 0 && props?.sellOrderFlag && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) })}</div>}
 					<div className='info'>{t('marketplace.details.sellTips')}</div>
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>

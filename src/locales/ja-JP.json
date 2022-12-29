@@ -124,7 +124,7 @@
       "checkNFTs":"私のNFTｓをチェック",
       "handlingFees":"取引手数料",
       "confirmListing":"リリース確認",
-      "dollarsInfo":"{{price}}価格でリリースして、取引成功したら、XXXを獲得できます",
+      "dollarsInfo":"{{price}}価格でリリースして、取引成功したら、{{getPrice}}を獲得できます",
       "checkDetails":"詳細チェック",
       "confirmChanging":"変更確認",
       "successfullyLaunched":"おめでとうございます！NFTのリリースが成功しました"
