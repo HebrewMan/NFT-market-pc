@@ -226,6 +226,35 @@
     "totalListings":"Toplam emir",
     "loadMore":"Daha çok yükle",
     "price":"Tek fiyat",
-    "amount":"Miktar"
+    "amount":"Miktar",
+    "edit":{
+      "title":"Editoryal Koleksiyon",
+      "collectionName":"Koleksiyon adı",
+      "placeholderName":"Koleksiyonunuzun adı",
+      "collectionLink":"Kolektif bağlantılar",
+      "placeholderLink":"Koleksiyon URL'nizi özelleştirin",
+      "collectionDesc":"koleks'yon tanımı",
+      "placeholderDesc":"Koleksiyonunuzun tanımı",
+      "collectionProfile":"Vesikalık fotoğraf koleksiyonu",
+      "profileTips":"JPG, PNG, SVG'yi destekler, 200x200 önerilir, maksimum 1M",
+      "uploadPicture":"Resim yükleme",
+      "collectionCover":"Koleksiyon kapağı",
+      "coverTips":"JPG, PNG, SVG desteği, 600x400 önerilir, maksimum 3M",
+      "collectionBg":"toplam Arka Planı",
+      "bgTips":"JPG, PNG, SVG'yi destekler, 1900x350 önerilir, maksimum 10M",
+      "royalty":"Yaratıcı telif hakları",
+      "address":"alici adresinizi ekleyin, örn.",
+      "officialLink":"resmi web sitesine bağlantı",
+      "placeholderOfficial":"Projenizin resmi web sitesine bağlantı",
+      "twitterLink":"Twitter bağlantısı",
+      "placeholderTw":"Projenizin Twitter bağlantısı",
+      "discordLink":" Discord bağlantınız",
+      "placeholderDis":"Proje Discord bağlantınız",
+      "instagramLink":"Instagram bağlantısı",
+      "placeholderIns":"Projenizin Instagram bağlantısı",
+      "mediumLink":" Medium bağlantısı",
+      "placeholderMed":"Projeniz Medium bağlantısı",
+      "submit":"Gönder"
+    }
   }
 }

@@ -263,7 +263,7 @@ export const GatherDetail: React.FC<any> = () => {
               <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
             </a>
             }
-            {createAddr.toUpperCase == walletAccount.toUpperCase &&
+            {createAddr && createAddr.toUpperCase == walletAccount.toUpperCase &&
               <Link to={`/gather-edit/${data.id}`}>
                 <img src={require('Src/assets/account/icon-edit.png')} alt="" />
               </Link>

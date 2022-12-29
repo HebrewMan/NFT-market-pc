@@ -225,6 +225,35 @@
     "totalListings":"总挂单",
     "loadMore":"加载更多",
     "price":"单价",
-    "amount":"数量"
+    "amount":"数量",
+    "edit":{
+      "title":"编辑集合",
+      "collectionName":"集合名称",
+      "placeholderName":"你的集合名称",
+      "collectionLink":"集合链接",
+      "placeholderLink":"自定义你的合集URL",
+      "collectionDesc":"集合描述",
+      "placeholderDesc":"你的集合描述",
+      "collectionProfile":"集合头像",
+      "profileTips":"支持JPG、PNG、SVG，建议200x200，最大1M",
+      "uploadPicture":"上传图片",
+      "collectionCover":"集合封面",
+      "coverTips":"支持JPG、PNG、SVG，建议600x400，最大3M",
+      "collectionBg":"集合背景",
+      "bgTips":"支持JPG、PNG、SVG，建议1900x350，最大10M",
+      "royalty":"创作者版税",
+      "address":"添加你的收款地址，如：",
+      "officialLink":"官网链接",
+      "placeholderOfficial":"你的项目官网链接",
+      "twitterLink":"Twitter链接",
+      "placeholderTw":"你的项目Twitter链接",
+      "discordLink":"Discord链接",
+      "placeholderDis":"你的项目Discord链接",
+      "instagramLink":"Instagram链接",
+      "placeholderIns":"你的项目Instagram链接",
+      "mediumLink":"Medium链接",
+      "placeholderMed":"你的项目Medium链接",
+      "submit":"提交"
+    }
   }
 }

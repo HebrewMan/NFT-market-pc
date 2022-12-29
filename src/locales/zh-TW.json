@@ -224,6 +224,35 @@
     "totalListings":"總掛單",
     "loadMore":"加載更多",
     "price":"單價",
-    "amount":"數量"
+    "amount":"數量",
+    "edit":{
+      "title":"編輯集合",
+      "collectionName":"集合名稱",
+      "placeholderName":"你的集合名稱",
+      "collectionLink":"集合鏈接",
+      "placeholderLink":"自定義你的合集URL",
+      "collectionDesc":"集合描述",
+      "placeholderDesc":"你的集合描述",
+      "collectionProfile":"集合頭像",
+      "profileTips":"支持JPG、PNG、SVG，建議200x200，最大1M",
+      "uploadPicture":"上傳圖片",
+      "collectionCover":"集合封面",
+      "coverTips":"支持JPG、PNG、SVG，建議600x400，最大3M",
+      "collectionBg":"集合背景",
+      "bgTips":"支持JPG、PNG、SVG，建議1900x350，最大10M",
+      "royalty":"創作者版稅",
+      "address":"添加你的收款地址，如：",
+      "officialLink":"官網鏈接",
+      "placeholderOfficial":"你的項目官網鏈接",
+      "twitterLink":"Twitter鏈接",
+      "placeholderTw":"你的項目Twitter鏈接",
+      "discordLink":"Discord鏈接",
+      "placeholderDis":"你的項目Discord鏈接",
+      "instagramLink":"Instagram鏈接",
+      "placeholderIns":"你的項目Instagram鏈接",
+      "mediumLink":"Medium鏈接",
+      "placeholderMed":"你的項目Medium鏈接",
+      "submit":"提交"
+    }
   }
 }

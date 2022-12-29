@@ -226,6 +226,35 @@
     "totalListings":"注文総量",
     "loadMore":"もっと見る",
     "price":"単価",
-    "amount":"数量"
+    "amount":"数量",
+    "edit":{
+      "title":"集合編集",
+      "collectionName":"集合名称",
+      "placeholderName":"君の集合名称",
+      "collectionLink":"集合リンク",
+      "placeholderLink":"集合URLを設定します",
+      "collectionDesc":"集合紹介",
+      "placeholderDesc":"君の集合紹介",
+      "collectionProfile":"集合アイコン",
+      "profileTips":"JPG、PNG、SVGのみサポートして、サイズは200x200で、1M以下です",
+      "uploadPicture":"写真をアップロード",
+      "collectionCover":"集合イメージ図",
+      "coverTips":"JPG、PNG、SVGのみサポートして、サイズは600x400で、3M以下です",
+      "collectionBg":"集合背景",
+      "bgTips":"JPG、PNG、SVGのみサポートして、サイズは1900x350で、10M以下です",
+      "royalty":"創作者の印税",
+      "address":"入金アドレスを追加してください、例えば：",
+      "officialLink":"ホームページURL",
+      "placeholderOfficial":"プロジェクトホームページURL",
+      "twitterLink":"ツイッターURL",
+      "placeholderTw":"プロジェクトツイッターURL",
+      "discordLink":"DiscordのURL",
+      "placeholderDis":"プロジェクトのDiscordURL",
+      "instagramLink":"InstagramのURL",
+      "placeholderIns":"プロジェクトのInstagramURL",
+      "mediumLink":"MediumのURL",
+      "placeholderMed":"プロジェクトのMediumURL",
+      "submit":"提出"
+    }
   }
 }

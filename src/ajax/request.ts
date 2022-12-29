@@ -73,6 +73,7 @@ request.interceptors.response.use((response: any) => {
       messageAntd.error(data?.message)
       setTimeout(() => {
         history.push('/login');
+        window.location.reload()
       }, 2500)
     }else if(codeNum === 500){
       messageAntd.error('接口异常')

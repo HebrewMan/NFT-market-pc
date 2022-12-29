@@ -228,6 +228,35 @@
     "totalListings":"Total Listings",
     "loadMore":"Load More",
     "price":"Unit Price",
-    "amount":"Amount"
+    "amount":"Amount",
+    "edit":{
+      "title":"Edit Collection",
+      "collectionName":"The name of the collection ",
+      "placeholderName":"Your name of the collection",
+      "collectionLink":"Link of the collection ",
+      "placeholderLink":"Self Define your URL Collection",
+      "collectionDesc":"Description of the collection",
+      "placeholderDesc":"Your Description of the collection",
+      "collectionProfile":"The Profile of the collection",
+      "profileTips":"Support JPG , PNG,SVG, Suggest 200*200, Max 1M",
+      "uploadPicture":"Upload Picture",
+      "collectionCover":"The cover of the collection",
+      "coverTips":"Support JPG,PNG,SVG ,suggest 600*400, Max 3M",
+      "collectionBg":"The Background of the collection",
+      "bgTips":"Support JPG, PNG, SVG, suggest 1900*350,Max 10M",
+      "royalty":"Creators' Copyright Royalty",
+      "address":"Add your receiving address , such as: ",
+      "officialLink":"Official Link",
+      "placeholderOfficial":"Your Project Official website Link",
+      "twitterLink":"Twitter Link",
+      "placeholderTw":"Your Project's Twitter Link ",
+      "discordLink":"Discord Link",
+      "placeholderDis":"Your Project's Discord Link",
+      "instagramLink":"Instagram Link",
+      "placeholderIns":"Your Project's Instagram Link",
+      "mediumLink":"Medium Link",
+      "placeholderMed":"Your Project's Medium Link",
+      "submit":"Submit"
+    }
   }
 }

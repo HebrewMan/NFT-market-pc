@@ -206,7 +206,9 @@ export const GatherEdit: React.FC<any> = () => {
 
   return (
     <div className='gatherEdit'>
-      <div className='caption'>编辑集合<span>( <em>*</em> 为必填项 )</span></div>
+      <div className='caption'>{t('gather.edit.title')}
+        {/* <span>( <em>*</em> 为必填项 )</span> */}
+      </div>
       <div className='formWaper'>
         <Form
           form={form}
@@ -217,30 +219,30 @@ export const GatherEdit: React.FC<any> = () => {
         >
           <Form.Item
             name="name"
-            label="集合名称"
+            label={t('gather.edit.collectionName')}
             rules={[{ required: true, message: '该字段为必填项' }]}
           >
-            <Input placeholder="你的合集名称" />
+            <Input placeholder={t('gather.edit.placeholderName') || undefined} />
           </Form.Item>
           <Form.Item
             name="linkCollection"
-            label="集合链接"
+            label={t('gather.edit.collectionLink')}
             rules={[{ required: true, message: '该字段为必填项' }]}
           >
-            <Input prefix={linkUrl} placeholder="自定义你的合集URL" />
+            <Input prefix={linkUrl} placeholder={t('gather.edit.placeholderLink') || undefined} />
           </Form.Item>
           <Form.Item
             name="description"
-            label="集合描述"
+            label={t('gather.edit.collectionDesc')}
             rules={[{ required: true, message: '该字段为必填项' }]}
           >
-            <TextArea rows={4} placeholder="你的合集描述..." maxLength={500} showCount />
+            <TextArea rows={4} placeholder={t('gather.edit.placeholderDesc') || undefined} maxLength={500} showCount />
           </Form.Item>
           <Form.Item
             label={
               <div className='imgTitle'>
-                集合头像
-                <span>（支持JPG、PNG、SVG，建议200x200，最大1M）</span>
+                {t('gather.edit.collectionProfile')}
+                <span>{t('gather.edit.profileTips')}</span>
               </div>
             }
           >
@@ -259,8 +261,8 @@ export const GatherEdit: React.FC<any> = () => {
           </Form.Item>
           <Form.Item label={
             <div className='imgTitle'>
-              集合封面
-              <span>（支持JPG、PNG、SVG，建议600x400，最大3M）</span>
+              {t('gather.edit.collectionCover')}
+              <span>{t('gather.edit.coverTips')}</span>
             </div>
           }
           >
@@ -279,8 +281,8 @@ export const GatherEdit: React.FC<any> = () => {
 
           <Form.Item label={
             <div className='imgTitle'>
-              集合背景
-              <span>（支持JPG、PNG、SVG，建议1900x350，最大10M）</span>
+              {t('gather.edit.collectionBg')}
+              <span>{t('gather.edit.bgTips')}</span>
             </div>
           }
           >
@@ -297,11 +299,11 @@ export const GatherEdit: React.FC<any> = () => {
             </Upload>
           </Form.Item>
           <Row gutter={24}>
-            <Col span={6}>
+            <Col span={9}>
               <Form.Item
                 label={
                   <div>
-                    创作者版税
+                    {t('gather.edit.royalty')}
                     <Tooltip title="你作为创作者，每交易一笔NFTs，即可按交易价格收取一定比例收益。">
                       <img src="Src/assets/account/question.png" alt="" className="royalties" />
                     </Tooltip>
@@ -312,30 +314,30 @@ export const GatherEdit: React.FC<any> = () => {
                 <Input suffix="%" />
               </Form.Item>
             </Col>
-            <Col span={18}>
-              <Form.Item label="收款地址" name='royaltyAddr' rules={[{ required: true, message: '请设置版税收益收款地址' }]}>
-                <Input placeholder='添加你的收款地址（如：0x85K86...02rf03）' />
+            <Col span={15}>
+              <Form.Item label="收款地址" name='royaltyAddr' rules={[{ required: true, message: t('gather.edit.address') || undefined }]}>
+                <Input placeholder={t('gather.edit.address') || undefined} />
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="官网链接" name="linkSkypegmwcn" rules={LinKValidator}>
-            <Input placeholder='你的项目官网链接' />
+          <Form.Item label={t('gather.edit.officialLink')} name="linkSkypegmwcn" rules={LinKValidator}>
+            <Input placeholder={t('gather.edit.placeholderOfficial') || undefined} />
           </Form.Item>
           <Form.Item>
-            <Form.Item label="Twitter链接" name="linkTwitter" rules={LinKValidator}>
-              <Input type='href' placeholder='你的项目Twitter链接' />
+            <Form.Item label={t('gather.edit.twitterLink')} name="linkTwitter" rules={LinKValidator}>
+              <Input type='href' placeholder={t('gather.edit.placeholderTw') || undefined} />
             </Form.Item>
-            <Form.Item label="Discord链接" name="linkDiscord" rules={LinKValidator}>
-              <Input placeholder='你的项目Discord链接' />
+            <Form.Item label={t('gather.edit.discordLink')} name="linkDiscord" rules={LinKValidator}>
+              <Input placeholder={t('gather.edit.placeholderDis') || undefined} />
             </Form.Item>
-            <Form.Item label="Instagram链接" name="linkInstagram" rules={LinKValidator}>
-              <Input placeholder='你的项目Instagram链接' />
+            <Form.Item label={t('gather.edit.instagramLink')} name="linkInstagram" rules={LinKValidator}>
+              <Input placeholder={t('gather.edit.placeholderIns') || undefined} />
             </Form.Item>
-            <Form.Item label="Medium链接" name="linkMedium" rules={LinKValidator}>
-              <Input placeholder='你的项目Medium链接' />
+            <Form.Item label={t('gather.edit.mediumLink')} name="linkMedium" rules={LinKValidator}>
+              <Input placeholder={t('gather.edit.placeholderMed') || undefined} />
             </Form.Item>
             <Button type="primary" htmlType="submit" disabled={disabled} className="sumbit">
-              Submit
+              {t('gather.edit.submit')}
             </Button>
           </Form.Item>
         </Form>
