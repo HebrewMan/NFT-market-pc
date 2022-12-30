@@ -9,6 +9,7 @@ import { getNFTRoyalty, getNFTRoyaltyList } from 'Src/api/user'
 import config, { CoinType } from 'Src/config/constants'
 import { useTranslation } from 'react-i18next'
 import { getLocalStorage } from 'Utils/utils'
+import dayjs from 'dayjs'
 
 export const GatherList: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -25,9 +26,11 @@ export const GatherList: React.FC<any> = () => {
     getGatherData()
     // 版税信息
     getNFTRoyaltyData()
-    loadData(page)
-
   }, [])
+
+  useEffect(() => {
+    loadData(page)
+  }, [page])
 
   // 获取集合数据
   const getGatherData = async () => {
@@ -46,7 +49,8 @@ export const GatherList: React.FC<any> = () => {
       size: 10,
     }
     const dataList: any = await getNFTRoyaltyList(params)
-    setDataSource(dataList.records)
+    setTotal(dataList?.data.total)
+    setDataSource(dataList?.data.records)
 
   }
 
@@ -132,11 +136,11 @@ export const GatherList: React.FC<any> = () => {
     {
       id: 1,
       title: t('gather.NFTName'),
-      dataIndex: 'title',
-      render: (t: string) => {
+      dataIndex: 'tokenName',
+      render: (t: string, r: any) => {
         return (
           <>
-            <img src="" alt="" className='tbaleCover' />
+            {r.tokenImageUrl != null && <img src={r.tokenImageUrl} alt="" className='tbaleCover' />}
             {t}
           </>
         )
@@ -163,7 +167,7 @@ export const GatherList: React.FC<any> = () => {
     {
       id: 4,
       title: t('gather.totalPrice'),
-      dataIndex: 'totalPrice',
+      dataIndex: 'totalTrans',
       render: (t: string) => {
         return (
           <>
@@ -176,7 +180,7 @@ export const GatherList: React.FC<any> = () => {
     {
       id: 5,
       title: t('gather.royaltyEarnings'),
-      dataIndex: 'RoyaltyIncome',
+      dataIndex: 'royalty',
       render: (t: string) => {
         return (
           <>
@@ -189,7 +193,10 @@ export const GatherList: React.FC<any> = () => {
     {
       id: 6,
       title: t('gather.time'),
-      dataIndex: 'time',
+      dataIndex: 'createDate',
+      render: (t: string) => {
+        return dayjs().format('YYYY-MM-DD')
+      }
     }
   ]
 

@@ -254,7 +254,17 @@
       "placeholderIns":"プロジェクトのInstagramURL",
       "mediumLink":"MediumのURL",
       "placeholderMed":"プロジェクトのMediumURL",
-      "submit":"提出"
+      "submit":"提出",
+      "meansInfo":"記入必須",
+      "creatorInfo":"創作者として、NFTsを取引するたび、取引価格の一定比例で収益をもらえます",
+      "receivingAddress":"入金アドレス",
+      "enterInfo":"一桁以上の数字のみ入力してください",
+      "linkError":"URL格式が間違っています",
+      "maxRoyalty":"印税は最大10%まで設定可能です",
+      "editSucces":"編集成功",
+      "uploadProfile":"集合アイコンをアップロードしてください",
+      "uploadCover":"集合イメージ図をアップロードしてください",
+      "uploadBg":"集合背景図をアップロードしてください"
     }
   }
 }

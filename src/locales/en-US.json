@@ -256,7 +256,17 @@
       "placeholderIns":"Your Project's Instagram Link",
       "mediumLink":"Medium Link",
       "placeholderMed":"Your Project's Medium Link",
-      "submit":"Submit"
+      "submit":"Submit",
+      "meansInfo":"means necessay info",
+      "creatorInfo":"You as a creator will recieve certain proportion earnings according to the trading price for each NFT that you traded",
+      "receivingAddress":"Receiving Address",
+      "enterInfo":"You are only able to enter digits and keep one decimal",
+      "linkError":"Link Format Error ",
+      "maxRoyalty":"Maximum Royalty can be set to 10%",
+      "editSucces":"Editing Successfully",
+      "uploadProfile":"Please upload the profile picture for collection ",
+      "uploadCover":"Please upload the cover picture for collection",
+      "uploadBg":"Please upload the background picture for collection"
     }
   }
 }

@@ -235,19 +235,17 @@ export const Account: React.FC<any> = () => {
   }
 
   const handleSort = (item: any) => {
-    const orders = [
-      {
-        asc: item.value === 'high' ? false : true,
-        column: 'o.price',
-      },
-    ]
+    const data = {
+      sort: item.value,
+    }
+
     setHttpData(() => {
       return {
         page: pageCurrent,
         size,
         data: {
           ...httpData.data,
-          orders: orders,
+          data: data,
         },
       }
     })
@@ -258,7 +256,7 @@ export const Account: React.FC<any> = () => {
     }
 
     pageRef.current = 0
-    setSort(item.value === 'high' ? false : true)
+    setSort(item.value)
     setPageCurrent(1)
     setCollectionsData([])
     if (Math.ceil(total / size) > page) {
@@ -270,7 +268,7 @@ export const Account: React.FC<any> = () => {
         size,
         data: {
           ...httpData.data,
-          orders: orders,
+          data: data,
         },
       }
     })
@@ -483,8 +481,6 @@ export const Account: React.FC<any> = () => {
                     </>
                   }
                 </div>
-
-
                 <div className='btn' onClick={(e) => handleChange(e, item)}>
                   <img src="Src/assets/account/buy.png" alt="" />
                   {item.status === 0 ? t('account.NFTCancel') : t('account.NFTSell')}

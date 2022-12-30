@@ -21,6 +21,9 @@ export const DescInfo = (props: any) => {
   const [type, setType] = useState(0)
   const { t } = useTranslation()
 
+  useEffect(() => {
+    props?.DetailData.contractType === "ERC1155" ? setType(0) : setType(1)
+  }, [props?.DetailData.contractType])
   return (
     <div className='desc-information'>
       <div className='information-list'>
@@ -255,7 +258,7 @@ const ContentDetail = (props: any) => {
               {formatAdd(contractAddr)}
             </a>
             <p>{tokenId}</p>
-            <p>ERC-1155</p>
+            <p>{props?.DetailData.contractType}</p>
             <p>AITD</p>
           </div>
         </div>

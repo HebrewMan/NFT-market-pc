@@ -18,7 +18,7 @@ import { getModifyPrice, createMarketItem } from 'Src/hooks/marketplace'
 import { getUpdateLowerPrice } from 'Src/api/index'
 import MessageModal from '../MessageModal'
 import _ from 'lodash'
-import { getHandlingFee } from 'Src/api/user'
+import { getHandlingFee, getUserAsset } from 'Src/api/user'
 
 const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
@@ -51,7 +51,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	useEffect(() => {
 		setIsModalVisible(props.isOpen)
 		setUpdatePrice(price)
-		setAmountNum(amount)
 		// 获取手续费配置
 		HandlingFeeData()
 	}, [props])
@@ -59,6 +58,11 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const HandlingFeeData = async () => {
 		const data: any = await getHandlingFee({ name: 'transaction_fee' })
 		setHandlingFee(data.data.value)
+		// 用户资产
+		const asset: any = await getUserAsset({ contractAddr: contractAddr, tokenId: tokenId })
+		console.log(asset?.data.amount, 'asset?.data.amount')
+
+		setAmountNum(asset?.data.amount)
 	}
 
 	// 当数量变化时，价格重新计算
@@ -266,7 +270,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 					<div className='PriceWpaer'>
 						<div className='label'>
 							<span>{t('marketplace.details.amount')}</span>
-							<span>{t('marketplace.details.available')}: {data?.leftAmount || amountNum}</span>
+							<span>{t('marketplace.details.available')}: {amountNum}</span>
 						</div>
 						<section className='inputWaper'>
 							<Input type='Number' defaultValue={defaultAmountNum} className='num_box' placeholder={t('marketplace.details.amountEnter') || undefined} onChange={debounce(handleNumChange)} />

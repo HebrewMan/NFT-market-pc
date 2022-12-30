@@ -252,7 +252,17 @@
       "placeholderIns":"你的項目Instagram鏈接",
       "mediumLink":"Medium鏈接",
       "placeholderMed":"你的項目Medium鏈接",
-      "submit":"提交"
+      "submit":"提交",
+      "meansInfo":"為必填項",
+      "creatorInfo":"你作為創作者，每交易一筆NFTs，即可按交易價格收取一定比例收益。",
+      "receivingAddress":"收款地址",
+      "enterInfo":"只能輸入數字且保留一位小數",
+      "linkError":"鏈接格式錯誤",
+      "maxRoyalty":"最大可設置版稅為10%",
+      "editSucces":"編輯成功",
+      "uploadProfile":"請上傳集合頭像",
+      "uploadCover":"請上傳集合封面",
+      "uploadBg":"請上傳集合背景"
     }
   }
 }

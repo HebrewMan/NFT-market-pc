@@ -78,11 +78,11 @@ export const GatherEdit: React.FC<any> = () => {
   const onFinish = () => {
     // 检查图片是否都上传
     if (_.isNull(fileAvatar)) {
-      message.warn('请上传集合头像')
+      message.warn(t('gather.edit.uploadProfile'))
     } else if (_.isNull(fileCover)) {
-      message.warn('请上传集合封面')
+      message.warn(t('gather.edit.uploadCover'))
     } else if (_.isNull(backgroundImage)) {
-      message.warn('请上传集合背景')
+      message.warn(t('gather.edit.uploadBg'))
     } else {
       form.validateFields().then((values: any) => {
         //调用签名
@@ -158,7 +158,7 @@ export const GatherEdit: React.FC<any> = () => {
     }
     editMyGatherList(data).then((res: any) => {
       if (res.code == 0) {
-        message.success('编辑成功')
+        message.success(t('gather.edit.editSucces'))
         history.go(-1)
       }
     })
@@ -166,13 +166,13 @@ export const GatherEdit: React.FC<any> = () => {
 
   // 版税校验规则
   const royaltiesRules: any = [
-    { required: true, message: '该字段为必填项' },
-    { pattern: /^\d+(\.\d{1,1})?$/, message: '只能输入数字且保留一位小数' },
+    { required: true, message: requireMsg },
+    { pattern: /^\d+(\.\d{1,1})?$/, message: t('gather.edit.enterInfo') },
     () => ({
       validator(rule: any, value: any) {
         if (value) {
           if (Number(value) > Number(10)) {
-            return Promise.reject('最大可设置版税为10%')
+            return Promise.reject(t('gather.edit.maxRoyalty'))
           }
         }
         return Promise.resolve()
@@ -181,7 +181,7 @@ export const GatherEdit: React.FC<any> = () => {
   ]
   // 链接校验格式
   const LinKValidator: any = [
-    { pattern: /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/, message: '链接格式错误' }
+    { pattern: /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/, message: t('gather.edit.linkError') }
   ]
   // 上传图片
   const customRequest = (options: any, type: string) => {
@@ -209,7 +209,7 @@ export const GatherEdit: React.FC<any> = () => {
   return (
     <div className='gatherEdit'>
       <div className='caption'>{t('gather.edit.title')}
-        <span>( <em>*</em> 为必填项 )</span>
+        <span>( <em>*</em>{t('gather.edit.meansInfo')} )</span>
       </div>
       <div className='formWaper'>
         <Form
@@ -306,7 +306,7 @@ export const GatherEdit: React.FC<any> = () => {
                 label={
                   <div>
                     {t('gather.edit.royalty')}
-                    <Tooltip title="你作为创作者，每交易一笔NFTs，即可按交易价格收取一定比例收益。">
+                    <Tooltip title={t('gather.edit.creatorInfo')}>
                       <img src="Src/assets/account/question.png" alt="" className="royalties" />
                     </Tooltip>
                   </div>
@@ -317,7 +317,7 @@ export const GatherEdit: React.FC<any> = () => {
               </Form.Item>
             </Col>
             <Col span={15}>
-              <Form.Item label="收款地址" name='royaltyAddr' rules={[{ required: true, message: t('gather.edit.address') || undefined }]}>
+              <Form.Item label={t('gather.edit.receivingAddress')} name='royaltyAddr' rules={[{ required: true, message: t('gather.edit.address') || undefined }]}>
                 <Input placeholder={t('gather.edit.address') || undefined} />
               </Form.Item>
             </Col>

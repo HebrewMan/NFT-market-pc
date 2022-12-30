@@ -115,7 +115,7 @@
       "sellTips": "İpuçları: NFT fiyatı belirlemelidir. Bu listeyi daha sonra iptal etmek isterseniz, ek bir gas ücreti ödemeniz gerekir.",
       "priceEnter":"please enter price",
       "purchaseNFT":"NFT Satın Alın",
-      "unitPrice":"Tek fiyat",
+      "unitPrice":"birim fiyat",
       "amount":"Miktar",
       "available":"Kullanabilir",
       "payAmount":"Ödenecek tutar",
@@ -221,7 +221,7 @@
     "noCollectionData":"Toplamalar yok",
     "noTemporarily":"Şimdilik kazanç yok",
     "contract":"Vadeli",
-    "creators":"Üretici",
+    "creators":"yaratici",
     "holders":"Sahip olan",
     "totalListings":"Toplam emir",
     "loadMore":"Daha çok yükle",
@@ -254,7 +254,17 @@
       "placeholderIns":"Projenizin Instagram bağlantısı",
       "mediumLink":" Medium bağlantısı",
       "placeholderMed":"Projeniz Medium bağlantısı",
-      "submit":"Gönder"
+      "submit":"Gönder",
+      "meansInfo":"zorunlu doldurma alanı",
+      "creatorInfo":"Yaratıcı olduğunuzdan,her NFTs işleminde ,işlem fiyatını baz alarak kazanç sağlayabilirsiniz ",
+      "receivingAddress":"Alıcı adres",
+      "enterInfo":"Sadece rakam girebilirsiniz ve bir küçük rakam kalmalı",
+      "linkError":"Bağlantı format hatası",
+      "maxRoyalty":"Maks patent ayarı 10%",
+      "editSucces":"Düzeltme başarlı",
+      "uploadProfile":"Toplama profil resmi yükleyin",
+      "uploadCover":"Toplama başlık resmi yükleyin",
+      "uploadBg":"Toplama arka plan resmi yükleyin"
     }
   }
 }

@@ -65,6 +65,7 @@ export const ProductionDetails = () => {
   const [contractType, setContractType] = useState(null)
   const [bugModalOpen, setBuyModalOpen] = useState(false)
   const [isAITD, setIsAITD] = useState<boolean>(false)
+  const [useAmount, setUseAmount] = useState(0) // 用户拥有数量
   //初始化数据
   useEffect(() => {
     const state: any = history.location.state
@@ -104,6 +105,7 @@ export const ProductionDetails = () => {
       datas = await getNFTDetail(orderId == null ? useParams : params)
     }
     let { data } = datas
+    setUseAmount(data?.userAssetVO ? data?.userAssetVO?.amount : data?.amountTotal)
     setStatus(data.status) //售卖状态
     setAmount(data.amount)
     setDetailMetadata(data?.nftMetadata)
@@ -178,7 +180,6 @@ export const ProductionDetails = () => {
     return !!account && DetailData?.ownerAddr === accountAddress
   }
   const isCancelSell = () => {
-
     // 用户资产跳过来进行出售操作，刷新后用数量判断
     const canEdit = tokenId && amount === 0
     // userNftStatus用于判断nft是否正在出售
@@ -256,22 +257,31 @@ export const ProductionDetails = () => {
 
 
   const sellBtn = () => {
-    // 用户资产跳转过来状态为用户撤单 或 个数不为0
-    const canSell = tokenId ? amount !== 0 || userNftStatus === 2 : true
-    // 判断属于本人, status 不是正在出售
-    if (isOwner() && canSell && status !== 0) {
+
+    // 只要用户可用数量>0 就能继续上架
+    if (isOwner() && DetailData?.userAssetVO.amount > 0) {
       return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>
     }
+    else {
+      return isOwner() && cancelBtn()
+    }
+
+    // // 用户资产跳转过来状态为用户撤单 或 个数不为0
+    // const canSell = tokenId ? amount !== 0 || userNftStatus === 2 : true
+    // // 判断属于本人, status 不是正在出售
+    // if (isOwner() && canSell && status !== 0) {
+    //   return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>
+    // }
   }
   const cancelBtn = () => {
-    if (isCancelSell()) {
-      return (
-        <>
-          <button onClick={getCancelSellOrder} className={'cancebtn'}> {t('marketplace.details.cancelList')}</button>
-          <button onClick={getUpdateLowerPriceOrder} className={'updateBtn'}>{t('marketplace.details.update')}</button>
-        </>
-      )
-    }
+    // if (isCancelSell()) {
+    return (
+      <div className='wrapper-btn'>
+        <button onClick={getCancelSellOrder} className={'cancebtn'}> {t('marketplace.details.cancelList')}</button>
+        <button onClick={getUpdateLowerPriceOrder} className={'updateBtn'}>{t('marketplace.details.update')}</button>
+      </div>
+    )
+    // }
   }
   const updateGoods = () => {
     init(orderId)
@@ -323,7 +333,7 @@ export const ProductionDetails = () => {
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && DetailData.amount} {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && useAmount} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>
@@ -340,12 +350,12 @@ export const ProductionDetails = () => {
                     {t('common.buyNow')}
                   </button>
                 )}
-                {/* /上架售出 */}
+                {/* /上架售出 改价和下架  */}
                 {sellBtn()}
-                {/* 改价和下架 */}
-                <div className='wrapper-btn'>
+                {/* */}
+                {/* <div className='wrapper-btn'>
                   {cancelBtn()}
-                </div>
+                </div> */}
               </div>
             </div>
             {/* Description List */}

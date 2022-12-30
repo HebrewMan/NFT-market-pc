@@ -43,3 +43,9 @@ export function getNFTRoyalty() {
 export function getNFTRoyaltyList(params: any) {
   return post(`/v1/api/nftRoyalty/pageByCurrentUser`,params);
 }
+
+
+// 用户资产
+export function getUserAsset(params: any) {
+  return post(`/v1/api/asset/userInfo`,params);
+}
