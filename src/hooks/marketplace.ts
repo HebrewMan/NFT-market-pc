@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 import { getMarketPlaceContract, getMarketPlacePrimaryContract, getMarketPlaceAitdV3Abi, getMarketPlaceAitdV2_1Abi } from './web3Utils';
 import instanceLoading from '../utils/loading';
-import { multipliedBy } from '../utils/bigNumber'
+import { multipliedBy, multipliedByDecimals } from '../utils/bigNumber'
 import { web } from 'webpack'
 
 // // 定义gasPrice
@@ -34,7 +34,6 @@ export const createMarketItem = async (web3: Web3, obj: any) => {
   const { moneyMintAddress, tokenId, price, Erc1155ContractAddr, marketPlaceContractAddr, account, ctype, amounts } =
     obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
-  console.log(price,'List contract price');
   
   // 如果是721类型 amount传1
   const count = (ctype === 0 ? 1 : amounts) || 1;
@@ -45,18 +44,6 @@ export const createMarketItem = async (web3: Web3, obj: any) => {
   return result;
 };
 
-// // 下架
-// export const cancelMarketItemErc1155 = async (
-//   web3: Web3,
-//   orderId: number,
-//   account: any,
-//   marketPlaceContractAddr: string,
-// ) => {
-//   const result = await getMarketPlaceContract(marketPlaceContractAddr, web3)
-//     .methods.cancelMarketItemErc1155(orderId)
-//     .send({ from: account });
-//   return result;
-// };
 
 // 最新下架
 /*
@@ -111,10 +98,13 @@ export const createMarketSale = async (web3: Web3, obj?: any) => {
   const { orderId, price, Erc1155ContractAddr, moneyMintAddress, marketPlaceContractAddr, account, amounts, coin } = obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
   let sendObj: any = { from: account};
+  const values = multipliedBy(price,amounts,18)
+
   // 原生币支付要给value传值, value为发交易的时候支付多少    购买多个value要 * 数量amounts
   if (coin === 'AITD') {
-    sendObj = { ...sendObj, value: multipliedBy(price,amounts,18)};
+    sendObj = { ...sendObj, value: multipliedByDecimals(values)};
   }
+
   try {
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr, web3)
       .methods.createMarketSale(nftContract, moneyMintAddress, orderId, amounts, price)

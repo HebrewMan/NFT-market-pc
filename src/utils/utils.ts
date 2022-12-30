@@ -179,8 +179,6 @@ export const wallets = [
 ];
 
 export const toPriceDecimals = (price: string | number, decimals = 6) => {
-  console.log(price,decimals,new BigNumber(price).multipliedBy(new BigNumber(10).pow(decimals)).toFixed(),'sty');
-  
   return new BigNumber(price).multipliedBy(new BigNumber(10).pow(decimals)).toFixed();
 };
 

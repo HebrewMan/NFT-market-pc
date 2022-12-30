@@ -60,6 +60,7 @@ export function multipliedBy(value: IType, value1: IType, decimals?: number) {
   return result.toString();
 }
 
+
 // 乘精度换算
 export function multipliedByDecimals(
   value: string | BigNumber,
@@ -67,7 +68,7 @@ export function multipliedByDecimals(
 ) {
   // 根据精度格式化数据
   return toBigNumber(value)
-    .multipliedBy(new BigNumber(10).pow(decimals))
+    .multipliedBy(new BigNumber(1).pow(decimals))
     .toFixed();
 }
 
