@@ -166,7 +166,7 @@ const ReceiveModal: React.FC<any> = (props) => {
             <div onClick={decrease}>
               <img src={decreaseImg} alt='' />
             </div>
-            <input type='text' className='num_box' value={subNum} />
+            <input type='text' className='num_box' defaultValue={subNum} />
             <div onClick={increase}>
               <img src={increaseImg} alt='' />
             </div>

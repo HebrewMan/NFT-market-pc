@@ -60,8 +60,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		setHandlingFee(data.data.value)
 		// 用户资产
 		const asset: any = await getUserAsset({ contractAddr: contractAddr, tokenId: tokenId })
-		console.log(asset?.data.amount, 'asset?.data.amount')
-
 		setAmountNum(asset?.data.amount)
 	}
 
@@ -106,7 +104,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	// 数量
 	const handleNumChange = (event: any) => {
 		const value = event.target.value
-		if (value > data.amount) {
+		if (value > amountNum) {
 			message.error(t('不能大于拥有数量'))
 			return
 		}

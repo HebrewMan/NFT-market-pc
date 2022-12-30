@@ -15,6 +15,7 @@ import {
   getUserNFTDetail,
   getGoodsByCollectionId,
 } from '../../../api'
+import { getUserAsset } from 'Src/api/user'
 import { getOrderEventPage } from '../../../api/order'
 import { getCollectionDetails } from '../../../api/collection'
 import { getFans, getFansByGoodsId, removeFans } from '../../../api/fans'
@@ -46,7 +47,7 @@ export const ProductionDetails = () => {
   const [fansNum, setFansNum] = useState(0)
   const [fansStatus, setFansStatus] = useState<number | string>('')
   const [price, setPrice] = useState(0)
-  const [amount, setAmount] = useState(0) // nft的个数
+  // const [amount, setAmount] = useState(0) // nft的个数
   const [collectionsData, setCollectionsData] = useState({})
   const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [collectGoodsData, setCollectGoodsData] = useState([])
@@ -65,12 +66,11 @@ export const ProductionDetails = () => {
   const [contractType, setContractType] = useState(null)
   const [bugModalOpen, setBuyModalOpen] = useState(false)
   const [isAITD, setIsAITD] = useState<boolean>(false)
-  const [useAmount, setUseAmount] = useState(0) // 用户拥有数量
+  const [useAmount, setUseAmount] = useState(0) // NFT可上架数量
+  const [amountNum, setAmountNum] = useState(0) // 用户拥有Nft资产数量
   //初始化数据
   useEffect(() => {
     const state: any = history.location.state
-    console.log(state, 'state')
-
     setOrderId(state?.orderId)
     setTokenId(state?.tokenId)
     setUserContractAddr(state?.contractAddr)
@@ -105,9 +105,7 @@ export const ProductionDetails = () => {
       datas = await getNFTDetail(orderId == null ? useParams : params)
     }
     let { data } = datas
-    setUseAmount(data?.userAssetVO ? data?.userAssetVO?.amount : data?.amountTotal)
     setStatus(data.status) //售卖状态
-    setAmount(data.amount)
     setDetailMetadata(data?.nftMetadata)
     setContractType(data?.contractType) // 暂时取外层的合约类型
 
@@ -128,6 +126,15 @@ export const ProductionDetails = () => {
       getOrderPageData(data?.tokenId, data?.contractAddr)
     }
 
+
+    // 用户资产
+    const asset: any = await getUserAsset({
+      contractAddr: data?.contractAddr,
+      tokenId: data?.tokenId,
+      ownerAddr: accountAddress
+    })
+    setUseAmount(asset?.data.amount)
+    setAmountNum(asset?.data.amountTotal)
   }
 
   // 获取粉丝数量
@@ -179,12 +186,12 @@ export const ProductionDetails = () => {
     // 连接钱包，并且拥有者=登录账户
     return !!account && DetailData?.ownerAddr === accountAddress
   }
-  const isCancelSell = () => {
-    // 用户资产跳过来进行出售操作，刷新后用数量判断
-    const canEdit = tokenId && amount === 0
-    // userNftStatus用于判断nft是否正在出售
-    return isOwner() && (canEdit || userNftStatus === 0 || status === 0)
-  }
+  // const isCancelSell = () => {
+  //   // 用户资产跳过来进行出售操作，刷新后用数量判断
+  //   const canEdit = tokenId && amount === 0
+  //   // userNftStatus用于判断nft是否正在出售
+  //   return isOwner() && (canEdit || userNftStatus === 0 || status === 0)
+  // }
   const isBuyNow = () => {
     // 正在出售 状态：0-正在出售；1-已售空；2-已取消
     return status === 0
@@ -257,13 +264,12 @@ export const ProductionDetails = () => {
 
 
   const sellBtn = () => {
-
-    // 只要用户可用数量>0 就能继续上架
-    if (isOwner() && DetailData?.userAssetVO.amount > 0) {
+    // 只要用户可用数量>1 就能继续上架
+    if (isOwner() && useAmount >= 1) {
       return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>
     }
     else {
-      return isOwner() && cancelBtn()
+      return (isOwner() && useAmount >= 1) && cancelBtn()
     }
 
     // // 用户资产跳转过来状态为用户撤单 或 个数不为0
@@ -333,7 +339,7 @@ export const ProductionDetails = () => {
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && useAmount} {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && amountNum} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>
