@@ -51,13 +51,7 @@ export const ProductionDetails = () => {
   const [collectionsData, setCollectionsData] = useState({})
   const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [collectGoodsData, setCollectGoodsData] = useState([])
-  const [messageVisible, setMessageVisible] = useState(false)
   const history = useHistory()
-  // const {
-  //   id: goodsId,
-  //   tokenId: userTokenId,
-  //   contractAddr: userContractAddr,
-  // } = useParams<{ id: string; tokenId: string; contractAddr: string }>() // 路由参数id tokenId
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false)
   const [noticeStatus, setNoticeStatus] = useState<number | string>('')
