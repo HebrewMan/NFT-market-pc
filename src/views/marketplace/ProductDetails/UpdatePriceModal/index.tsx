@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Input, message } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { intlFloorFormat } from 'Utils/bigNumber'
+import { intlFloorFormat, multipliedBy } from 'Utils/bigNumber'
 import { getLocalStorage, toPriceDecimals, debounce, getCookie, formatTokenId } from 'Utils/utils'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { useHistory } from 'react-router-dom'
@@ -50,7 +50,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	// 初始化
 	useEffect(() => {
 		setIsModalVisible(props.isOpen)
-		setUpdatePrice(price)
+		// setUpdatePrice(price)
 		// 获取手续费配置
 		HandlingFeeData()
 	}, [props])
@@ -74,6 +74,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 
 	// 价格切换
 	const handleChange = (event: any) => {
+		console.log(event.target.value, 'event.target.value')
+
 		const value = event.target.value
 		const reg = /[^\d.]{1,18}/
 
@@ -81,6 +83,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			message.error(t('hint.numbersOnly'))
 			return
 		}
+		setGetPrice(multipliedBy(value, defaultAmountNum) * multipliedBy(handlingFee, data.royalty))
 		const posDot = value.indexOf('.')
 		if (posDot < 0) {
 			if (value.length < 18) {
@@ -99,7 +102,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			return
 		}
 		setUpdatePrice(value.substring(0, posDot + 19))
-		setGetPrice(value * handlingFee * data.royalty)
 	}
 	// 数量
 	const handleNumChange = (event: any) => {
@@ -112,6 +114,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			message.error('Please only enter numbers greater than zero!')
 		}
 		setDefaultAmountNum(value)
+		setGetPrice(multipliedBy(updatePrice, value) * multipliedBy(handlingFee, data.royalty))
 	}
 	const getSellOrderOrUpdatePrice = () => {
 		if (props?.sellOrderFlag) {
@@ -277,7 +280,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				)}
 
 				<div className='payWaper'>
-					{Number(updatePrice) > 0 && props?.sellOrderFlag && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) })}</div>}
+					{Number(updatePrice) > 0 && props?.sellOrderFlag && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) + 'AITD' })}</div>}
 					<div className='info'>{t('marketplace.details.sellTips')}</div>
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>

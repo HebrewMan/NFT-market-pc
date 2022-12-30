@@ -263,7 +263,7 @@ export const ProductionDetails = () => {
       return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>
     }
     else {
-      return (isOwner() && useAmount >= 1) && cancelBtn()
+      return (isOwner() && status != null) && cancelBtn()
     }
 
     // // 用户资产跳转过来状态为用户撤单 或 个数不为0
@@ -345,7 +345,7 @@ export const ProductionDetails = () => {
                     </p>
                   </div>
                 )}
-                {!isOwner() && (
+                {(status != null && !isOwner()) && (
                   <button disabled={!isBuyNow()} onClick={handeClickBuy}>
                     {t('common.buyNow')}
                   </button>
