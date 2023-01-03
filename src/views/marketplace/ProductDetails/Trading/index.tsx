@@ -1,132 +1,131 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
-import { formatTime } from '../../utils';
-import config from '../../../../config/constants';
-import './index.scss';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { isMobile } from 'react-device-detect'
+import { formatTime } from '../../utils'
+import config from '../../../../config/constants'
+import './index.scss'
+import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 
 export const Trading = (props: any) => {
   const { t } = useTranslation()
-  const _chainId = window?.ethereum?.chainId;
-  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
-  const [tradingHistoryData, setTradingHistoryData] = useState<any>([]);
-  const deepTradingHistoryData = [...props.tradingHistoryData];
-  const [detailsState, setDetailsState] = useState(false);
-  const [filterState, setFilterState] = useState(false);
-  const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK;
+  const _chainId = window?.ethereum?.chainId
+  const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId)
+  const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
+  const deepTradingHistoryData = [...props.tradingHistoryData]
+  const [detailsState, setDetailsState] = useState(false)
+  const [filterState, setFilterState] = useState(false)
+  const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
   const [filterList, setFilterList] = useState([
-    { label: '3', name: t('marketplace.details.mintTo'), checked: false },
+    { label: '8', name: t('marketplace.details.mintTo'), checked: false },
     { label: '0', name: t('marketplace.details.listings'), checked: false },
     { label: '1', name: t('marketplace.details.cancel'), checked: false },
     { label: '2', name: t('marketplace.details.trade'), checked: false },
-    { label: '4', name: t('marketplace.details.batchMintTo'), checked: false },
-    { label: '5', name: t('marketplace.details.updatePrcie'), checked: false },
+    { label: '8', name: t('marketplace.details.batchMintTo'), checked: false },
     { label: '6', name: t('marketplace.details.transfer'), checked: false },
-  ]);
-  const [eventBtn, setEventBtn] = useState<any>([]);
-  const history = useHistory();
+  ])
+  const [eventBtn, setEventBtn] = useState<any>([])
+  const history = useHistory()
   useEffect(() => {
-    setTradingHistoryData(props.tradingHistoryData);
-  }, [props]);
+    setTradingHistoryData(props.tradingHistoryData)
+  }, [props])
 
   const handleClearCurrent = (current: any) => {
-    const currentList = eventBtn.filter((item: any) => item !== current);
+    const currentList = eventBtn.filter((item: any) => item !== current)
     const currentFilterList = filterList.map((item) =>
       currentList.includes(item.label) ? { ...item, checked: true } : { ...item, checked: false },
-    );
-    setFilterList([...currentFilterList]);
-    setEventBtn(currentList);
-    filterEventData(currentList);
-  };
+    )
+    setFilterList([...currentFilterList])
+    setEventBtn(currentList)
+    filterEventData(currentList)
+  }
   const handleClearAll = () => {
-    setEventBtn([]);
-    setFilterList(filterList.map((item) => ({ ...item, checked: false })));
-    filterEventData([]);
-  };
+    setEventBtn([])
+    setFilterList(filterList.map((item) => ({ ...item, checked: false })))
+    filterEventData([])
+  }
   const showEventName = (method: any) => {
     switch (method) {
-      case 3:
-        return t('marketplace.details.mintTo');
+      case 8:
+        return t('marketplace.details.mintTo')
       case 0:
-        return t('marketplace.details.listings');
+        return t('marketplace.details.listings')
       case 1:
-        return t('marketplace.details.cancel');
+        return t('marketplace.details.cancel')
       case 2:
-        return t('marketplace.details.trade');
-      case 4:
-        return t('marketplace.details.batchMintTo');
+        return t('marketplace.details.trade')
+      case 8:
+        return t('marketplace.details.batchMintTo')
       case 5:
-        return t('marketplace.details.updatePrcie');
+        return t('marketplace.details.updatePrcie')
       case 6:
-        return t('marketplace.details.transfer');
+        return t('marketplace.details.transfer')
     }
-  };
+  }
   const iconClass = (item: any) => {
     switch (item.method) {
-      case 3:
-        return 'minto';
+      case 8:
+        return 'minto'
       case 0:
-        return 'listing';
+        return 'listing'
       case 1:
-        return 'listing';
+        return 'listing'
       case 2:
-        return 'match';
+        return 'match'
       case 4:
-        return 'minto';
+        return 'minto'
       case 5:
-        return 'listing';
+        return 'listing'
       case 6:
-        return 'transfer';
+        return 'transfer'
       default:
-        return 'minto';
+        return 'minto'
     }
-  };
+  }
   const handleChangeFromRoute = (item: any) => {
     switch (item.method) {
-      case 3:
-        return false;
+      case 8:
+        return false
       default:
-        return history.push(`/account/0/${item?.fromAddr}`);
+        return history.push(`/account/0/${item?.fromAddr}`)
     }
-  };
+  }
   const handleChangeToRoute = (item: any) => {
-    return history.push(`/account/0/${item?.toAddr}`);
-  };
+    return history.push(`/account/0/${item?.toAddr}`)
+  }
   const setAddrFrom = (item: any) => {
     switch (item.method) {
-      case 3:
-        return 'NullAddress';
+      case 8:
+        return 'NullAddress'
       default:
-        return item?.fromAddr?.substr(2, 6);
+        return item?.fromAddr?.substr(2, 6)
     }
-  };
+  }
   const handleChangeValue = (e: any, index: number) => {
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    setFilterState(true);
-    const deepList = [...filterList];
-    deepList[index].checked = !deepList[index].checked;
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+    setFilterState(true)
+    const deepList = [...filterList]
+    deepList[index].checked = !deepList[index].checked
     const eventList: Array<string> = deepList
       .map((item) => (item.checked ? item.label : ''))
-      .filter((item) => item.trim());
-    setFilterList([...deepList]);
-    setEventBtn(eventList);
-    filterEventData(eventList);
-  };
+      .filter((item) => item.trim())
+    setFilterList([...deepList])
+    setEventBtn(eventList)
+    filterEventData(eventList)
+  }
   const filterEventData = (eventList: any) => {
     if (eventList.length <= 0) {
-      return setTradingHistoryData(deepTradingHistoryData);
+      return setTradingHistoryData(deepTradingHistoryData)
     }
-    const list = new Array();
+    const list = new Array()
     deepTradingHistoryData.forEach((item) => {
       if (eventList.includes(item.method.toString())) {
-        list.push({ ...item });
+        list.push({ ...item })
       }
-    });
-    setTradingHistoryData([...list]);
-  };
+    })
+    setTradingHistoryData([...list])
+  }
   const Uli = () => (
     <div className='filter-checkbox'>
       {/* onClick={e => changeCheckbox(e)} */}
@@ -139,11 +138,11 @@ export const Trading = (props: any) => {
                 {item.name}
               </li>
             </label>
-          );
+          )
         })}
       </ul>
     </div>
-  );
+  )
 
   const TrItem = () =>
     tradingHistoryData.length > 0 &&
@@ -158,7 +157,7 @@ export const Trading = (props: any) => {
             {(
               <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='svg-img' />
             )}
-            {intlFloorFormat(item.price,4)}
+            {intlFloorFormat(item.price, 4)}
           </td>
           <td>
             <a onClick={() => handleChangeFromRoute(item)}>{setAddrFrom(item)}</a>
@@ -181,14 +180,14 @@ export const Trading = (props: any) => {
             </a>
           </td>
         </tr>
-      );
-    });
+      )
+    })
 
   const Table = () => (
     <div className='details-table'>
       <table>
         <thead>
-        <tr>
+          <tr>
             <td className='first-child'>{t('marketplace.details.transaction')}</td>
             <td>{t('marketplace.price')}</td>
             <td>{t('marketplace.from')}</td>
@@ -201,7 +200,7 @@ export const Trading = (props: any) => {
         </tbody>
       </table>
     </div>
-  );
+  )
 
   const Content = () => (
     <div className='list-content'>
@@ -231,7 +230,7 @@ export const Trading = (props: any) => {
       </div>
       {<Table />}
     </div>
-  );
+  )
   return (
     <div className='trading-history'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
@@ -251,5 +250,5 @@ export const Trading = (props: any) => {
       {/* filter */}
       {!detailsState ? <Content /> : <></>}
     </div>
-  );
-};
+  )
+}
