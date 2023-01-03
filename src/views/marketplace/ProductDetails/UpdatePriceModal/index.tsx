@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, Input, message } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { intlFloorFormat, multipliedBy } from 'Utils/bigNumber'
+import { intlFloorFormat, multipliedBy, accurateAdd, minus } from 'Utils/bigNumber'
 import { getLocalStorage, toPriceDecimals, debounce, getCookie, formatTokenId } from 'Utils/utils'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { useHistory } from 'react-router-dom'
@@ -39,7 +39,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
 	const [handlingFee, setHandlingFee] = useState(0) //手续费
-	const [getPrice, setGetPrice] = useState(0)  //最终获得价格
+	const [getPrice, setGetPrice] = useState<string | number>(0)  //最终获得价格
 	const [messageData, setMessageData] = useState<any>({
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
@@ -72,10 +72,17 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		props?.onCancel()
 	}
 
+
+	// 成交后价格计算 (价格 * 挂单数量) -  总价（版税+ 交易手续费）
+	const makeDealPrice = (price: string, num: string | number) => {
+		const orderPrice = multipliedBy(price, num)
+		const royaltyFree = accurateAdd(handlingFee, data.royalty) / 100
+		setGetPrice(minus(orderPrice, multipliedBy(orderPrice, royaltyFree)))
+	}
+
+
 	// 价格切换
 	const handleChange = (event: any) => {
-		console.log(event.target.value, 'event.target.value')
-
 		const value = event.target.value
 		const reg = /[^\d.]{1,18}/
 
@@ -83,7 +90,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			message.error(t('hint.numbersOnly'))
 			return
 		}
-		setGetPrice(multipliedBy(value, defaultAmountNum) * multipliedBy(handlingFee, data.royalty))
+
+		makeDealPrice(value, defaultAmountNum)
 		const posDot = value.indexOf('.')
 		if (posDot < 0) {
 			if (value.length < 18) {
@@ -114,7 +122,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			message.error('Please only enter numbers greater than zero!')
 		}
 		setDefaultAmountNum(value)
-		setGetPrice(multipliedBy(updatePrice, value) * multipliedBy(handlingFee, data.royalty))
+		makeDealPrice(updatePrice, value)
 	}
 	const getSellOrderOrUpdatePrice = () => {
 		if (props?.sellOrderFlag) {

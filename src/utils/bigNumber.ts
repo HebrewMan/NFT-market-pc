@@ -145,3 +145,15 @@ export function coverage(num:any) {
   }
   return num
 }
+
+
+  /**
+   * 加法
+   * @param num1
+   * @param num2
+   */
+  export function accurateAdd(num1: IType, num2: IType): number {
+    num1 = Number(num1)
+    num2 = Number(num2)
+    return _.add(num1, num2) as number;
+  }
