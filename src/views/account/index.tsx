@@ -483,7 +483,7 @@ export const Account: React.FC<any> = () => {
                 </div>
                 {accountInfo?.userAddr === walletAccount &&
                   <div className='btn' onClick={(e) => handleChange(e, item)}>
-                    <img src="Src/assets/account/buy.png" alt="" />
+                    <img src={require('Src/assets/account/buy.png')} alt="" />
                     {item.status === 0 ? t('account.NFTCancel') : t('account.NFTSell')}
                   </div>
                 }
