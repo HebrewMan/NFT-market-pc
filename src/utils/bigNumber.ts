@@ -117,7 +117,7 @@ export function coverage(num:any) {
    * @param num
    * @param precision 精度
    */
-   export function intlFloorFormat(num: number, precision = 0): string | number {
+   export function intlFloorFormat(num: IType, precision = 0): string | number {
     if (num === 0 || num == null || num == undefined) {
       return '0.00'
     }

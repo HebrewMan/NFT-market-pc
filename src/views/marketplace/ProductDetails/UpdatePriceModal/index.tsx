@@ -39,7 +39,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
 	const [handlingFee, setHandlingFee] = useState(0) //手续费
-	const [getPrice, setGetPrice] = useState<string | number>(0)  //最终获得价格
+	const [getPrice, setGetPrice] = useState('0')  //最终获得价格
 	const [messageData, setMessageData] = useState<any>({
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
