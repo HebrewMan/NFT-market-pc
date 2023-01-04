@@ -234,7 +234,7 @@ const ContentDetail = (props: any) => {
       list.map((item: any, index: number) => {
         return (
           <div className='content' key={index}>
-            <p className='colour'>{item.traitType}</p>
+            <p className='colour'>{item.name}</p>
             <h2>{item.value}</h2>
           </div>
         )
