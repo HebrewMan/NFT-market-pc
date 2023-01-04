@@ -50,7 +50,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	// 初始化
 	useEffect(() => {
 		setIsModalVisible(props.isOpen)
-		// setUpdatePrice(price)
+		setUpdatePrice(price)
 		// 获取手续费配置
 		HandlingFeeData()
 	}, [props])
