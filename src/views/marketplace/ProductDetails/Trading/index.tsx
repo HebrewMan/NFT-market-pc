@@ -58,7 +58,11 @@ export const Trading = (props: any) => {
         return t('marketplace.details.batchMintTo')
       case 5:
         return t('marketplace.details.updatePrcie')
+      case 3:
+      case 4:
       case 6:
+      case 7:
+      case 10:
         return t('marketplace.details.transfer')
     }
   }
@@ -76,7 +80,11 @@ export const Trading = (props: any) => {
         return 'minto'
       case 5:
         return 'listing'
+      case 3:
+      case 4:
       case 6:
+      case 7:
+      case 10:
         return 'transfer'
       default:
         return 'minto'
@@ -94,12 +102,7 @@ export const Trading = (props: any) => {
     return history.push(`/account/0/${item?.toAddr}`)
   }
   const setAddrFrom = (item: any) => {
-    switch (item.method) {
-      case 8:
-        return 'NullAddress'
-      default:
-        return item?.fromAddr?.substr(2, 6)
-    }
+    return item?.fromAddr?.substr(2, 6)
   }
   const handleChangeValue = (e: any, index: number) => {
     e.stopPropagation()
