@@ -173,5 +173,13 @@
         }
       }
     }
+
+    .card {
+      &:hover {
+        .price .btn {
+          visibility: inherit;
+        }
+      }
+    }
   }
 }

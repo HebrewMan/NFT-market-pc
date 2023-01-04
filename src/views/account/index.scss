@@ -555,31 +555,6 @@
             height: 270px;
           }
 
-          .price {
-            display: flex;
-            justify-content: space-between;
-
-            .priceCenter {
-              display: flex;
-              align-items: center;
-            }
-
-            .btn {
-              display: flex;
-              align-items: center;
-              padding: 0 20px;
-              height: 28px;
-              background: $tq-primary-color;
-              border-radius: 20px;
-              color: $tq-color-white;
-              font-size: $tq-font-size-7;
-              visibility: hidden;
-
-              img {
-                margin-right: 8px;
-              }
-            }
-          }
         }
 
         &.small {

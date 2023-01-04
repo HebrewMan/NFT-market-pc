@@ -43,7 +43,7 @@ export function Routes() {
               <Route exact path='/product-details' component={() => <ProductionDetails />} />
               <Route exact path='/helpcenter' component={() => <HelpCenter />} />
               <Route exact path='/article-type/:name/:id' component={() => <ArticleType />} />
-              <Route exact path='/article-details/:name/:id' component={() => <ArticleDetails />} />
+              <Route exact path='/article-details/:id' component={() => <ArticleDetails />} />
               <Route exact path='/login' component={() => <Login />} />
               <Route exact path='/account/:id?/:address?' component={() => <Account />} />
               <Route exact path='/gather' component={() => <GatherList />} />

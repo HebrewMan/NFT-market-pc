@@ -23,7 +23,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   const { t } = useTranslation()
   const history = useHistory()
   const { data } = props
-  const { orderId, price, contractAddr, moneyAddr, tokenId, leftAmount, coin, marketAddr, contractType } = props.data
+  const { orderId, price, contractAddr, moneyAddr, tokenId, leftAmount, coin = 'AITD', marketAddr, contractType } = props.data
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId, 16)
@@ -72,7 +72,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   // 买nft合约
   const getBuy = async () => {
     if (subNum > leftAmount) {
-      message.error('购买数量超过NFT数量')
+      message.error(t('marketplace.details.NFTAmount'))
       return
     }
     // 未链接钱包跳转

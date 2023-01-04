@@ -127,7 +127,10 @@
       "dollarsInfo":"{{price}}fiyatında satışa çıkarıldı,işlem sonrası alabileceğiniz{{getPrice}}",
       "checkDetails":"Detaylarına bak",
       "confirmChanging":"Değişikliği onayla",
-      "successfullyLaunched":"Tebrikler,NFT satışa çıkarıldı"
+      "successfullyLaunched":"Tebrikler,NFT satışa çıkarıldı",
+      "NFTAmount":"Satın aldığınız miktar NFT miktarıdan fazla",
+      "greaterAvailable":"Kullanabilir miktardan fazla olamaz",
+      "enterAmounts":"Lütfen miktar giriniz" 
     }
   },
   "primary": {

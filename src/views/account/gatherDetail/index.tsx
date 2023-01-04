@@ -15,6 +15,7 @@ import { formatAdd } from '../../marketplace/utils'
 import _ from 'lodash'
 import { getCollectionDetails } from 'Src/api/collection'
 import InfiniteScroll from "react-infinite-scroll-component"
+import BugModal from 'Src/views/marketplace/ProductDetails/bugModal'
 
 export const GatherDetail: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -31,6 +32,8 @@ export const GatherDetail: React.FC<any> = () => {
   const [total, setTotal] = useState(0)
   const [createAddr, setCreateAddr] = useState('')
   const walletAccount: string = localStorage.getItem('wallet') || ''
+  const [bugModalOpen, setBuyModalOpen] = useState(false)
+  const [DetailData, setDetailData] = useState([])
 
 
   const queryList = [
@@ -123,6 +126,16 @@ export const GatherDetail: React.FC<any> = () => {
       state: { orderId: item?.orderId, tokenId: item?.tokenId, contractAddr: item?.contractAddr }
     })
   }
+  // 购买
+  const handleBuy = (e: any, item: any) => {
+    e.stopPropagation()
+    setDetailData(item)
+    setBuyModalOpen(true)
+  }
+
+  const updateGoods = () => {
+    getList(id)
+  }
 
   const getDescInfo = () => {
     const { Paragraph } = Typography
@@ -167,10 +180,20 @@ export const GatherDetail: React.FC<any> = () => {
               <div className='collection-name'>{item.collectionName}</div>
 
               <div className='price'>
-                {item.price != null &&
+                <div className='priceCenter'>
+                  {item.price != null &&
+                    <>
+                      <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
+                      {intlFloorFormat(item.price, 4)}
+                    </>
+                  }
+                </div>
+                {(item.price != null && item.ownerAddr != walletAccount) &&
                   <>
-                    <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                    {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
+                    <div className='btn' onClick={(e) => handleBuy(e, item)}>
+                      <img src={require('Src/assets/account/buy.png')} alt="" />
+                      {t('common.buy')}
+                    </div>
                   </>
                 }
               </div>
@@ -299,6 +322,8 @@ export const GatherDetail: React.FC<any> = () => {
           </InfiniteScroll>
         </div>
       </div>
+      {/* 购买弹窗 */}
+      {bugModalOpen && <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />}
     </div >
   )
 }

@@ -477,7 +477,7 @@ export const Account: React.FC<any> = () => {
                   {item.price != null &&
                     <>
                       <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                      {item.status === 0 ? intlFloorFormat(item.price, 4) + ' AITD' : '0.00' + ' AITD'}
+                      {item.status === 0 ? intlFloorFormat(item.price, 4) : '0.00'}
                     </>
                   }
                 </div>

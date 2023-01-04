@@ -14,10 +14,12 @@
     cursor: pointer;
     background: $tq-color-white;
     border: 1px solid $tq-split-line-color;
+    overflow: hidden;
 
     &:hover {
       border: 1px solid $tq-primary-color;
     }
+
 
     // &:hover {
     //   box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
@@ -118,6 +120,7 @@
 
       .price {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         margin-top: 16px;
         font-size: $tq-font-size-4;
@@ -125,12 +128,34 @@
         color: $tq-primary-color;
         height: 22px;
 
+        .priceCenter {
+          display: flex;
+          align-items: center;
+        }
+
+        .btn {
+          display: flex;
+          align-items: center;
+          padding: 0 20px;
+          height: 28px;
+          background: $tq-primary-color;
+          border-radius: 20px;
+          color: $tq-color-white;
+          font-size: $tq-font-size-7;
+          visibility: hidden;
+
+          img {
+            margin-right: 8px;
+          }
+        }
+
         .coin-img {
           margin-right: 5px;
           width: 15px;
           height: 15px;
         }
       }
+
 
       .collection-name {
         margin-top: 6px;
@@ -160,9 +185,9 @@
       .price {
         font-size: 14px;
 
-        .btn {
-          padding: 0 8px !important;
-        }
+        // .btn {
+        //   padding: 0 8px !important;
+        // }
       }
 
 

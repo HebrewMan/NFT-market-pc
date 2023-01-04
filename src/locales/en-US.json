@@ -127,8 +127,10 @@
       "dollarsInfo":"it will be listed in {{price}} dollars, you are able to get {{getPrice}} after successfully traded",
       "checkDetails":"Check Details",
       "confirmChanging":"Confirm Changing",
-      "successfullyLaunched":"Congratulations!Your NFT has been listed"
-      
+      "successfullyLaunched":"Congratulations!Your NFT has been listed",
+      "NFTAmount":"Purchase amount is greater than NFT Amount ",
+      "greaterAvailable":"Can not be greater than available amount ",
+      "enterAmounts":"please enter amounts"      
     }
   },
   "primary": {

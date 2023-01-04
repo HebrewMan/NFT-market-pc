@@ -35,8 +35,10 @@ export const MoreCollects = (props: any) => {
               </div>
               <div className='collection-name'>{item.collectionName}</div>
               <div className='price'>
-                <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='coin-img' />
-                {intlFloorFormat(item.price, 4) + ` ${item?.coin || 'AITD'}`}
+                <div className='priceCenter'>
+                  <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='coin-img' />
+                  {intlFloorFormat(item.price, 4)}
+                </div>
               </div>
             </div>
           </div>

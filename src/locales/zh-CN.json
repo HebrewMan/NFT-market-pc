@@ -126,7 +126,10 @@
       "dollarsInfo":"以{{price}}的价格上架，成交后可获得{{getPrice}}",
       "checkDetails":"查看详情",
       "confirmChanging":"确认更改",
-      "successfullyLaunched":"恭喜！你的NFT已上架"
+      "successfullyLaunched":"恭喜！你的NFT已上架",
+      "NFTAmount":"购买数量超过NFT数量",
+      "greaterAvailable":"不能大于可用数量",
+      "enterAmounts":"请输入数量" 
     }
   },
   "primary": {

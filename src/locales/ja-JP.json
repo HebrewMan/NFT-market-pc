@@ -127,7 +127,10 @@
       "dollarsInfo":"{{price}}価格でリリースして、取引成功したら、{{getPrice}}を獲得できます",
       "checkDetails":"詳細チェック",
       "confirmChanging":"変更確認",
-      "successfullyLaunched":"おめでとうございます！NFTのリリースが成功しました"
+      "successfullyLaunched":"おめでとうございます！NFTのリリースが成功しました",
+      "NFTAmount":"購入数はNFT数を超えた",
+      "greaterAvailable":"使用可能の数を超えてはいけない",
+      "enterAmounts":"購入数はNFT数を超えた"  
     }
   },
   "primary": {

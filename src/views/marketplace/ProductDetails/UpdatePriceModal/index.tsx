@@ -115,7 +115,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const handleNumChange = (event: any) => {
 		const value = event.target.value
 		if (value > amountNum) {
-			message.error(t('不能大于可用数量'))
+			message.error(t('marketplace.details.greaterAvailable'))
 			return
 		}
 		if (value <= 0) {
@@ -282,7 +282,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 							<span>{t('marketplace.details.available')}: {amountNum}</span>
 						</div>
 						<section className='inputWaper'>
-							<Input type='Number' defaultValue={defaultAmountNum} className='num_box' placeholder={t('marketplace.details.amountEnter') || undefined} onChange={debounce(handleNumChange)} />
+							<Input type='Number' defaultValue={defaultAmountNum} className='num_box' placeholder={t('marketplace.details.enterAmounts') || undefined} onChange={debounce(handleNumChange)} />
 						</section>
 					</div>
 				)}

@@ -125,7 +125,10 @@
       "dollarsInfo":"以{{price}}的價格上架，成交後可獲得{{getPrice}}",
       "checkDetails":"查看詳情",
       "confirmChanging":"確認更改",
-      "successfullyLaunched":"恭喜！你的NFT已上架"
+      "successfullyLaunched":"恭喜！你的NFT已上架",
+      "NFTAmount":"購買數量超過NFT數量",
+      "greaterAvailable":"不能大於可用數量",
+      "enterAmounts":"請輸入數量"
     }
   },
   "primary": {
