@@ -163,6 +163,12 @@ export const Trading = (props: any) => {
             {intlFloorFormat(item.price, 4)}
           </td>
           <td>
+            <p>{item.amount}&nbsp;&nbsp;&nbsp;&nbsp;</p>
+          </td>
+          {/* <td>
+            <a onClick={() => handleChangeToRoute(item)}>{item?.toAddr?.substr(2, 6)}</a>
+          </td> */}
+          <td>
             <a onClick={() => handleChangeFromRoute(item)}>{setAddrFrom(item)}</a>
           </td>
           <td>
@@ -175,11 +181,11 @@ export const Trading = (props: any) => {
               rel='noreferrer'
             >
               <span>{formatTime(item?.createDate)}</span>
-              {/* {item.txHash ? (
+              {item.txHash ? (
                 <img src={require('../../../../assets/linkEth.svg')} style={{ marginLeft: 10 }} alt='' />
               ) : (
                 <></>
-              )} */}
+              )}
             </a>
           </td>
         </tr>
@@ -193,6 +199,7 @@ export const Trading = (props: any) => {
           <tr>
             <td className='first-child'>{t('marketplace.details.transaction')}</td>
             <td>{t('marketplace.price')}</td>
+            <td>{t('marketplace.details.amount')}</td>
             <td>{t('marketplace.from')}</td>
             <td>{t('marketplace.to')}</td>
             <td>{t('common.date')}</td>
