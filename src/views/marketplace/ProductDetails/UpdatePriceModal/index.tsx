@@ -115,11 +115,11 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const handleNumChange = (event: any) => {
 		const value = event.target.value
 		if (value > amountNum) {
-			message.error(t('不能大于拥有数量'))
+			message.error(t('不能大于可用数量'))
 			return
 		}
 		if (value <= 0) {
-			message.error('Please only enter numbers greater than zero!')
+			message.error(t('hint.numbersGreater'))
 		}
 		setDefaultAmountNum(value)
 		makeDealPrice(updatePrice, value)

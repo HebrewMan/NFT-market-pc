@@ -21,6 +21,8 @@ import { ChainIds } from './config/constants'
 import { GatherList } from './views/account/gatherList'
 import { GatherDetail } from "./views/account/gatherDetail"
 import { GatherEdit } from "./views/account/gatherEdit"
+import { Privacy } from "./views/privacyPolicy"
+
 import ScrollTop from './components/ScrollTop'
 
 export function Routes() {
@@ -47,7 +49,7 @@ export function Routes() {
               <Route exact path='/gather' component={() => <GatherList />} />
               <Route exact path='/gather-detail/:id' component={() => <GatherDetail />} />
               <Route exact path='/gather-edit/:id' component={() => <GatherEdit />} />
-              {/* <Route exact path='/collection/:id' component={() => <Collection />} /> */}
+              <Route exact path='/privacy' component={() => <Privacy />} />
               <Route exact path='/user-settings' component={() => <UserSetting />} />
               <Route exact path='/wallet' component={() => <Slider />} />
               <Route path='/' component={() => <HsHome />} />

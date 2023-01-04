@@ -147,7 +147,7 @@ const ReceiveModal: React.FC<any> = (props) => {
 
   return (
     <div className='modalWaper'>
-      <Modal title='Buy NFTs' visible={isModalOpen} footer={null} onCancel={onCancel}>
+      <Modal title={t('marketplace.details.purchaseNFT')} visible={isModalOpen} footer={null} onCancel={onCancel}>
         <div className='modalContent'>
           <div className='contentLeft'>
             <img src={data?.nftMetadata?.imageUrl || data?.imageUrl} alt='' />
