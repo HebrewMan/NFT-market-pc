@@ -23,7 +23,10 @@ import { getHandlingFee, getUserAsset } from 'Src/api/user'
 const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
 	const { data } = props
-	const { contractAddr, tokenId, contractType, moneyAddr = null, price, amount, orderId } = props.data
+	const { contractAddr, tokenId, contractType, moneyAddr = null, price, amount, orderId, leftAmount } = props.data
+	console.log(props.data, ' props.data')
+
+
 	const web3 = useWeb3()
 	const history = useHistory()
 	const account = getLocalStorage('wallet') || ''
@@ -34,7 +37,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const [amountNum, setAmountNum] = useState('') // 拥有数量
 	const [updatePrice, setUpdatePrice] = useState('') // 价格
-	const [defaultAmountNum, setDefaultAmountNum] = useState(1)//上架数量
+	const [defaultAmountNum, setDefaultAmountNum] = useState('')//上架数量
 	const isERC721: boolean = contractType === ContractType.ERC721
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
@@ -53,7 +56,14 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		setUpdatePrice(price)
 		// 获取手续费配置
 		HandlingFeeData()
+		if (price) {
+			setDefaultAmountNum(leftAmount)
+		}
 	}, [props])
+
+	useEffect(() => {
+		makeDealPrice(updatePrice, defaultAmountNum)
+	}, [defaultAmountNum, updatePrice])
 
 	const HandlingFeeData = async () => {
 		const data: any = await getHandlingFee({ name: 'transaction_fee' })
@@ -63,10 +73,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		setAmountNum(asset?.data.amount)
 	}
 
-	// 当数量变化时，价格重新计算
-	// useEffect(() => {
-	// 	setUpdatePrice(multipliedBy(updatePrice, defaultAmountNum, 18))
-	// }, [defaultAmountNum])
 	// 关闭
 	const onCancel = () => {
 		props?.onCancel()
@@ -259,13 +265,11 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 						</div>
 					</div>
 				</div>
-				{/* 上架显示版税和手续费 */}
-				{props?.sellOrderFlag &&
-					<div className='royalties-waper'>
-						<div className='royalties-fee fee'><span>{t('common.royalty')}</span><span>{data.royalty} %</span></div>
-						<div className='fee'><span>{t('marketplace.details.handlingFees')}</span><span>{handlingFee} %</span></div>
-					</div>
-				}
+				<div className='royalties-waper'>
+					<div className='royalties-fee fee'><span>{t('common.royalty')}</span><span>{data.royalty} %</span></div>
+					<div className='fee'><span>{t('marketplace.details.handlingFees')}</span><span>{handlingFee} %</span></div>
+				</div>
+
 
 				<div className='PriceWpaer'>
 					<section className='label'>{t('marketplace.details.unitPrice')}</section>
@@ -275,20 +279,27 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 					</section>
 				</div>
 				{/* 如果合约是1155 才显示数量 */}
-				{(data?.contractType === 'ERC1155' && props?.sellOrderFlag) && (
+				{(data?.contractType === 'ERC1155') && (
 					<div className='PriceWpaer'>
 						<div className='label'>
 							<span>{t('marketplace.details.amount')}</span>
 							<span>{t('marketplace.details.available')}: {amountNum}</span>
 						</div>
 						<section className='inputWaper'>
-							<Input type='Number' defaultValue={defaultAmountNum} className='num_box' placeholder={t('marketplace.details.enterAmounts') || undefined} onChange={debounce(handleNumChange)} />
+							<Input
+								type='Number'
+								defaultValue={defaultAmountNum}
+								className='num_box'
+								placeholder={t('marketplace.details.enterAmounts') || undefined}
+								onChange={debounce(handleNumChange)}
+								disabled={props?.sellOrderFlag ? false : true}
+							/>
 						</section>
 					</div>
 				)}
 
 				<div className='payWaper'>
-					{Number(updatePrice) > 0 && props?.sellOrderFlag && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) + 'AITD' })}</div>}
+					{(Number(updatePrice) > 0 && Number(getPrice) > 0) && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) + 'AITD' })}</div>}
 					<div className='info'>{t('marketplace.details.sellTips')}</div>
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>

@@ -35,22 +35,20 @@ export const DescInfo = (props: any) => {
             </div>
           </div>
         )}
-
-        {/* desc */}
         <div className={`list-inner ${type === 1 ? 'active' : ''}`} onClick={() => setType(1)}>
-          <div className='list-title title-point'>
-            <h2>{t('marketplace.details.description')}</h2>
-          </div>
-        </div>
-
-        <div className={`list-inner ${type === 2 ? 'active' : ''}`} onClick={() => setType(2)}>
           <div className='list-title title-point'>
             <h2>{t('marketplace.details.properties')}</h2>
           </div>
         </div>
-        <div className={`list-inner ${type === 4 ? 'active' : ''}`} onClick={() => setType(4)}>
+        <div className={`list-inner ${type === 2 ? 'active' : ''}`} onClick={() => setType(2)}>
           <div className='list-title title-point'>
             <h2>{t('marketplace.details.info')}</h2>
+          </div>
+        </div>
+        {/* desc */}
+        <div className={`list-inner ${type === 3 ? 'active' : ''}`} onClick={() => setType(3)}>
+          <div className='list-title title-point'>
+            <h2>{t('marketplace.details.description')}</h2>
           </div>
         </div>
       </div>
@@ -221,7 +219,7 @@ const ContentDetail = (props: any) => {
   if (props.type === 0) {
     return handlerMultipleOrders()
   }
-  else if (props.type === 1) {
+  else if (props.type === 3) {
     return (
       <div className='content-wrap desc'>
         <div className='list-content'>
@@ -229,7 +227,7 @@ const ContentDetail = (props: any) => {
         </div>
       </div>
     )
-  } else if (props.type === 2) {
+  } else if (props.type === 1) {
     const listItem = () =>
       list.map((item: any, index: number) => {
         return (
@@ -240,7 +238,7 @@ const ContentDetail = (props: any) => {
         )
       })
     return <div className='content-wrap properties'>{listItem()}</div>
-  } else if (props.type === 4) {
+  } else if (props.type === 2) {
     const _chainId = window?.ethereum?.chainId
     const chainId = parseInt(_chainId)
     const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK

@@ -18,7 +18,7 @@ export const MoreCollects = (props: any) => {
     window.location.reload()
     history.push({
       pathname: "/product-details",
-      state: { orderId: item.orderId }
+      state: { orderId: item?.orderId, tokenId: item?.tokenId, contractAddr: item?.contractAddr }
     })
   }
   const WrapItem = () =>
