@@ -581,22 +581,51 @@ model-viewer {
 }
 
 .ant-select-item {
-  padding: 10px 12px;
+  padding: 10px 24px;
+  font-size: 16px;
+  color: #1D243B;
 
   &:hover {
     background-color: #eee !important;
     color: #2081e2;
   }
+
+
+}
+
+.ant-select-item-group {
+  margin-top: 5px;
+
+  &:after {
+    content: "";
+    border-top: 1px solid #DBDCDF;
+    width: 90%;
+    position: absolute;
+    top: 0;
+    left: 24px;
+  }
+}
+
+.ant-select-item-group:first-child::after {
+  border-top: none
 }
 
 .ant-select-item-option-content {
   display: flex;
   align-items: center;
 
+  .gatherSeacher {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .option-img {
-    height: 100%;
-    border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 12px;
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
   }
 }
 
