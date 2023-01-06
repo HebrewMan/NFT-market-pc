@@ -56,7 +56,7 @@ export const GatherList: React.FC<any> = () => {
 
   const handleChnage = (e: any, item: any) => {
     e.stopPropagation()
-    history.push(`/gather-detail/${'WorldCupTeam?123'}`)
+    history.push(`/gather-detail/${item.linkCollection}`)
   }
 
   const columns = [
