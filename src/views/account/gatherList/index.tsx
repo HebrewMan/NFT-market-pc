@@ -56,82 +56,9 @@ export const GatherList: React.FC<any> = () => {
 
   const handleChnage = (e: any, item: any) => {
     e.stopPropagation()
-    history.push(`/gather-detail/${item.id}`)
+    history.push(`/gather-detail/${'WorldCupTeam?123'}`)
   }
 
-  // const dataSource = [{
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524  ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: '5 USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }, {
-  //   price: ' 5USDT',
-  //   amount: 32,
-  //   title: 'AUDFYSDSYJFFD',
-  //   totalPrice: '302',
-  //   RoyaltyIncome: '1.524 ETH',
-  //   time: '2021-12-10'
-
-  // }]
   const columns = [
     {
       id: 1,
@@ -214,9 +141,9 @@ export const GatherList: React.FC<any> = () => {
       onChange: (page: number) => loadData(page),
     }
   }
-  const handleEditChnage = (e: any, id: any) => {
+  const handleEditChnage = (e: any, linkCollection: any) => {
     e.stopPropagation()
-    history.push(`/gather-edit/${id}`)
+    history.push(`/gather-edit/${linkCollection}`)
   }
 
   return (
@@ -231,7 +158,7 @@ export const GatherList: React.FC<any> = () => {
                   <div className='gatherList-item' onClick={(e) => handleChnage(e, item)} key={index}>
                     <div className='item-img'>
                       <img src={item.coverUrl} alt="" className='img-cover' />
-                      {item.ownerAddr === account && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.id)} />}
+                      {item.ownerAddr === account && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.linkCollection)} />}
                     </div>
                     <div className='item-info'>
                       <img src={item.headUrl} alt="" />

@@ -17,7 +17,6 @@ import {
 } from '../../../api'
 import { getUserAsset } from 'Src/api/user'
 import { getOrderEventPage } from '../../../api/order'
-import { getCollectionDetails } from '../../../api/collection'
 import { getFans, getFansByGoodsId, removeFans } from '../../../api/fans'
 import { getCookie, getLocalStorage, formatTokenId, } from 'Utils/utils'
 import config, { USDT, ContractType, CoinType } from 'Src/config/constants'
@@ -80,7 +79,6 @@ export const ProductionDetails = () => {
   useEffect(() => {
     if (DetailData?.collectionId) {
       checkIsOwner()
-
     }
   }, [DetailData?.collectionId])
   const init = async (orderId: string) => {
@@ -146,12 +144,6 @@ export const ProductionDetails = () => {
     setFansStatus(Number(res?.data?.collect))
     // }
   }
-  // 获取合集详情信息
-  // const getCollection = async () => {
-  //   const res: any = await getCollectionDetails(DetailData?.collectionId)
-  //   setCollectionsData(res?.data)
-  //   checkIsOwner()
-  // }
   // 判断当前合集id是否是当前登录用户的  && 获取商品列表
   const checkIsOwner = async () => {
     const params = {
@@ -254,7 +246,7 @@ export const ProductionDetails = () => {
     }
   }
   const handleToCollection = () => {
-    history.push(`/gather-detail/${DetailData?.collectionId}`)
+    history.push(`/gather-detail/${DetailData?.linkCollection}`)
   }
 
 

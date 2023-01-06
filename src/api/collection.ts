@@ -6,8 +6,8 @@ export function getRecommendCollection(params: any) {
 }
 
 // 根据id查询合集详情
-export function getCollectionDetails(id: string | number) {
-  return get(`/v1/api/collections/${id}`);
+export function getCollectionDetails(params: any ) {
+  return post(`/v1/api/collections/link`,params);
 }
 
 // 获取我集合列表和收益总和

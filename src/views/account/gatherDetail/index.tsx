@@ -17,10 +17,10 @@ import { getCollectionDetails } from 'Src/api/collection'
 import InfiniteScroll from "react-infinite-scroll-component"
 import BugModal from 'Src/views/marketplace/ProductDetails/bugModal'
 
-export const GatherDetail: React.FC<any> = () => {
+export const GatherDetail: React.FC<any> = (props) => {
   const { t } = useTranslation()
   const history = useHistory()
-  const { id: id } = useParams<{ id: string }>() // 路由参数id
+  const { link: link } = useParams<{ link: string }>() // 路由参数id
   const [data, setData] = useState<any>([])
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
   const [sort, setSort] = useState<any>("low")
@@ -34,6 +34,7 @@ export const GatherDetail: React.FC<any> = () => {
   const walletAccount: string = localStorage.getItem('wallet') || ''
   const [bugModalOpen, setBuyModalOpen] = useState(false)
   const [DetailData, setDetailData] = useState([])
+  const [id, setId] = useState<string>('0')
 
 
   const queryList = [
@@ -66,20 +67,23 @@ export const GatherDetail: React.FC<any> = () => {
   ]
 
   useEffect(() => {
-    getList(id)
-    getAccountInfoById(Number(id))
-  }, [id])
+    // getList(id)
+    getAccountInfoById(link)
+  }, [link])
 
   useEffect(() => {
     getList(id)
-  }, [keyWord, sort, page])
+  }, [keyWord, sort, page, id])
 
 
   // 通过合集id获取账户详情基本信息
-  const getAccountInfoById = async (id: number) => {
-    const res: any = await getCollectionDetails(Number(id))
+  const getAccountInfoById = async (link: string) => {
+    const res: any = await getCollectionDetails({
+      linkCollection: link
+    })
     setCreateAddr(res.data.createAddr)
     setData(res.data)
+    setId(res.data.id)
   }
   // g根据集合id 获取相关Nft列表
   const getList = async (id: string) => {
@@ -239,7 +243,7 @@ export const GatherDetail: React.FC<any> = () => {
                   </a>
                   }
                   {data?.ownerAddr && data?.ownerAddr.toUpperCase() === walletAccount.toUpperCase() &&
-                    <Link to={`/gather-edit/${data.id}`}>
+                    <Link to={`/gather-edit/${data.linkCollection}`}>
                       <img src={require('Src/assets/account/icon-edit.png')} alt="" />
                     </Link>
                   }

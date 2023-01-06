@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom'
 import { setRoyaltyRateData } from 'Src/hooks/marketplace'
 import instanceLoading from 'Utils/loading'
 import useWeb3 from 'Src/hooks/useWeb3'
+import { handleCopy } from 'Utils/utils'
 
 let Ethweb3: any
 export const GatherEdit: React.FC<any> = () => {
@@ -27,8 +28,7 @@ export const GatherEdit: React.FC<any> = () => {
   const [fileAvatar, setFileAvatar] = useState(null) //头像
   const [fileCover, setFileCover] = useState(null) //封面图
   const [backgroundImage, setBackgroundImage] = useState(null) //背景图
-  const { id: id } = useParams<{ id: string }>() // 路由参数id
-  const linkUrl = window.location.origin
+  const { link: link } = useParams<{ link: string }>() // 路由参数id
   const account = getLocalStorage('wallet') || ''
   const token = getCookie('web-token') || ''
   const _chainId = window?.ethereum?.chainId
@@ -36,37 +36,26 @@ export const GatherEdit: React.FC<any> = () => {
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
   const [contractAddr, setContractAddr] = useState('')
   const requireMsg = t('userSettings.required')
-
+  const [id, setId] = useState<string>('0')
+  const linkUrl = isProd ? window.location.origin + '/gather-detail/' : 'http://192.168.1.59:4000/gather-detail/' // dev临时配置
 
 
   useEffect(() => {
-    getAccountInfoById(id)
-  }, [id])
+    getAccountInfoById(link)
+  }, [link])
 
   // 通过合集id获取基本信息
-  const getAccountInfoById = async (id: string) => {
-    const { data } = await getCollectionDetails(Number(id))
+  const getAccountInfoById = async (linkCollection: string) => {
+    const { data } = await getCollectionDetails({
+      linkCollection: linkCollection
+    })
+    setId(data.id)
     setFileAvatar(data.headUrl)
     setFileCover(data.coverUrl)
     setBackgroundImage(data.backgroundUrl)
     setContractAddr(data.contractAddr)
     // 初始化数据
     form.setFieldsValue(data)
-    // {
-    //   name: data.name,
-    //   linkCollection: data.linkCollection,
-    //   description: data.description,
-    //   fileAvatar: data.headUrl,
-    //   coverUrl: data.fileCover,
-    //   backgroundUrl: data.backgroundUrl,
-    //   royalty: data.royalty,
-    //   royaltyAddr: data.royaltyAddr,
-    //   linkDiscord: data.linkDiscord,
-    //   linkInstagram: data.linkInstagram,
-    //   linkMedium: data.linkMedium,
-    //   linkTwitter: data.linkTwitter,
-    //   linkSkypegmwcn: data.linkSkypegmwcn
-    // }
   }
 
 
@@ -81,8 +70,6 @@ export const GatherEdit: React.FC<any> = () => {
       message.warn(t('gather.edit.uploadProfile'))
     } else if (_.isNull(fileCover)) {
       message.warn(t('gather.edit.uploadCover'))
-    } else if (_.isNull(backgroundImage)) {
-      message.warn(t('gather.edit.uploadBg'))
     } else {
       form.validateFields().then((values: any) => {
         //调用签名
@@ -153,7 +140,7 @@ export const GatherEdit: React.FC<any> = () => {
       headUrl: fileAvatar,
       coverUrl: fileCover,
       backgroundUrl: backgroundImage,
-      id: id,
+      id: 633,
       contractAddr: contractAddr,
     }
     editMyGatherList(data).then((res: any) => {
@@ -189,6 +176,18 @@ export const GatherEdit: React.FC<any> = () => {
   const LinKValidator: any = [
     { pattern: /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/, message: t('gather.edit.linkError') }
   ]
+
+  // 集合链接校验
+  const validLinkCollection = (rule: any, value: any, callback: any) => {
+    if (value == null || value === '') {
+      return callback(requireMsg)
+    }
+    // 数字、字母 和 -
+    if (!/^[0-9a-zA-Z-]*$/g.test(value)) {
+      return callback('不可使用特殊字符')
+    }
+    callback()
+  }
   // 上传图片
   const customRequest = (options: any, type: string) => {
     const file = options.file
@@ -210,6 +209,11 @@ export const GatherEdit: React.FC<any> = () => {
       }
     })
 
+  }
+  // 复制
+  const handleChangeCopy = () => {
+    const url = linkUrl + form.getFieldValue('linkCollection')
+    handleCopy(url)
   }
 
   return (
@@ -237,7 +241,11 @@ export const GatherEdit: React.FC<any> = () => {
             label={t('gather.edit.collectionLink')}
             rules={linkCollectionRules}
           >
-            <Input prefix={linkUrl} placeholder={t('gather.edit.placeholderLink') || undefined} />
+            <Input prefix={linkUrl}
+              suffix={
+                <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleChangeCopy()} style={{ cursor: 'pointer' }} />
+              }
+              placeholder={t('gather.edit.placeholderLink') || undefined} />
           </Form.Item>
           <Form.Item
             name="description"
@@ -288,7 +296,7 @@ export const GatherEdit: React.FC<any> = () => {
           </Form.Item>
 
           <Form.Item label={
-            <div className='imgTitle'>
+            <div className='imgTitle norequire'>
               {t('gather.edit.collectionBg')}
               <span>{t('gather.edit.bgTips')}</span>
             </div>

@@ -10,7 +10,6 @@ import { ProductionDetails } from './views/marketplace/ProductDetails'
 import { HelpCenter } from './views/helpcenter'
 import { ArticleType } from './views/helpcenter/ArticleType'
 import { ArticleDetails } from './views/helpcenter/ArticleDetails'
-import { Collection } from './views/collection'
 import { Account } from './views/account'
 import { Login } from './views/login'
 import { UserSetting } from './views/userSetting'
@@ -47,8 +46,8 @@ export function Routes() {
               <Route exact path='/login' component={() => <Login />} />
               <Route exact path='/account/:id?/:address?' component={() => <Account />} />
               <Route exact path='/gather' component={() => <GatherList />} />
-              <Route exact path='/gather-detail/:id' component={() => <GatherDetail />} />
-              <Route exact path='/gather-edit/:id' component={() => <GatherEdit />} />
+              <Route exact path='/gather-detail/:link' component={() => <GatherDetail />} />
+              <Route exact path='/gather-edit/:link' component={() => <GatherEdit />} />
               <Route exact path='/privacy' component={() => <Privacy />} />
               <Route exact path='/user-settings' component={() => <UserSetting />} />
               <Route exact path='/wallet' component={() => <Slider />} />

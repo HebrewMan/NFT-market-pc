@@ -41,11 +41,16 @@
         content: "*";
         color: #FB5353;
         margin-left: 5px;
+        margin-right: 5px;
       }
 
       span {
         font-size: $tq-font-size-7;
       }
+    }
+
+    .norequire ::before {
+      content: '' !important;
     }
 
     .sumbit {
