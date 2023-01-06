@@ -164,6 +164,12 @@ export const GatherEdit: React.FC<any> = () => {
     })
   }
 
+  // 集合链接
+  const linkCollectionRules: any = [
+    { required: true, message: requireMsg },
+    { pattern: /^[0-9a-zA-Z-]*$/g, message: '不可使用特殊字符' },
+  ]
+
   // 版税校验规则
   const royaltiesRules: any = [
     { required: true, message: requireMsg },
@@ -229,7 +235,7 @@ export const GatherEdit: React.FC<any> = () => {
           <Form.Item
             name="linkCollection"
             label={t('gather.edit.collectionLink')}
-            rules={[{ required: true, message: requireMsg }]}
+            rules={linkCollectionRules}
           >
             <Input prefix={linkUrl} placeholder={t('gather.edit.placeholderLink') || undefined} />
           </Form.Item>
