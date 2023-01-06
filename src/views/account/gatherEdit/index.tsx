@@ -140,7 +140,7 @@ export const GatherEdit: React.FC<any> = () => {
       headUrl: fileAvatar,
       coverUrl: fileCover,
       backgroundUrl: backgroundImage,
-      id: 633,
+      id: id,
       contractAddr: contractAddr,
     }
     editMyGatherList(data).then((res: any) => {
