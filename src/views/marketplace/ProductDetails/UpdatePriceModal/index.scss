@@ -7,7 +7,7 @@
 	display: flex;
 	justify-content: flex-start;
 	border-top: 1px solid rgba(29, 36, 59, 0.1);
-	border-bottom: 1px solid rgba(29, 36, 59, 0.1);
+	// border-bottom: 1px solid rgba(29, 36, 59, 0.1);
 
 	.contentLeft {
 		width: 160px;
@@ -48,7 +48,7 @@
 .royalties-waper {
 	padding-bottom: 20px;
 	margin-top: 20px;
-	border-bottom: 1px solid rgba(29, 36, 59, 0.1);
+	// border-bottom: 1px solid rgba(29, 36, 59, 0.1);
 
 	.royalties-fee {
 		margin-bottom: 10px;
@@ -59,6 +59,10 @@
 		justify-content: space-between;
 		font-size: $tq-font-size-5;
 		color: $tq-font-color-title;
+	}
+
+	.fee span:first-child {
+		color: $tq-font-color-body;
 	}
 }
 
@@ -115,20 +119,18 @@
 }
 
 .payWaper {
-	margin-top: 24px;
-	font-size: $tq-font-size-5;
-	color: $tq-font-color-title;
-
 	.title {
-		text-align: left;
+		display: block;
+		font-weight: 400;
+		text-align: center;
 		font-size: $tq-font-size-5;
-		color: $tq-font-color-title;
+		color: $tq-font-color-body;
 	}
 }
 
 .BuyBtn {
 	margin-bottom: 20px;
-	margin-top: 40px;
+	margin-top: 0px;
 	width: 100%;
 	height: 48px;
 	line-height: 48px;

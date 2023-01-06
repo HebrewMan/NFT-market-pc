@@ -141,47 +141,51 @@
 }
 
 // table
-.details-table>table {
-  width: 100%;
-  color: rgb(4, 17, 29);
+.trading-table {
+  max-height: 500px;
   overflow: auto;
-  margin-bottom: 20px;
 
-  thead {
-    line-height: 30px;
-    border-bottom: 1px solid rgb(229, 232, 235);
+  /*里面的代码可以根据自己需求去进行更改*/
+  /* 设置滚动条的样式 */
+  ::-webkit-scrollbar {
+    width: 3px;
+    z-index: 100;
   }
 
-  tbody {
-    line-height: 50px;
+  /* 滚动槽 */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    display: none;
+  }
 
-    tr {
-      border-bottom: 1px solid rgb(229, 232, 235);
-      background: $tq-color-bg;
+  /* 滚动条滑块 */
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+  }
 
-      .svg-icon {
-        margin-right: 10px;
+
+  .tradingTable {
+    .ant-table-thead>tr>th {
+      height: 20px;
+      background: #fff;
+      padding-left: 20px !important;
+      font-size: 16px;
+
+      &::before {
+        width: 0px !important;
       }
+    }
+
+    .ant-table-tbody>tr>td {
+      height: 50px;
+      padding-left: 20px !important;
+      background: #F8FBFE;
 
       a {
         color: $tq-primary-color;
       }
     }
   }
-
-  .first-child {
-    padding-left: 25px;
-  }
 }
-
-// @media (min-width: 768px) and (max-width: 1024px) {
-//   .trading-history {
-//     margin: 20px;
-//   }
-// }
-
-// @media (max-width: 375px) {
-//   .trading-history .list-content > .details-filter .details-button span {
-//     padding: 10px 0;
-//   }
-// }

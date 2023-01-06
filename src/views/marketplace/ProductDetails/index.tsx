@@ -79,7 +79,8 @@ export const ProductionDetails = () => {
 
   useEffect(() => {
     if (DetailData?.collectionId) {
-      getCollection()
+      checkIsOwner()
+
     }
   }, [DetailData?.collectionId])
   const init = async (orderId: string) => {
@@ -125,7 +126,7 @@ export const ProductionDetails = () => {
     const asset: any = await getUserAsset({
       contractAddr: data?.contractAddr,
       tokenId: data?.tokenId,
-      ownerAddr: accountAddress
+      ownerAddr: accountAddress ? accountAddress : '-1'
     })
     setUseAmount(asset?.data.amount)
     setAmountNum(asset?.data.amountTotal)
@@ -146,11 +147,11 @@ export const ProductionDetails = () => {
     // }
   }
   // 获取合集详情信息
-  const getCollection = async () => {
-    const res: any = await getCollectionDetails(DetailData?.collectionId)
-    setCollectionsData(res?.data)
-    checkIsOwner()
-  }
+  // const getCollection = async () => {
+  //   const res: any = await getCollectionDetails(DetailData?.collectionId)
+  //   setCollectionsData(res?.data)
+  //   checkIsOwner()
+  // }
   // 判断当前合集id是否是当前登录用户的  && 获取商品列表
   const checkIsOwner = async () => {
     const params = {
@@ -364,13 +365,12 @@ export const ProductionDetails = () => {
               description={detailMetadata?.description}
               contractAddr={DetailData.contractAddr}
               tokenId={DetailData.tokenId}
-              collectionsData={collectionsData}
               DetailData={DetailData}
             />
           </div>
         </div>
         {/* trading */}
-        <Trading tradingHistoryData={tradingHistoryData} />
+        <Trading contractAddr={DetailData?.contractAddr} tokenId={DetailData?.tokenId} />
         <MoreCollects
           collectGoodsData={collectGoodsData}
           collectionId={DetailData?.collectionId}

@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
-// import utc from "dayjs/plugin/utc";
-// dayjs.extend(utc);
+import i18n from 'i18next'
+
 export function stopBubble(e) {
   if (e && e.stopPropagation) {
     e.stopPropagation();
@@ -38,8 +37,6 @@ export const formatAdd = function (add) {
 };
 
 export const formatTime = (time) => {
-  const { t } = useTranslation();
-
   const now = dayjs();
   const unix = dayjs(time).unix();
   const timestamp = unix * 1000;
@@ -52,23 +49,23 @@ export const formatTime = (time) => {
     return `${Math.abs(num)} ${mark}${num === 1 ? '' : 's'} ago`;
   };
   if (inMonths > 0) {
-    const str = t('common.dayAgo', { num: Math.abs(inMonths), plural: inMonths === 1 ? '' : 's' });
+    const str = i18n.t('common.dayAgo', { num: Math.abs(inMonths), plural: inMonths === 1 ? '' : 's' });
     return str;
     // return getStr(inMonths, 'day');
   } else if (inHours >= 24) {
-    const str = t('common.dayAgo', { num: Math.abs(inDays), plural: inDays === 1 ? '' : 's' });
+    const str = i18n.t('common.dayAgo', { num: Math.abs(inDays), plural: inDays === 1 ? '' : 's' });
     return str;
     // return getStr(inDays, 'day');
   } else if (inMinutes >= 60) {
-    const str = t('common.hourAgo', { num: Math.abs(inHours), plural: inHours === 1 ? '' : 's' });
+    const str = i18n.t('common.hourAgo', { num: Math.abs(inHours), plural: inHours === 1 ? '' : 's' });
     return str;
     return getStr(inHours, 'hour');
   } else if (inSeconds >= 60) {
-    const str = t('common.minuteAgo', { num: Math.abs(inMinutes), plural: inMinutes === 1 ? '' : 's' });
+    const str = i18n.t('common.minuteAgo', { num: Math.abs(inMinutes), plural: inMinutes === 1 ? '' : 's' });
     return str;
     return getStr(inMinutes, 'minute');
   } else {
-    const str = t('common.secondAgo', { num: Math.abs(inSeconds), plural: inSeconds === 1 ? '' : 's' });
+    const str = i18n.t('common.secondAgo', { num: Math.abs(inSeconds), plural: inSeconds === 1 ? '' : 's' });
     return str;
     return getStr(inSeconds, 'second');
   }

@@ -265,12 +265,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 						</div>
 					</div>
 				</div>
-				<div className='royalties-waper'>
-					<div className='royalties-fee fee'><span>{t('common.royalty')}</span><span>{data.royalty} %</span></div>
-					<div className='fee'><span>{t('marketplace.details.handlingFees')}</span><span>{handlingFee} %</span></div>
-				</div>
-
-
 				<div className='PriceWpaer'>
 					<section className='label'>{t('marketplace.details.unitPrice')}</section>
 					<section className='inputWaper'>
@@ -287,20 +281,25 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 						</div>
 						<section className='inputWaper'>
 							<Input
+
 								type='Number'
 								defaultValue={defaultAmountNum}
 								className='num_box'
 								placeholder={t('marketplace.details.enterAmounts') || undefined}
 								onChange={debounce(handleNumChange)}
 								disabled={props?.sellOrderFlag ? false : true}
+								style={props?.sellOrderFlag ? { backgroundColor: '' } : { backgroundColor: '#f1f1f1' }}
 							/>
 						</section>
 					</div>
 				)}
-
+				<div className='royalties-waper'>
+					<div className='royalties-fee fee'><span>{t('common.royalty')}</span><span>{data.royalty} %</span></div>
+					<div className='fee'><span>{t('marketplace.details.handlingFees')}</span><span>{handlingFee} %</span></div>
+				</div>
 				<div className='payWaper'>
 					{(Number(updatePrice) > 0 && Number(getPrice) > 0) && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) + 'AITD' })}</div>}
-					<div className='info'>{t('marketplace.details.sellTips')}</div>
+					{/* <div className='info'>{t('marketplace.details.sellTips')}</div> */}
 				</div>
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>
 			</Modal>

@@ -61,7 +61,7 @@ const ContentDetail = (props: any) => {
   const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()
-  const { metadata, collectionsData } = props
+  const { metadata } = props
   const list = metadata.propertyList || []
   const { contractAddr, tokenId } = props
   const [dataSource, setDataSource] = useState([]) //list

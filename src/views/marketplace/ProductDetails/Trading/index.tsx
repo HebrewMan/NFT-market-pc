@@ -2,37 +2,58 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import { formatTime } from '../../utils'
-import config from '../../../../config/constants'
+import config from 'Src/config/constants'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
+import { getOrderEventPage } from 'Src/api/order'
+import InfiniteScroll from "react-infinite-scroll-component"
+import { Table, ConfigProvider } from 'antd'
+import AEmpty from "Src/components/Empty"
 
 export const Trading = (props: any) => {
   const { t } = useTranslation()
   const _chainId = window?.ethereum?.chainId
   const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId)
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
-  const deepTradingHistoryData = [...props.tradingHistoryData]
+  // const deepTradingHistoryData = [...props.tradingHistoryData]
   const [detailsState, setDetailsState] = useState(false)
   const [filterState, setFilterState] = useState(false)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
+  const [eventBtn, setEventBtn] = useState<any>([])
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [hasMore, setHasMore] = useState(true)
   const [filterList, setFilterList] = useState([
     { label: '8', name: t('marketplace.details.mintTo'), checked: false },
     { label: '0', name: t('marketplace.details.listings'), checked: false },
     { label: '1', name: t('marketplace.details.cancel'), checked: false },
     { label: '2', name: t('marketplace.details.trade'), checked: false },
-    { label: '8', name: t('marketplace.details.batchMintTo'), checked: false },
     { label: '6', name: t('marketplace.details.transfer'), checked: false },
   ])
-  const [eventBtn, setEventBtn] = useState<any>([])
   const history = useHistory()
-  useEffect(() => {
-    setTradingHistoryData(props.tradingHistoryData)
-  }, [props])
 
+
+  useEffect(() => {
+    // 请求Trading History
+    props?.tokenId && getOrderPageData(props?.tokenId, props?.contractAddr)
+  }, [props?.tokenId, page])
+
+  // 请求Trading History
+  const getOrderPageData = async (tokenId: number, contractAddr: string) => {
+    const obj = {
+      tokenId: tokenId,
+      page: page,
+      size: 20,
+      contractAddr: contractAddr,
+    }
+    const res: any = await getOrderEventPage(obj)
+    setTradingHistoryData(tradingHistoryData.concat(res?.data?.records))
+    setTotal(res?.data?.total)
+  }
   const handleClearCurrent = (current: any) => {
     const currentList = eventBtn.filter((item: any) => item !== current)
-    const currentFilterList = filterList.map((item) =>
+    const currentFilterList = filterList.map((item: any) =>
       currentList.includes(item.label) ? { ...item, checked: true } : { ...item, checked: false },
     )
     setFilterList([...currentFilterList])
@@ -41,7 +62,7 @@ export const Trading = (props: any) => {
   }
   const handleClearAll = () => {
     setEventBtn([])
-    setFilterList(filterList.map((item) => ({ ...item, checked: false })))
+    setFilterList(filterList.map((item: any) => ({ ...item, checked: false })))
     filterEventData([])
   }
   const showEventName = (method: any) => {
@@ -101,29 +122,32 @@ export const Trading = (props: any) => {
   const handleChangeToRoute = (item: any) => {
     return history.push(`/account/0/${item?.toAddr}`)
   }
-  const setAddrFrom = (item: any) => {
-    return item?.fromAddr?.substr(2, 6)
-  }
+
   const handleChangeValue = (e: any, index: number) => {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
     setFilterState(true)
-    const deepList = [...filterList]
+    const deepList: any = [...filterList]
     deepList[index].checked = !deepList[index].checked
     const eventList: Array<string> = deepList
-      .map((item) => (item.checked ? item.label : ''))
-      .filter((item) => item.trim())
+      .map((item: any) => (item.checked ? item.label : ''))
+      .filter((item: any) => item.trim())
     setFilterList([...deepList])
     setEventBtn(eventList)
     filterEventData(eventList)
   }
   const filterEventData = (eventList: any) => {
-    if (eventList.length <= 0) {
-      return setTradingHistoryData(deepTradingHistoryData)
+    const elist = [...eventList]
+    if (elist.length <= 0) {
+      return setTradingHistoryData(tradingHistoryData)
     }
     const list = new Array()
-    deepTradingHistoryData.forEach((item) => {
-      if (eventList.includes(item.method.toString())) {
+    // 转移有多个状态, 搜索需过滤所有状态
+    if (elist.includes('6')) {
+      elist.push('3', '4', '7', '10')
+    }
+    tradingHistoryData.forEach((item: any) => {
+      if (elist.includes(item.method.toString())) {
         list.push({ ...item })
       }
     })
@@ -133,7 +157,7 @@ export const Trading = (props: any) => {
     <div className='filter-checkbox'>
       {/* onClick={e => changeCheckbox(e)} */}
       <ul id='filter-checkbox-select'>
-        {filterList.map((item, index) => {
+        {filterList.map((item: any, index) => {
           return (
             <label htmlFor={item.label} key={index} onClick={(e) => handleChangeValue(e, index)}>
               <li>
@@ -147,71 +171,77 @@ export const Trading = (props: any) => {
     </div>
   )
 
-  const TrItem = () =>
-    tradingHistoryData.length > 0 &&
-    tradingHistoryData.map((item: any, index: number) => {
-      return (
-        <tr key={index}>
-          <td className='first-child'>
-            <img src={require(`../../../../assets/${iconClass(item)}.svg`)} className='svg-img-16' alt='' />
-            <span>{showEventName(item.method)}</span>
-          </td>
-          <td>
-            {(
-              <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='svg-img' />
-            )}
-            {intlFloorFormat(item.price, 4)}
-          </td>
-          <td>
-            <p>{item.amount}&nbsp;&nbsp;&nbsp;&nbsp;</p>
-          </td>
-          {/* <td>
-            <a onClick={() => handleChangeToRoute(item)}>{item?.toAddr?.substr(2, 6)}</a>
-          </td> */}
-          <td>
-            <a onClick={() => handleChangeFromRoute(item)}>{setAddrFrom(item)}</a>
-          </td>
-          <td>
-            <a onClick={() => handleChangeToRoute(item)}>{item?.toAddr?.substr(2, 6)}</a>
-          </td>
-          <td>
-            <a
-              href={item.txHash ? linkEth + 'tx/' + item.txHash : ''}
-              target={item.txHash ? '_blank' : ''}
-              rel='noreferrer'
-            >
-              <span>{formatTime(item?.createDate)}</span>
-              {item.txHash ? (
-                <img src={require('../../../../assets/linkEth.svg')} style={{ marginLeft: 10 }} alt='' />
-              ) : (
-                <></>
-              )}
-            </a>
-          </td>
-        </tr>
-      )
-    })
+  const fetchMoreData = () => {
+    if (total <= 20) {
+      setHasMore(false)
+      return
+    }
+    setTimeout(() => {
+      setPage(page + 1)
+    }, 500)
+  }
+  const columns: any = [
+    {
+      width: 150,
+      title: t('marketplace.details.transaction'),
+      render: (r: string, t: any) => {
+        return <>
+          <img src={require(`../../../../assets/${iconClass(t)}.svg`)} className='svg-img-16' alt='' />
+          <span>{showEventName(t.method)}</span>
+        </>
+      }
+    },
+    {
+      width: 120,
+      title: t('marketplace.price'),
+      render: (r: string, t: any) => {
+        return <>
+          <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='svg-img' />
+          {intlFloorFormat(t.price, 4)}
+        </>
+      }
+    },
+    {
+      width: 120,
+      title: t('marketplace.details.amount'),
+      dataIndex: 'amount',
+    },
+    {
+      width: 120,
+      title: t('marketplace.from'),
+      render: (r: string, t: any) => {
+        return <a onClick={() => handleChangeFromRoute(t)}>{t?.fromAddr?.substr(2, 6)}</a>
+      }
+    },
+    {
+      width: 120,
+      title: t('marketplace.to'),
+      render: (r: string, t: any) => {
+        return <a onClick={() => handleChangeToRoute(t)}>{t?.toAddr?.substr(2, 6)}</a>
+      }
+    },
+    {
+      width: 120,
+      title: t('common.date'),
+      render: (_: any, item: any) => {
+        return (
+          <a
+            href={item.txHash ? linkEth + 'tx/' + item.txHash : ''}
+            target={item.txHash ? '_blank' : ''}
+            rel='noreferrer'
+          >
+            {timeG(item.createDate)}
+            {item.txHash && <img src={require('Src/assets/linkEth.svg')} style={{ marginLeft: 10 }} alt='' />}
+          </a>
+        )
+      },
+    },
 
-  const Table = () => (
-    <div className='details-table'>
-      <table>
-        <thead>
-          <tr>
-            <td className='first-child'>{t('marketplace.details.transaction')}</td>
-            <td>{t('marketplace.price')}</td>
-            <td>{t('marketplace.details.amount')}</td>
-            <td>{t('marketplace.from')}</td>
-            <td>{t('marketplace.to')}</td>
-            <td>{t('common.date')}</td>
-          </tr>
-        </thead>
-        <tbody>
-          <TrItem />
-        </tbody>
-      </table>
-    </div>
-  )
+  ]
 
+  const timeG = (createDate: string) => {
+    return formatTime(createDate)
+  }
   const Content = () => (
     <div className='list-content'>
       <div className='details-filter'>
@@ -238,7 +268,28 @@ export const Trading = (props: any) => {
           {eventBtn.length > 0 && <span onClick={handleClearAll}>{t('marketplace.details.clearAll')}</span>}
         </div>
       </div>
-      {<Table />}
+
+      <div className='trading-table'>
+        {tradingHistoryData.length > 0 &&
+          <InfiniteScroll
+            dataLength={tradingHistoryData.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={false}
+
+          >
+            <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+              <Table
+                columns={columns}
+                dataSource={tradingHistoryData}
+                size="small"
+                pagination={false}
+                className={'tradingTable'}
+              />
+            </ConfigProvider>
+          </InfiniteScroll>
+        }
+      </div>
     </div>
   )
   return (
