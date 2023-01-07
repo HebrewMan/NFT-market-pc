@@ -216,7 +216,7 @@ export const MarketPlace = () => {
     <div className='marketplace'>
       <div className='filter'>
         <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
-        <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} />
+        {/* <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} /> */}
 
         <div className='condition'>
           <Select list={queryList} placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
