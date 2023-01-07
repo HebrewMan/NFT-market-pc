@@ -139,6 +139,7 @@ export const GatherEdit: React.FC<any> = () => {
       ...values,
       headUrl: fileAvatar,
       coverUrl: fileCover,
+
       backgroundUrl: backgroundImage,
       id: id,
       contractAddr: contractAddr,
@@ -184,10 +185,26 @@ export const GatherEdit: React.FC<any> = () => {
     }
     // 数字、字母 和 -
     if (!/^[0-9a-zA-Z-]*$/g.test(value)) {
-      return callback('不可使用特殊字符')
+      return callback(t('gather.edit.specialCharacters'))
     }
     callback()
   }
+  // 钱包地址
+  const royaltyAddrRule: any = [
+    { required: true, message: t('gather.edit.address') },
+    () => ({
+      validator(rule: any, value: any) {
+        if (value) {
+          const isAddress = web3.utils.isAddress(value)
+          if (!isAddress) {
+            return Promise.reject(t('gather.edit.addressformat'))
+          }
+        }
+        return Promise.resolve()
+      },
+    }),
+  ]
+
   // 上传图片
   const customRequest = (options: any, type: string) => {
     const file = options.file
@@ -331,7 +348,7 @@ export const GatherEdit: React.FC<any> = () => {
               </Form.Item>
             </Col>
             <Col span={15}>
-              <Form.Item label={t('gather.edit.receivingAddress')} name='royaltyAddr' rules={[{ required: true, message: t('gather.edit.address') || undefined }]}>
+              <Form.Item label={t('gather.edit.receivingAddress')} name='royaltyAddr' rules={royaltyAddrRule}>
                 <Input placeholder={t('gather.edit.address') || undefined} />
               </Form.Item>
             </Col>

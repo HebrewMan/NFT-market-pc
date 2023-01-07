@@ -36,7 +36,7 @@ export const Trading = (props: any) => {
 
   useEffect(() => {
     // 请求Trading History
-    props?.tokenId && getOrderPageData(props?.tokenId, props?.contractAddr)
+    props?.contractAddr && getOrderPageData(props?.tokenId, props?.contractAddr)
   }, [props?.tokenId, page])
 
   // 请求Trading History

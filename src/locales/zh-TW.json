@@ -30,6 +30,9 @@
     "title": "歡迎來到Diffgalaxy NFT資產交易市場",
     "subtitle": "Diffgalaxy讓NFT交易更簡單，一起探索交易的樂趣",
     "collection": "熱門合集",
+    "searchCollections":"集合",
+    "searchItems":"项",
+    "searchAccount":"账户",
     "assets": {
       "title": "買賣你的NFTs資產",
       "setting": "設置你的錢包",
@@ -265,7 +268,9 @@
       "editSucces":"編輯成功",
       "uploadProfile":"請上傳集合頭像",
       "uploadCover":"請上傳集合封面",
-      "uploadBg":"請上傳集合背景"
+      "uploadBg":"請上傳集合背景",
+      "specialCharacters":"不可使用特殊字段",
+      "addressformat":"钱包地址格式错误"
     }
   }
 }

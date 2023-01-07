@@ -31,6 +31,9 @@
     "title": "Welcome to the Diffgalaxy NFT assets trading market",
     "subtitle": "Diffgalaxy makes NFT transactions easier,Let's explore the joy of Transaction Together.",
     "collection": "Trending Collection",
+    "searchCollections":"Collections",
+    "searchItems":"Items",
+    "searchAccount":"Account",
     "assets": {
       "title": "Buy And Sell Your NFT assets",
       "setting": "Set Your Wallet",
@@ -268,7 +271,9 @@
       "editSucces":"Editing Successfully",
       "uploadProfile":"Please upload the profile picture for collection ",
       "uploadCover":"Please upload the cover picture for collection",
-      "uploadBg":"Please upload the background picture for collection"
+      "uploadBg":"Please upload the background picture for collection",
+      "specialCharacters":"Can not use special characters",
+      "addressformat":"Wrong wallet address format"
     }
   }
 }

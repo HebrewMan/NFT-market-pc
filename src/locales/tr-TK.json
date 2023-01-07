@@ -32,6 +32,9 @@
     "title": "Diffgalaxy NFT Alım Satım Pazarına Hoş Geldiniz",
     "subtitle": "Diffgalaxy, NFT ticaretini kolaylaştırıyor, hadi birlikte ticaretin eğlencesini keşfedelim",
     "collection": "Popüler Koleksiyonlar",
+    "searchCollections":"Toplama",
+    "searchItems":"İtemler",
+    "searchAccount":"Hesap",
     "assets": {
       "title": "NFT varlıklarınızı satın alın ve satın",
       "setting": "Cüzdanınızı ayarlayın",
@@ -267,7 +270,9 @@
       "editSucces":"Düzeltme başarlı",
       "uploadProfile":"Toplama profil resmi yükleyin",
       "uploadCover":"Toplama başlık resmi yükleyin",
-      "uploadBg":"Toplama arka plan resmi yükleyin"
+      "uploadBg":"Toplama arka plan resmi yükleyin",
+      "specialCharacters":"Özel yazılar kullanılmaz",
+      "addressformat":"Yanlış cüzdan adresi formatı"
     }
   }
 }
