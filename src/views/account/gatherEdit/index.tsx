@@ -175,7 +175,7 @@ export const GatherEdit: React.FC<any> = () => {
   ]
   // 链接校验格式
   const LinKValidator: any = [
-    { pattern: /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/, message: t('gather.edit.linkError') }
+    { pattern: '(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]', message: t('gather.edit.linkError') }
   ]
 
   // 集合链接校验
