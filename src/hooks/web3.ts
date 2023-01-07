@@ -6,7 +6,7 @@ import { message } from 'antd';
 import history from '../utils/history';
 import { injected } from '../utils/utils';
 import { isProd } from '../config/constants';
-import i18n from 'i18next'
+import i18n from 'i18next';
 declare global {
   interface Window {
     ethereum: any;
@@ -154,7 +154,11 @@ const onEthereumEvent = (deactivate?: any) => {
       // "accounts" will always be an array, but it can be empty.
       const account = accounts[0]?.toLowerCase();
       if (!account) return;
-      useSignature(account);
+      removeLocalStorage('wallet');
+      removeCookie('web-token');
+      // 切换账号跳转登录页
+      // useSignature(account);
+      history.push('/login');
     });
 
     ethereum.on('chainChanged', (chainId: string) => {
