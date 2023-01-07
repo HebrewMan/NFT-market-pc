@@ -158,7 +158,7 @@ export const GatherList: React.FC<any> = () => {
                   <div className='gatherList-item' onClick={(e) => handleChnage(e, item)} key={index}>
                     <div className='item-img'>
                       <img src={item.coverUrl} alt="" className='img-cover' />
-                      {item.ownerAddr === account && <img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.linkCollection)} />}
+                      {<img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.linkCollection)} />}
                     </div>
                     <div className='item-info'>
                       <img src={item.headUrl} alt="" />

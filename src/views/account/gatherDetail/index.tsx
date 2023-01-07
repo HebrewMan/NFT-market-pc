@@ -35,7 +35,7 @@ export const GatherDetail: React.FC<any> = (props) => {
   const [bugModalOpen, setBuyModalOpen] = useState(false)
   const [DetailData, setDetailData] = useState([])
   const [id, setId] = useState<string>('0')
-
+  const [linkList, setLinkList] = useState<any>([])
 
   const queryList = [
     // 所有过滤条件
@@ -65,7 +65,13 @@ export const GatherDetail: React.FC<any> = (props) => {
       value: 'low',
     },
   ]
-
+  const iconMap: any = {
+    linkSkypegmwcn: require('Src/assets/account/icon-official.png'),
+    linkTwitter: require('Src/assets/account/icon-Twitter.png'),
+    linkDiscord: require('Src/assets/account/icon-Discord.png'),
+    linkInstagram: require('Src/assets/account/icon-Instagram.png'),
+    linkMedium: require('Src/assets/account/icon-Medium.png'),
+  }
   useEffect(() => {
     // getList(id)
     getAccountInfoById(link)
@@ -82,6 +88,8 @@ export const GatherDetail: React.FC<any> = (props) => {
       linkCollection: link
     })
     setCreateAddr(res.data.createAddr)
+    const { linkDiscord, linkInstagram, linkMedium, linkSkypegmwcn, linkTwitter } = res.data
+    setLinkList({ linkDiscord, linkInstagram, linkMedium, linkSkypegmwcn, linkTwitter })
     setData(res.data)
     setId(res.data.id)
   }
@@ -141,6 +149,9 @@ export const GatherDetail: React.FC<any> = (props) => {
     getList(id)
   }
 
+  const handleLinkJump = (key: string) => {
+    window.open(key)
+  }
   const getDescInfo = () => {
     const { Paragraph } = Typography
     const article = data.description
@@ -222,8 +233,13 @@ export const GatherDetail: React.FC<any> = (props) => {
               <div className='nameWaper'>
                 <section className='name'>{data.name}</section>
                 <div className='shareLink'>
-                  {!_.isNull(data.linkSkypegmwcn) && <a href={data.linkSkypegmwcn} target="_window">
-                    <img src={require('Src/assets/account/icon-gw.png')} alt="" />
+                  {Object.keys(linkList).map((key: any) => {
+                    if (linkList[key]) {
+                      return <img onClick={() => handleLinkJump(linkList[key])} src={iconMap[key]} alt='icon' key={key} />
+                    }
+                  })}
+                  {/* {!_.isNull(data.linkSkypegmwcn) && <a href={data.linkSkypegmwcn} target="_window">
+                    <img src={require('Src/assets/account/icon-official.png')} alt="" />
                   </a>
                   }
                   {!_.isNull(data.linkTwitter) && <a href={data.linkTwitter} target="_window">
@@ -241,7 +257,7 @@ export const GatherDetail: React.FC<any> = (props) => {
                   {!_.isNull(data.linkMedium) && <a href={data.linkMedium} target="_window">
                     <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
                   </a>
-                  }
+                  } */}
                   {data?.ownerAddr && data?.ownerAddr.toUpperCase() === walletAccount.toUpperCase() &&
                     <Link to={`/gather-edit/${data.linkCollection}`}>
                       <img src={require('Src/assets/account/icon-edit.png')} alt="" />

@@ -79,7 +79,7 @@ const ContentDetail = (props: any) => {
 
   // 获取订单列表
   useEffect(() => {
-    tokenId && IntGetOrderList()
+    tokenId || tokenId == 0 && IntGetOrderList()
   }, [tokenId])
 
   const IntGetOrderList = async (curPage = 1) => {
