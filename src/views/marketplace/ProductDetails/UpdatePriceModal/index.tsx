@@ -24,9 +24,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
 	const { data } = props
 	const { contractAddr, tokenId, contractType, moneyAddr = null, price, amount, orderId, leftAmount } = props.data
-	console.log(props.data, ' props.data')
-
-
 	const web3 = useWeb3()
 	const history = useHistory()
 	const account = getLocalStorage('wallet') || ''
@@ -91,13 +88,14 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const handleChange = (event: any) => {
 		const value = event.target.value
 		const reg = /[^\d.]{1,18}/
-
 		if (reg.test(value)) {
 			message.error(t('hint.numbersOnly'))
 			return
 		}
 
 		makeDealPrice(value, defaultAmountNum)
+		console.log(value.length, 'value')
+
 		const posDot = value.indexOf('.')
 		if (posDot < 0) {
 			if (value.length < 18) {
@@ -268,7 +266,13 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				<div className='PriceWpaer'>
 					<section className='label'>{t('marketplace.details.unitPrice')}</section>
 					<section className='inputWaper'>
-						<Input type='number' placeholder={t('marketplace.details.priceEnter') || undefined} className='num_box' defaultValue={updatePrice} onChange={debounce(handleChange)} />
+						<Input
+							maxLength={20}
+							placeholder={t('marketplace.details.priceEnter') || undefined}
+							className='num_box'
+							defaultValue={updatePrice}
+							onChange={debounce(handleChange)}
+						/>
 						<button>{CoinType.AITD}</button>
 					</section>
 				</div>
