@@ -53,7 +53,8 @@ const ReceiveModal: React.FC<any> = (props) => {
   }
 
   useEffect(() => {
-    setPaymentPrice(intlFloorFormat(Number(price * subNum), 4))
+    const pirceAll = Number(price * subNum)
+    setPaymentPrice(Number(intlFloorFormat(pirceAll, 4)))
   }, [subNum])
   // 增加
   const increase = () => {
