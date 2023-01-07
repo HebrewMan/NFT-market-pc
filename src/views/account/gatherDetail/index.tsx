@@ -45,16 +45,6 @@ export const GatherDetail: React.FC<any> = (props) => {
       value: 0,
     },
     {
-      label: 'status',
-      name: t("collection.selling"),
-      value: 1,
-    },
-    {
-      label: 'status',
-      name: t("collection.cancellation"),
-      value: 2,
-    },
-    {
       label: 'sort',
       name: t("collection.priceHigh"),
       value: 'high',
@@ -121,8 +111,8 @@ export const GatherDetail: React.FC<any> = (props) => {
   }
 
   const getKeyWord = (value: string) => {
-    setKeyWord(value)
     setListData([])
+    setKeyWord(value)
     setPage(1)
   }
   const handleChangeQuery = (value: any) => {
@@ -238,26 +228,6 @@ export const GatherDetail: React.FC<any> = (props) => {
                       return <img onClick={() => handleLinkJump(linkList[key])} src={iconMap[key]} alt='icon' key={key} />
                     }
                   })}
-                  {/* {!_.isNull(data.linkSkypegmwcn) && <a href={data.linkSkypegmwcn} target="_window">
-                    <img src={require('Src/assets/account/icon-official.png')} alt="" />
-                  </a>
-                  }
-                  {!_.isNull(data.linkTwitter) && <a href={data.linkTwitter} target="_window">
-                    <img src={require('Src/assets/account/icon-Twitter.png')} alt="" />
-                  </a>
-                  }
-                  {!_.isNull(data.linkDiscord) && <a href={data.linkDiscord} target="_window">
-                    <img src={require('Src/assets/account/icon-Discord.png')} alt="" />
-                  </a>
-                  }
-                  {!_.isNull(data.linkInstagram) && <a href={data.linkInstagram} target="_window">
-                    <img src={require('Src/assets/account/icon-Instagram.png')} alt="" />
-                  </a>
-                  }
-                  {!_.isNull(data.linkMedium) && <a href={data.linkMedium} target="_window">
-                    <img src={require('Src/assets/account/icon-Medium.png')} alt="" />
-                  </a>
-                  } */}
                   {data?.ownerAddr && data?.ownerAddr.toUpperCase() === walletAccount.toUpperCase() &&
                     <Link to={`/gather-edit/${data.linkCollection}`}>
                       <img src={require('Src/assets/account/icon-edit.png')} alt="" />
