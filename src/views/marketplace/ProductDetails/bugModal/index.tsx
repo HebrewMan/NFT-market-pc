@@ -12,11 +12,10 @@ import './index.scss'
 const decreaseImg = require('../../../../assets/marketPlace/decrease.png')
 const increaseImg = require('../../../../assets/marketPlace/increase.png')
 import instanceLoading from 'Utils/loading'
-import {
-  createMarketSale,
-} from 'Src/hooks/marketplace'
+import { createMarketSale } from 'Src/hooks/marketplace'
 import { getApproval, getIsApproved } from 'Src/hooks/web3Utils'
 import MessageModal from '../MessageModal'
+import { intlFloorFormat } from "Utils/bigNumber"
 
 const ReceiveModal: React.FC<any> = (props) => {
   const web3 = useWeb3()
@@ -54,7 +53,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   }
 
   useEffect(() => {
-    setPaymentPrice(Number(price * subNum))
+    setPaymentPrice(intlFloorFormat(Number(price * subNum), 4))
   }, [subNum])
   // 增加
   const increase = () => {
