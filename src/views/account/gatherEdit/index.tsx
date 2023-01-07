@@ -35,6 +35,8 @@ export const GatherEdit: React.FC<any> = () => {
   const chainId = parseInt(_chainId) //链id
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
   const [contractAddr, setContractAddr] = useState('')
+  const [initialRoyaltyAddr, setInitialRoyaltyAddr] = useState('')
+  const [initialRoyalty, setInitialRoyalty] = useState(null)
   const requireMsg = t('userSettings.required')
   const [id, setId] = useState<string>('0')
   const linkUrl = isProd ? window.location.origin + '/gather-detail/' : 'http://192.168.1.59:4000/gather-detail/' // dev临时配置
@@ -49,11 +51,14 @@ export const GatherEdit: React.FC<any> = () => {
     const { data } = await getCollectionDetails({
       linkCollection: linkCollection
     })
+    const { royaltyAddr, royalty } = data || {}
     setId(data.id)
     setFileAvatar(data.headUrl)
     setFileCover(data.coverUrl)
     setBackgroundImage(data.backgroundUrl)
     setContractAddr(data.contractAddr)
+    setInitialRoyaltyAddr(royaltyAddr)
+    setInitialRoyalty(royalty)
     // 初始化数据
     form.setFieldsValue(data)
   }
@@ -72,8 +77,13 @@ export const GatherEdit: React.FC<any> = () => {
       message.warn(t('gather.edit.uploadCover'))
     } else {
       form.validateFields().then((values: any) => {
-        //调用签名
-        useSignature(account)
+        // 版税 且 收款地址未改变，则不调用合约接口
+        if (form.getFieldValue('royaltyAddr') === initialRoyaltyAddr && Number(form.getFieldValue('royalty')) === initialRoyalty) {
+          setFormData()
+        } else {
+          //调用签名
+          useSignature(account)
+        }
       })
     }
   }
