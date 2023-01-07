@@ -77,13 +77,8 @@ export const GatherEdit: React.FC<any> = () => {
       message.warn(t('gather.edit.uploadCover'))
     } else {
       form.validateFields().then((values: any) => {
-        // 版税 且 收款地址未改变，则不调用合约接口
-        if (form.getFieldValue('royaltyAddr') === initialRoyaltyAddr && Number(form.getFieldValue('royalty')) === initialRoyalty) {
-          setFormData()
-        } else {
-          //调用签名
-          useSignature(account)
-        }
+        //调用签名
+        useSignature(account)
       })
     }
   }
@@ -99,8 +94,13 @@ export const GatherEdit: React.FC<any> = () => {
           _web3?.eth?.personal
             ?.sign(sign.data, account)
             .then((value: string) => {
-              // 设置版税
-              setRoyalty()
+              // 版税 且 收款地址未改变，则不调用合约接口
+              if (form.getFieldValue('royaltyAddr') === initialRoyaltyAddr && Number(form.getFieldValue('royalty')) === initialRoyalty) {
+                setFormData()
+              } else {
+                // 设置版税
+                setRoyalty()
+              }
             })
             .catch((err: any) => {
               // window.location.reload()
