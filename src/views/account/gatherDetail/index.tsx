@@ -42,7 +42,7 @@ export const GatherDetail: React.FC<any> = (props) => {
     {
       label: 'status',
       name: t("collection.listed"),
-      value: 0,
+      value: 'new',
     },
     {
       label: 'sort',
@@ -189,7 +189,7 @@ export const GatherDetail: React.FC<any> = (props) => {
                   {item.price != null &&
                     <>
                       <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                      {intlFloorFormat(item.price, 4)}
+                      <span>{intlFloorFormat(item.price, 4)}</span>
                     </>
                   }
                 </div>

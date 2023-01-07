@@ -129,8 +129,17 @@
         height: 22px;
 
         .priceCenter {
+          width: 50%;
           display: flex;
           align-items: center;
+
+          span {
+            display: inline-block;
+            width: 40%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
 
         .btn {
