@@ -268,11 +268,14 @@ export const GatherEdit: React.FC<any> = () => {
             label={t('gather.edit.collectionLink')}
             rules={linkCollectionRules}
           >
-            <Input prefix={linkUrl}
+            <Input
+              prefix={linkUrl}
               suffix={
                 <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleChangeCopy()} style={{ cursor: 'pointer' }} />
               }
-              placeholder={t('gather.edit.placeholderLink') || undefined} />
+              placeholder={t('gather.edit.placeholderLink') || undefined}
+            // style={{ padding: '0px' }}
+            />
           </Form.Item>
           <Form.Item
             name="description"
