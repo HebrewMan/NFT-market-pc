@@ -17,6 +17,7 @@ import { setRoyaltyRateData } from 'Src/hooks/marketplace'
 import instanceLoading from 'Utils/loading'
 import useWeb3 from 'Src/hooks/useWeb3'
 import { handleCopy } from 'Utils/utils'
+import getUrlRegex from 'Utils/url'
 
 let Ethweb3: any
 export const GatherEdit: React.FC<any> = () => {
@@ -185,20 +186,9 @@ export const GatherEdit: React.FC<any> = () => {
   ]
   // 链接校验格式
   const LinKValidator: any = [
-    { pattern: '(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]', message: t('gather.edit.linkError') }
+    { pattern: getUrlRegex(), message: t('gather.edit.linkError') }
   ]
 
-  // 集合链接校验
-  const validLinkCollection = (rule: any, value: any, callback: any) => {
-    if (value == null || value === '') {
-      return callback(requireMsg)
-    }
-    // 数字、字母 和 -
-    if (!/^[0-9a-zA-Z-]*$/g.test(value)) {
-      return callback(t('gather.edit.specialCharacters'))
-    }
-    callback()
-  }
   // 钱包地址
   const royaltyAddrRule: any = [
     { required: true, message: t('gather.edit.address') },
