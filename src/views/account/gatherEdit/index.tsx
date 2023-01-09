@@ -46,7 +46,7 @@ export const GatherEdit: React.FC<any> = () => {
 
   useEffect(() => {
     const state: any = history.location.state
-    setFormNmat(state?.form)
+    setFormNmat(state?.from)
     getAccountInfoById(link)
   }, [link])
 
@@ -161,6 +161,7 @@ export const GatherEdit: React.FC<any> = () => {
     editMyGatherList(data).then((res: any) => {
       if (res.code == 0) {
         message.success(t('gather.edit.editSucces'))
+        console.log("🚀 ~ file: index.tsx:165 ~ editMyGatherList ~ formNmat", formNmat)
         if (formNmat === 'list') {
           history.push('/gather')
         } else {

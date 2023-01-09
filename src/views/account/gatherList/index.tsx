@@ -142,7 +142,7 @@ export const GatherList: React.FC<any> = () => {
     e.stopPropagation()
     history.push({
       pathname: `/gather-edit/${linkCollection}`,
-      state: { form: 'list' }
+      state: { from: 'list' }
     })
 
   }
