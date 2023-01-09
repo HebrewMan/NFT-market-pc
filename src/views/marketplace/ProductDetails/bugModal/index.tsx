@@ -16,6 +16,7 @@ import { createMarketSale } from 'Src/hooks/marketplace'
 import { getApproval, getIsApproved } from 'Src/hooks/web3Utils'
 import MessageModal from '../MessageModal'
 import { intlFloorFormat } from "Utils/bigNumber"
+import { values } from 'lodash'
 
 const ReceiveModal: React.FC<any> = (props) => {
   const web3 = useWeb3()
@@ -56,6 +57,7 @@ const ReceiveModal: React.FC<any> = (props) => {
     const pirceAll = Number(price * subNum)
     setPaymentPrice(Number(intlFloorFormat(pirceAll, 4)))
   }, [subNum])
+
   // 增加
   const increase = () => {
     if (subNum >= 0) {
@@ -69,6 +71,10 @@ const ReceiveModal: React.FC<any> = (props) => {
     }
   }
 
+  // 
+  const inputChange = (e: any) => {
+    setSubNum(Number(e.target.value))
+  }
   // 买nft合约
   const getBuy = async () => {
     if (subNum > leftAmount) {
@@ -166,7 +172,7 @@ const ReceiveModal: React.FC<any> = (props) => {
             <div onClick={decrease}>
               <img src={decreaseImg} alt='' />
             </div>
-            <input type='text' className='num_box' value={subNum} />
+            <input type='text' className='num_box' value={subNum} onChange={inputChange} />
             <div onClick={increase}>
               <img src={increaseImg} alt='' />
             </div>
