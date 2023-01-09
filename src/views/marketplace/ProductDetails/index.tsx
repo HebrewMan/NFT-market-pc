@@ -85,6 +85,8 @@ export const ProductionDetails = () => {
     const state: any = history.location.state
     const params = {
       orderId: orderId,
+      tokenId: state?.tokenId,
+      contractAddr: state?.contractAddr,
     }
     const useParams = {
       tokenId: state?.tokenId,
@@ -331,7 +333,7 @@ export const ProductionDetails = () => {
                 </div>
               </div>
               <div className='buy'>
-                {DetailData?.price && (
+                {(DetailData?.price && DetailData?.status == 0) && (
                   <div className='price'>
                     <p>{t('marketplace.curPrice')}</p>
                     <p>
