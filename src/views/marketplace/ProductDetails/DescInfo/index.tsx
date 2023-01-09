@@ -143,7 +143,7 @@ const ContentDetail = (props: any) => {
       title: t('marketplace.details.unitPrice'),
       dataIndex: 'price',
       render: (r: string, t: any) => {
-        return <>{intlFloorFormat(t.price, 4) + ' ' + t.coin}</>
+        return <span className='textWidth'>{intlFloorFormat(t.price, 4) + ' ' + t.coin}</span>
       }
     },
     {

@@ -56,6 +56,10 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		if (price) {
 			setDefaultAmountNum(leftAmount)
 		}
+		if (props?.sellOrderFlag) {
+			setUpdatePrice('')
+			setDefaultAmountNum(1)
+		}
 	}, [props])
 
 	useEffect(() => {

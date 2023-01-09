@@ -123,9 +123,6 @@ export const GatherList: React.FC<any> = () => {
       id: 6,
       title: t('gather.time'),
       dataIndex: 'createDate',
-      render: (t: string) => {
-        return dayjs(t).format('YYYY-MM-DD')
-      }
     }
   ]
 

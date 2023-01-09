@@ -20,7 +20,7 @@ const messageModal: React.FC<any> = (props) => {
     window.location.reload()
   }
   return (
-    <Modal title='' visible={isModalOpen} footer={null} onCancel={onCancel}>
+    <Modal title='' visible={isModalOpen} footer={null} onCancel={onCancel} closable={false}>
       <div className='contentWaper'>
         <div className='datatTitle'>{props?.title}</div>
         <div className='info'>

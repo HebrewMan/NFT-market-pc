@@ -248,7 +248,7 @@
       "collectionCover":"The cover of the collection",
       "coverTips":"Support JPG,PNG,SVG ,suggest 600*400, Max 3M",
       "collectionBg":"The Background of the collection",
-      "bgTips":"Support JPG, PNG, SVG, suggest 1900*350,Max 10M",
+      "bgTips":"Support JPG, PNG, SVG, suggest 1900*350,Max 3M",
       "royalty":"Creators' Copyright Royalty",
       "address":"Add your receiving address , such as: ",
       "officialLink":"Official Link",

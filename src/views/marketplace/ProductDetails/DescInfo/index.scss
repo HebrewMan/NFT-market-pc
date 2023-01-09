@@ -222,8 +222,16 @@
   position: relative;
 
   .TableWaper {
+
     // height: 210px;
     // overflow-y: scroll;
+    .textWidth {
+      display: inline-block;
+      width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .ant-table-thead>tr>th {
       border-bottom: none;
@@ -272,6 +280,7 @@
       th {
         width: 25%;
       }
+
       th:nth-child(2) {
         width: 120px;
       }

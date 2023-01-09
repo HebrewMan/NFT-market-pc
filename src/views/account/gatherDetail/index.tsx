@@ -36,6 +36,8 @@ export const GatherDetail: React.FC<any> = (props) => {
   const [DetailData, setDetailData] = useState([])
   const [id, setId] = useState<string>('0')
   const [linkList, setLinkList] = useState<any>([])
+  const params = useParams()
+  console.log(params, 'linklinklink')
 
   const queryList = [
     // 所有过滤条件
