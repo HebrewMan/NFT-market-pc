@@ -134,6 +134,10 @@
   .shareLink {
     display: flex;
 
+    >div {
+      cursor: pointer;
+    }
+
     img {
       margin-left: 20px;
       width: 32px;

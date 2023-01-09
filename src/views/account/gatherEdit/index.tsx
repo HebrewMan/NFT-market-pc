@@ -40,10 +40,13 @@ export const GatherEdit: React.FC<any> = () => {
   const [initialRoyalty, setInitialRoyalty] = useState(null)
   const requireMsg = t('userSettings.required')
   const [id, setId] = useState<string>('0')
+  const [formNmat, setFormNmat] = useState('')
   const linkUrl = isProd ? window.location.origin + '/gather-detail/' : 'http://192.168.1.59:4000/gather-detail/' // dev临时配置
 
 
   useEffect(() => {
+    const state: any = history.location.state
+    setFormNmat(state?.form)
     getAccountInfoById(link)
   }, [link])
 
@@ -158,7 +161,11 @@ export const GatherEdit: React.FC<any> = () => {
     editMyGatherList(data).then((res: any) => {
       if (res.code == 0) {
         message.success(t('gather.edit.editSucces'))
-        history.go(-1)
+        if (formNmat === 'list') {
+          history.push('/gather')
+        } else {
+          history.push(`/gather-detail/${form.getFieldValue('linkCollection')}`)
+        }
       }
     })
   }

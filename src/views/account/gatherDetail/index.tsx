@@ -141,6 +141,14 @@ export const GatherDetail: React.FC<any> = (props) => {
     getList(id)
   }
 
+  const handleEditChnage = (e: any, linkCollection: any) => {
+    e.stopPropagation()
+    history.push({
+      pathname: `/gather-edit/${linkCollection}`,
+      state: { form: 'detail' }
+    })
+
+  }
   const handleLinkJump = (key: string) => {
     window.open(key)
   }
@@ -231,9 +239,9 @@ export const GatherDetail: React.FC<any> = (props) => {
                     }
                   })}
                   {data?.ownerAddr && data?.ownerAddr.toUpperCase() === walletAccount.toUpperCase() &&
-                    <Link to={`/gather-edit/${data.linkCollection}`}>
+                    <div onClick={(e) => handleEditChnage(e, data.linkCollection)}>
                       <img src={require('Src/assets/account/icon-edit.png')} alt="" />
-                    </Link>
+                    </div>
                   }
 
                 </div>

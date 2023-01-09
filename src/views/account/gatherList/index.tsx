@@ -55,8 +55,6 @@ export const GatherList: React.FC<any> = () => {
   }
 
   const handleChnage = (e: any, item: any) => {
-    console.log(item.linkCollection, 'item.linkCollection')
-
     e.stopPropagation()
     history.push(`/gather-detail/${item.linkCollection}`)
   }
@@ -142,7 +140,11 @@ export const GatherList: React.FC<any> = () => {
   }
   const handleEditChnage = (e: any, linkCollection: any) => {
     e.stopPropagation()
-    history.push(`/gather-edit/${linkCollection}`)
+    history.push({
+      pathname: `/gather-edit/${linkCollection}`,
+      state: { form: 'list' }
+    })
+
   }
 
   return (
