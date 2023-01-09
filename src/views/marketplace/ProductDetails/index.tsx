@@ -48,7 +48,7 @@ export const ProductionDetails = () => {
   const [price, setPrice] = useState(0)
   // const [amount, setAmount] = useState(0) // nft的个数
   const [collectionsData, setCollectionsData] = useState({})
-  // const [tradingHistoryData, setTradingHistoryData] = useState([])
+  const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [collectGoodsData, setCollectGoodsData] = useState([])
   const history = useHistory()
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -116,6 +116,7 @@ export const ProductionDetails = () => {
 
     if (data?.tokenId || data?.tokenId == 0) {
       getFansByGoodsIdData(data?.tokenId, data?.contractAddr)
+      getOrderPageData(data?.tokenId, data?.contractAddr)
     }
 
 
@@ -143,6 +144,7 @@ export const ProductionDetails = () => {
     setFansStatus(Number(res?.data?.collect))
     // }
   }
+
   // 判断当前合集id是否是当前登录用户的  && 获取商品列表
   const checkIsOwner = async () => {
     const params = {
@@ -157,17 +159,17 @@ export const ProductionDetails = () => {
     setCollectGoodsData(res?.data?.records)
   }
   // // 请求Trading History
-  // const getOrderPageData = async (tokenId: number, contractAddr: string) => {
+  const getOrderPageData = async (tokenId: number, contractAddr: string) => {
 
-  //   const obj = {
-  //     tokenId: tokenId,
-  //     page: 1,
-  //     size: 20,
-  //     contractAddr: contractAddr,
-  //   }
-  //   const res: any = await getOrderEventPage(obj)
-  //   setTradingHistoryData(res?.data?.records)
-  // }
+    const obj = {
+      tokenId: tokenId,
+      page: 1,
+      size: 1000,
+      contractAddr: contractAddr,
+    }
+    const res: any = await getOrderEventPage(obj)
+    setTradingHistoryData(res?.data?.records)
+  }
   const isOwner = () => {
     // 连接钱包，并且拥有者=登录账户
     return !!account && DetailData?.ownerAddr === accountAddress
@@ -361,7 +363,7 @@ export const ProductionDetails = () => {
           </div>
         </div>
         {/* trading */}
-        <Trading contractAddr={DetailData?.contractAddr} tokenId={DetailData?.tokenId} />
+        {tradingHistoryData.length > 0 && <Trading tradingHistoryData={tradingHistoryData} />}
         <MoreCollects
           collectGoodsData={collectGoodsData}
           collectionId={DetailData?.collectionId}

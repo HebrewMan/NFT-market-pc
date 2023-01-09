@@ -16,7 +16,7 @@ export const Trading = (props: any) => {
   const _chainId = window?.ethereum?.chainId
   const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId)
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
-  // const deepTradingHistoryData = [...props.tradingHistoryData]
+  const deepTradingHistoryData = [...props.tradingHistoryData]
   const [detailsState, setDetailsState] = useState(false)
   const [filterState, setFilterState] = useState(false)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
@@ -36,24 +36,15 @@ export const Trading = (props: any) => {
 
   useEffect(() => {
     // 请求Trading History
-    props?.contractAddr && getOrderPageData(props?.tokenId, props?.contractAddr)
-  }, [props?.tokenId, page])
+    setTradingHistoryData(props.tradingHistoryData)
+  }, [props])
 
-  // 请求Trading History
-  const getOrderPageData = async (tokenId: number, contractAddr: string) => {
-    const obj = {
-      tokenId: tokenId,
-      page: page,
-      size: 20,
-      contractAddr: contractAddr,
-    }
-    const res: any = await getOrderEventPage(obj)
-    setTradingHistoryData(tradingHistoryData.concat(res?.data?.records))
-    setTotal(res?.data?.total)
-  }
-  const handleClearCurrent = (current: any) => {
+
+  const handleClearCurrent = (e: any, current: any) => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
     const currentList = eventBtn.filter((item: any) => item !== current)
-    const currentFilterList = filterList.map((item: any) =>
+    const currentFilterList = filterList.map((item) =>
       currentList.includes(item.label) ? { ...item, checked: true } : { ...item, checked: false },
     )
     setFilterList([...currentFilterList])
@@ -127,11 +118,11 @@ export const Trading = (props: any) => {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
     setFilterState(true)
-    const deepList: any = [...filterList]
+    const deepList = [...filterList]
     deepList[index].checked = !deepList[index].checked
     const eventList: Array<string> = deepList
-      .map((item: any) => (item.checked ? item.label : ''))
-      .filter((item: any) => item.trim())
+      .map((item) => (item.checked ? item.label : ''))
+      .filter((item) => item.trim())
     setFilterList([...deepList])
     setEventBtn(eventList)
     filterEventData(eventList)
@@ -139,14 +130,14 @@ export const Trading = (props: any) => {
   const filterEventData = (eventList: any) => {
     const elist = [...eventList]
     if (elist.length <= 0) {
-      return setTradingHistoryData(tradingHistoryData)
+      return setTradingHistoryData(deepTradingHistoryData)
     }
     const list = new Array()
     // 转移有多个状态, 搜索需过滤所有状态
     if (elist.includes('6')) {
       elist.push('3', '4', '7', '10')
     }
-    tradingHistoryData.forEach((item: any) => {
+    deepTradingHistoryData.forEach((item) => {
       if (elist.includes(item.method.toString())) {
         list.push({ ...item })
       }
@@ -261,7 +252,7 @@ export const Trading = (props: any) => {
         </div>
         <div className='details-button' id='filter-button'>
           {eventBtn.map((item: any) => (
-            <button key={item} id='mintToBtn' onClick={() => handleClearCurrent(item)}>
+            <button key={item} id='mintToBtn' onClick={(e) => handleClearCurrent(e, item)}>
               {showEventName(Number(item))} <img src={require('../../../../assets/close.svg')} width={20} alt='' />
             </button>
           ))}
@@ -271,23 +262,23 @@ export const Trading = (props: any) => {
 
       <div className='trading-table'>
         {tradingHistoryData.length > 0 &&
-          <InfiniteScroll
-            dataLength={tradingHistoryData.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={false}
+          // <InfiniteScroll
+          //   dataLength={tradingHistoryData.length}
+          //   next={fetchMoreData}
+          //   hasMore={hasMore}
+          //   loader={false}
 
-          >
-            <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
-              <Table
-                columns={columns}
-                dataSource={tradingHistoryData}
-                size="small"
-                pagination={false}
-                className={'tradingTable'}
-              />
-            </ConfigProvider>
-          </InfiniteScroll>
+          // >
+          <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+            <Table
+              columns={columns}
+              dataSource={tradingHistoryData}
+              size="small"
+              pagination={false}
+              className={'tradingTable'}
+            />
+          </ConfigProvider>
+          // </InfiniteScroll>
         }
       </div>
     </div>

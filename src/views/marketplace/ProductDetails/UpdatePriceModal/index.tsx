@@ -34,7 +34,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const [amountNum, setAmountNum] = useState('') // 拥有数量
 	const [updatePrice, setUpdatePrice] = useState('') // 价格
-	const [defaultAmountNum, setDefaultAmountNum] = useState('')//上架数量
+	const [defaultAmountNum, setDefaultAmountNum] = useState(leftAmount || '1')//上架数量
 	const isERC721: boolean = contractType === ContractType.ERC721
 	const walletAccount = localStorage.getItem('wallet') || ''
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)

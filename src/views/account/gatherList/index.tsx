@@ -55,6 +55,8 @@ export const GatherList: React.FC<any> = () => {
   }
 
   const handleChnage = (e: any, item: any) => {
+    console.log(item.linkCollection, 'item.linkCollection')
+
     e.stopPropagation()
     history.push(`/gather-detail/${item.linkCollection}`)
   }
@@ -81,7 +83,7 @@ export const GatherList: React.FC<any> = () => {
         return (
           <>
             <img src={require('Src/assets/coin/aitd.svg')} alt="" className='tbaleCoin' />
-            {t}
+            {intlFloorFormat(t, 4)}
           </>
         )
       },
@@ -99,7 +101,7 @@ export const GatherList: React.FC<any> = () => {
         return (
           <>
             <img src={require('Src/assets/coin/aitd.svg')} alt="" className='tbaleCoin' />
-            {t}
+            {intlFloorFormat(t, 4)}
           </>
         )
       },
@@ -112,7 +114,7 @@ export const GatherList: React.FC<any> = () => {
         return (
           <>
             <img src={require('Src/assets/coin/aitd.svg')} alt="" className='tbaleCoin' />
-            {t}
+            {intlFloorFormat(t, 4)}
           </>
         )
       },
@@ -122,7 +124,7 @@ export const GatherList: React.FC<any> = () => {
       title: t('gather.time'),
       dataIndex: 'createDate',
       render: (t: string) => {
-        return dayjs().format('YYYY-MM-DD')
+        return dayjs(t).format('YYYY-MM-DD')
       }
     }
   ]
@@ -134,7 +136,7 @@ export const GatherList: React.FC<any> = () => {
     }
     return {
       pageSize: 10,
-      current: page,
+      // current: props.ATMHistory.curPage,
       total: total,
       hideOnSinglePage: true,
       showSizeChanger: false,

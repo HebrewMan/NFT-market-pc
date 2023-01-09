@@ -4,12 +4,37 @@
 
   .filter {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 24px 0 10px;
     gap: 30px;
 
-    .condition {
-      width: 253px;
+    .leftFlex {
+      display: flex;
+
+      .condition {
+        margin-right: 20px;
+        width: 253px;
+      }
+
+      .price {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: #1d243b;
+
+        .min {
+          margin: 0 10px;
+        }
+
+        .to {
+          margin-right: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #1d243b;
+        }
+      }
     }
 
     .g-search {
@@ -30,25 +55,6 @@
       .active-btn {
         color: #04111d;
         background-color: #eee;
-      }
-    }
-
-    .price {
-      display: flex;
-      align-items: center;
-      font-size: 18px;
-      font-weight: 600;
-      color: #1d243b;
-
-      .min {
-        margin: 0 10px;
-      }
-
-      .to {
-        margin-right: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #1d243b;
       }
     }
   }
