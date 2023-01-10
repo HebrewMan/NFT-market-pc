@@ -7,6 +7,7 @@ import { getSearchGoods } from '../../api'
 import { NumUnitFormat } from "Utils/bigNumber"
 import { debounce } from 'lodash'
 import './index.scss'
+import AEmpty from '../Empty'
 
 const { Option, OptGroup } = Select
 export const HeaderSearch = (props: any) => {
@@ -89,9 +90,11 @@ export const SelectGroup = () => {
         showSearch={true}
         onSelect={handleChange}
         onSearch={handleSearch}
-        notFoundContent={null}
         getPopupContainer={triggerNode => triggerNode.parentNode}
         optionLabelProp={'label'}
+        notFoundContent={
+          <AEmpty style={{ paddingTop: '60px' }} />
+        }
       >
         {collectionList.length > 0 &&
           <OptGroup label={'集合'}>
