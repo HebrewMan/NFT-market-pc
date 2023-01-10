@@ -49,7 +49,7 @@ export function Routes() {
               <Route exact path='/gather-detail/:link' component={() => <GatherDetail />} />
               <Route exact path='/gather-edit/:link' component={() => <GatherEdit />} />
               <Route exact path='/privacy' component={() => <Privacy />} />
-              <Route exact path='/user-settings' component={() => <UserSetting />} />
+              <Route exact path='/user-settings/:address' component={() => <UserSetting />} />
               <Route exact path='/wallet' component={() => <Slider />} />
               <Route path='/' component={() => <HsHome />} />
             </Switch>

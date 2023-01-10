@@ -58,7 +58,7 @@ export const HeaderMenu = () => {
         setLang(option.label)
       }
     })
-    /**   
+    /**
       有的路由要刷新当前页面，因为页面里用了ui组件 必须要刷新 文案才会更新
     */
     console.log(window.location.pathname, 'window.location.pathname')
@@ -207,7 +207,7 @@ export const HeaderMenu = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={`/user-settings`}>
+                          <Link to={`/user-settings/${walletAccount}`}>
                             <img src={require('Src/assets/common/account-setting.png')} alt='' />
                             <div className='txt'>
                               <span>{t('nav.setting')}</span>

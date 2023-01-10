@@ -501,11 +501,13 @@ export const Account: React.FC<any> = () => {
     <div className='account'>
       <div className={`banner ${accountInfo?.bannerUrl ? 'set' : ''}`}>
         <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
-        <div className='edit'>
-          <img src={require('../../assets/edit_banner.png')} alt='' />
-          <span>{t('account.editBanner')}</span>
-          <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
-        </div>
+        {isOwner() &&
+          <div className='edit'>
+            <img src={require('../../assets/edit_banner.png')} alt='' />
+            <span>{t('account.editBanner')}</span>
+            <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
+          </div>
+        }
       </div>
       <div className='account-content-wrap'>
         <div className='account-header--main'>

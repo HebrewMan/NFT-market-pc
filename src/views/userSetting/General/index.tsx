@@ -1,28 +1,23 @@
-import React, { useState } from 'react';
-import { updateUserInfo } from '../../../api/user';
-import { createIpfs } from '../../../api';
-import { message } from 'antd';
-import { uploadFileCheck } from '../../../utils/utils';
-import './index.scss';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { getAccountInfo, updateUserInfo } from 'Src/api/user'
+import { createIpfs } from '../../../api'
+import { message } from 'antd'
+import { uploadFileCheck } from '../../../utils/utils'
+import './index.scss'
+import { useTranslation } from 'react-i18next'
 
-const userInfo: string | null = localStorage.getItem('userInfo') || '';
-const {
-  imageUrl: image,
-  bannerUrl: banner,
-  username: name,
-  email: userEmail,
-  bio: userBio,
-} = JSON.parse(userInfo ? userInfo : '{}');
 export const General = () => {
-  const { t } = useTranslation();
-  const [imageUrl, setImageUrl] = useState(image);
-  const [bannerUrl, setBannerUrl] = useState(banner);
-  const [requiredEmail, setRequiredEmail] = useState(false);
-  const [requiredName, setRequiredName] = useState(false);
-  const [form, setForm] = useState({ username: name, email: userEmail, bio: userBio });
+  const { t } = useTranslation()
+  const { address } = useParams<{ address: string }>()
+  const [imageUrl, setImageUrl] = useState('')
+  const [bannerUrl, setBannerUrl] = useState('')
+  const [requiredEmail, setRequiredEmail] = useState(false)
+  const [requiredName, setRequiredName] = useState(false)
+  const [form, setForm] = useState({ username: '', email: '', bio: '' })
+
   const handleUploadImage = (e: any) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]
 
     const res: boolean = uploadFileCheck(
       file,
@@ -30,19 +25,19 @@ export const General = () => {
       1024 * 1024,
       t('hint.imageTupe'),
       t('hint.imageSize'),
-    );
+    )
     if (!res) {
-      return;
+      return
     }
 
-    const params = new FormData();
-    params.append('file', file);
+    const params = new FormData()
+    params.append('file', file)
     createIpfs(params).then((res: any) => {
-      setImageUrl(res?.data);
-    });
-  };
+      setImageUrl(res?.data)
+    })
+  }
   const handleBannerImage = (e: any) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]
 
     const res: boolean = uploadFileCheck(
       file,
@@ -50,47 +45,59 @@ export const General = () => {
       1024 * 1024 * 5,
       t('hint.imageTupe'),
       t('hint.imageSize'),
-    );
+    )
     if (!res) {
-      return;
+      return
     }
 
-    const params = new FormData();
-    params.append('file', file);
+    const params = new FormData()
+    params.append('file', file)
     createIpfs(params).then((res: any) => {
-      setBannerUrl(res?.data);
-    });
-  };
+      setBannerUrl(res?.data)
+    })
+  }
   const handleNameBlur = (e: any) => {
-    const value = e.target.value;
+    const value = e.target.value
     if (value) {
-      setRequiredName(false);
+      setRequiredName(false)
     } else {
-      setRequiredName(true);
+      setRequiredName(true)
     }
-  };
+  }
   const handleEmailBlur = (e: any) => {
-    const value = e.target.value;
+    const value = e.target.value
     if (value) {
-      setRequiredEmail(false);
+      setRequiredEmail(false)
     } else {
-      setRequiredEmail(true);
+      setRequiredEmail(true)
     }
-  };
+  }
   const disabledState = () => {
-    return form.username && form.email;
-  };
+    return form.username && form.email
+  }
   const handleUpdateInfo = async () => {
     const params = {
       ...form,
       imageUrl,
       bannerUrl,
-    };
-    const res: any = await updateUserInfo(params);
-    if (res?.message === 'success') {
-      message.success(t('hint.informationUpdated'));
     }
-  };
+    const res: any = await updateUserInfo(params)
+    if (res?.message === 'success') {
+      message.success(t('hint.informationUpdated'))
+    }
+  }
+  const getAccountInfoByAddress = async () => {
+    const res: any = await getAccountInfo(address)
+    const { imageUrl, bannerUrl, username, email, bio } = res.data
+    setImageUrl(imageUrl)
+    setBannerUrl(bannerUrl)
+    setForm({ username, email, bio })
+  }
+
+  useEffect(() => {
+    getAccountInfoByAddress()
+  }, [])
+
   return (
     <div>
       <div className='create-wrap'>
@@ -196,5 +203,5 @@ export const General = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
