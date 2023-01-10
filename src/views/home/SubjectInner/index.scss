@@ -189,6 +189,10 @@
 
       .footer-text {
         color: #FFFFFF;
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         p {
           font-weight: 600;
