@@ -151,10 +151,10 @@ export const Account: React.FC<any> = () => {
       ['jpg', 'png'],
       1024 * 1024,
       t('hint.imageTupe'),
-      t('hint.imageSize'),
+      t('hint.imageSizeAuto', { size: 1 }),
     )
     if (!check) {
-      return
+      return (e.target.value = '') // 解决同一文件不触发change事件
     }
 
     const params = new FormData()
@@ -351,7 +351,7 @@ export const Account: React.FC<any> = () => {
       t('hint.imageSize'),
     )
     if (!check) {
-      return
+      return (e.target.value = '') // 解决同一文件不触发change事件
     }
 
     const params = new FormData()

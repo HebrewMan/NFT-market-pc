@@ -24,10 +24,10 @@ export const General = () => {
       ['jpg', 'png', 'gif'],
       1024 * 1024,
       t('hint.imageTupe'),
-      t('hint.imageSize'),
+      t('hint.imageSizeAuto', { size: 1 }),
     )
     if (!res) {
-      return
+      return (e.target.value = '') // 解决同一文件不触发change事件
     }
 
     const params = new FormData()
@@ -47,7 +47,7 @@ export const General = () => {
       t('hint.imageSize'),
     )
     if (!res) {
-      return
+      return (e.target.value = '') // 解决同一文件不触发change事件
     }
 
     const params = new FormData()
