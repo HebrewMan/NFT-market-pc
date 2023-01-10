@@ -44,8 +44,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
 		imageUrl: data?.nftMetadata?.imageUrl || data.imageUrl,
-		name: data?.nftMetadata?.name || data?.name,
-		contractAddr: contractAddr
+		name: data?.nftMetadata?.name || data?.name
 	})
 
 	// 初始化
@@ -80,11 +79,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		props?.onCancel()
 	}
 
-	// 
-	const handleMessage = () => {
-		props?.onCancel()
-		setIsModalVisible(false)
-	}
 
 	// 成交后价格计算 (价格 * 挂单数量) -  总价（版税+ 交易手续费）
 	const makeDealPrice = (price: string, num: string | number) => {
@@ -318,7 +312,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}
-			{props?.sellOrderFlag && <MessageModal visible={messageVisible} data={messageData} onClose={() => handleMessage()} title={t('marketplace.details.successfullyLaunched')} />}
+			{props?.sellOrderFlag && <MessageModal visible={messageVisible} data={messageData} title={t('marketplace.details.successfullyLaunched')} />}
 
 		</div>
 	)

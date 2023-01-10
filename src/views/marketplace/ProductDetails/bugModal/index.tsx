@@ -39,8 +39,7 @@ const ReceiveModal: React.FC<any> = (props) => {
     tokenId: tokenId,
     collectionName: data?.collectionName,
     imageUrl: data?.nftMetadata?.imageUrl || data?.imageUrl,
-    name: data?.nftMetadata?.name || data?.name,
-    contractAddr: contractAddr
+    name: data?.nftMetadata?.name || data?.name
   }
   // 初始化
   useEffect(() => {
@@ -54,10 +53,6 @@ const ReceiveModal: React.FC<any> = (props) => {
     props?.onCancel()
   }
 
-  const handleMessage = () => {
-    props?.onCancel()
-    setMessageVisible(false)
-  }
   useEffect(() => {
     const pirceAll = Number(price * subNum)
     setPaymentPrice(Number(intlFloorFormat(pirceAll, 4)))
@@ -191,7 +186,7 @@ const ReceiveModal: React.FC<any> = (props) => {
         <div className='BuyBtn' onClick={getBuy}>{t('marketplace.details.pay')}</div>
       </Modal>
       {/* 购买成功& 上架改加成功 过度弹窗 */}
-      <MessageModal data={MessageData} visible={messageVisible} onClose={() => handleMessage()} title={t('marketplace.details.buysuccessfullyInfo')} />
+      <MessageModal data={MessageData} visible={messageVisible} title={t('marketplace.details.buysuccessfullyInfo')} />
     </div>
   )
 }

@@ -5,27 +5,22 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 
 const messageModal: React.FC<any> = (props) => {
-  const history = useHistory()
   const { t } = useTranslation()
-  const { tokenId, collectionName, imageUrl, name, contractAddr } = props?.data
+  const history = useHistory()
+  const { tokenId, collectionName, imageUrl, name } = props?.data
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const walletAccount: string = localStorage.getItem('wallet') || ''
   useEffect(() => {
     setIsModalOpen(props?.visible)
   }, [props])
 
   const onCancel = () => {
-    props?.onClose()
+    setIsModalOpen(false)
   }
 
   const handleDetail = () => {
-    props?.onClose()
     setIsModalOpen(false)
-    setTimeout(() => {
-      history.push({
-        pathname: "/product-details",
-        state: { tokenId, contractAddr }
-      })
-    }, 200)
+    history.push(`/account/0/${walletAccount}`)
   }
   return (
     <Modal title='' visible={isModalOpen} footer={null} onCancel={onCancel} closable={false}>
