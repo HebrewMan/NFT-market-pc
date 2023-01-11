@@ -386,6 +386,7 @@ export const Account: React.FC<any> = () => {
         }
       >
         {article}
+        {infoVisible && <a onClick={() => setInfoVisible(false)} style={{ marginLeft: '5px' }}>{t('common.putAway')}</a>}
       </Paragraph>
     )
   }

@@ -175,6 +175,7 @@ export const GatherDetail: React.FC<any> = (props) => {
         }
       >
         {article}
+        {infoVisible && <a onClick={() => setInfoVisible(false)} style={{ marginLeft: '5px' }}>{t('common.putAway')}</a>}
       </Paragraph>
     )
   }

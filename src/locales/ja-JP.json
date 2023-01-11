@@ -25,7 +25,8 @@
     "signIn": "ウォレットアドレスでログイン",
     "pleaseChoose": "選んでください",
     "royalty": "印税",
-    "moreText": "もっと"
+    "moreText": "もっと",
+    "putAway":"片付ける"
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://www.diffgalaxy.io</1>。",
   "home": {
