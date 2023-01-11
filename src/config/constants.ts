@@ -12,7 +12,7 @@ if (process.env.APP_MODE === 'production') {
   conditionConfig = DEV_CONSTANTS;
 }
 
-export const isProd = process.env.APP_MODE === 'production';
+export const isProd = process.env.APP_MODE === 'production' || process.env.APP_MODE === 'pre';
 
 
 /**
