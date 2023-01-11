@@ -41,7 +41,7 @@ export const GatherEdit: React.FC<any> = () => {
   const requireMsg = t('userSettings.required')
   const [id, setId] = useState<string>('0')
   const [formNmat, setFormNmat] = useState('')
-  const linkUrl = isProd ? window.location.origin + '/gather-detail/' : 'http://192.168.1.59:4000/gather-detail/' // dev临时配置
+  const linkUrl = window.location.origin + '/gather-detail/'  //dev临时配置
 
 
   useEffect(() => {
