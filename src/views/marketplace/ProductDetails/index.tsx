@@ -273,11 +273,11 @@ export const ProductionDetails = () => {
     setBuyModalOpen(true)
   }
 
-  const ownerLink = () => {
-    if (amountNum >= 1) {
-      return <Link to={`/account/0/${ownerAddr}`}> {t('marketplace.details.you')} </Link>
-    }
-  }
+  const ownerLink = (
+    <Link to={`/account/0/${ownerAddr}`}>
+      {amountNum && amountNum > 0 ? t('marketplace.details.you') : null}
+    </Link>
+  )
   const ownerAddress = (
     <Link to={`/account/0/${ownerAddr}`}>
       {ownerAddr?.startsWith('0x') ? ownerAddr?.substring(2, 8) : ownerAddr?.substring(0, 6)}
