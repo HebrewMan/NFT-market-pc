@@ -21,6 +21,9 @@ const messageModal: React.FC<any> = (props) => {
   const handleDetail = () => {
     setIsModalOpen(false)
     history.push(`/account/0/${walletAccount}`)
+    if (window.location.pathname == `/account/0/${walletAccount}`) {
+      window.location.reload()
+    }
   }
   return (
     <Modal title='' visible={isModalOpen} footer={null} onCancel={onCancel} closable={false}>
