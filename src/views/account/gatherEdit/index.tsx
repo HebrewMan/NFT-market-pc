@@ -299,7 +299,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editAvatar'>
-                {fileAvatar == null || fileAvatar == '' ? <img src={require('Src/assets/account/upload.png')}></img> : <img src={fileAvatar} className="imgWidth" />}
+                {fileAvatar == null || fileAvatar == '' ? <img src={require('Src/assets/account/upload.png')} /> : <img src={fileAvatar} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
@@ -318,7 +318,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editCover'>
-                {fileCover == null || fileCover == '' ? <img src={require('Src/assets/account/upload.png')}></img> : <img src={fileCover} className="imgWidth" />}
+                {fileCover == null || fileCover == '' ? <img src={require('Src/assets/account/upload.png')} /> : <img src={fileCover} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
@@ -338,7 +338,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editBgImage'>
-                {backgroundImage == null ? <img src={require('Src/assets/account/upload.png')}></img> : <img src={backgroundImage} className="imgWidth" />}
+                {backgroundImage == null ? <img src={require('Src/assets/account/upload.png')} /> : <img src={backgroundImage} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
