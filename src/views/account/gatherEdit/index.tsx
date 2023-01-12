@@ -286,7 +286,7 @@ export const GatherEdit: React.FC<any> = () => {
             label={
               <div className='imgTitle'>
                 {t('gather.edit.collectionProfile')}
-                <span>{t('gather.edit.profileTips')}</span>
+                <span>( {t('gather.edit.profileTips')} )</span>
               </div>
             }
           >
@@ -299,14 +299,14 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editAvatar'>
-                {fileAvatar == null || fileAvatar == '' ? <img src='Src/assets/account/upload.png'></img> : <img src={fileAvatar} className="imgWidth" />}
+                {fileAvatar == null || fileAvatar == '' ? <img src={require('Src/assets/account/upload.png')}></img> : <img src={fileAvatar} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
           <Form.Item label={
             <div className='imgTitle'>
               {t('gather.edit.collectionCover')}
-              <span>{t('gather.edit.coverTips')}</span>
+              <span>( {t('gather.edit.coverTips')} )</span>
             </div>
           }
           >
@@ -318,7 +318,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editCover'>
-                {fileCover == null || fileCover == '' ? <img src='Src/assets/account/upload.png'></img> : <img src={fileCover} className="imgWidth" />}
+                {fileCover == null || fileCover == '' ? <img src={require('Src/assets/account/upload.png')}></img> : <img src={fileCover} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
@@ -326,7 +326,7 @@ export const GatherEdit: React.FC<any> = () => {
           <Form.Item label={
             <div className='imgTitle norequire'>
               {t('gather.edit.collectionBg')}
-              <span>{t('gather.edit.bgTips')}</span>
+              <span>( {t('gather.edit.bgTips')} )</span>
             </div>
           }
           >
@@ -338,7 +338,7 @@ export const GatherEdit: React.FC<any> = () => {
               listType="picture"
             >
               <Button className='editBgImage'>
-                {backgroundImage == null ? <img src='Src/assets/account/upload.png'></img> : <img src={backgroundImage} className="imgWidth" />}
+                {backgroundImage == null ? <img src={require('Src/assets/account/upload.png')}></img> : <img src={backgroundImage} className="imgWidth" />}
               </Button>
             </Upload>
           </Form.Item>
@@ -349,7 +349,7 @@ export const GatherEdit: React.FC<any> = () => {
                   <div>
                     {t('gather.edit.royalty')}
                     <Tooltip title={t('gather.edit.creatorInfo')}>
-                      <img src="Src/assets/account/question.png" alt="" className="royalties" />
+                      <img src={require("Src/assets/account/question.png")} alt="" className="royalties" />
                     </Tooltip>
                   </div>
                 }

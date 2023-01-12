@@ -23,7 +23,7 @@ export const Footer = () => {
         <div className='footer-right'>
           <div className='copyright'>{t('footer.copyright')}</div>
           <div className='links'>
-            <span>{t('footer.legal')}</span>
+            {/* <span>{t('footer.legal')}</span> */}
             <span onClick={() => handleClick('service')}>{t('footer.service')}</span>
             <span onClick={() => handleClick('policy')}>{t('footer.policy')}</span>
           </div>

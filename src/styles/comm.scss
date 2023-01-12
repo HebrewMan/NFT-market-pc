@@ -1,8 +1,14 @@
 .g-list {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-wrap: wrap;
   padding: 32px 0;
+
+  .cardItem {
+    gap: 32px;
+    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   .card {
     position: relative;
@@ -19,6 +25,8 @@
     &:hover {
       border: 1px solid $tq-primary-color;
     }
+
+
 
 
     // &:hover {
@@ -181,7 +189,11 @@
   }
 
   &.small {
-    gap: 24px;
+
+    .cardItem {
+      gap: 24px;
+      grid-template-columns: repeat(5, 1fr);
+    }
 
     .card {
       width: 220px;

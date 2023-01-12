@@ -243,7 +243,7 @@ export const MarketPlace = () => {
         </section>
       </div>
       <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-        {goodsList.length > 0 && CardItem()}
+        {goodsList.length > 0 && <div className='cardItem'> {CardItem()} </div>}
         {goodsList.length === 0 && <AEmpty />}
       </div>
       {loading ? (

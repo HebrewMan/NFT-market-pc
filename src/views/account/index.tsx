@@ -587,7 +587,7 @@ export const Account: React.FC<any> = () => {
               </div>
               <div className={`info-main info-main--max`}>
                 <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-                  {collectionsData.length > 0 && CardItem()}
+                  {collectionsData.length > 0 && <div className='cardItem'> {CardItem()} </div>}
                   {collectionsData.length === 0 && <AEmpty />}
                 </div>
               </div>

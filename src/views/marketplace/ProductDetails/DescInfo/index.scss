@@ -3,13 +3,13 @@
 
   .information-list {
     display: flex;
-    justify-content: space-between;
     width: 100%;
     border-bottom: 1px solid $tq-split-line-color;
     padding: 6px 14px 0px 12px;
     margin-bottom: 24px;
 
     .list-title {
+      margin-right: 30px;
       display: flex;
       align-items: center;
       box-sizing: border-box;

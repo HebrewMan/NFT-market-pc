@@ -50,7 +50,7 @@ export const MoreCollects = (props: any) => {
   const Wrapper = () => (
     <div className='collection-wrapper'>
       <div className={`g-list ${grid != 1 ? 'small' : ''}`}>
-        <WrapItem />
+        <div className='cardItem'><WrapItem /></div>
       </div>
     </div>
   )

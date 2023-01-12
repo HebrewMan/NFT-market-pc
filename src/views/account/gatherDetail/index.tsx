@@ -79,7 +79,7 @@ export const GatherDetail: React.FC<any> = (props) => {
     })
     setCreateAddr(res.data.createAddr)
     const { linkDiscord, linkInstagram, linkMedium, linkSkypegmwcn, linkTwitter } = res.data
-    setLinkList({ linkDiscord, linkInstagram, linkMedium, linkSkypegmwcn, linkTwitter })
+    setLinkList({ linkSkypegmwcn, linkTwitter, linkDiscord, linkInstagram, linkMedium })
     setData(res.data)
     setId(res.data.id)
   }
@@ -316,7 +316,7 @@ export const GatherDetail: React.FC<any> = (props) => {
             loader={false}
           >
             <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-              {listData.length > 0 ? CardItem() : <AEmpty />}
+              {listData.length > 0 ? <div className='cardItem'> {CardItem()} </div> : <AEmpty />}
             </div>
           </InfiniteScroll>
         </div>

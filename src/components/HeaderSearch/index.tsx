@@ -97,7 +97,7 @@ export const SelectGroup = () => {
         }
       >
         {collectionList.length > 0 &&
-          <OptGroup label={'集合'}>
+          <OptGroup label={t('home.searchCollections')}>
             {collectionList.map((item: any) => {
               return (
                 <Option key={item.id} value={JSON.stringify(item)} label={''}>
@@ -118,7 +118,7 @@ export const SelectGroup = () => {
           </OptGroup>
         }
         {nftList.length > 0 &&
-          <OptGroup label={'Item'}>
+          <OptGroup label={t('home.searchItems')}>
             {nftList.map((item: any) => {
               return (
                 <Option key={item.tokenId} value={JSON.stringify(item)} label={''}>
@@ -130,7 +130,7 @@ export const SelectGroup = () => {
           </OptGroup>
         }
         {userList.length > 0 &&
-          <OptGroup label='账户'>
+          <OptGroup label={t('home.searchAccount')}>
             {userList.map((item: any) => {
               return (
                 <Option key={item.userAddr} value={JSON.stringify(item)} label={item.username}>

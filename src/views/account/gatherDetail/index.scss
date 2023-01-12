@@ -121,6 +121,11 @@
           font-size: $tq-font-size-6;
           color: $tq-font-color-title ;
 
+          span {
+            font-size: 16px;
+            font-weight: bold;
+          }
+
           img {
             margin-right: 4px;
             width: 16px;
@@ -142,6 +147,7 @@
       margin-left: 20px;
       width: 32px;
       height: 32px;
+      cursor: pointer;
     }
   }
 
