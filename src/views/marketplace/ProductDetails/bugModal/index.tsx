@@ -104,7 +104,7 @@ const ReceiveModal: React.FC<any> = (props) => {
       coin: coin,
     }
 
-    if (!accountAddress || !token || !Erc20ContractAddr) {
+    if (!accountAddress || !token) {
       message.error(t('hint.pleaseLog'))
       history.push('/login')
       return
