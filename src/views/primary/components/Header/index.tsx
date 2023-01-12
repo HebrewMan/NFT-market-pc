@@ -2,7 +2,7 @@ import React from 'react'
 import './index.scss'
 import { getViewLang } from '../../../../utils/i18n'
 export const PHeader = (props: any) => {
-  const { primaryObj, needTranslation } = props
+  const { primaryObj, needTranslation = true } = props
 
   return (
     <div className='primary-header'>
