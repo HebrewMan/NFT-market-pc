@@ -31,7 +31,7 @@
   "home": {
     "title": "欢迎来到Diffgalaxy NFT资产交易市场",
     "subtitle": "Diffgalaxy让NFT交易更简单，一起探索交易的乐趣",
-    "collection": "热门合集",
+    "collection": "热门集合",
     "searchCollections": "集合",
     "searchItems": "項",
     "searchAccount": "賬戶",
@@ -239,7 +239,7 @@
       "collectionName": "集合名称",
       "placeholderName": "你的集合名称",
       "collectionLink": "集合链接",
-      "placeholderLink": "自定义你的合集URL",
+      "placeholderLink": "自定义你的集合URL",
       "collectionDesc": "集合描述",
       "placeholderDesc": "你的集合描述",
       "collectionProfile": "集合头像",
