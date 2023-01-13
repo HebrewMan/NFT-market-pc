@@ -158,6 +158,7 @@ const onEthereumEvent = (deactivate?: any) => {
       removeCookie('web-token');
       // 切换账号跳转登录页
       // useSignature(account);
+      
       history.push('/login');
     });
 
