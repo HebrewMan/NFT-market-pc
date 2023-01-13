@@ -154,11 +154,14 @@ const onEthereumEvent = (deactivate?: any) => {
       // "accounts" will always be an array, but it can be empty.
       const account = accounts[0]?.toLowerCase();
       if (!account) return;
-      removeLocalStorage('wallet');
-      removeCookie('web-token');
+      window.location.reload()
+      // removeLocalStorage('wallet');
+      // removeCookie('web-token');
       // 切换账号跳转登录页
       // useSignature(account);
-      history.push('/login');
+
+      // history.push('/login');
+      // window.location.reload()
     });
 
     ethereum.on('chainChanged', (chainId: string) => {
