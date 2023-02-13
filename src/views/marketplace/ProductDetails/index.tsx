@@ -236,7 +236,7 @@ export const ProductionDetails = () => {
     }
   }
   const handleToCollection = () => {
-    history.push(`/gather-detail/${DetailData?.linkCollection}`)
+    history.push(`/collection/${DetailData?.linkCollection}`)
   }
 
 

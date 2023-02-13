@@ -163,9 +163,9 @@ export const GatherEdit: React.FC<any> = () => {
         message.success(t('gather.edit.editSucces'))
         console.log("🚀 ~ file: index.tsx:165 ~ editMyGatherList ~ formNmat", formNmat)
         if (formNmat === 'list') {
-          history.push('/gather')
+          history.push('/collection')
         } else {
-          history.push(`/gather-detail/${form.getFieldValue('linkCollection')}`)
+          history.push(`/collection/${form.getFieldValue('linkCollection')}`)
         }
       }
     })

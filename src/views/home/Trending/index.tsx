@@ -65,7 +65,7 @@ const TrendSwiper = (props: any) => {
         <SwiperSlide key={index}>
           <div className='swiper-items'>
             <div className='swiper-item'>
-              <Link to={`/gather-detail/${item.linkCollection}`}>
+              <Link to={`/collection/${item.linkCollection}`}>
                 <img src={item.coverUrl} alt='' />
               </Link>
             </div>

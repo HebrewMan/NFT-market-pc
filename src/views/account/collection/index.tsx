@@ -142,7 +142,7 @@ export const GatherDetail: React.FC<any> = (props) => {
   const handleEditChnage = (e: any, linkCollection: any) => {
     e.stopPropagation()
     history.push({
-      pathname: `/gather-edit/${linkCollection}`,
+      pathname: `/collection-edit/${linkCollection}`,
       state: { from: 'detail' }
     })
 

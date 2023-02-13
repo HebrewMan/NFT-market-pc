@@ -199,7 +199,7 @@ export const HeaderMenu = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={`/gather`}>
+                          <Link to={`/account-collection`}>
                             <img src={require('Src/assets/common/account-my-collection.png')} alt='' />
                             <div className='txt'>
                               <span>{t('nav.myCollection')}</span>
