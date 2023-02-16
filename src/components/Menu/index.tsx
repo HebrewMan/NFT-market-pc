@@ -129,11 +129,11 @@ export const HeaderMenu = () => {
   return (
     <div className='navbar--items'>
       <div className='navbar--items-left'>
-        <div className='item' onMouseOver={() => showMenu('js-hone')} onMouseLeave={() => hideMenu()}>
+        {/* <div className='item' onMouseOver={() => showMenu('js-hone')} onMouseLeave={() => hideMenu()}>
           <NavLink exact activeClassName='current' className={dom === 'js-hone' ? 'active' : ''} to={`/`}>
             {t('nav.home')}
           </NavLink>
-        </div>
+        </div> */}
         <div className='item' onMouseOver={() => showMenu('js-stats')} onMouseLeave={() => hideMenu()}>
           <NavLink activeClassName='current' className={dom === 'js-stats' ? 'active' : ''} to={`/primary`}>
             {t('nav.primary')}
@@ -144,12 +144,16 @@ export const HeaderMenu = () => {
             {t('nav.market')}
           </NavLink>
         </div>
-
-        <div className='item' onMouseOver={() => showMenu('js-helpcenter')} onMouseLeave={() => hideMenu()}>
+        <div className='item' onMouseOver={() => showMenu('js-market')} onMouseLeave={() => hideMenu()}>
+          <NavLink activeClassName='current' className={dom === 'js-market' ? 'active' : ''} to={`/ranking`}>
+            {'Ranking'}
+          </NavLink>
+        </div>
+        {/* <div className='item' onMouseOver={() => showMenu('js-helpcenter')} onMouseLeave={() => hideMenu()}>
           <NavLink activeClassName='current' to={`/helpcenter`} className={dom === 'js-helpcenter' ? 'active' : ''}>
             {t('nav.help')}
           </NavLink>
-        </div>
+        </div> */}
       </div>
       <div className='navbar--items-right'>
         <div className='search-com'>
@@ -157,10 +161,10 @@ export const HeaderMenu = () => {
         </div>
         {/* 多语言 */}
         <div className='langWaper'>
-          <Dropdown menu={menuProps} overlayClassName='langDrodown' placement='bottomRight'>
+          <Dropdown menu={menuProps} overlayClassName='langDrodown' placement='bottom'>
             <Space>
-              <img className='language-img' src={require('Src/assets/common/lang.png')} alt='language' />
-              {lang}
+              <img className='language-img' src={require('Src/assets/home/icon-lang.svg')} alt='language' />
+              {/* {lang} */}
             </Space>
           </Dropdown>
         </div>
@@ -168,7 +172,7 @@ export const HeaderMenu = () => {
         {
           !token && !walletAccount ? (
             <Button type='primary' className='linkWallet' onClick={getLogOut}>
-              <img className='language-img' src={require('Src/assets/common/linkWallet.png')} alt='language' />
+              {/* <img className='language-img' src={require('Src/assets/common/linkWallet.png')} alt='language' /> */}
               {t('nav.cnnectWallet')}
             </Button>
           ) :

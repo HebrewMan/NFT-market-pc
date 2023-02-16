@@ -1,45 +1,45 @@
 .pc-footer {
-	padding: 48px 110px;
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	min-width: 1440px;
-	;
-	background: rgba(29, 36, 59, 0.05);
+	margin: 120px auto 0px;
+	padding: 0 0px 42px;
+	// display: flex;
+	// justify-content: space-between;
+	width: 1440px;
+
+	.logo {
+		width: 168px;
+		height: 48px;
+	}
 
 	.footer-left {
-		display: flex;
-		align-items: center;
-
-		img {
-			width: 74px;
-			height: 74px;
-		}
+		margin: 16px 0 58px;
 
 		.desc {
-			margin-left: 24px;
-			font-size: 18px;
-			color: #1D243B;
+			font-size: $tq-font-size-6;
+			color: $tq-color-white;
 		}
 	}
 
 	.footer-right {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		font-size: 14px;
-		color: #1D243B;
-
-		.copyright {
-			text-align: right;
-		}
+		color: $tq-font-color-gary;
 
 		.links {
-			margin-top: 16px;
-
 			span {
-				margin-top: 16px;
-				padding-left: 24px;
+				padding-left: 60px;
 				cursor: pointer;
 			}
 
+		}
+
+		.webLink {
+			img {
+				width: 32px;
+				height: 32px;
+				cursor: pointer;
+			}
 		}
 	}
 }

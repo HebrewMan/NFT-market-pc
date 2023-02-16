@@ -1,4 +1,4 @@
-$primary-color: #2585D9;
+$primary-color: $tq-primary-color;
 $screen-sm-min: 768px;
 
 html {
@@ -43,9 +43,9 @@ body {
   pointer-events: none;
 }
 
-.ant-layout {
-  background: transparent !important;
-}
+// .ant-layout {
+//   background: transparent !important;
+// }
 
 h1,
 h2,
@@ -269,9 +269,9 @@ code {
   padding-top: 5px;
 }
 
-.ant-btn:hover {
-  background-color: transparent !important;
-}
+// .ant-btn:hover {
+//   background-color: transparent !important;
+// }
 
 .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
   color: hsla(0, 0%, 100%, 0.85);
@@ -302,20 +302,25 @@ code {
 }
 
 .ant-btn {
-  // height: 56px;
+
   font-weight: 600;
   font-size: 16px;
   line-height: 16px;
   border-radius: 8px;
+  border: 0px;
 
+  // 渐变按钮
   &.ant-btn-primary {
-    background: $tq-primary-color;
+    background: $tq-btn-linear;
+    border-radius: 10px;
+    opacity: 1;
     color: $tq-color-white;
+    border-color: transparent !important;
 
     &:hover,
     &:focus {
-      background-color: #1868b7 !important;
-      color: $tq-color-white;
+      // background-color: #1868b7 !important;
+      // color: $tq-color-white;
     }
   }
 
@@ -330,15 +335,34 @@ code {
     }
   }
 
+  // 次按钮 透明底按钮 
   &.ant-btn-default {
-    border-color: $tq-primary-color;
-    color: $tq-primary-color;
+    padding: 0 44px;
+    height: 44px;
+    border: 1px solid $tq-color-border;
+    color: $tq-color-white;
+    background: transparent;
+    font-size: $tq-font-size-6;
   }
 
+  // 白色底按钮
+  &.ant-btn-text {
+    padding: 0 44px;
+    // height: 56px;
+    // border: 1px solid $tq-color-border;
+    color: $tq-color-black;
+    background: $tq-color-white;
+    font-size: $tq-font-size-3;
+
+    &:hover,
+    &:focus {
+      background: $tq-color-white;
+    }
+  }
+
+  // 
   &.ant-btn-sm {
     min-width: 72px;
-    // max-width: 72px;
-    // padding: 0 25px;
     box-sizing: border-box;
     height: 28px;
     line-height: 28px;
@@ -347,49 +371,10 @@ code {
   }
 
   &.ant-btn-lg {
-    height: 48px;
-    font-size: $tq-font-size-5;
+    height: 56px;
+    font-size: $tq-font-size-3;
   }
 
-  // color: white;
-
-  // &.secondary-btn {
-  //   color: #ffffff;
-  //   background: $primary-color !important;
-  //   border-color: $primary-color !important;
-  //   box-shadow: 0px 0px 24px rgba(26, 26, 26, 0.12);
-  //   border-radius: 8px;
-  //   width: fit-content;
-
-  //   &:hover,
-  //   &:focus {
-  //     background: transparent !important;
-  //     border-color: $primary-color !important;
-  //     color: $primary-color !important;
-  //   }
-
-  //   &:disabled,
-  //   &:disabled &:hover {
-  //     color: rgba(255, 255, 255, 0.5) !important;
-  //     background: #1e1e1e !important;
-  //     border: none;
-  //   }
-  // }
-
-  // &.black-btn {
-  //   color: #ffffff;
-  //   background: rgba(255, 255, 255, 0.05);
-  //   border-color: rgba(255, 255, 255, 0.05);
-  //   border-radius: 8px;
-  //   width: fit-content;
-
-  //   &:hover,
-  //   &:focus {
-  //     background: transparent;
-  //     border-color: rgba(255, 255, 255, 0.05);
-  //     color: #ffffff;
-  //   }
-  // }
 }
 
 model-viewer {
@@ -631,7 +616,7 @@ model-viewer {
 
 .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector input {
   height: 100%;
-  color: #141414;
+  color: $tq-color-white;
 }
 
 .ant-modal-header {

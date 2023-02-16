@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { getCookie } from '../../../utils/utils'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { EffectCards, Autoplay, Pagination } from 'swiper'
+import SwiperCore, { EffectCards, Autoplay, Pagination, Scrollbar } from 'swiper'
 import { useTranslation } from 'react-i18next'
 import 'swiper/scss'
 import './index.scss'
@@ -23,20 +23,24 @@ const SwiperComm = (props: any) => {
 
   return (
     <Swiper
-      modules={[Autoplay]}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
       }}
-      effect='cards'
-      // loop={true}
-      grabCursor={true}
-      onSlideChange={(swiper) => setCurrentSwiperObject(swiperList[swiper.activeIndex])}
-      pagination={{
-        bulletClass: 'swiper-pagination-bullet my-bullet',
-        bulletActiveClass: 'swiper-pagination-bullet-active my-bullet-active',
-        clickable: true,
+      loop={true}
+      scrollbar={{
+        hide: false,
       }}
+
+      modules={[Scrollbar, Autoplay]}
+      className='mainSwiper'
+      onSlideChange={(swiper) => setCurrentSwiperObject(swiperList[swiper.activeIndex])}
+
+    // pagination={{
+    //   bulletClass: 'swiper-pagination-bullet my-bullet',
+    //   bulletActiveClass: 'swiper-pagination-bullet-active my-bullet-active',
+    //   clickable: true,
+    // }}
     >
       {swiperList.map((item: any, index: number) => {
         return (
@@ -86,13 +90,13 @@ export const SubjectInner = () => {
 
   return (
     <div className='container-banner'>
-      {/* <div className='container-position'>
-        <div className='position-img' style={{ backgroundImage: `url(${background()})` }}></div>
-      </div> */}
       <div className='container-flex'>
         <div className='flex-left'>
-          <h1>{t('home.title')}</h1>
-          <span>{t('home.subtitle')}</span>
+          {/* <h1>{t('home.title')}</h1> */}
+          {/* <span>{t('home.subtitle')}</span> */}
+          <p>专注GameFi</p>
+          <p>领域的NFT交易市场</p>
+          <span>安全可靠 | Gas 费低 | 手续费低 | 多EVM链</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
               {t('common.buy')}
@@ -105,21 +109,9 @@ export const SubjectInner = () => {
         <div className='flex-right'>
           <div className='cards-swiper'>
             <SwiperComm swiperList={swiperList} setCurrentSwiperObject={setCurrentSwiperObject} />
-            <div className='swiper-pagination'></div>
-            <div className='right-footer'>
-              <div className='footer-img'>
-                <img src={currentSwiperObject?.collectionHeadUrl} alt='' />
-              </div>
-              <div className='footer-text'>
-                <p>
-                  {currentSwiperObject?.name} #{currentSwiperObject?.tokenId}
-                </p>
-                <span>{currentSwiperObject?.collectionName}</span>
-              </div>
-            </div>
+            <div className='swiper-scrollbar'></div>
           </div>
         </div>
-        {/* <p className='text-link link-hidden'>Get featured on the homepage</p> */}
       </div>
     </div>
   )

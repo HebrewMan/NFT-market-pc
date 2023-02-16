@@ -155,10 +155,13 @@
         max-width: 1000px;
         margin-top: 10px;
         font-size: $tq-font-size-5;
-        color: $tq-font-color-body;
         display: flex;
         align-items: center;
         justify-content: start;
+
+        .ant-typography {
+          color: $tq-font-color-sub-title;
+        }
 
         p {
           display: -webkit-box;
@@ -180,7 +183,7 @@
       font-size: 26px;
       font-weight: 600;
       line-height: 28px;
-      color: $tq-font-color-title;
+      color: $tq-color-white;
     }
 
     .account-subtitle {
@@ -191,17 +194,13 @@
       align-items: center;
       display: flex;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 500;
-      color: $tq-font-color-body;
-      border: 1px solid $tq-split-line-color;
-
-      strong {
-        margin-right: 8px;
-        font-size: 16px;
-      }
+      font-size: 16px;
+      background: $tq-table-bg;
+      color: $tq-font-color-sub-title;
+      border: 1px solid $tq-split-line-second-color;
 
       img {
+        margin-left: 12px;
         width: 14px;
         height: 14px;
         cursor: pointer;
@@ -382,7 +381,7 @@
       width: 280px;
       background: rgb(255, 255, 255);
       position: sticky;
-      top: 72px;
+      top: 68px;
       min-height: 500px;
       height: 100%;
 
@@ -697,18 +696,18 @@
     margin-right: 60px;
     justify-content: flex-start;
     font-size: $tq-font-size-3;
-    font-weight: 600;
+    font-weight: 500;
     color: $tq-font-color-body;
     line-height: 22px;
     cursor: pointer;
 
     &:hover {
-      color: $tq-font-color-title;
+      color: $tq-color-white;
     }
 
     &.active {
-      color: $tq-font-color-title;
-      border-bottom: 2px solid $tq-font-color-title ;
+      color: $tq-color-white;
+      border-bottom: 2px solid $tq-color-white;
     }
 
     &:last-child {

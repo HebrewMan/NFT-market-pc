@@ -1,24 +1,40 @@
 // 色彩规范
 // 标准色
-$tq-primary-color: #2585D9; //主色
+$tq-primary-color: #4A45FF; //主色
+$tq-primary-pink: #FF0A8D; //主色
+$tq-primary-aqua: #01E5FF; //主色
 
+// 全局底色
+$tq-primary-body-bg: #0E102B;
+// 表格底色&表单
+$tq-table-bg: #1C203A;
+// 列表底色
+$tq-list-bg: #0E2555;
+
+
+// btn 主按钮颜色
+$tq-btn-linear: linear-gradient(228deg, #4A45FF 0%, #FF0A8D 96%);
+$tq-btn-bule: #4A45FF;
 // 功能色
 $tq-color-green: #00B563;
 $tq-color-warn: #ECB356;
 $tq-color-fail: #EC685B;
+$tq-color-border: #6E7080;
 
 // 背景颜色
-$tq-color-bg: #F8FBFE;
-// 字体颜色
+$tq-color-bg: #0E102B;
 
+// 字体颜色
 /* 标题文字 */
 $tq-font-color-title: #1D243B;
 /* 辅助文字 */
-$tq-font-color-body: #757A8A;
-$tq-font-color-gary: #A6ABBB;
-$tq-font-color-help: #CCCCCC;
-$tq-font-color-minor: #666666;
+$tq-font-color-body: #9F9FAA;
+$tq-font-color-gary: #6E7080;
+$tq-font-color-help: #030303;
+$tq-font-color-minor: #56586B;
 $tq-font-color-nine: #999999;
+
+$tq-font-color-sub-title: #CFCFD5;
 
 // 其他颜色
 $tq-color-white: #ffffff;
@@ -34,4 +50,15 @@ $tq-font-size-6: 14px;
 $tq-font-size-7: 12px;
 
 // 分割线颜色 边框颜色
-$tq-split-line-color: #E8E8E8;
+$tq-split-line-color: #262840;
+$tq-split-line-second-color: #56586B;
+
+// 首页热门边框颜色
+$hermes_collect_bg_blue: #0E2555;
+$hermes_collect_bg_pink: #34153b;
+$hermes_collect_bg_orange: #461a2d;
+$hermes_collect_bg_green: #04292b;
+$hermes_collect_border_blue: linear-gradient(135deg, rgba(0, 230, 255, 1), rgba(52, 131, 252, 1));
+$hermes_collect_border_orange: linear-gradient(135deg, rgba(255, 208, 63, 1), rgba(212, 103, 37, 1));
+$hermes_collect_border_pink: linear-gradient(135deg, rgba(255, 46, 158, 1), rgba(255, 46, 71, 1));
+$hermes_collect_border_green: linear-gradient(135deg, rgba(12, 201, 39, 1), rgba(20, 171, 60, 1));

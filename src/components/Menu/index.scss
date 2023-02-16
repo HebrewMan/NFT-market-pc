@@ -12,13 +12,9 @@
     align-items: center;
 
     .langWaper {
-      padding: 0 12px;
-      margin: 0 12px;
-      height: 41px;
-      line-height: 41px;
-      background: #FFFFFF;
-      border-radius: 6px;
-      border: 1px solid #E8E8E8;
+      height: 68px;
+      line-height: 68px;
+      padding: 0 36px;
 
       .ant-menu-horizontal {
         line-height: 40px;
@@ -29,13 +25,13 @@
       }
 
       .language-img {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
       }
 
       .ant-menu-title-content {
         font-size: 16px;
-        color: #1D243B;
+        color: $tq-color-white;
         font-weight: 500;
       }
     }
@@ -46,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    height: 68px;
     font-weight: 600;
     font-size: 18px;
     cursor: pointer;
@@ -56,18 +52,18 @@
 
       &:hover,
       &.active {
-        color: #04111d;
+        color: $tq-color-white;
 
-        &:after {
-          background-color: rgb(32, 129, 226);
-          bottom: 0%;
-          content: '';
-          display: block;
-          height: 2px;
-          left: 0px;
-          position: absolute;
-          width: 100%;
-        }
+        // &:after {
+        //   background-color: rgb(32, 129, 226);
+        //   bottom: 0%;
+        //   content: '';
+        //   display: block;
+        //   height: 2px;
+        //   left: 0px;
+        //   position: absolute;
+        //   width: 100%;
+        // }
       }
     }
 
@@ -76,12 +72,16 @@
       padding: 0px 20px;
       display: flex;
       align-items: center;
-      color: #333333;
+      color: $tq-color-white;
       height: 100%;
       width: 100%;
       font-weight: 400;
       font-size: 16px;
       white-space: nowrap;
+
+      &:hover {
+        opacity: 0.8;
+      }
 
       &.current {
         font-weight: 600;
@@ -135,36 +135,35 @@
     max-height: fit-content;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    // overflow-y: auto;
-    box-shadow: 0px 0px 12px 1px rgba(29, 36, 59, 0.1216);
-    background-color: rgb(255, 255, 255);
-    color: rgb(4, 17, 29);
+    background-color: $tq-table-bg;
+    color: $tq-color-white;
     max-width: initial;
-    // width: 170px;
+    width: 170px;
     border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
     outline: 0px;
     transition-property: transform, visibility, opacity;
+    box-shadow: 0px 0px 8px 0px rgba(29, 36, 59, 0.14);
     position: absolute;
-    right: 48px;
+    right: 160px;
     top: 73px;
     opacity: 0;
     z-index: 1;
 
-    &::after {
-      content: '';
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 12px solid rgba(29, 36, 59, 0.1216);
-      position: absolute;
-      top: -14px;
-      right: 12px;
-      // margin-left: -10px;
-      z-index: -1;
-      filter: blur(2px);
+    // &::after {
+    //   content: '';
+    //   border-left: 12px solid transparent;
+    //   border-right: 12px solid transparent;
+    //   border-bottom: 12px solid $tq-table-bg;
+    //   position: absolute;
+    //   top: -14px;
+    //   left: 34px;
+    //   // margin-left: -10px;
+    //   z-index: -1;
+    //   filter: blur(2px);
 
-    }
+    // }
 
     &::before {
       content: '';
@@ -173,10 +172,10 @@
       height: 0;
       border-left: 12px solid transparent;
       border-right: 12px solid transparent;
-      border-bottom: 12px solid #fff;
+      border-bottom: 12px solid $tq-table-bg;
       position: absolute;
       top: -12px;
-      right: 12px;
+      right: 20px;
       z-index: 1;
       // -webkit-filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, .6))
     }
@@ -218,12 +217,6 @@
           display: flex;
           align-items: center;
 
-          &:hover {
-            transition: all 0.2s ease 0s;
-            background-color: #DCEFFF;
-            opacity: 1;
-          }
-
           .ico {
             align-items: center;
             display: flex;
@@ -260,9 +253,19 @@
 
             span {
               // font-weight: 600;
-              font-size: 16px;
-              color: #1D243B;
+              font-size: $tq-font-size-6;
+              color: $tq-color-white;
             }
+          }
+        }
+
+        &:hover {
+          // transition: all 0.2s ease 0s;
+          // background-color: #DCEFFF;
+          // opacity: 1;
+
+          .txt span {
+            color: $tq-primary-aqua;
           }
         }
       }
@@ -301,37 +304,52 @@
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  border-color: #eaecef;
-  border-radius: 4px;
-  height: 48px;
-  background-color: transparent;
-  width: 456px;
-
-  .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
-  .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
-    padding-left: 30px;
-  }
+  width: 458px;
+  height: 41px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 6px 6px 6px 6px;
+  opacity: 1;
 }
 
 .langDrodown {
+  margin-top: 20px !important;
   width: 170px;
-  background: #FCFCFD;
-  box-shadow: 0px 0px 12px 0px rgba(29, 36, 59, 0.12);
-  border: 1px solid rgba(29, 36, 59, 0.1);
+  background: $tq-table-bg;
+  // box-shadow: 0px 0px 12px 0px rgba(29, 36, 59, 0.12);
+  // border: 1px solid rgba(29, 36, 59, 0.1);
   border-radius: 15px;
+  position: relative;
+
+  &::after {
+    content: '';
+    // background: #FCFCFD;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid $tq-table-bg;
+    position: absolute;
+    top: -12px;
+    right: 50%;
+    margin-right: -12px;
+    z-index: 1;
+    // -webkit-filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, .6))
+  }
 
   .ant-dropdown-menu {
     box-shadow: none;
+    background: $tq-table-bg;
     margin: 10px;
 
     .ant-dropdown-menu-item {
-      color: #1D243B;
+      color: $tq-font-color-sub-title;
+      font-size: $tq-font-size-6;
       font-weight: 500;
       padding: 8px;
       background: none;
 
       &:hover {
-        color: #2585D9;
+        color: $tq-primary-aqua;
       }
     }
   }

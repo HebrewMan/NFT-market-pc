@@ -10,9 +10,11 @@ export const Primary = () => {
     description: t('primary.titleInfo')
   }
   return (
-    <div className="primary-market-wrap">
-      <PHeader primaryObj={primaryObj} needTranslation={false} />
-      <PList />
+    <div className="content-wrap-top">
+      <div className="primary-market-wrap">
+        <PHeader primaryObj={primaryObj} needTranslation={false} />
+        <PList />
+      </div>
     </div>
   )
 }

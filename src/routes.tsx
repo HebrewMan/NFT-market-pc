@@ -21,8 +21,8 @@ import { GatherList } from './views/account/myCollection'
 import { GatherDetail } from "./views/account/collection"
 import { GatherEdit } from "./views/account/collectionEdit"
 import { Privacy } from "./views/privacyPolicy"
-
 import ScrollTop from './components/ScrollTop'
+import { RankingView } from './views/ranking'
 
 export function Routes() {
   return (
@@ -31,14 +31,11 @@ export function Routes() {
         <ScrollTop>
           <UseWalletProvider connectors={ChainIds}>
             <Switch>
+              <Route exact path='/ranking' component={() => <RankingView />} />
               <Route exact path='/primary' component={() => <Primary />} />
               <Route exact path='/marketplace' component={() => <MarketPlace />} />
               <Route exact path='/marketlist/:id?/:status?' component={() => <MarketList />} />
               <Route exact path='/activityDetail' component={() => <ActivityDetail />} />
-              {/* <Route
-                path='/primary-details/:id?/:status?/:blindStatus?/:tokenId?/:tags?/:metadataId?'
-                component={() => <PrimaryDetails />}
-              /> */}
               <Route exact path='/product-details' component={() => <ProductionDetails />} />
               <Route exact path='/helpcenter' component={() => <HelpCenter />} />
               <Route exact path='/article-type/:name/:id' component={() => <ArticleType />} />

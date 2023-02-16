@@ -1,0 +1,17 @@
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon/Dropdown" filter="url(#filter0_d_605_26014)">
+<path id="Vector" d="M11 14C10.7491 14 10.4982 13.904 10.3069 13.7123L4.2872 7.67776C3.90427 7.29388 3.90427 6.6715 4.2872 6.28779C4.66997 5.90407 5.29071 5.90407 5.67367 6.28779L11 11.6275L16.3263 6.28797C16.7092 5.90426 17.3299 5.90426 17.7127 6.28797C18.0958 6.67169 18.0958 7.29407 17.7127 7.67794L11.6931 13.7125C11.5017 13.9042 11.2508 14 11 14Z" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_d_605_26014" x="-3" y="0" width="28" height="28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_605_26014"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_605_26014" result="shape"/>
+</filter>
+</defs>
+</svg>

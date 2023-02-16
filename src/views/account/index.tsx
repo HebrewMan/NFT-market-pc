@@ -499,106 +499,108 @@ export const Account: React.FC<any> = () => {
   }
 
   return (
-    <div className='account'>
-      <div className={`banner ${accountInfo?.bannerUrl ? 'set' : ''}`}>
-        <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
-        {isOwner() &&
-          <div className='edit'>
-            <img src={require('../../assets/edit_banner.png')} alt='' />
-            <span>{t('account.editBanner')}</span>
-            <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
+    <div className='content-wrap-top'>
+      <div className='account'>
+        <div className={`banner ${accountInfo?.bannerUrl ? 'set' : ''}`}>
+          <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
+          {isOwner() &&
+            <div className='edit'>
+              <img src={require('../../assets/edit_banner.png')} alt='' />
+              <span>{t('account.editBanner')}</span>
+              <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
+            </div>
+          }
+        </div>
+        <div className='account-content-wrap'>
+          <div className='account-header--main'>
+            <div className='account-header-top'>
+              <div className='user-img'>
+                <img
+                  className='header-img'
+                  src={!address ? accountInfo?.headUrl : accountInfo?.imageUrl || defaultHeader}
+                  alt=''
+                />
+                {address && isOwner() && (
+                  <>
+                    <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
+                    <div className='ico'>
+                      <img src={require('Src/assets/account/edit_white.svg')} alt='' />
+                      <span>{t('account.edit')}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className='account-info'>
+                <div className='account-flex'>
+                  <div className='account-title'>
+                    {(accountInfo?.username?.startsWith('0x')
+                      ? accountInfo?.username?.substr(2, 6)
+                      : accountInfo?.username) ||
+                      accountInfo?.name ||
+                      'Unnamed'}
+                  </div>
+                  <div className='account-subtitle'>
+                    <p>{formatAdd(address)}</p>
+                    {address && (
+                      <img
+                        src={require('Src/assets/account/content_copy_gray.png')}
+                        className='svg-img'
+                        alt=''
+                        onClick={() => handleCopy(address)}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className='moreinfo'>
+                  {getDescInfo()}
+                </div>
+              </div>
+            </div>
+
+
+
+            {address && <div className='select-wrap'>{<Tabs clickedTab={clickedTab} />}</div>}
           </div>
+          <div className='account-all-collects'>
+            <div className='info'>
+              <div className='info-collections'>
+                <div className='info-flex'>
+                  <section>
+                    <HeaderSearch
+                      getKeyWord={getKeyWord}
+                      reset={reset}
+                      keyWord={keyWord}
+                      placeholder={t('marketplace.serach')}
+                    />
+
+                    <div className='infoFilter'>
+                      <Select value={sort} list={sortList} change={handleSort} />
+
+                      {/* <Select value={status} list={statusList} change={handleStatus} /> */}
+
+                      {/* <button className='reset-btn' onClick={handleReset}>
+                        Reset
+                      </button> */}
+                    </div>
+                  </section>
+                  <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
+                </div>
+                <div className={`info-main info-main--max`}>
+                  <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
+                    {collectionsData.length > 0 && <div className='cardItem'> {CardItem()} </div>}
+                    {collectionsData.length === 0 && <AEmpty />}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* 上架 */}
+        {
+          isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={true} data={detailData} onCancel={() => setIsOpen(false)} />
         }
       </div>
-      <div className='account-content-wrap'>
-        <div className='account-header--main'>
-          <div className='account-header-top'>
-            <div className='user-img'>
-              <img
-                className='header-img'
-                src={!address ? accountInfo?.headUrl : accountInfo?.imageUrl || defaultHeader}
-                alt=''
-              />
-              {address && isOwner() && (
-                <>
-                  <input type='file' name='files' accept='image/*' id='files' onChange={(e) => handleUploadFile(e)} />
-                  <div className='ico'>
-                    <img src={require('Src/assets/account/edit_white.svg')} alt='' />
-                    <span>{t('account.edit')}</span>
-                  </div>
-                </>
-              )}
-            </div>
-            <div className='account-info'>
-              <div className='account-flex'>
-                <div className='account-title'>
-                  {(accountInfo?.username?.startsWith('0x')
-                    ? accountInfo?.username?.substr(2, 6)
-                    : accountInfo?.username) ||
-                    accountInfo?.name ||
-                    'Unnamed'}
-                </div>
-                <div className='account-subtitle'>
-                  <strong>{formatAdd(address)}</strong>
-                  {address && (
-                    <img
-                      src={require('Src/assets/account/content_copy_gray.png')}
-                      className='svg-img'
-                      alt=''
-                      onClick={() => handleCopy(address)}
-                    />
-                  )}
-                </div>
-              </div>
-
-              <div className='moreinfo'>
-                {getDescInfo()}
-              </div>
-            </div>
-          </div>
-
-
-
-          {address && <div className='select-wrap'>{<Tabs clickedTab={clickedTab} />}</div>}
-        </div>
-        <div className='account-all-collects'>
-          <div className='info'>
-            <div className='info-collections'>
-              <div className='info-flex'>
-                <section>
-                  <HeaderSearch
-                    getKeyWord={getKeyWord}
-                    reset={reset}
-                    keyWord={keyWord}
-                    placeholder={t('marketplace.serach')}
-                  />
-
-                  <div className='infoFilter'>
-                    <Select value={sort} list={sortList} change={handleSort} />
-
-                    {/* <Select value={status} list={statusList} change={handleStatus} /> */}
-
-                    {/* <button className='reset-btn' onClick={handleReset}>
-                      Reset
-                    </button> */}
-                  </div>
-                </section>
-                <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
-              </div>
-              <div className={`info-main info-main--max`}>
-                <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-                  {collectionsData.length > 0 && <div className='cardItem'> {CardItem()} </div>}
-                  {collectionsData.length === 0 && <AEmpty />}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* 上架 */}
-      {
-        isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={true} data={detailData} onCancel={() => setIsOpen(false)} />
-      }
     </div>
   )
 }

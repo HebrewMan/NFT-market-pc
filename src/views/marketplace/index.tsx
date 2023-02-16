@@ -213,46 +213,49 @@ export const MarketPlace = () => {
   }
 
   return (
-    <div className='marketplace'>
-      <div className='filter'>
-        {/* <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} /> */}
-        <section className='leftFlex'>
-          <div className='condition'>
-            <Select list={queryList} placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
-          </div>
-          <div className='price'>
-            {t('marketplace.price')}
-            <Input
-              className='min'
-              value={inputMin}
-              placeholder={t('marketplace.min') || undefined}
-              style={{ width: 84, height: 41 }}
-              onChange={handleChangeMin}
-            />
-            <span className='to'>{t('marketplace.to')}</span>
-            <Input
-              placeholder={t('marketplace.max') || undefined}
-              value={inputMax}
-              style={{ width: 84, height: 41 }}
-              onChange={handleChangeMax}
-            />
-          </div>
-        </section>
-        <section>
-          <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
-        </section>
-      </div>
-      <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-        {goodsList.length > 0 && <div className='cardItem'> {CardItem()} </div>}
-        {goodsList.length === 0 && <AEmpty />}
-      </div>
-      {loading ? (
-        <div className='loading-wrap'>
-          <Spin indicator={antIcon} />
+    <div className='content-wrap-top'>
+      <div className='marketplace'>
+        <div className='filter'>
+          {/* <HeaderSearch getKeyWord={getKeyWord} keyWord={keyWord} placeholder={t('marketplace.serach')} /> */}
+          <section className='leftFlex'>
+            <div className='condition'>
+              <Select list={queryList} placeholder={t('marketplace.sortBy')} change={handleChangeQuery} value={sort} />
+            </div>
+            <div className='price'>
+              {t('marketplace.price')}
+              <Input
+                className='min'
+                value={inputMin}
+                placeholder={t('marketplace.min') || undefined}
+                style={{ width: 100, height: 56 }}
+                onChange={handleChangeMin}
+              />
+              <span className='to'>{t('marketplace.to')}</span>
+              <Input
+                placeholder={t('marketplace.max') || undefined}
+                value={inputMax}
+                style={{ width: 100, height: 56 }}
+                onChange={handleChangeMax}
+              />
+            </div>
+          </section>
+          <section>
+            <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
+          </section>
         </div>
-      ) : (
-        <></>
-      )}
+        <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
+          {goodsList.length > 0 && <div className='cardItem'> {CardItem()} </div>}
+          {goodsList.length === 0 && <AEmpty />}
+        </div>
+        {loading ? (
+          <div className='loading-wrap'>
+            <Spin indicator={antIcon} />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+
     </div>
   )
 }

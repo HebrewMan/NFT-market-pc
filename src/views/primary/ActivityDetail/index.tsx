@@ -26,31 +26,33 @@ export const ActivityDetail = () => {
   }
 
   return (
-    <div className={`active-detail-container`}>
-      <div className='banner'>
-        <img src={activeInfo?.backgroundUrl} alt='detail-bg' />
-      </div>
-      <div className='timer-box'>
-        {activeInfo && (
-          <div className='timer'>
-            <CommTimer activityStatus={Number(activeInfo?.status)} endTime={getTimer(activeInfo)} hiddenMore={true} />
+    <div className='content-wrap-top'>
+      <div className={`active-detail-container`}>
+        <div className='banner'>
+          <img src={activeInfo?.backgroundUrl} alt='detail-bg' />
+        </div>
+        <div className='timer-box'>
+          {activeInfo && (
+            <div className='timer'>
+              <CommTimer activityStatus={Number(activeInfo?.status)} endTime={getTimer(activeInfo)} hiddenMore={true} />
+            </div>
+          )}
+        </div>
+        <PHeader primaryObj={primaryObj} />
+        <div className='price-box'>
+          <div>
+            <p>{t('marketplace.price')}</p>
+            <p className='num'>{activeInfo?.price}</p>
           </div>
-        )}
-      </div>
-      <PHeader primaryObj={primaryObj} />
-      <div className='price-box'>
-        <div>
-          <p>{t('marketplace.price')}</p>
-          <p className='num'>{activeInfo?.price}</p>
+          <Divider type='vertical' />
+          <div>
+            <p>{t('primary.TotalVolume')}</p>
+            <p className='num'>{activeInfo?.totalNum || '-'}</p>
+          </div>
         </div>
-        <Divider type='vertical' />
-        <div>
-          <p>{t('primary.TotalVolume')}</p>
-          <p className='num'>{activeInfo?.totalNum || '-'}</p>
+        <div className='btn-box'>
+          <button onClick={handleBuy}>{t('common.buyNow')}</button>
         </div>
-      </div>
-      <div className='btn-box'>
-        <button onClick={handleBuy}>{t('common.buyNow')}</button>
       </div>
     </div>
   )

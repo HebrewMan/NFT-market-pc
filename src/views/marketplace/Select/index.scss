@@ -3,15 +3,16 @@
   min-width: 240px;
 
   .g-select--header {
+    height: 56px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(255, 255, 255);
+    background-color: $tq-table-bg;
     border-radius: 5px;
-    border: 1px solid$tq-split-line-color;
+    // border: 1px solid $tq-split-line-color;
     width: 100%;
-    padding: 9px;
+    padding: 0 12px;
     min-height: 46px;
 
     &:hover {
@@ -46,13 +47,14 @@
       align-items: center;
 
       .g-title {
-        font-size: 16px;
+        font-size: $tq-font-size-5;
         line-height: 26px;
-        color: rgba(4, 17, 29, 0.75);
+        color: $tq-color-white;
       }
 
       .placeholder-title {
-        color: $tq-font-color-help;
+        font-size: 16px;
+        color: $tq-font-color-gary;
       }
 
       .img {
@@ -82,29 +84,29 @@
     top: 100%;
     left: 0;
     z-index: 99;
-    color: rgb(53, 56, 64);
-    background-color: rgb(251, 253, 255);
     max-height: 350px;
     overflow-y: auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 16px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(4, 17, 29);
+    background-color: $tq-table-bg;
+    color: $tq-color-white;
     max-width: initial;
     width: 100%;
     transition-duration: 1000ms;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     outline: 0px;
 
     .item {
       display: flex;
       align-items: center;
-      border-bottom: 1px solid rgb(229, 232, 235);
+      border-bottom: 1px solid $tq-split-line-color;
       width: 100%;
       font-weight: 600;
       padding: 16px;
+      font-size: $tq-font-size-6;
       cursor: pointer;
+
 
       &:hover {
         box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;

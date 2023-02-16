@@ -75,7 +75,7 @@ export const Select = (props: any) => {
           <div className={activeItem.name ? 'g-title' : 'placeholder-title'}>{activeItem.name || placeholder}</div>
         </div>
         <img
-          src={!isOpen ? require('../../../assets/arrow.svg') : require('../../../assets/expand_less_gray.svg')}
+          src={!isOpen ? require('Src/assets/marketPlace/Icon-down.svg') : require('Src/assets/marketPlace/Icon-up.svg')}
           alt=''
         />
       </div>

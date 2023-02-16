@@ -1,6 +1,6 @@
 .ant-layout-header {
   min-width: 1200px;
-  background-color: #fff !important;
+  background-color: transparent !important;
   padding: 0 !important;
 }
 
@@ -10,8 +10,9 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  height: 72px !important;
+  height: 68px !important;
   z-index: 999;
+  background: transparent;
 }
 
 .mobile-App-Bar {

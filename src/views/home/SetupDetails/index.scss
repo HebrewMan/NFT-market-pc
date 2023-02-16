@@ -1,36 +1,54 @@
 .nft-list {
-  margin: 0 auto;
+  margin: 230px auto 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   width: 1440px;
 
+
+  .safety-bg {
+    background-image: url('Src/assets/home/safety_bg.png');
+  }
+
+  .fee-bg {
+    background-image: url('Src/assets/home/fee_bg.png');
+  }
+
+  .relation-bg {
+    background-image: url('Src/assets/home/relation_bg.png');
+  }
+
   .nft-list-item {
+    padding: 24px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 458px;
+    width: 382px;
+    height: 220px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
 
     img {
-      width: 134px;
-      height: 134px;
+      width: 178px;
+      height: 178px;
+      position: absolute;
+      top: -78px;
     }
 
     .item-title {
-      margin-top: 16px;
-      font-size: 24px;
-      font-weight: 600;
-      color: #1D243B;
-      line-height: 33px;
+      margin: 84px 0 12px;
+      font-size: $tq-font-size-3;
+      font-weight: 500;
+      color: $tq-color-white;
     }
 
     .item-text {
-      margin-top: 25px;
-      font-size: 24px;
+      font-size: $tq-font-size-6;
       font-weight: 400;
-      color: #4B5163;
-      line-height: 36px;
-      text-align: left;
+      color: $tq-color-white;
+      line-height: 22px;
+      text-align: center;
     }
 
     a {

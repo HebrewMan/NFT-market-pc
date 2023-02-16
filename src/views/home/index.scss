@@ -1,30 +1,31 @@
 .home-container {
   margin: 0 auto;
   width: 100%;
-  height: 100%;
+  // height: 100%;
+}
 
-  .home-container-wrap {
-    margin: 0 auto;
-    box-sizing: border-box;
+.home-ranking {
+  padding-top: 120px;
+}
 
-    background-image: url('../../assets/home-main-bg.png');
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-  }
+.SeeMore {
+  margin-top: 32px;
+  text-align: center;
+}
 
-  @media screen and (min-width: 768px) {
-    .home-container-wrap {
-      margin-bottom: 190px;
-      min-width: 1440px;
-    }
+.homeTips {
+  margin-top: 120px;
+  padding: 33px 0px;
+  text-align: center;
+  width: 100%;
+  height: 180px;
+  background-image: url('Src/assets/home/link-bg.svg');
+  background-repeat: no-repeat;
+  background-size: 100% 180px;
 
-    .mobile-home-container-wrap {
-      margin-bottom: 500px;
-      padding: 0 20px 80px;
-
-      @media (min-width: 768px) and (max-width: 768px) {
-        margin-bottom: 200px;
-      }
-    }
+  p {
+    font-size: $tq-font-size-3;
+    color: $tq-color-white;
+    margin-bottom: 1rem;
   }
 }

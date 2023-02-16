@@ -1,17 +1,17 @@
 .g-search {
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  background-color: $tq-table-bg;
   border: 1px solid $tq-split-line-color;
   border-radius: 5px;
   color: rgba(4, 17, 29, 0.75);
   display: flex;
   flex: 1 0 0%;
-  height: 45px;
+  height: 56px;
   max-width: 768px;
   padding: 0px 10px;
 
   &:focus-within {
-    border-color: rgb(32, 129, 226);
+    border-color: none;
   }
 
   .prepend {
@@ -22,7 +22,7 @@
 
   input {
     background-color: transparent;
-    color: rgba(4, 17, 29, 0.75);
+    color: $tq-color-white;
     border: none;
     flex: 1 0 0%;
     height: 100%;
@@ -32,13 +32,21 @@
     font-size: 16px;
 
     &::placeholder {
-      color: $tq-font-color-help !important;
+      font-size: 16px;
+      color: $tq-font-color-gary !important;
     }
   }
 }
 
 .search-com {
+
+  .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+  .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+    padding-left: 30px;
+  }
+
   .ant-select-selector {
+    background: transparent !important;
     height: 40px !important;
     border-radius: 6px !important;
 
@@ -54,12 +62,14 @@
 
     svg {
       font-size: 16px;
+      color: $tq-color-white;
     }
   }
 
   .ant-select-selection-placeholder {
     line-height: 40px !important;
     padding-left: 29px !important;
+    color: $tq-color-white;
   }
 
   .ant-select-single .ant-select-selector .ant-select-selection-item {

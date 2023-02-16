@@ -185,7 +185,7 @@
         .author {
           display: flex;
           margin: 16px 0 24px;
-          color: rgb(112, 122, 131);
+          color: $tq-color-white;
           cursor: pointer;
 
           .auth {
@@ -198,7 +198,7 @@
           }
 
           a {
-            color: rgb(32, 129, 226);
+            color: $tq-primary-color;
           }
 
           .auth-favorite {
@@ -227,12 +227,12 @@
             margin-bottom: 16px;
             font-size: 18px;
             font-weight: 600;
-            color: #1d243b;
+            color: $tq-color-white ;
 
             &:last-of-type {
               font-size: 30px;
               font-weight: 600;
-              color: rgb(53, 56, 64);
+              color: $tq-color-white;
             }
           }
 
@@ -248,9 +248,9 @@
             font-size: 16px;
             font-weight: 600;
             padding: 12px 20px;
-            background-color: rgb(32, 129, 226);
-            border: 1px solid rgb(32, 129, 226);
-            color: rgb(255, 255, 255);
+            background-color: $tq-color-white;
+            // border: 1px solid rgb(32, 129, 226);
+            color: $tq-color-black;
 
             &:disabled {
               opacity: 0.2;
@@ -263,13 +263,14 @@
     .collections-name {
       margin: 0 0 16px;
       font-size: 18px;
-      color: #2585D9;
+      color: $tq-primary-color;
       cursor: pointer;
     }
 
     h1 {
       font-size: 30px;
       font-weight: 600;
+      color: $tq-color-white;
     }
   }
 }

@@ -284,7 +284,7 @@ export const ProductionDetails = () => {
     </Link>
   )
   return (
-    <div className='personal-details'>
+    <div className='personal-details content-wrap-top'>
       <div className='details-wrapper'>
         <div className='wrapper-header'>
           <div className='header-pic'>

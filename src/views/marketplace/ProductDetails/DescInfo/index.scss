@@ -25,11 +25,11 @@
     }
 
     .list-inner.active .list-title {
-      border-bottom: 2px solid $tq-font-color-title;
+      border-bottom: 2px solid $tq-color-white;
 
       h2 {
         font-weight: 600;
-        color: $tq-font-color-title;
+        color: $tq-color-white;
       }
     }
 
@@ -163,15 +163,21 @@
       .content {
         display: flex;
 
+        .colour {
+          color: $tq-font-color-sub-title;
+        }
+
         &:not(:last-child) {
           margin-bottom: 14px;
         }
 
         p {
           flex: 1;
+
         }
 
         h2 {
+          color: $tq-color-white;
           flex: 1;
           padding-left: 8px;
         }

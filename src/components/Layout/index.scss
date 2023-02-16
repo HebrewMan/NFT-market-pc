@@ -14,8 +14,8 @@ $white: #fff;
 .app-left {
   display: flex;
   align-items: center;
-  margin-left: 60px;
-  margin-right: 92px;
+  margin-left: 160px;
+  margin-right: 70px;
 
 
   .logo-link {
@@ -23,21 +23,14 @@ $white: #fff;
     align-items: center;
 
     img {
-      margin-right: 10px;
-      width: 44px;
-      height: 44px;
-    }
-
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #242A41;
+      width: 132px;
+      height: 40px;
     }
   }
 }
 
 .app-right {
-  margin-right: 40px;
+  margin-right: 160px;
   display: flex;
   flex: 1;
   align-items: center;
@@ -48,7 +41,7 @@ $white: #fff;
   display: flex;
   width: 100%;
   justify-content: space-between;
-  background-color: #fff;
+  // background-color: transparent;
   // @media (max-width: $screenSmMin) {
   //   display: none;
   // }
@@ -59,7 +52,6 @@ section.ant-layout {
   width: 100%;
   margin: auto;
   position: relative;
-  background-color: transparent;
 
   #width-layout {
     // max-width: 1200px;
@@ -68,7 +60,7 @@ section.ant-layout {
 }
 
 section#main-layout.ant-layout {
-  background-color: #fff !important;
+  background-color: $tq-primary-body-bg;
   min-height: 100vh;
 
   span#static-header-gradient {

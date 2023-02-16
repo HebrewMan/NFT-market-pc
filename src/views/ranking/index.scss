@@ -1,0 +1,22 @@
+.ranKing-waper {
+  padding-top: 70px;
+  width: 1440px;
+  margin: 0 auto;
+  text-align: center;
+
+  .ranKing-title {
+    font-size: 40px;
+    font-weight: normal;
+    color: $tq-color-white;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  .ranKing-tips {
+    margin: 18px 0px 60px;
+    font-size: $tq-font-size-5;
+    font-weight: normal;
+    color: $tq-font-color-sub-title;
+    line-height: 19px;
+  }
+}

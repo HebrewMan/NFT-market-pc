@@ -2,6 +2,7 @@
   display: flex;
 
   .el {
+    margin-left: 8px;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -9,10 +10,6 @@
     justify-content: center;
     font-size: 16px;
     font-weight: 600;
-    padding: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(229, 232, 235);
-    color: #707a83;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -20,12 +17,10 @@
 
     &:hover {
       transition: all 0.2s ease 0s;
-      box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
     }
 
     &.active {
       cursor: default;
-      box-shadow: transparent 0px 0px 8px 0px;
     }
 
     input {
@@ -46,8 +41,6 @@
 
     &:focus-within,
     &.active {
-      background-color: rgb(229, 232, 235);
-      color: #04111d;
       opacity: 1;
     }
 
