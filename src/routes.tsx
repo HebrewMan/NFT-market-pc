@@ -31,7 +31,7 @@ export function Routes() {
         <ScrollTop>
           <UseWalletProvider connectors={ChainIds}>
             <Switch>
-              <Route exact path='/ranking' component={() => <RankingView />} />
+              <Route exact path='/rankings' component={() => <RankingView />} />
               <Route exact path='/primary' component={() => <Primary />} />
               <Route exact path='/marketplace' component={() => <MarketPlace />} />
               <Route exact path='/marketlist/:id?/:status?' component={() => <MarketList />} />

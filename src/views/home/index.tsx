@@ -8,7 +8,14 @@ import { Ranking } from 'Src/components/Ranking'
 import { Button } from 'antd'
 
 import './index.scss'
+import { useHistory } from 'react-router-dom'
 export const HsHome = () => {
+  const history = useHistory()
+
+  const jumpRankings = () => {
+    history.push('/rankings')
+  }
+
   return (
     <div className='home-container'>
       <DomainLink />
@@ -19,7 +26,7 @@ export const HsHome = () => {
           <div className='line-title'>交易排行</div>
           <Ranking paginationBoolean={false} />
           <div className='SeeMore'>
-            <Button type='default'>查看更多</Button>
+            <Button onClick={() => jumpRankings()} type='default'>查看更多</Button>
           </div>
         </div>
         <SetupDetails />
