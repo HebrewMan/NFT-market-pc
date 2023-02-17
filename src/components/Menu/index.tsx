@@ -145,7 +145,7 @@ export const HeaderMenu = () => {
           </NavLink>
         </div>
         <div className='item' onMouseOver={() => showMenu('js-market')} onMouseLeave={() => hideMenu()}>
-          <NavLink activeClassName='current' className={dom === 'js-market' ? 'active' : ''} to={`/ranking`}>
+          <NavLink activeClassName='current' className={dom === 'js-market' ? 'active' : ''} to={`/rankings`}>
             {'Ranking'}
           </NavLink>
         </div>

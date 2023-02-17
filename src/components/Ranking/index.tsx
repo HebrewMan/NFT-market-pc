@@ -1,47 +1,27 @@
 import useWindowDimensions from '../../utils/layout'
 import { useTranslation, Trans } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Table, TableProps } from 'antd'
 import './index.scss'
 import { intlFloorFormat, NumUnitFormat } from 'Utils/bigNumber'
+import { getRankingsList } from 'Src/api/rankings'
 
 const aitdIcon = require('Src/assets/coin/aitd.svg')
 export const Ranking = (props: any) => {
   console.log(props, 'IPropsIProps')
   const { t } = useTranslation()
+  const history = useHistory()
   const [paginationBoolean, setPaginationBoolean] = useState(false)
-  const [total, setTotal] = useState(20)
+  const [total, setTotal] = useState(0)
+  const [dataSource, setDataSource] = useState([])
+
   useEffect(() => {
     console.log(props.paginationBoolean, 'paginationBoolean')
     setPaginationBoolean(props.paginationBoolean)
+    initData(1)
   }, [props])
 
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Rug Radio Faces ',
-      cover: "https://aitd-nft-images-test.s3.amazonaws.com/287fa753ef964516a5555dcd65ab2ca5.png",
-      price: '10',
-      oneTradingVolume: "52",
-      seTradingVolume: "3445",
-      threeTradingVolume: "34435",
-      TradingVolume: "343445",
-      PendingOrderVolume: '343434',
-      total: "232323344",
-    },
-    {
-      key: '1',
-      name: '@marterium',
-      cover: "https://aitd-nft-images-test.s3.amazonaws.com/287fa753ef964516a5555dcd65ab2ca5.png",
-      price: '10',
-      oneTradingVolume: "52",
-      seTradingVolume: "3445",
-      threeTradingVolume: "34435",
-      TradingVolume: "343445",
-      PendingOrderVolume: '343434',
-      total: "232323344",
-    },
-  ]
   //修改分页文案
   useEffect(() => {
     //1.需要再页面渲染完之后再去修改，所以再dataSource.length > 0 之后
@@ -52,6 +32,18 @@ export const Ranking = (props: any) => {
       document.getElementsByClassName("ant-pagination-options-quick-jumper")[0].childNodes[2].nodeValue = "页"
     }
   }, [dataSource])
+
+
+  const initData = async (page: number) => {
+    const { data }: any = await getRankingsList({
+      page,
+      size: props.paginationBoolean ? 10 : 5
+    })
+
+    setTotal(data.total)
+    setDataSource(data?.records)
+  }
+
   const columns: any = [
     {
       title: '集合系列',
@@ -60,7 +52,7 @@ export const Ranking = (props: any) => {
       render: (text: string, record: any, index: string) => {
         return <div className='item-info'>
           <p>{index + 1}</p>
-          <img src={record.cover} />
+          <img src={record.headUrl} />
           <p>{record.name}</p>
         </div>
       }
@@ -68,70 +60,73 @@ export const Ranking = (props: any) => {
     },
     {
       title: '地板价',
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'lowestPrice',
+      key: 'lowestPrice',
       render: (t: string, r: any) => {
         return <div className='item-number'>
           <img src={aitdIcon} alt="" />
-          <span>{t}</span>
+          <span>{intlFloorFormat(r.lowestPrice, 4)}</span>
         </div>
       }
     },
     {
       title: '1天交易量',
-      dataIndex: 'oneTradingVolume',
-      key: 'oneTradingVolume',
+      dataIndex: 'day1totalTransaction',
+      key: 'day1totalTransaction',
       render: (t: string, r: any) => {
         return <div className='item-number'>
           <img src={aitdIcon} alt="" />
-          <span>{r.oneTradingVolume}</span>
+          <span>{intlFloorFormat(r.day1totalTransaction, 2)}</span>
         </div>
       }
     },
     {
       title: '7天交易量',
-      dataIndex: 'seTradingVolume',
-      key: 'seTradingVolume',
+      dataIndex: 'day7totalTransaction',
+      key: 'day7totalTransaction',
       render: (t: string, r: any) => {
         return <div className='item-number'>
           <img src={aitdIcon} alt="" />
-          <span>{r.seTradingVolume}</span>
+          <span>{intlFloorFormat(r.day7totalTransaction, 2)}</span>
         </div>
       }
     },
     {
       title: '30天交易量',
-      dataIndex: 'threeTradingVolume',
-      key: 'threeTradingVolume',
+      dataIndex: 'day30totalTransaction',
+      key: 'totalTransaction',
       render: (t: string, r: any) => {
         return <div className='item-number'>
           <img src={aitdIcon} alt="" />
-          <span>{t}</span>
+          <span>{intlFloorFormat(r.day30totalTransaction, 2)}</span>
         </div>
       }
     },
     {
       title: '总交易量',
-      dataIndex: 'TradingVolume',
-      key: 'TradingVolume',
+      dataIndex: 'totalTransaction',
+      key: 'totalTransaction',
       render: (t: string, r: any) => {
         return <div className='item-number'>
           <img src={aitdIcon} alt="" />
-          <span>{r.TradingVolume}</span>
+          <span>{intlFloorFormat(r.totalTransaction, 2)}</span>
         </div>
       }
     },
     {
       title: '挂单量',
-      dataIndex: 'PendingOrderVolume',
-      key: 'PendingOrderVolume',
+      dataIndex: 'totalOrder',
+      key: 'totalOrder',
+      render: (t: string, r: any) => {
+        return NumUnitFormat(r.totalOrder)
+      }
     },
     {
       title: '总数',
-      dataIndex: 'total',
-      key: 'total',
+      dataIndex: 'totalTokens',
+      key: 'totalTokens',
       render: (t: string, r: any) => {
-        return NumUnitFormat(t)
+        return NumUnitFormat(r.totalTokens)
       }
     },
   ]
@@ -147,14 +142,26 @@ export const Ranking = (props: any) => {
       hideOnSinglePage: true,
       showSizeChanger: false,
       showQuickJumper: true,
-      // onChange: (page: number) => loadData(page),
+      onChange: (page: number) => initData(page),
     }
-
   }
+
+  const onSelectRow = (record: any) => {
+    history.push(`/collection/${record.linkCollection}`)
+  }
+
   return (
     <>
       <div className='ranking-waper'>
-        <Table dataSource={dataSource} columns={columns} className={'rankingTable'} pagination={paginationBoolean === false ? false : pagination()} ></Table>
+        <Table
+          dataSource={dataSource}
+          columns={columns}
+          className={'rankingTable'}
+          pagination={paginationBoolean === false ? false : pagination()}
+          onRow={(record) => ({
+            onClick: () => onSelectRow(record)
+          })}>
+        </Table>
       </div>
     </>
   )
