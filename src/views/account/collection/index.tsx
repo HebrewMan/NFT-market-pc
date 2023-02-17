@@ -56,11 +56,11 @@ export const GatherDetail: React.FC<any> = (props) => {
     },
   ]
   const iconMap: any = {
-    linkSkypegmwcn: require('Src/assets/account/icon-official.png'),
-    linkTwitter: require('Src/assets/account/icon-Twitter.png'),
-    linkDiscord: require('Src/assets/account/icon-Discord.png'),
-    linkInstagram: require('Src/assets/account/icon-Instagram.png'),
-    linkMedium: require('Src/assets/account/icon-Medium.png'),
+    linkSkypegmwcn: require('Src/assets/account/icon-official.svg'),
+    linkTwitter: require('Src/assets/account/icon-Twitter.svg'),
+    linkDiscord: require('Src/assets/account/icon-Discord.svg'),
+    linkInstagram: require('Src/assets/account/icon-Instagram.svg'),
+    linkMedium: require('Src/assets/account/icon-Medium.svg'),
   }
   useEffect(() => {
     // getList(id)
@@ -220,7 +220,7 @@ export const GatherDetail: React.FC<any> = (props) => {
     })
   }
   return (
-    <div className='gatherDetail-body'>
+    <div className='gatherDetail-body content-wrap-top'>
       <div className='gatherDetail-banner'>
         <img src={data.backgroundUrl == null ? require('Src/assets/account/bg-banner.png') : data.backgroundUrl} alt="" />
       </div>
@@ -234,12 +234,12 @@ export const GatherDetail: React.FC<any> = (props) => {
                 <div className='shareLink'>
                   {Object.keys(linkList).map((key: any) => {
                     if (linkList[key]) {
-                      return <img onClick={() => handleLinkJump(linkList[key])} src={iconMap[key]} alt='icon' key={key} />
+                      return <div className='shareLink-item' onClick={() => handleLinkJump(linkList[key])} key={key} ><img src={iconMap[key]} alt='icon' /></div>
                     }
                   })}
                   {data?.ownerAddr && data?.ownerAddr.toUpperCase() === walletAccount.toUpperCase() &&
-                    <div onClick={(e) => handleEditChnage(e, data.linkCollection)}>
-                      <img src={require('Src/assets/account/icon-edit.png')} alt="" />
+                    <div className='shareLink-item' onClick={(e) => handleEditChnage(e, data.linkCollection)}>
+                      <img src={require('Src/assets/account/icon-edit.svg')} alt="" />
                     </div>
                   }
 
@@ -248,10 +248,14 @@ export const GatherDetail: React.FC<any> = (props) => {
               <div className='info-address'>
                 <div>
                   {t('gather.contract')}: {formatAdd(data.contractAddr)}
-                  <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.contractAddr)} /></div>
-                <div>
-                  {t('gather.creators')}: {formatAdd(data.createAddr)}
-                  <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.createAddr)} /></div>
+                  <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.contractAddr)} />
+                </div>
+                {data.createAddr &&
+                  <div>
+                    {t('gather.creators')}: {formatAdd(data.createAddr)}
+                    <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleCopy(data.createAddr)} />
+                  </div>
+                }
               </div>
               <div className='moreinfo'>
                 {getDescInfo()}

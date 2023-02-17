@@ -46,7 +46,7 @@
 
         .name {
           font-size: 26px;
-          color: $tq-font-color-title;
+          color: $tq-color-white;
           font-weight: bold;
         }
 
@@ -59,16 +59,15 @@
             padding: 0 15px;
             box-sizing: border-box;
             margin-right: 20px;
-            // width: 200px;
-            height: 34px;
-            line-height: 34px;
-            background: $tq-color-white;
-            border-radius: 5px;
+            height: 32px;
+            line-height: 32px;
+            background: $tq-table-bg;
+            border-radius: 4px;
             border: 1px solid $tq-split-line-color;
             display: flex;
             align-items: center;
             font-size: $tq-font-size-6;
-            color: $tq-font-color-body;
+            color: $tq-font-color-sub-title;
 
             img {
               margin-left: 8px;
@@ -81,11 +80,18 @@
       .moreinfo {
         max-width: 1000px;
         margin-top: 10px;
-        font-size: $tq-font-size-5;
-        color: $tq-font-color-body;
         display: flex;
         align-items: center;
         justify-content: start;
+
+        .ant-typography {
+          font-size: $tq-font-size-5;
+          color: $tq-font-color-sub-title;
+
+          a {
+            color: $tq-primary-aqua;
+          }
+        }
 
         p {
           display: -webkit-box;
@@ -111,7 +117,7 @@
 
         .label {
           font-size: $tq-font-size-6;
-          color: $tq-font-color-nine ;
+          color: $tq-font-color-third-title;
         }
 
         .text {
@@ -139,15 +145,26 @@
   .shareLink {
     display: flex;
 
-    >div {
-      cursor: pointer;
-    }
-
-    img {
+    .shareLink-item {
       margin-left: 20px;
       width: 32px;
       height: 32px;
+      background: $tq-table-bg;
+      opacity: 1;
+      display: flex;
+      align-items: center;
       cursor: pointer;
+      justify-content: center;
+      border-radius: 10px;
+
+      &:hover {
+        background: $tq-btn-linear;
+      }
+
+      img {
+        width: 22px;
+        height: 22px;
+      }
     }
   }
 
@@ -185,6 +202,10 @@
           color: $tq-font-color-title;
         }
       }
+    }
+
+    .infinite-scroll-component {
+      overflow-x: hidden !important;
     }
 
     .card {

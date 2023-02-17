@@ -242,150 +242,152 @@ export const GatherEdit: React.FC<any> = () => {
   }
 
   return (
-    <div className='gatherEdit'>
-      <div className='caption'>{t('gather.edit.title')}
-        <span>( <em>*</em>{t('gather.edit.meansInfo')} )</span>
-      </div>
-      <div className='formWaper'>
-        <Form
-          form={form}
-          layout="vertical"
-          onFieldsChange={handelFieldsChange}
-          autoComplete="off"
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="name"
-            label={t('gather.edit.collectionName')}
-            rules={[{ required: true, message: requireMsg }]}
+    <div className='content-wrap-top'>
+      <div className='gatherEdit'>
+        <div className='caption'>{t('gather.edit.title')}
+          <span>( <em>*</em>{t('gather.edit.meansInfo')} )</span>
+        </div>
+        <div className='formWaper'>
+          <Form
+            form={form}
+            layout="vertical"
+            onFieldsChange={handelFieldsChange}
+            autoComplete="off"
+            onFinish={onFinish}
           >
-            <Input placeholder={t('gather.edit.placeholderName') || undefined} />
-          </Form.Item>
-          <Form.Item
-            name="linkCollection"
-            label={t('gather.edit.collectionLink')}
-            rules={linkCollectionRules}
-          >
-            <Input
-              prefix={linkUrl}
-              suffix={
-                <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleChangeCopy()} style={{ cursor: 'pointer' }} />
+            <Form.Item
+              name="name"
+              label={t('gather.edit.collectionName')}
+              rules={[{ required: true, message: requireMsg }]}
+            >
+              <Input placeholder={t('gather.edit.placeholderName') || undefined} />
+            </Form.Item>
+            <Form.Item
+              name="linkCollection"
+              label={t('gather.edit.collectionLink')}
+              rules={linkCollectionRules}
+            >
+              <Input
+                prefix={linkUrl}
+                suffix={
+                  <img src={require('Src/assets/account/content_copy_gray.png')} alt="" onClick={() => handleChangeCopy()} style={{ cursor: 'pointer' }} />
+                }
+                placeholder={t('gather.edit.placeholderLink') || undefined}
+              // style={{ padding: '0px' }}
+              />
+            </Form.Item>
+            <Form.Item
+              name="description"
+              label={t('gather.edit.collectionDesc')}
+              rules={[{ required: true, message: requireMsg }]}
+            >
+              <TextArea rows={4} placeholder={t('gather.edit.placeholderDesc') || undefined} maxLength={500} showCount />
+            </Form.Item>
+            <Form.Item
+              label={
+                <div className='imgTitle'>
+                  {t('gather.edit.collectionProfile')}
+                  <span>( {t('gather.edit.profileTips')} )</span>
+                </div>
               }
-              placeholder={t('gather.edit.placeholderLink') || undefined}
-            // style={{ padding: '0px' }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="description"
-            label={t('gather.edit.collectionDesc')}
-            rules={[{ required: true, message: requireMsg }]}
-          >
-            <TextArea rows={4} placeholder={t('gather.edit.placeholderDesc') || undefined} maxLength={500} showCount />
-          </Form.Item>
-          <Form.Item
-            label={
+            >
+
+              <Upload
+                beforeUpload={(file) => fileSizeValidator(file, 1)}
+                customRequest={(options) => customRequest(options, '1')}
+                showUploadList={false}
+                accept={'.jpg,.png,.svg'}
+                listType="picture"
+              >
+                <Button className='editAvatar'>
+                  {fileAvatar == null || fileAvatar == '' ? <img src={require('Src/assets/account/upload.png')} /> : <img src={fileAvatar} className="imgWidth" />}
+                </Button>
+              </Upload>
+            </Form.Item>
+            <Form.Item label={
               <div className='imgTitle'>
-                {t('gather.edit.collectionProfile')}
-                <span>( {t('gather.edit.profileTips')} )</span>
+                {t('gather.edit.collectionCover')}
+                <span>( {t('gather.edit.coverTips')} )</span>
               </div>
             }
-          >
+            >
+              <Upload
+                beforeUpload={(file) => fileSizeValidator(file, 3)}
+                customRequest={(options) => customRequest(options, '2')}
+                showUploadList={false}
+                accept={'.jpg,.png,.svg'}
+                listType="picture"
+              >
+                <Button className='editCover'>
+                  {fileCover == null || fileCover == '' ? <img src={require('Src/assets/account/upload.png')} /> : <img src={fileCover} className="imgWidth" />}
+                </Button>
+              </Upload>
+            </Form.Item>
 
-            <Upload
-              beforeUpload={(file) => fileSizeValidator(file, 1)}
-              customRequest={(options) => customRequest(options, '1')}
-              showUploadList={false}
-              accept={'.jpg,.png,.svg'}
-              listType="picture"
+            <Form.Item label={
+              <div className='imgTitle norequire'>
+                {t('gather.edit.collectionBg')}
+                <span>( {t('gather.edit.bgTips')} )</span>
+              </div>
+            }
             >
-              <Button className='editAvatar'>
-                {fileAvatar == null || fileAvatar == '' ? <img src={require('Src/assets/account/upload.png')} /> : <img src={fileAvatar} className="imgWidth" />}
-              </Button>
-            </Upload>
-          </Form.Item>
-          <Form.Item label={
-            <div className='imgTitle'>
-              {t('gather.edit.collectionCover')}
-              <span>( {t('gather.edit.coverTips')} )</span>
-            </div>
-          }
-          >
-            <Upload
-              beforeUpload={(file) => fileSizeValidator(file, 3)}
-              customRequest={(options) => customRequest(options, '2')}
-              showUploadList={false}
-              accept={'.jpg,.png,.svg'}
-              listType="picture"
-            >
-              <Button className='editCover'>
-                {fileCover == null || fileCover == '' ? <img src={require('Src/assets/account/upload.png')} /> : <img src={fileCover} className="imgWidth" />}
-              </Button>
-            </Upload>
-          </Form.Item>
-
-          <Form.Item label={
-            <div className='imgTitle norequire'>
-              {t('gather.edit.collectionBg')}
-              <span>( {t('gather.edit.bgTips')} )</span>
-            </div>
-          }
-          >
-            <Upload
-              beforeUpload={(file) => fileSizeValidator(file, 10)}
-              customRequest={(options) => customRequest(options, '3')}
-              showUploadList={false}
-              accept={'.jpg,.png,.svg'}
-              listType="picture"
-            >
-              <Button className='editBgImage'>
-                {backgroundImage == null ? <img src={require('Src/assets/account/upload.png')} /> : <img src={backgroundImage} className="imgWidth" />}
-              </Button>
-            </Upload>
-          </Form.Item>
-          <Row gutter={24}>
-            <Col span={9}>
-              <Form.Item
-                label={
-                  <div>
-                    {t('gather.edit.royalty')}
-                    <Tooltip title={t('gather.edit.creatorInfo')}>
-                      <img src={require("Src/assets/account/question.png")} alt="" className="royalties" />
-                    </Tooltip>
-                  </div>
-                }
-                name="royalty"
-                rules={royaltiesRules}>
-                <Input suffix="%" />
+              <Upload
+                beforeUpload={(file) => fileSizeValidator(file, 10)}
+                customRequest={(options) => customRequest(options, '3')}
+                showUploadList={false}
+                accept={'.jpg,.png,.svg'}
+                listType="picture"
+              >
+                <Button className='editBgImage'>
+                  {backgroundImage == null ? <img src={require('Src/assets/account/upload.png')} /> : <img src={backgroundImage} className="imgWidth" />}
+                </Button>
+              </Upload>
+            </Form.Item>
+            <Row gutter={24}>
+              <Col span={9}>
+                <Form.Item
+                  label={
+                    <div>
+                      {t('gather.edit.royalty')}
+                      <Tooltip title={t('gather.edit.creatorInfo')}>
+                        <img src={require("Src/assets/account/question.png")} alt="" className="royalties" />
+                      </Tooltip>
+                    </div>
+                  }
+                  name="royalty"
+                  rules={royaltiesRules}>
+                  <Input suffix="%" />
+                </Form.Item>
+              </Col>
+              <Col span={15}>
+                <Form.Item label={t('gather.edit.receivingAddress')} name='royaltyAddr' rules={royaltyAddrRule}>
+                  <Input placeholder={t('gather.edit.address') || undefined} />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Form.Item label={t('gather.edit.officialLink')} name="linkSkypegmwcn" rules={LinKValidator}>
+              <Input placeholder={t('gather.edit.placeholderOfficial') || undefined} />
+            </Form.Item>
+            <Form.Item>
+              <Form.Item label={t('gather.edit.twitterLink')} name="linkTwitter" rules={LinKValidator}>
+                <Input type='href' placeholder={t('gather.edit.placeholderTw') || undefined} />
               </Form.Item>
-            </Col>
-            <Col span={15}>
-              <Form.Item label={t('gather.edit.receivingAddress')} name='royaltyAddr' rules={royaltyAddrRule}>
-                <Input placeholder={t('gather.edit.address') || undefined} />
+              <Form.Item label={t('gather.edit.discordLink')} name="linkDiscord" rules={LinKValidator}>
+                <Input placeholder={t('gather.edit.placeholderDis') || undefined} />
               </Form.Item>
-            </Col>
-          </Row>
-          <Form.Item label={t('gather.edit.officialLink')} name="linkSkypegmwcn" rules={LinKValidator}>
-            <Input placeholder={t('gather.edit.placeholderOfficial') || undefined} />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item label={t('gather.edit.twitterLink')} name="linkTwitter" rules={LinKValidator}>
-              <Input type='href' placeholder={t('gather.edit.placeholderTw') || undefined} />
+              <Form.Item label={t('gather.edit.instagramLink')} name="linkInstagram" rules={LinKValidator}>
+                <Input placeholder={t('gather.edit.placeholderIns') || undefined} />
+              </Form.Item>
+              <Form.Item label={t('gather.edit.mediumLink')} name="linkMedium" rules={LinKValidator}>
+                <Input placeholder={t('gather.edit.placeholderMed') || undefined} />
+              </Form.Item>
+              <Button type="primary" htmlType="submit" disabled={disabled} className="sumbit">
+                {t('gather.edit.submit')}
+              </Button>
             </Form.Item>
-            <Form.Item label={t('gather.edit.discordLink')} name="linkDiscord" rules={LinKValidator}>
-              <Input placeholder={t('gather.edit.placeholderDis') || undefined} />
-            </Form.Item>
-            <Form.Item label={t('gather.edit.instagramLink')} name="linkInstagram" rules={LinKValidator}>
-              <Input placeholder={t('gather.edit.placeholderIns') || undefined} />
-            </Form.Item>
-            <Form.Item label={t('gather.edit.mediumLink')} name="linkMedium" rules={LinKValidator}>
-              <Input placeholder={t('gather.edit.placeholderMed') || undefined} />
-            </Form.Item>
-            <Button type="primary" htmlType="submit" disabled={disabled} className="sumbit">
-              {t('gather.edit.submit')}
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
-    </div >
+          </Form>
+        </div>
+      </div >
+    </div>
   )
 }

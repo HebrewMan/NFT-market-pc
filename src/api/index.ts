@@ -117,9 +117,13 @@ export function getUpdateBuyOrder(params: any) {
 //   return post(`/hermes/api/v1/order/addTransactionEvent`, params);
 // }
 
-// 首页推荐
-export function recommendHomePage(params: any) {
-  return post(`/v1/api/nft/findHomePage`, params);
+// // 首页推荐
+// export function recommendHomePage(params: any) {
+//   return post(`/v1/api/nft/findHomePage`, params);
+// }
+// 首页banner
+export function getHomePageBanner() {
+  return post(`/v1/api/collections/banner`);
 }
 
 // 首页搜索

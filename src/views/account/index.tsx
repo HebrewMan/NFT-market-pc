@@ -125,8 +125,8 @@ export const Account: React.FC<any> = () => {
   const walletAccount: string = localStorage.getItem('wallet') || ''
   const [currentIndex, setCurrentIndex] = useState(0)
   const history = useHistory()
-  const defaultHeader = require('../../assets/default_header.png')
-  const defaulBannerUrl = require('../../assets/default_banner.jpg')
+  const defaultHeader = require('../../assets/account/default_header.png')
+  const defaulBannerUrl = require('../../assets/account/default_banner.svg')
   const [total, setTotal] = useState(0)
   const { page, size } = httpData
   const token = getCookie('web-token') || ''
@@ -505,7 +505,7 @@ export const Account: React.FC<any> = () => {
           <img src={accountInfo?.bannerUrl ? accountInfo?.bannerUrl : defaulBannerUrl} />
           {isOwner() &&
             <div className='edit'>
-              <img src={require('../../assets/edit_banner.png')} alt='' />
+              <img src={require('../../assets/account/icon-edit.svg')} alt='' />
               <span>{t('account.editBanner')}</span>
               <input type='file' name='media' id='media' onChange={(e) => handleBannerImage(e)} />
             </div>

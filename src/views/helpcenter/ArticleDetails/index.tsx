@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { getInfoById } from '../../../api/artiles'
 import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
-import { ArrowLeftOutlined } from '@ant-design/icons'
 import { getViewLang } from "../../../utils/i18n"
 import { useTranslation } from 'react-i18next'
 import './index.scss'
@@ -32,8 +31,8 @@ export const ArticleDetails = () => {
   }
 
   return (
-    <div className='article-details-wrap'>
-      <ArrowLeftOutlined className="prev" style={{ fontSize: '20px' }} onClick={back} />
+    <div className='article-details-wrap content-wrap-top'>
+      <img src={require('Src/assets/account/icon-article.svg')} alt="" onClick={back} className="articleBack" />
       <div className='article-details'>
         <div className='nav-right-wrap'>
           <div className='article-header'>

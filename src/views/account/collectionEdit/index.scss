@@ -34,6 +34,10 @@
     width: 760px;
     margin-top: 50px;
 
+    .ant-input-textarea-show-count::after {
+      color: $tq-font-color-sub-title;
+    }
+
     .imgTitle {
       font-size: $tq-font-size-5;
 
@@ -65,8 +69,14 @@
     .ant-input-affix-wrapper {
       padding: 0 10px;
       height: 46px;
-      border: 1px solid #CDD5DC;
+      border: 1px solid $tq-split-line-color;
       border-radius: 6px;
+      background: $tq-table-bg;
+
+      .ant-input-prefix,
+      .ant-input-suffix {
+        color: $tq-color-white;
+      }
 
       .ant-input {
         height: 44px !important;
@@ -94,8 +104,10 @@
         height: 46px;
         line-height: 28px;
         // padding: 0 10px;
+        background: $tq-table-bg;
         border-radius: 6px;
-        border: 1px solid #CDD5DC;
+        color: $tq-color-white;
+        border: 1px solid $tq-split-line-color;
       }
 
     }

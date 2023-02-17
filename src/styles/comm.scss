@@ -33,57 +33,6 @@
       position: relative;
     }
 
-    // .fav {
-    //   position: absolute;
-    //   top: 28px;
-    //   right: 28px;
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center;
-
-    //   .favorite_border_gray,
-    //   .favorite_red {
-    //     display: block;
-    //     width: 28px;
-    //     height: 28px;
-    //   }
-
-    //   span {
-    //     font-size: 14px;
-    //     font-weight: 600;
-    //     color: #B1B1B1;
-    //     line-height: 20px;
-    //     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-
-    //     &.favorite {
-    //       color: #E54261;
-    //     }
-    //   }
-
-    //   &:hover {
-
-    //     .favorite_border_gray,
-    //     .favorite_border_red {
-    //       color: red;
-    //     }
-    //   }
-
-    //   &.active {
-    //     span {
-    //       color: rgb(235, 87, 87);
-    //     }
-
-    //     .favorite_red {
-    //       display: block;
-    //     }
-
-    //     .favorite_border_red,
-    //     .favorite_border_gray {
-    //       display: none;
-    //     }
-    //   }
-    // }
-
     .assets {
       height: 280px;
       width: 280px;

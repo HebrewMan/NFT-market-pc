@@ -1,46 +1,59 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { getCookie } from '../../../utils/utils'
+import { getCookie } from 'Src/utils/utils'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { EffectCards, Autoplay, Pagination, Scrollbar } from 'swiper'
 import { useTranslation } from 'react-i18next'
 import 'swiper/scss'
 import './index.scss'
+import { getActivityProduction } from 'Src/api/primary'
 
 SwiperCore.use([EffectCards, Pagination])
 
-import { recommendHomePage } from '../../../api/index'
+import { getHomePageBanner } from 'Src/api/index'
 const SwiperComm = (props: any) => {
   const { swiperList, setCurrentSwiperObject } = props
   const history = useHistory()
   const handleJump = (item: any) => {
-    const orderId = item?.orderId
-    history.push({
-      pathname: "/product-details",
-      state: { orderId }
-    })
+    // 0 文章 、1 活动 、2 集合 3、item NFT
+    console.log(item, 'iteeee')
+    switch (item.type) {
+      case 0:
+        history.push(`/article-details/${item.linkId}`)
+        break
+      case 1:
+        history.push({ pathname: "/activityDetail", state: { id: item.linkId } })
+        break
+      case 2:
+        history.push(`/collection/${item?.linkId}`)
+        break
+      case 3:
+        const orderId = item?.linkId
+        history.push({ pathname: "/product-details", state: { orderId } })
+        break
+      default:
+        break
+    }
+    // const orderId = item?.orderId
+    // history.push({
+    //   pathname: "/product-details",
+    //   state: { orderId }
+    // })
   }
-
   return (
     <Swiper
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
       }}
-      loop={true}
+      grabCursor={true}
+      onSlideChange={(swiper) => setCurrentSwiperObject(swiperList[swiper.activeIndex])}
       scrollbar={{
         hide: false,
       }}
-
+      spaceBetween={40}
       modules={[Scrollbar, Autoplay]}
       className='mainSwiper'
-      onSlideChange={(swiper) => setCurrentSwiperObject(swiperList[swiper.activeIndex])}
-
-    // pagination={{
-    //   bulletClass: 'swiper-pagination-bullet my-bullet',
-    //   bulletActiveClass: 'swiper-pagination-bullet-active my-bullet-active',
-    //   clickable: true,
-    // }}
     >
       {swiperList.map((item: any, index: number) => {
         return (
@@ -67,7 +80,7 @@ export const SubjectInner = () => {
     init()
   }, [])
   const init = async () => {
-    const res: any = await recommendHomePage({ page: 1, size: 3 })
+    const res: any = await getHomePageBanner()
     setSwiperList(res.data.records)
     setCurrentSwiperObject(res?.data?.records[0])
   }
@@ -109,7 +122,7 @@ export const SubjectInner = () => {
         <div className='flex-right'>
           <div className='cards-swiper'>
             <SwiperComm swiperList={swiperList} setCurrentSwiperObject={setCurrentSwiperObject} />
-            <div className='swiper-scrollbar'></div>
+            {/* <div className='swiper-scrollbar'></div> */}
           </div>
         </div>
       </div>

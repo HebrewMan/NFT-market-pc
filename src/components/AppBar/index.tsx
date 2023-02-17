@@ -73,12 +73,12 @@ export const AppBar = () => {
     const mainContentEl: any = document.documentElement.scrollTop
     const headerEl: any = document.getElementById('desktop-navbar')
     const headerLink: any = document.getElementById('main-link')
-    if (mainContentEl > 30) {
+    if (mainContentEl > 10) {
       headerEl.style.background = '#0E102B'
-      headerLink.style.display = 'none'
+      headerLink != null ? headerLink.style.display = 'none' : null
     } else {
       headerEl.style.background = 'transparent'
-      headerLink.style.display = 'block'
+      headerLink != null ? headerLink.style.display = 'block' : null
     }
   }
   return (

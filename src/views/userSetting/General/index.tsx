@@ -6,6 +6,7 @@ import { message } from 'antd'
 import { uploadFileCheck } from '../../../utils/utils'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'antd'
 
 export const General = () => {
   const { t } = useTranslation()
@@ -197,9 +198,9 @@ export const General = () => {
           </div>
         </div>
         <div className='create-btn'>
-          <button disabled={!disabledState} onClick={() => handleUpdateInfo()}>
+          <Button type='primary' size={'large'} disabled={!disabledState} onClick={() => handleUpdateInfo()}>
             {t('userSettings.save')}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

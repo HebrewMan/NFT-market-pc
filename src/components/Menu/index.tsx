@@ -20,7 +20,7 @@ export const HeaderMenu = () => {
   const token = getCookie('web-token') || ''
   const walletAccount = localStorage.getItem('wallet') || ''
   const [showDropper, setShowDropper] = useState(false)
-  const defaultImg = require('../../assets/default_header.png')
+  const defaultImg = require('../../assets/account/default_header.png')
   const [accountImg, setAccountImg] = useState(defaultImg)
   const [isLogin, setIsLogin] = useState(false)
   const [lang, setLang] = useState('简体中文')

@@ -6,6 +6,8 @@ import { getViewLang } from "../../utils/i18n"
 import { Collapse } from 'antd'
 const { Panel } = Collapse
 import './index.scss'
+const src1 = require('Src/assets/marketPlace/Icon-down.svg')
+const src2 = require('Src/assets/marketPlace/Icon-up.svg')
 
 export const HelpCenter = () => {
   const [categoriesList, setCategoriesList] = useState([])
@@ -23,12 +25,12 @@ export const HelpCenter = () => {
     setCategoriesList(res.data.records)
   }
   return (
-    <div className='help-center-main'>
+    <div className='help-center-main content-wrap-top'>
       <div className='main'>
-        <div className='main-banner'></div>
+        <div className='main-banner'>Help Center</div>
         <div className='main-wrapper'>
           <div className='wrapper-list'>
-            <Collapse ghost expandIconPosition="end">
+            <Collapse ghost expandIconPosition="end" expandIcon={({ isActive }) => <img src={isActive ? src2 : src1} alt='' />}>
               {categoriesList.map((item: any) => (
 
                 <Panel header={getViewLang(item.inName)} key={item.id}>

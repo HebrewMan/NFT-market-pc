@@ -20,7 +20,7 @@
       height: 30px;
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(14, 16, 43, 0.3);
       border-radius: 15px;
 
       img {
@@ -32,7 +32,7 @@
         margin-left: 5px;
         font-size: 14px;
         font-weight: 400;
-        color: rgba(29, 36, 59, 0.8);
+        color: $tq-font-color-sub-title;
         line-height: 20px;
       }
 
@@ -161,6 +161,10 @@
 
         .ant-typography {
           color: $tq-font-color-sub-title;
+
+          a {
+            color: $tq-primary-aqua;
+          }
         }
 
         p {
