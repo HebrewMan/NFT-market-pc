@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 const AEmpty: React.FC<IProps> = (props) => {
   const { t } = useTranslation()
-  const NO_DATA_IMG = require('Src/assets/empty.png')
+  const NO_DATA_IMG = require('Src/assets/common/empty.png')
   const {
     description = t('common.noDataLong'),
     image = NO_DATA_IMG,

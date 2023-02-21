@@ -23,7 +23,7 @@ export const isProd = process.env.APP_MODE === 'production' || process.env.APP_M
     本地服务：http://172.16.2.12:7077/
  */
 const devBase = 'http://192.168.1.59:4000'
-const baseURL = devBase; // 预生产要用dev临时配置
+const baseURL = "http://172.16.2.12:7077"; // 预生产要用dev临时配置
 // const baseURL = isProd ? window.location.origin : devBase; // dev临时配置
 
 const constants = {

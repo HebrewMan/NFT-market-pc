@@ -25,6 +25,7 @@ import { isProd } from 'Src/config/constants'
 import BugModal from './bugModal'
 import UpdatePriceModal from './UpdatePriceModal'
 import './index.scss'
+import { getNftDetail } from 'Src/api/marketPlace'
 
 
 export const ProductionDetails = () => {
@@ -34,40 +35,32 @@ export const ProductionDetails = () => {
   const chainId = parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const { account } = useWeb3React()
-  const [tokenId, setTokenId] = useState<string>('')
-  const [orderId, setOrderId] = useState<string>('')
-  const [userContractAddr, setUserContractAddr] = useState('')
+  // const [tokenId, setTokenId] = useState<string>('') // token id
+  // const [userContractAddr, setUserContractAddr] = useState('') // nft 合约地址
   const [ownerAddr, setOwnerAddr] = useState('')
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const token = getCookie('web-token') || ''
 
   const [status, setStatus] = useState<Number>()
-  const [userNftStatus, setUserNftStatus] = useState<Number>()
   const [fansNum, setFansNum] = useState(0)
   const [fansStatus, setFansStatus] = useState<number | string>('')
-  const [collectionsData, setCollectionsData] = useState({})
   const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [collectGoodsData, setCollectGoodsData] = useState([])
   const history = useHistory()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false)
   const [noticeStatus, setNoticeStatus] = useState<number | string>('')
-  const [DetailData, setDetailData] = useState<any>({}) //详情数据
-  const [detailMetadata, setDetailMetadata] = useState<any>({})
-  const [contractType, setContractType] = useState(null)
   const [bugModalOpen, setBuyModalOpen] = useState(false)
-  const [isAITD, setIsAITD] = useState<boolean>(false)
   const [useAmount, setUseAmount] = useState(0) // NFT可上架数量
   const [amountNum, setAmountNum] = useState(0) // 用户拥有Nft资产数量
-  const [NFTOwner, setNFTOwner] = useState('')
+  const [detailMetadata, setDetailMetadata] = useState<any>({}) //元数据info
+  const [collectiondata, setCollectiondata] = useState<any>({}) //集合数据info
+  const [orderData, setOrderData] = useState<any>({}) //订单数据
+  const [DetailData, setDetailData] = useState<any>({}) //汇总数据
   //初始化数据
   useEffect(() => {
     const state: any = history.location.state
-    setOrderId(state?.orderId)
-    setTokenId(state?.tokenId)
-    setUserContractAddr(state?.contractAddr)
-    // 详情
-    init(state?.orderId)
+    getDetail(state?.tokenId, state?.contractAddr)
   }, [history.location.state])
 
   useEffect(() => {
@@ -75,54 +68,47 @@ export const ProductionDetails = () => {
     getFansByGoodsIdData(DetailData?.tokenId, DetailData?.contractAddr)
   }, [noticeStatus])
 
-  useEffect(() => {
-    if (DetailData?.collectionId) {
-      checkIsOwner()
-    }
-  }, [DetailData?.collectionId])
-  const init = async (orderId: string) => {
-    const state: any = history.location.state
-    const params = {
-      orderId: orderId,
-    }
+  // 获取nft详情
+  const getDetail = async (tokenId: string, userContractAddr: string) => {
     const useParams = {
-      tokenId: state?.tokenId,
-      contractAddr: state?.contractAddr,
+      tokenId: tokenId,
+      contractAddr: userContractAddr,
     }
-    let datas: any = {}
-    //1 如果是从资产跳转过来  并且没有 order id
-    if (state?.source === 'assets' && orderId == null) {
-      datas = await getUserNFTDetail(useParams)
-    } else {
-      datas = await getNFTDetail(orderId == null ? useParams : params)
+    const datas = await getNftDetail(useParams)
+    const { data } = datas
+    setDetailMetadata(data?.metadataVO) //元数据
+    setCollectiondata(data?.collectionsVO) //集合数据
+    setOrderData(data?.orderVO) //订单数据
+    const summaryData = {
+      ...data?.collectionsVO,
+      ...data?.metadataVO,
+      ...data?.orderVO,
     }
-    let { data } = datas
-    setStatus(data.status) //售卖状态
-    setDetailMetadata(data?.nftMetadata)
-    setContractType(data?.contractType) // 暂时取外层的合约类型
+    setDetailData(summaryData)
+    setStatus(data?.orderVO.status) //售卖状态
 
-    setDetailData(data)
-    setOrderId(data.orderId)
-    setIsAITD(data?.coin === CoinType.AITD)
-    if (data?.tokenId || data?.tokenId == 0) {
-      getFansByGoodsIdData(data?.tokenId, data?.contractAddr)
-      getOrderPageData(data?.tokenId, data?.contractAddr)
-    }
-    // 用户资产
+    // 获取用户资产
     const asset: any = await getUserAsset({
-      contractAddr: data?.contractAddr,
-      tokenId: data?.tokenId,
+      contractAddr: userContractAddr,
+      tokenId: tokenId,
       ownerAddr: accountAddress ? accountAddress : '-1'
     })
-    // 如果存在orderid 取订单里所属者。 否则取资产里的
-    if (orderId != null) {
-      setOwnerAddr(data?.ownerAddr)
+    // 如果存在订单取当前订单里所属者。 否则取资产里的
+    if (data?.orderVO.ownerAddr != null) {
+      setOwnerAddr(data?.orderVO.ownerAddr)
     } else {
       setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
     }
     setUseAmount(asset?.data.amount)
     setAmountNum(asset?.data.amountTotal)
+    // 获取粉丝数量
+    getFansByGoodsIdData(tokenId, userContractAddr)
+    // 交易历史
+    getOrderPageData(tokenId, userContractAddr)
+    // 更多nft
+    getMoreCollection(data?.collectionsVO.id)
   }
+
 
   // 获取粉丝数量
   const getFansByGoodsIdData = async (tokenId: string, contractAddr: string) => {
@@ -139,21 +125,20 @@ export const ProductionDetails = () => {
     // }
   }
 
-  // 判断当前合集id是否是当前登录用户的  && 获取商品列表
-  const checkIsOwner = async () => {
+  // 获取当前集合下更多的nft
+  const getMoreCollection = async (id: string) => {
     const params = {
       data: {
-        collectionId: DetailData?.collectionId,
+        collectionId: id,
       },
       page: 1,
       size: 10,
     }
-
     const res: any = await getGoodsByCollectionId(params)
     setCollectGoodsData(res?.data?.records)
   }
   // // 请求Trading History
-  const getOrderPageData = async (tokenId: number, contractAddr: string) => {
+  const getOrderPageData = async (tokenId: string, contractAddr: string) => {
     const obj = {
       tokenId: tokenId,
       page: 1,
@@ -224,7 +209,7 @@ export const ProductionDetails = () => {
     const res: any = await removeFans(tokenId, contractAddr)
     if (res?.message === 'success') {
       getFansByGoodsIdData(tokenId, contractAddr)
-      checkIsOwner()
+      // checkIsOwner()
     }
   }
   // 添加收藏
@@ -232,7 +217,7 @@ export const ProductionDetails = () => {
     const res: any = await getFans(tokenId, contractAddr)
     if (res?.message === 'success') {
       getFansByGoodsIdData(tokenId, contractAddr)
-      checkIsOwner()
+      // checkIsOwner()
     }
   }
   const handleToCollection = () => {
@@ -260,7 +245,7 @@ export const ProductionDetails = () => {
     // }
   }
   const updateGoods = () => {
-    init(orderId)
+    // init(orderId)
     getFansByGoodsIdData(DetailData?.tokenId, DetailData?.contractAddr)
 
   }
@@ -294,7 +279,7 @@ export const ProductionDetails = () => {
                 <div className='fav'>
                   <img
                     className={!fansStatus ? 'favorite_border_gray' : 'favorite_red'}
-                    src={!fansStatus ? require('../../../assets/fg.png') : require('../../../assets/fr.png')}
+                    src={!fansStatus ? require('Src/assets/marketPlace/icon-collection.png') : require('Src/assets/marketPlace/icon-collection-active.png')}
                     onClick={() => toggleFansCollected()}
                     alt=''
                   />
@@ -306,22 +291,26 @@ export const ProductionDetails = () => {
           {/* desc */}
           <div className='header-information'>
             <div className='information-top'>
-              <p className='collections-name' onClick={handleToCollection}>
-                {DetailData?.collectionName}
-              </p>
-              <h1 className='name'>{formatTokenId(detailMetadata?.name, (detailMetadata?.tokenId || DetailData.tokenId))}</h1>
+              <div className='name-waper'>
+                <h1 className='name'>{formatTokenId(detailMetadata?.name, detailMetadata?.tokenId)}</h1>
+                <p className='collections-name' onClick={handleToCollection}>
+                  {collectiondata?.collectionName}
+                </p>
+              </div>
+
+
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {DetailData.contractType == 'ERC1155' && amountNum} {isOwner() ? ownerLink : ownerAddress}</span>
+                  <span>{t('marketplace.Owner')} {detailMetadata.contractType == 'ERC1155' && amountNum} {isOwner() ? ownerLink : ownerAddress}</span>
                 </div>
               </div>
               <div className='buy'>
-                {(DetailData?.price && DetailData?.status == 0) && (
+                {(orderData?.price && status == 0) && (
                   <div className='price'>
                     <p>{t('marketplace.curPrice')}</p>
                     <p>
-                      {intlFloorFormat(DetailData?.price, 4)} {DetailData?.coin || 'AITD'}
+                      {intlFloorFormat(orderData?.price, 4)} {orderData?.coin || 'AITD'}
                     </p>
                   </div>
                 )}
@@ -341,10 +330,10 @@ export const ProductionDetails = () => {
             {/* Description List */}
             <DescInfo
               metadata={detailMetadata}
-              description={detailMetadata?.description}
-              contractAddr={DetailData.contractAddr}
-              tokenId={DetailData.tokenId}
-              DetailData={DetailData}
+            // description={detailMetadata?.description}
+            // contractAddr={detailMetadata.contractAddr}
+            // tokenId={detailMetadata.tokenId}
+            // DetailData={DetailData}
             />
           </div>
         </div>

@@ -1,15 +1,16 @@
 .trading-history {
-  margin-top: 30px;
-  border: 1px solid rgb(229, 232, 235);
-  border-radius: 16px;
+  margin-top: 70px;
+  // border: 1px solid $tq-split-line-color;
+  // border-radius: 16px;
+  // overflow: hidden;
 
   .list-title {
-    padding: 0 32px;
-    height: 56px;
-    line-height: 56px;
+    margin-bottom: 16px;
+    padding: 0 20px;
+    // height: 56px;
+    // line-height: 56px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgb(229, 232, 235);
     box-sizing: border-box;
     line-height: 1;
     cursor: pointer;
@@ -25,167 +26,13 @@
     }
 
     h2 {
+      color: $tq-color-white;
       font-size: 16px;
       font-weight: 600;
     }
 
     &:hover .arrow-icon {
       color: #000;
-    }
-  }
-
-  .list-content>.details-filter {
-    width: 100%;
-    border-bottom: 1px solid rgb(229, 232, 235);
-
-    .details-top {
-      background: $tq-color-bg;
-      padding: 20px;
-    }
-
-    .filter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      line-height: 40px;
-      padding: 0 20px;
-      border: 1px solid rgb(229, 232, 235);
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      cursor: pointer;
-      position: relative;
-      background: $tq-color-white;
-
-      .filter-checkbox {
-        width: 100%;
-        background-color: $tq-color-white;
-        position: absolute;
-        top: 40px;
-        z-index: 99;
-        left: 0;
-        border: 1px solid rgb(229, 232, 235);
-      }
-
-      .filter-checkbox>ul li {
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        border-bottom: 1px solid rgb(229, 232, 235);
-        cursor: pointer;
-
-        &:hover {
-          background-color: rgb(229, 232, 235);
-        }
-
-        input {
-          width: 24px;
-          height: 24px;
-          margin-right: 10px;
-          cursor: pointer;
-          background-color: #ffffff;
-
-          &.checked {
-            background-color: #2081e2;
-          }
-        }
-      }
-
-      .filter-checkbox ul label:last-child li {
-        border: none;
-      }
-    }
-
-    .details-button {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 0 20px 20px;
-      background: $tq-color-bg;
-
-      button {
-        font-size: 16px;
-        -webkit-box-align: center;
-        align-items: center;
-        cursor: pointer;
-        display: flex;
-        min-height: 32;
-        padding: 5px 10px;
-        border-width: 1px;
-        border-style: solid;
-        background-color: rgba(21, 178, 229, 0.06);
-        border-color: $tq-primary-color;
-        border-radius: 5px;
-        border: 1px solid $tq-primary-color;
-        overflow: hidden;
-        margin-right: 10px;
-
-        .svg-icon {
-          padding: 0 5px;
-        }
-      }
-
-      span {
-        cursor: pointer;
-        color: $tq-primary-color;
-      }
-
-      span:hover {
-        color: $tq-primary-color;
-      }
-
-      button:hover {
-        box-shadow: rgba(4, 17, 29, 0.4) 0px 0px 8px 0px;
-      }
-    }
-  }
-}
-
-// table
-.trading-table {
-  max-height: 500px;
-  overflow: auto;
-
-  /*里面的代码可以根据自己需求去进行更改*/
-  /* 设置滚动条的样式 */
-  ::-webkit-scrollbar {
-    width: 3px;
-    z-index: 100;
-  }
-
-  /* 滚动槽 */
-  ::-webkit-scrollbar-track {
-    border-radius: 10px;
-    display: none;
-  }
-
-  /* 滚动条滑块 */
-  ::-webkit-scrollbar-thumb {
-    height: 50px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.1);
-  }
-
-
-  .tradingTable {
-    .ant-table-thead>tr>th {
-      height: 20px;
-      background: #fff;
-      padding-left: 20px !important;
-      font-size: 16px;
-
-      &::before {
-        width: 0px !important;
-      }
-    }
-
-    .ant-table-tbody>tr>td {
-      height: 50px;
-      padding-left: 20px !important;
-      background: #F8FBFE;
-
-      a {
-        color: $tq-primary-color;
-      }
     }
   }
 }

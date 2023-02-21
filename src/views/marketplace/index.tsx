@@ -109,9 +109,11 @@ export const MarketPlace = () => {
     }
   }
   const handleJump = (item: any) => {
+    const tokenId = item?.tokenId
+    const contractAddr = item?.contractAddr
     history.push({
       pathname: "/product-details",
-      state: { orderId: item.orderId }
+      state: { tokenId, contractAddr }
     })
   }
   const CardItem = () => {

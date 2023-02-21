@@ -276,8 +276,9 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 							className='num_box'
 							defaultValue={updatePrice}
 							onChange={debounce(handleChange)}
+							suffix={CoinType.AITD}
 						/>
-						<button>{CoinType.AITD}</button>
+						{/* <button>{CoinType.AITD}</button> */}
 					</section>
 				</div>
 				{/* 如果合约是1155 才显示数量 */}
@@ -289,7 +290,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 						</div>
 						<section className='inputWaper'>
 							<Input
-
 								type='Number'
 								defaultValue={defaultAmountNum}
 								className='num_box'

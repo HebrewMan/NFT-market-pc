@@ -49,3 +49,9 @@ export function getNFTRoyaltyList(params: any) {
 export function getUserAsset(params: any) {
   return post(`/v1/api/asset/userInfo`,params);
 }
+
+// 用户个人交易记录
+
+export function getUserTransactionList(data: any) {
+  return post(`/v1/api/transaction/userPage`,{ ...data});
+}

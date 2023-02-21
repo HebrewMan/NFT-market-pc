@@ -1,28 +1,10 @@
 import { get, post } from '../ajax/quest';
 
-// 创建nft
-// export function createMetaData(params: any) {
-//   return post(`/hermes/api/v1/goods/create`, params);
-// }
-// 编辑更新nft元数据和属性
-// export function updateNftMetaData(params: any) {
-//   return post(`/hermes/api/v1/goods/updateMetaById`, params);
-// }
 // 图片上传
 export function createIpfs(params: any) {
   return post(`/v1/api/ipfs/upload`, params, 'form');
 }
-// export function compileImageSrc(imageSrc) {
-//   let config = {
-//     method: 'post',
-//     responseType: 'arraybuffer',
-//     url: imageSrc
-//   };
-//   // 重新获取请求，获取的是base64位的图片
-//   return axios(config).then(response => {
-//     return 'data:image/png;base64,' + btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-//   })
-// }
+
 // 获取签名
 export function getNonce(address: string) {
   return get(`/v1/api/user/nonce/${address}`);
@@ -112,15 +94,7 @@ export function getUpdateLowerPrice(params: any) {
 export function getUpdateBuyOrder(params: any) {
   return post(`/v1/api/nft/onlineSell`, params);
 }
-// 买卖交易后，通知后端去校验是否上链并更改nft状态；
-// export function dispatchTransactionEvent(params: any) {
-//   return post(`/hermes/api/v1/order/addTransactionEvent`, params);
-// }
 
-// // 首页推荐
-// export function recommendHomePage(params: any) {
-//   return post(`/v1/api/nft/findHomePage`, params);
-// }
 // 首页banner
 export function getHomePageBanner() {
   return post(`/v1/api/collections/banner`);

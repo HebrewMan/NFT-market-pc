@@ -1,0 +1,105 @@
+.trading-content {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid $tq-split-line-color;
+
+  .trading-table {
+    max-height: 550px;
+    overflow: auto;
+
+    .item-info {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+      }
+
+      .info {
+        margin-left: 8px;
+
+        p {
+          max-width: 200px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: $tq-font-size-6;
+          color: $tq-color-white
+        }
+
+        span {
+          line-height: 0px;
+          font-size: $tq-font-size-7;
+          color: $tq-font-color-body
+        }
+      }
+
+    }
+
+    /*里面的代码可以根据自己需求去进行更改*/
+    /* 设置滚动条的样式 */
+    &::-webkit-scrollbar {
+      width: 3px;
+      z-index: 100;
+    }
+
+    /* 滚动槽 */
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      display: none;
+      background: $tq-primary-color !important;
+    }
+
+    /* 滚动条滑块 */
+    &::-webkit-scrollbar-thumb {
+      height: 50px;
+      border-radius: 10px;
+      background: $tq-table-bg !important;
+    }
+
+
+    .tradingTable {
+      .ant-table {
+        background: transparent;
+      }
+
+      .ant-table-thead>tr>th {
+        height: 56px;
+        background: $tq-table-bg;
+        padding-left: 20px !important;
+        font-size: 16px;
+        color: $tq-font-color-sub-title;
+        border-top: 1px solid $tq-table-bg;
+        border-bottom: none;
+
+        &::before {
+          width: 0px !important;
+        }
+      }
+
+      .ant-table-tbody>tr>td {
+        height: 64px;
+        // line-height: 64px;
+        padding-left: 20px !important;
+        color: $tq-color-white;
+        border-bottom: 1px solid $tq-split-line-color;
+        // background: #F8FBFE;
+
+        a {
+          color: $tq-color-white;
+        }
+      }
+
+      .ant-table-tbody>tr.ant-table-row:hover>td,
+      .ant-table-tbody>tr>td.ant-table-cell-row-hover {
+        background: none;
+      }
+    }
+  }
+
+  .dataTime {
+    color: $tq-font-color-body !important;
+  }
+}

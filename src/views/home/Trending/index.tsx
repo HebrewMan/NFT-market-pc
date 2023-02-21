@@ -6,6 +6,7 @@ import SwiperCore, { Autoplay, Navigation } from 'swiper'
 import { isMobile } from 'react-device-detect'
 import useWindowDimensions from '../../../utils/layout'
 import { getRecommendCollection } from '../../../api/collection'
+import { intlFloorFormat, NumUnitFormat } from 'Src/utils/bigNumber'
 import 'swiper/scss'
 import './index.scss'
 const aitdIcon = require('Src/assets/coin/aitd.svg')
@@ -51,21 +52,21 @@ const TrendSwiper = (props: any) => {
                     <p>{t('gather.priceFloor')}</p>
                     <div className='num'>
                       <img src={aitdIcon} alt="" />
-                      <span>0.5</span>
+                      <span>{intlFloorFormat(item.lowestPrice, 4)}</span>
                     </div>
                   </section>
                   <section>
                     <p>{t('gather.totalVolume')}</p>
                     <div className='num'>
                       <img src={aitdIcon} alt="" />
-                      <span>0.5</span>
+                      <span>{NumUnitFormat(item.totalTransaction)}</span>
                     </div>
                   </section>
                   <section>
                     <p>{t('gather.totalNum')}</p>
                     <div className='num'>
                       <img src={aitdIcon} alt="" />
-                      <span>0.5</span>
+                      <span>{NumUnitFormat(item.totalTokens)}</span>
                     </div>
                   </section>
                 </div>
@@ -108,7 +109,7 @@ export const Trending = () => {
 
   return (
     <>
-      <div className='swiper-list'>
+      <div className='swiper-list collectionCard'>
         <div className='line-title'>{t('home.collection')}</div>
         {collections && collections.length > 0 && (
           <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} ></TrendSwiper>

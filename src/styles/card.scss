@@ -6,9 +6,11 @@
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
+
   .list-item {
     border: 1px solid #eee;
     border-radius: 5px;
+
     &:hover {
       box-shadow: rgba(4, 17, 29, 0.4) 0px 0px 8px 0px;
       transition: all 0.1s ease 0s;
@@ -18,7 +20,8 @@
   .item-img {
     width: 100%;
     overflow: hidden;
-    & > img {
+
+    &>img {
       display: block;
       width: 100%;
       min-width: 395px;
@@ -53,6 +56,7 @@
       transform: translate(0%, -50%);
       margin-top: -10px;
       z-index: 99;
+
       img {
         width: 50px;
         height: 50px;
@@ -109,5 +113,161 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     color: rgb(112, 122, 131);
+  }
+}
+
+
+// 集合列表样式
+.collectionCard {
+  .list_bg_blue {
+    background: $hermes_collect_bg_blue;
+  }
+
+  .list_bg_pink {
+    background: $hermes_collect_bg_pink;
+  }
+
+  .list_bg_orange {
+    background: $hermes_collect_bg_orange;
+  }
+
+  .list_bg_green {
+    background: $hermes_collect_bg_green;
+  }
+
+  .list_border_blue {
+    background-image: $hermes_collect_border_blue;
+  }
+
+  .list_border_pink {
+    background-image: $hermes_collect_border_pink;
+  }
+
+  .list_border_orange {
+    background-image: $hermes_collect_border_orange;
+  }
+
+  .list_border_green {
+    background-image: $hermes_collect_border_green;
+  }
+
+  .swiper-items {
+    width: 380px;
+    height: 420px;
+    padding: 1px;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .swiper_border_blue {
+      background-image: url('Src/assets/home/swiper_border_blue.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .swiper_border_pink {
+      background-image: url('Src/assets/home/swiper_border_pink.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .swiper_border_orange {
+      background-image: url('Src/assets/home/swiper_border_orange.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .swiper_border_green {
+      background-image: url('Src/assets/home/swiper_border_green.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .swiper-item {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      border-radius: 10px;
+
+      .cover {
+        padding: 4px;
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: 100%;
+        height: 254px;
+        border-radius: 10px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 6px;
+        }
+      }
+
+      .swiper-item-name {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 18px;
+
+        img {
+          margin-top: -28px;
+          width: 56px;
+          height: 56px;
+          opacity: 1;
+          border: 1px solid $tq-color-white;
+          border-radius: 100%;
+        }
+
+        .text {
+          height: 30px;
+          width: 100%;
+          margin-top: 10px;
+          font-size: $tq-font-size-3;
+          color: $tq-color-white;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .swiper-item-info {
+        padding: 0 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        section {
+          text-align: center;
+        }
+
+        p {
+          font-size: $tq-font-size-7;
+          color: $tq-color-white;
+        }
+
+        .num {
+          margin-top: 4px;
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 16px;
+            height: 16px;
+            margin-right: 2px;
+          }
+
+          span {
+            font-size: $tq-font-size-5;
+            color: $tq-color-white;
+            font-weight: bold;
+          }
+        }
+      }
+
+
+    }
   }
 }

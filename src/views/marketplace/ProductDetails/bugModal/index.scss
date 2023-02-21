@@ -10,8 +10,8 @@
     // border-bottom: 1px solid rgba(29, 36, 59, 0.1);
 
     .contentLeft {
-        width: 160px;
-        height: 160px;
+        width: 120px;
+        height: 120px;
         border-radius: 10px;
         overflow: hidden;
 
@@ -22,13 +22,13 @@
     }
 
     .contentRight {
-        margin-top: 24px;
         margin-left: 24px;
         flex: 1;
 
         .name {
             font-size: $tq-font-size-4;
-            color: $tq-font-color-title;
+            color: #1D243B;
+            font-weight: bold;
         }
 
         .info {
@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             font-size: $tq-font-size-5;
-            color: #1D243B;
+            color: $tq-font-color-gary
         }
 
         .fontWeight {

@@ -6,7 +6,6 @@ import SwiperCore, { EffectCards, Autoplay, Pagination, Scrollbar } from 'swiper
 import { useTranslation } from 'react-i18next'
 import 'swiper/scss'
 import './index.scss'
-import { getActivityProduction } from 'Src/api/primary'
 
 SwiperCore.use([EffectCards, Pagination])
 
@@ -28,17 +27,13 @@ const SwiperComm = (props: any) => {
         history.push(`/collection/${item?.linkId}`)
         break
       case 3:
-        const orderId = item?.linkId
-        history.push({ pathname: "/product-details", state: { orderId } })
+        const contractAddr = item?.nftMetadata.contractAddr
+        const tokenId = item?.nftMetadata.tokenId
+        history.push({ pathname: "/product-details", state: { tokenId, contractAddr } })
         break
       default:
         break
     }
-    // const orderId = item?.orderId
-    // history.push({
-    //   pathname: "/product-details",
-    //   state: { orderId }
-    // })
   }
   return (
     <Swiper

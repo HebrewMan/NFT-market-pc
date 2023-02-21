@@ -64,6 +64,8 @@
       // background: $tq-primary-color;
       border-radius: 6px;
       opacity: 1;
+      background: $tq-primary-color;
+      border: 0px;
     }
 
     .ant-input-affix-wrapper {
@@ -108,6 +110,10 @@
         border-radius: 6px;
         color: $tq-color-white;
         border: 1px solid $tq-split-line-color;
+
+        &::placeholder {
+          color: $tq-font-color-gary;
+        }
       }
 
     }
@@ -127,14 +133,10 @@
       width: 110px;
       height: 110px;
       line-height: 100px;
-      background: #F9F9F9;
+      background: $tq-table-bg;
       border-radius: 100%;
       opacity: 1;
       border: 0px;
-
-      &:hover {
-        background: #F9F9F9 !important;
-      }
 
       .imgWidth {
         border-radius: 50%;
@@ -145,27 +147,19 @@
     .editCover {
       width: 300px;
       height: 180px;
-      background: #F9F9F9;
+      background: $tq-table-bg;
       border-radius: 6px;
       opacity: 1;
       border: 0px;
-
-      &:hover {
-        background: #F9F9F9 !important;
-      }
     }
 
     .editBgImage {
       width: 760px;
       height: 150px;
-      background: #F9F9F9;
+      background: $tq-table-bg;
       border-radius: 6px;
       opacity: 1;
       border: 0px;
-
-      &:hover {
-        background: #F9F9F9 !important;
-      }
     }
 
   }

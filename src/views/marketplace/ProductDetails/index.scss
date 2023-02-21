@@ -56,7 +56,7 @@
 
     .header-pic {
       width: calc(100% - 640px);
-      height: 640px;
+      height: 583px;
       margin-right: 50px;
       border-radius: 5px;
 
@@ -93,26 +93,31 @@
           width: 100%;
           height: 100%;
 
-          >div {
+          .fav {
             position: absolute;
-            top: 40px;
-            right: 40px;
+            top: 24px;
+            right: 24px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            width: 64px;
+            height: 36px;
+            background: rgba(255, 10, 141, 0.15);
+            border-radius: 10px;
+            opacity: 1;
 
             span {
               font-size: 14px;
               font-weight: 600;
-              color: #b1b1b1;
+              color: $tq-primary-pink;
               line-height: 20px;
-              text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
             }
 
             img {
+              margin-right: 4px;
               width: 24px;
               height: 24px;
-              margin-bottom: 5px;
+              // margin-bottom: 5px;
             }
           }
         }
@@ -182,6 +187,31 @@
       }
 
       .information-top {
+        .name-waper {
+          display: flex;
+          align-items: baseline;
+
+          .collections-name {
+            margin-left: 8px;
+            font-size: 18px;
+            color: $tq-primary-aqua;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          h1 {
+            max-width: 400px;
+            font-size: 30px;
+            font-weight: 600;
+            color: $tq-color-white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+
         .author {
           display: flex;
           margin: 16px 0 24px;
@@ -198,7 +228,7 @@
           }
 
           a {
-            color: $tq-primary-color;
+            color: $tq-primary-aqua;
           }
 
           .auth-favorite {
@@ -224,19 +254,19 @@
           margin-bottom: 30px;
 
           p {
-            margin-bottom: 16px;
-            font-size: 18px;
-            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
             color: $tq-color-white ;
 
             &:last-of-type {
-              font-size: 30px;
+              font-size: 24px;
               font-weight: 600;
               color: $tq-color-white;
             }
           }
 
           button {
+            margin-top: 16px;
             width: 100%;
             display: inline-flex;
             flex-direction: row;
@@ -248,9 +278,9 @@
             font-size: 16px;
             font-weight: 600;
             padding: 12px 20px;
-            background-color: $tq-color-white;
+            background-color: $tq-primary-color;
             // border: 1px solid rgb(32, 129, 226);
-            color: $tq-color-black;
+            color: $tq-color-white;
 
             &:disabled {
               opacity: 0.2;
@@ -258,19 +288,6 @@
           }
         }
       }
-    }
-
-    .collections-name {
-      margin: 0 0 16px;
-      font-size: 18px;
-      color: $tq-primary-color;
-      cursor: pointer;
-    }
-
-    h1 {
-      font-size: 30px;
-      font-weight: 600;
-      color: $tq-color-white;
     }
   }
 }

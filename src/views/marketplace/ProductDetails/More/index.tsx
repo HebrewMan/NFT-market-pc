@@ -18,7 +18,7 @@ export const MoreCollects = (props: any) => {
     window.location.reload()
     history.push({
       pathname: "/product-details",
-      state: { orderId: item?.orderId, tokenId: item?.tokenId, contractAddr: item?.contractAddr }
+      state: { tokenId: item?.tokenId, contractAddr: item?.contractAddr }
     })
   }
   const WrapItem = () =>
@@ -58,14 +58,14 @@ export const MoreCollects = (props: any) => {
   return (
     <div className='more-collection'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
-        <img src={require('../../../../assets/view_module.svg')} alt='' className='svg-default-size' />
+        <img src={require('Src/assets/marketPlace/collection-more.png')} alt='' className='svg-default-size' />
         <h2>{t('marketplace.details.more')}</h2>
         <div className='arrow-icon'>
           <img
             src={
               !detailsState
-                ? require('../../../../assets/arrow.svg')
-                : require('../../../../assets/expand_less_gray.svg')
+                ? require('Src/assets/marketPlace/arrow.png')
+                : require('Src/assets/marketPlace/expand.png')
             }
             alt=''
           />

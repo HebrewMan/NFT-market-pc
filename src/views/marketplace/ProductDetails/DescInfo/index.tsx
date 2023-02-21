@@ -18,17 +18,18 @@ import { intlFloorFormat } from 'Utils/bigNumber'
 import AEmpty from "Src/components/Empty"
 
 export const DescInfo = (props: any) => {
+  const { contractType } = props.metadata
   const [type, setType] = useState(0)
   const { t } = useTranslation()
 
   useEffect(() => {
-    props?.DetailData.contractType === "ERC1155" ? setType(0) : setType(1)
-  }, [props?.DetailData.contractType])
+    contractType === "ERC1155" ? setType(0) : setType(1)
+  }, [contractType])
   return (
     <div className='desc-information'>
       <div className='information-list'>
         {/* list 只有1155 才显示 */}
-        {props?.DetailData.contractType === "ERC1155" && (
+        {contractType === "ERC1155" && (
           <div className={`list-inner ${type === 0 ? 'active' : ''}`} onClick={() => setType(0)}>
             <div className='list-title title-point'>
               <h2>{t('marketplace.details.list')}</h2>
@@ -61,9 +62,10 @@ const ContentDetail = (props: any) => {
   const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()
-  const { metadata } = props
+  const { metadata, type } = props
+
   const list = metadata.propertyList || []
-  const { contractAddr, tokenId } = props
+  const { contractAddr, tokenId, description, contractType } = metadata
   const [dataSource, setDataSource] = useState([]) //list
   const [ModalOpen, setModalOpen] = useState(false) //购买弹窗
   const [DetailData, setDetailData] = useState([])
@@ -90,7 +92,7 @@ const ContentDetail = (props: any) => {
       size: 20,
     }
     const data: any = await getOrderList(useParams)
-
+    console.log(data, 'datadata')
     setDataSource(dataSource.concat(data.data.records))
     setTotal(data.data.total)
   }
@@ -196,7 +198,8 @@ const ContentDetail = (props: any) => {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={false}
-          height={props?.DetailData?.price ? 180 : 285}
+          height={225}
+        // height={dataSource[0]?.price ? 180 : 225}
         >
           <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
             <Table
@@ -216,18 +219,18 @@ const ContentDetail = (props: any) => {
   }
 
 
-  if (props.type === 0) {
+  if (type === 0) {
     return handlerMultipleOrders()
   }
-  else if (props.type === 3) {
+  else if (type === 3) {
     return (
       <div className='content-wrap desc'>
         <div className='list-content'>
-          <p>{props.description}</p>
+          <p>{description}</p>
         </div>
       </div>
     )
-  } else if (props.type === 1) {
+  } else if (type === 1) {
     const listItem = () =>
       list.map((item: any, index: number) => {
         return (
@@ -238,7 +241,7 @@ const ContentDetail = (props: any) => {
         )
       })
     return <div className='content-wrap properties'>{listItem()}</div>
-  } else if (props.type === 2) {
+  } else if (type === 2) {
     const _chainId = window?.ethereum?.chainId
     const chainId = parseInt(_chainId)
     const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
@@ -256,7 +259,7 @@ const ContentDetail = (props: any) => {
               {formatAdd(contractAddr)}
             </a>
             <p>{tokenId}</p>
-            <p>{props?.DetailData.contractType}</p>
+            <p>{contractType}</p>
             <p>AITD</p>
           </div>
         </div>

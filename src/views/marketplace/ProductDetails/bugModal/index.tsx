@@ -19,6 +19,8 @@ import { intlFloorFormat } from "Utils/bigNumber"
 import { values } from 'lodash'
 
 const ReceiveModal: React.FC<any> = (props) => {
+  console.log(props, 'props')
+
   const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()
@@ -161,7 +163,7 @@ const ReceiveModal: React.FC<any> = (props) => {
           <div className='contentRight'>
             <div className='name'>{data?.collectionName}</div>
             <div className='info'>
-              <section className='fontWeight'>{data?.nftMetadata?.name || data?.name}</section>
+              <section className='fontWeight'>{data?.name}</section>
               <section>{data?.price} AITD</section>
             </div>
           </div>

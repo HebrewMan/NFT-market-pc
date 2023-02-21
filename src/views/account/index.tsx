@@ -14,12 +14,13 @@ import { cancelMarketItem } from 'Src/hooks/marketplace'
 import config from 'Src/config/constants'
 import ListItem from 'Src/components/ListItem'
 import { createIpfs, getMyNFTList } from '../../api'
-import { getAccountInfo, updateUserInfo } from '../../api/user'
+import { getAccountInfo, updateUserInfo, getUserTransactionList } from '../../api/user'
 import { uploadFileCheck } from '../../utils/utils'
 import { useTouchBottom } from '../../hooks'
 import './index.scss'
 import { getCookie, formatTokenId, handleCopy } from 'Utils/utils'
 import AEmpty from "Src/components/Empty"
+import TradingList from 'Src/components/TradingList'
 
 interface accountInfoProps {
   name: string
@@ -47,29 +48,6 @@ interface collectionsDataProps {
 export const Account: React.FC<any> = () => {
   const { t } = useTranslation()
   const web3 = useWeb3()
-  const statusList = [
-    {
-      label: 'status',
-      name: t('account.all'),
-      value: 9,
-    },
-    {
-      label: 'status',
-      name: t('account.sale'),
-      value: 1,
-    },
-    {
-      label: 'status',
-      name: t('account.selling'),
-      value: 2,
-    },
-    {
-      label: 'status',
-      name: t('account.forceCancel'),
-      value: 3,
-    },
-  ]
-
   const sortList = [
     {
       label: 'sort',
@@ -82,7 +60,7 @@ export const Account: React.FC<any> = () => {
       value: 'low',
     },
   ]
-  const tabsData = [t('account.collected'), t('account.favorited')]
+  const tabsData = [t('account.collected'), t('account.favorited'), '交易记录']
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
     name: '',
@@ -107,6 +85,7 @@ export const Account: React.FC<any> = () => {
   const [ownerAddr, setOwnerAddr] = useState<any>(null)
   const [reset, setReset] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [tradingHistoryData, setTradingHistoryData] = useState([])
 
   const defaultData = {
     collectAddr: collectAddr,
@@ -132,10 +111,26 @@ export const Account: React.FC<any> = () => {
   const token = getCookie('web-token') || ''
   const [detailData, setDetailData] = useState({})
   const [infoVisible, setInfoVisible] = useState(false)
+  const [transactionPage, setTransactionPage] = useState(1)
 
+  useEffect(() => {
+
+  }, [])
+
+
+  // 获取用户交易记录
+  const getTransactionList = async () => {
+    const data = {
+      page: transactionPage,
+      size: 20,
+    }
+    const res: any = await getUserTransactionList(data)
+    setTradingHistoryData(res?.data?.records)
+  }
   // 初始化
   useEffect(() => {
     setCollectionsData([])
+    getTransactionList()
   }, [address])
 
   // 判断方法回调返回值
@@ -174,17 +169,6 @@ export const Account: React.FC<any> = () => {
       message.success(t('hint.avatarUpdated'))
     }
   }
-  // const handleCopy = (address: string) => {
-  //   const domUrl = document.createElement('input')
-  //   domUrl.value = address
-  //   domUrl.id = 'creatDom'
-  //   document.body.appendChild(domUrl)
-  //   domUrl.select() // 选择对象
-  //   document.execCommand('Copy') // 执行浏览器复制命令
-  //   const creatDom: any = document.getElementById('creatDom')
-  //   creatDom.parentNode.removeChild(creatDom)
-  //   message.success(t('hint.copySuccess'))
-  // }
   const clickedTab = (index: number) => {
     const typeParams = {
       ...httpData,
@@ -194,17 +178,12 @@ export const Account: React.FC<any> = () => {
     const cloneAddr = isOwner() ? walletAccount : address
     if (index === 0) {
       typeParams.data.collectAddr = null
-      // typeParams.data.createAddr = null;
+
       typeParams.data.ownerAddr = cloneAddr
       setOwnerAddr(cloneAddr)
-      // } else if (index === 1) {
-      //   typeParams.data.collectAddr = null;
-      //   typeParams.data.createAddr = cloneAddr;
-      //   typeParams.data.ownerAddr = null;
-      //   setCreateAddr(cloneAddr);
+
     } else if (index === 1) {
       typeParams.data.collectAddr = cloneAddr
-      // typeParams.data.createAddr = null;
       typeParams.data.ownerAddr = null
       setCollectAddr(cloneAddr)
     }
@@ -395,6 +374,7 @@ export const Account: React.FC<any> = () => {
   const Tabs = (props: any) => {
     const changeIndex = (index: number) => {
       props.clickedTab(index)
+
     }
     return (
       <ul className='account-tabz'>
@@ -413,7 +393,7 @@ export const Account: React.FC<any> = () => {
     const contractAddr = item?.contractAddr
     history.push({
       pathname: "/product-details",
-      state: { orderId, tokenId, contractAddr, source: 'assets' }
+      state: { tokenId, contractAddr }
     })
   }
   // 售出 和取消上架
@@ -563,37 +543,38 @@ export const Account: React.FC<any> = () => {
             {address && <div className='select-wrap'>{<Tabs clickedTab={clickedTab} />}</div>}
           </div>
           <div className='account-all-collects'>
-            <div className='info'>
-              <div className='info-collections'>
-                <div className='info-flex'>
-                  <section>
-                    <HeaderSearch
-                      getKeyWord={getKeyWord}
-                      reset={reset}
-                      keyWord={keyWord}
-                      placeholder={t('marketplace.serach')}
-                    />
+            {currentIndex == 2 ? <>
+              {tradingHistoryData.length > 0 ? <TradingList TradingData={tradingHistoryData} /> : <AEmpty style={{ heigth: '200px' }} />}
+            </>
+              :
+              <div className='info'>
+                <div className='info-collections'>
+                  <div className='info-flex'>
+                    <section>
+                      <HeaderSearch
+                        getKeyWord={getKeyWord}
+                        reset={reset}
+                        keyWord={keyWord}
+                        placeholder={t('marketplace.serach')}
+                      />
 
-                    <div className='infoFilter'>
-                      <Select value={sort} list={sortList} change={handleSort} />
+                      <div className='infoFilter'>
+                        <Select value={sort} list={sortList} change={handleSort} />
 
-                      {/* <Select value={status} list={statusList} change={handleStatus} /> */}
-
-                      {/* <button className='reset-btn' onClick={handleReset}>
-                        Reset
-                      </button> */}
+                      </div>
+                    </section>
+                    <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
+                  </div>
+                  <div className={`info-main info-main--max`}>
+                    <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
+                      {collectionsData.length > 0 && <div className='cardItem'> {CardItem()} </div>}
+                      {collectionsData.length === 0 && <AEmpty />}
                     </div>
-                  </section>
-                  <ListItem handleGrid={() => { setGrid(localStorage.getItem('listItenGrid')) }} />
-                </div>
-                <div className={`info-main info-main--max`}>
-                  <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-                    {collectionsData.length > 0 && <div className='cardItem'> {CardItem()} </div>}
-                    {collectionsData.length === 0 && <AEmpty />}
                   </div>
                 </div>
               </div>
-            </div>
+            }
+
           </div>
         </div>
         {/* 上架 */}

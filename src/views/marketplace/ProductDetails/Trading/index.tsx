@@ -10,6 +10,7 @@ import { getOrderEventPage } from 'Src/api/order'
 import InfiniteScroll from "react-infinite-scroll-component"
 import { Table, ConfigProvider } from 'antd'
 import AEmpty from "Src/components/Empty"
+import TradingList from "Src/components/TradingList"
 
 export const Trading = (props: any) => {
   const { t } = useTranslation()
@@ -177,7 +178,7 @@ export const Trading = (props: any) => {
       title: t('marketplace.details.transaction'),
       render: (r: string, t: any) => {
         return <>
-          <img src={require(`../../../../assets/${iconClass(t)}.svg`)} className='svg-img-16' alt='' />
+          <img src={require(`Src/assets/marketPlace/${iconClass(t)}.png`)} className='svg-img-16' alt='' />
           <span>{showEventName(t.method)}</span>
         </>
       }
@@ -187,7 +188,7 @@ export const Trading = (props: any) => {
       title: t('marketplace.price'),
       render: (r: string, t: any) => {
         return <>
-          <img src={require('../../../../assets/coin/aitd.svg')} alt='' className='svg-img' />
+          <img src={require('Src/assets/coin/aitd.svg')} alt='' className='svg-img' />
           {intlFloorFormat(t.price, 4)}
         </>
       }
@@ -220,9 +221,10 @@ export const Trading = (props: any) => {
             href={item.txHash ? linkEth + 'tx/' + item.txHash : ''}
             target={item.txHash ? '_blank' : ''}
             rel='noreferrer'
+            className='dataTime'
           >
             {timeG(item.createDate)}
-            {item.txHash && <img src={require('Src/assets/linkEth.svg')} style={{ marginLeft: 10 }} alt='' />}
+            {item.txHash && <img src={require('Src/assets//marketPlace/icon-link.png')} style={{ marginLeft: 10 }} alt='' />}
           </a>
         )
       },
@@ -233,74 +235,41 @@ export const Trading = (props: any) => {
   const timeG = (createDate: string) => {
     return formatTime(createDate)
   }
-  const Content = () => (
-    <div className='list-content'>
-      <div className='details-filter'>
-        <div className='details-top'>
-          <div className='filter' onClick={() => setFilterState(!filterState)}>
-            <p>{t('marketplace.details.filter')}</p>
-            <img
-              src={
-                !filterState
-                  ? require('../../../../assets/arrow.svg')
-                  : require('../../../../assets/expand_less_gray.svg')
-              }
-              alt=''
-            />
-            {filterState ? <Uli /> : <></>}
-          </div>
-        </div>
-        <div className='details-button' id='filter-button'>
-          {eventBtn.map((item: any) => (
-            <button key={item} id='mintToBtn' onClick={(e) => handleClearCurrent(e, item)}>
-              {showEventName(Number(item))} <img src={require('../../../../assets/close.svg')} width={20} alt='' />
-            </button>
-          ))}
-          {eventBtn.length > 0 && <span onClick={handleClearAll}>{t('marketplace.details.clearAll')}</span>}
-        </div>
-      </div>
-
-      <div className='trading-table'>
-        {tradingHistoryData.length > 0 &&
-          // <InfiniteScroll
-          //   dataLength={tradingHistoryData.length}
-          //   next={fetchMoreData}
-          //   hasMore={hasMore}
-          //   loader={false}
-
-          // >
-          <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
-            <Table
-              columns={columns}
-              dataSource={tradingHistoryData}
-              size="small"
-              pagination={false}
-              className={'tradingTable'}
-            />
-          </ConfigProvider>
-          // </InfiniteScroll>
-        }
-      </div>
-    </div>
-  )
+  // const Content = () => (
+  //   <div className='list-content'>
+  //     <div className='trading-table'>
+  //       {tradingHistoryData.length > 0 &&
+  //         <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+  //           <Table
+  //             columns={columns}
+  //             dataSource={tradingHistoryData}
+  //             size="small"
+  //             pagination={false}
+  //             className={'tradingTable'}
+  //           />
+  //         </ConfigProvider>
+  //       }
+  //     </div>
+  //   </div>
+  // )
   return (
     <div className='trading-history'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
-        <img src={require('../../../../assets/tradding.svg')} alt='' className='svg-default-size' />
+        <img src={require('Src/assets/marketPlace/tradding.png')} alt='' className='svg-default-size' />
         <h2>{t('marketplace.details.history')}</h2>
         <div className='arrow-icon'>
           <img
             src={
               !detailsState
-                ? require('../../../../assets/arrow.svg')
-                : require('../../../../assets/expand_less_gray.svg')
+                ? require('Src/assets/marketPlace/arrow.png')
+                : require('Src/assets/marketPlace/expand.png')
             }
             alt=''
           />
         </div>
       </div>
       {/* filter */}
-      {!detailsState ? <Content /> : <></>}
+      {!detailsState ? <TradingList TradingData={tradingHistoryData} /> : <></>}
     </div>
   )
 }

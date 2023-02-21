@@ -53,11 +53,11 @@ export const SelectGroup = () => {
 
   const handleChange = (value: any) => {
     const optionValue = JSON.parse(value)
-    const { contractAddr, tokenId, userAddr, orderId, linkCollection } = optionValue
-    if (tokenId || orderId) {
+    const { contractAddr, tokenId, userAddr, linkCollection } = optionValue
+    if (tokenId) {
       history.push({
         pathname: "/product-details",
-        state: { tokenId, contractAddr, orderId }
+        state: { tokenId, contractAddr }
       })
     } else if (userAddr) {
       history.push(`/account/0/${userAddr}`)

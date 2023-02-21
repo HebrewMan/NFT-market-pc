@@ -19,7 +19,7 @@
       h2 {
         font-size: 16px;
         font-weight: 400;
-        color: $tq-font-color-gary;
+        color: $tq-font-color-body;
         line-height: 22px;
       }
     }
@@ -67,12 +67,13 @@
     }
 
     .list-content {
-      color: rgb(53, 56, 64);
+      color: $tq-color-white;
       border-bottom: 1px solid rgb(229, 232, 235);
       background-color: rgb(251, 253, 255);
 
       p {
         padding: 30px;
+        color: $tq-color-white;
       }
     }
 
@@ -157,7 +158,9 @@
   }
 
   .content-wrap {
-    &.desc {}
+    &.desc {
+      color: $tq-color-white;
+    }
 
     &.properties {
       .content {
@@ -194,6 +197,7 @@
 
         p {
           font-size: 14px;
+          color: $tq-color-white;
 
           &:not(:last-child) {
             margin-bottom: 14px;
@@ -207,11 +211,13 @@
         a {
           display: inline-block;
           margin-bottom: 14px;
+          color: $tq-primary-aqua;
         }
 
         p {
           font-size: 14px;
           font-weight: 600;
+          color: $tq-color-white;
 
           &:not(:last-child) {
             margin-bottom: 14px;
@@ -228,6 +234,9 @@
   position: relative;
 
   .TableWaper {
+    .ant-table {
+      background: transparent;
+    }
 
     // height: 210px;
     // overflow-y: scroll;
@@ -241,9 +250,9 @@
 
     .ant-table-thead>tr>th {
       border-bottom: none;
-      background: none;
       font-size: $tq-font-size-7;
       color: $tq-font-color-body;
+      background: transparent;
 
       ::before {
         width: 0px;
@@ -255,9 +264,20 @@
       content: '';
     }
 
+    .ant-table-tbody>tr.ant-table-row:hover>td,
+    .ant-table-tbody>tr>td.ant-table-cell-row-hover {
+      background: none;
+    }
+
     .ant-table-tbody>tr>td {
       border-bottom: 0px;
       color: $tq-font-color-title;
+
+      button {
+        background: rgba($color: $tq-primary-color, $alpha: 0.2);
+        color: $tq-primary-color;
+        border: none;
+      }
     }
   }
 
@@ -278,10 +298,11 @@
     left: 0;
     right: 0;
     top: 0;
-    background-color: #fff;
+    // background-color: #fff;
 
     tr {
       display: flex;
+      background: $tq-primary-body-bg;
 
       th {
         width: 25%;
@@ -310,6 +331,6 @@
   ::-webkit-scrollbar-thumb {
     height: 50px;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.1);
+    background: $tq-table-bg;
   }
 }

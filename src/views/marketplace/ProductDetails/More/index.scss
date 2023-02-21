@@ -1,15 +1,18 @@
 .more-collection {
-  margin-top: 30px;
-  border: 1px solid rgb(229, 232, 235);
+  margin-top: 60px;
+  border: 1px solid $tq-split-line-color;
+  border-radius: 10px;
+  overflow: hidden;
 
   .list-title {
     display: flex;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid rgb(229, 232, 235);
+    // border-bottom: 1px solid rgb(229, 232, 235);
     box-sizing: border-box;
     line-height: 1;
     cursor: pointer;
+    background: $tq-table-bg;
 
     .arrow-icon {
       margin-left: auto;
@@ -24,6 +27,7 @@
     h2 {
       font-size: 16px;
       font-weight: 600;
+      color: $tq-color-white;
     }
 
     &:hover .arrow-icon {
@@ -31,32 +35,39 @@
     }
   }
 
-  .collection-wrapper {
-    padding-left: 30px;
-    padding-right: 30px;
-    overflow: auto;
-    background: $tq-color-bg;
+  .g-list {
+    padding: 14px 0px;
 
-    .g-list {
-
-      .card {
-        background: $tq-color-white;
-        width: 260px;
-        height: 375px;
-        border-radius: 20px;
-        border: 1px solid $tq-split-line-color;
-
-        .assets {
-          width: 260px;
-          height: 256px;
-        }
-
-        .fav {
-          right: 12px;
-        }
-      }
-
+    .cardItem {
+      gap: 25px 14px;
     }
+  }
+
+  .collection-wrapper {
+    padding: 0px 20px;
+    overflow: auto;
+    // background: $tq-color-bg;
+
+    // .g-list {
+
+    //   .card {
+    //     background: $tq-color-white;
+    //     width: 260px;
+    //     height: 375px;
+    //     border-radius: 20px;
+    //     border: 1px solid $tq-split-line-color;
+
+    //     .assets {
+    //       width: 260px;
+    //       height: 256px;
+    //     }
+
+    //     .fav {
+    //       right: 12px;
+    //     }
+    //   }
+
+    // }
   }
 
   .wrap-btn {

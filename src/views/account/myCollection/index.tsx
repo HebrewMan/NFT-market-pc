@@ -10,6 +10,8 @@ import config, { CoinType } from 'Src/config/constants'
 import { useTranslation } from 'react-i18next'
 import { getLocalStorage } from 'Utils/utils'
 import dayjs from 'dayjs'
+const aitdIcon = require('Src/assets/coin/aitd.svg')
+const swiperBorder = ['blue', 'orange', 'green', 'pink']
 
 export const GatherList: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -148,60 +150,73 @@ export const GatherList: React.FC<any> = () => {
   }
 
   return (
-    <div className='gatherList-waper'>
-      <div className='gatherListTitle'>{t('gather.title')}</div>
-      <div className='gatherList'>
-        {gatherListData.length > 0 ?
-          <>
-            {
-              gatherListData.map((item: any, index: string) => {
-                return (
-                  <div className='gatherList-item' onClick={(e) => handleChnage(e, item)} key={index}>
-                    <div className='item-img'>
-                      <img src={item.coverUrl} alt="" className='img-cover' />
-                      {<img src={require('Src/assets/common/edit.png')} alt="" className='img-edit' onClick={(e) => handleEditChnage(e, item.linkCollection)} />}
+    <div className='content-wrap-top'>
+      <div className='gatherList-waper'>
+        <div className='gatherListTitle'>{t('gather.title')}</div>
+        <div className='gatherList collectionCard'>
+          {gatherListData.length > 0 ?
+            <>
+              {
+                gatherListData.map((item: any, index: number) => {
+                  return (
+                    <div className={`swiper-items list_border_${swiperBorder[index % 4]}`} onClick={(e) => handleChnage(e, item)} key={index}>
+                      <div className={`swiper-item list_bg_${swiperBorder[index % 4]}`}>
+                        <div className={`cover swiper_border_${swiperBorder[index % 4]}`}>
+                          <img src={item.coverUrl} alt='' />
+                          <img src={require('Src/assets/account/icon-edit.svg')} alt="" className='editIcon' onClick={(e) => handleEditChnage(e, item.linkCollection)} />
+                        </div>
+                        <div className='swiper-item-name'>
+                          <img src={item.headUrl} alt="" />
+                          <p className='text'>{item.name}</p>
+                        </div>
+                        <div className='swiper-item-info'>
+                          <section>
+                            <p>{t('gather.priceFloor')}</p>
+                            <div className='num'>
+                              <img src={aitdIcon} alt="" />
+                              <span>{intlFloorFormat(item.lowestPrice, 4)}</span>
+                            </div>
+                          </section>
+                          <section>
+                            <p>{t('gather.totalVolume')}</p>
+                            <div className='num'>
+                              <img src={aitdIcon} alt="" />
+                              <span>{NumUnitFormat(item.totalTransaction)}</span>
+                            </div>
+                          </section>
+                          <section>
+                            <p>{t('gather.totalNum')}</p>
+                            <div className='num'>
+                              <img src={aitdIcon} alt="" />
+                              <span>{NumUnitFormat(item.totalTokens)}</span>
+                            </div>
+                          </section>
+                        </div>
+                      </div>
                     </div>
-                    <div className='item-info'>
-                      <img src={item.headUrl} alt="" />
-                      <p>{item.name} </p>
-                    </div>
-                    <div className='item-centen'>
-                      <section>
-                        <div className='label'>{t('gather.priceFloor')}</div>
-                        <p><img src={require('Src/assets/coin/aitd.svg')} alt="icon" className='coin'></img>{intlFloorFormat(item.lowestPrice, 4)}</p>
-                      </section>
-                      <section>
-                        <div className='label'>{t('gather.totalVolume')}</div>
-                        <p><img src={require('Src/assets/coin/aitd.svg')} alt="icon" className='coin'></img>{NumUnitFormat(item.totalTransaction)}</p>
-                      </section>
-                      <section>
-                        <div className='label'>{t('gather.totalNum')}</div>
-                        <p>{NumUnitFormat(item.totalTokens)}</p>
-                      </section>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </>
-          : <AEmpty description={t('gather.noCollectionData')} />}
-      </div>
+                  )
+                })
+              }
+            </>
+            : <AEmpty description={t('gather.noCollectionData')} />}
+        </div>
 
-      <div className='gatherListTitle'>{t('gather.royaltyEarnings')}</div>
-      <div className='royaltiesTop'>
-        <div>
-          <p className='name'>{t('gather.totalRoyaltyEarnings')}</p>
-          <section className='price'>{intlFloorFormat(royaltyData?.totalTrans, 4)} {CoinType.AITD}</section>
+        <div className='gatherListTitle'>{t('gather.royaltyEarnings')}</div>
+        <div className='royaltiesTop'>
+          <div>
+            <p className='name'>{t('gather.totalRoyaltyEarnings')}</p>
+            <section className='price'>{intlFloorFormat(royaltyData?.totalTrans, 4)} {CoinType.AITD}</section>
+          </div>
+          <div>
+            <p className='name'>{t('gather.todayRoyaltyEarnings')}</p>
+            <section className='price'>{intlFloorFormat(royaltyData?.totalTransToday, 4)} {CoinType.AITD}</section>
+          </div>
         </div>
-        <div>
-          <p className='name'>{t('gather.todayRoyaltyEarnings')}</p>
-          <section className='price'>{intlFloorFormat(royaltyData?.totalTransToday, 4)} {CoinType.AITD}</section>
+        <div className='TableWaper'>
+          <ConfigProvider renderEmpty={() => <AEmpty description={t('gather.noTemporarily')} />}>
+            <Table columns={columns} dataSource={dataSource} className="gatgerTable" pagination={pagination()} />
+          </ConfigProvider>
         </div>
-      </div>
-      <div className='TableWaper'>
-        <ConfigProvider renderEmpty={() => <AEmpty description={t('gather.noTemporarily')} />}>
-          <Table columns={columns} dataSource={dataSource} className="gatgerTable" pagination={pagination()} />
-        </ConfigProvider>
       </div>
     </div>
   )

@@ -10,8 +10,8 @@
 	// border-bottom: 1px solid rgba(29, 36, 59, 0.1);
 
 	.contentLeft {
-		width: 160px;
-		height: 160px;
+		width: 120px;
+		height: 120px;
 		border-radius: 10px;
 		overflow: hidden;
 
@@ -22,13 +22,14 @@
 	}
 
 	.contentRight {
-		margin-top: 24px;
+		// margin-top: 24px;
 		margin-left: 24px;
 		flex: 1;
 
 		.name {
 			font-size: $tq-font-size-4;
-			color: $tq-font-color-title;
+			color: #1D243B;
+			font-weight: bold;
 		}
 
 		.info {
@@ -36,7 +37,7 @@
 			display: flex;
 			justify-content: space-between;
 			font-size: $tq-font-size-5;
-			color: #1D243B;
+			color: $tq-font-color-gary;
 		}
 
 		.fontWeight {
@@ -58,11 +59,11 @@
 		display: flex;
 		justify-content: space-between;
 		font-size: $tq-font-size-5;
-		color: $tq-font-color-title;
+		color: #0E102B;
 	}
 
 	.fee span:first-child {
-		color: $tq-font-color-body;
+		color: $tq-font-color-gary;
 	}
 }
 
@@ -74,26 +75,37 @@
 		justify-content: space-between;
 		align-items: center;
 		font-size: $tq-font-size-5;
-		color: $tq-font-color-title;
+		color: $tq-font-color-gary;
 	}
 
 	.inputWaper {
+		padding: 2px;
 		margin-top: 8px;
 		display: flex;
+		height: 48px;
+		// border: 1px solid #CFCFD5;
+		// border-radius: 8px;
+		// overflow: hidden;
+
+		.ant-input-affix-wrapper {
+			border: 1px solid #CFCFD5;
+			border-radius: 8px;
+
+			input {
+				border: none
+			}
+		}
 
 		input {
-			padding: 0 24px;
 			width: 403px;
-			height: 48px;
-			background: $tq-color-white;
+			border: 1px solid #CFCFD5;
 			border-radius: 8px;
-			border: 1px solid $tq-split-line-color;
 			font-size: $tq-font-size-3;
 			flex: 1;
 
 			&::placeholder {
 				font-size: $tq-font-size-6;
-				color: $tq-font-color-help;
+				color: $tq-font-color-body;
 			}
 		}
 
@@ -124,7 +136,7 @@
 		font-weight: 400;
 		text-align: center;
 		font-size: $tq-font-size-5;
-		color: $tq-font-color-body;
+		color: $tq-font-color-gary;
 	}
 }
 

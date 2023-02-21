@@ -125,7 +125,7 @@ export const GatherDetail: React.FC<any> = (props) => {
   const handleJump = (item: any) => {
     history.push({
       pathname: "/product-details",
-      state: { orderId: item?.orderId, tokenId: item?.tokenId, contractAddr: item?.contractAddr }
+      state: { tokenId: item?.tokenId, contractAddr: item?.contractAddr }
     })
   }
   // 购买

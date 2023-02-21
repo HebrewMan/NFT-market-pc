@@ -381,7 +381,7 @@ export const GatherEdit: React.FC<any> = () => {
               <Form.Item label={t('gather.edit.mediumLink')} name="linkMedium" rules={LinKValidator}>
                 <Input placeholder={t('gather.edit.placeholderMed') || undefined} />
               </Form.Item>
-              <Button type="primary" htmlType="submit" disabled={disabled} className="sumbit">
+              <Button htmlType="submit" disabled={disabled} className="sumbit">
                 {t('gather.edit.submit')}
               </Button>
             </Form.Item>
