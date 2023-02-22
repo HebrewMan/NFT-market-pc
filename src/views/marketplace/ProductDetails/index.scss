@@ -55,7 +55,7 @@
     }
 
     .header-pic {
-      width: calc(100% - 640px);
+      width: 560px;
       height: 583px;
       margin-right: 50px;
       border-radius: 5px;
@@ -122,9 +122,9 @@
           }
         }
 
-        img {
+        .cover {
           display: block;
-          width: 100%;
+          width: 560px;
           height: 100%;
           max-height: 640px;
           object-fit: cover;
@@ -134,7 +134,7 @@
     }
 
     .header-information {
-      flex: 1;
+      width: 590px;
 
       .top-inner {
         width: 100%;

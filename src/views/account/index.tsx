@@ -71,7 +71,6 @@ export const Account: React.FC<any> = () => {
   const [ownerAddr, setOwnerAddr] = useState<any>(null)
   const [reset, setReset] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [tradingHistoryData, setTradingHistoryData] = useState([])
 
   const defaultData = {
     collectAddr: collectAddr,
@@ -94,14 +93,14 @@ export const Account: React.FC<any> = () => {
   const defaulBannerUrl = require('../../assets/account/default_banner.svg')
   const [total, setTotal] = useState(0)
   const { page, size } = httpData
-  const token = getCookie('web-token') || ''
-  const [detailData, setDetailData] = useState({})
   const [infoVisible, setInfoVisible] = useState(false)
+  const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [transactionPage, setTransactionPage] = useState(1)
+  const [tradinTotal, setTradinTotal] = useState(0)
 
   useEffect(() => {
-
-  }, [])
+    getTransactionList()
+  }, [transactionPage])
 
 
   // 获取用户交易记录
@@ -111,12 +110,12 @@ export const Account: React.FC<any> = () => {
       size: 20,
     }
     const res: any = await getUserTransactionList(data)
-    setTradingHistoryData(res?.data?.records)
+    setTradinTotal(res?.data?.total)
+    setTradingHistoryData(tradingHistoryData.concat(res?.data?.records))
   }
   // 初始化
   useEffect(() => {
     setCollectionsData([])
-    getTransactionList()
   }, [address])
 
   // 判断方法回调返回值
@@ -156,13 +155,17 @@ export const Account: React.FC<any> = () => {
     }
   }
   const clickedTab = (index: number) => {
+    setCurrentIndex(index)
     const typeParams = {
       ...httpData,
       page: pageCurrent,
     }
     pageRef.current = 0
     const cloneAddr = isOwner() ? walletAccount : address
-    if (index === 0) {
+    if (index === 2) {
+      return
+    }
+    else if (index === 0) {
       typeParams.data.collectAddr = null
 
       typeParams.data.ownerAddr = cloneAddr
@@ -177,7 +180,7 @@ export const Account: React.FC<any> = () => {
     if (Math.ceil(total / size) > page) {
       setIsMore(true)
     }
-    setCurrentIndex(index)
+
     setHttpData(() => ({ ...typeParams }))
   }
 
@@ -443,7 +446,7 @@ export const Account: React.FC<any> = () => {
           </div>
           <div className='account-all-collects'>
             {currentIndex == 2 ? <>
-              {tradingHistoryData.length > 0 ? <TradingList TradingData={tradingHistoryData} /> : <AEmpty style={{ heigth: '200px' }} />}
+              {tradingHistoryData.length > 0 ? <TradingList TradingData={tradingHistoryData} total={tradinTotal} handleMoreChange={() => setTransactionPage(transactionPage + 1)} /> : <AEmpty style={{ heigth: '200px' }} />}
             </>
               :
               <div className='info'>

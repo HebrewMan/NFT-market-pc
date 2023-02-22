@@ -92,7 +92,6 @@ const ContentDetail = (props: any) => {
       size: 20,
     }
     const data: any = await getOrderList(useParams)
-    console.log(data, 'datadata')
     setDataSource(dataSource.concat(data.data.records))
     setTotal(data.data.total)
   }

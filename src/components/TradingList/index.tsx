@@ -7,6 +7,7 @@ import { intlFloorFormat } from 'Utils/bigNumber'
 import config from 'Src/config/constants'
 import { useHistory } from 'react-router-dom'
 import { formatTime, formatTokenId } from 'Utils/utils'
+import InfiniteScroll from "react-infinite-scroll-component"
 
 const iconClass = (item: any) => {
   switch (item.method) {
@@ -34,13 +35,14 @@ const iconClass = (item: any) => {
 }
 
 export const TradingList = (props: any) => {
+  const { handleMoreChange, total = 0 } = props || {}
   const { t } = useTranslation()
   const history = useHistory()
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
-
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
+  const [hasMore, setHasMore] = useState(true)
   useEffect(() => {
     setTradingHistoryData(props?.TradingData)
   }, [props])
@@ -79,6 +81,17 @@ export const TradingList = (props: any) => {
   const handleChangeToRoute = (item: any) => {
     return history.push(`/account/0/${item?.toAddr}`)
   }
+
+  const fetchMoreData = () => {
+    if (total <= 20) {
+      setHasMore(false)
+      return
+    }
+    setTimeout(() => {
+      handleMoreChange && handleMoreChange()
+    }, 500)
+  }
+
   const columns: any = [
     {
       width: 150,
@@ -151,19 +164,28 @@ export const TradingList = (props: any) => {
     },
 
   ]
+
   return (
     <div className='trading-content'>
       <div className='trading-table'>
         {tradingHistoryData.length > 0 &&
-          <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
-            <Table
-              columns={columns}
-              dataSource={tradingHistoryData}
-              size="small"
-              pagination={false}
-              className={'tradingTable'}
-            />
-          </ConfigProvider>
+          <InfiniteScroll
+            dataLength={tradingHistoryData.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={false}
+            height={tradingHistoryData.length > 8 ? 575 : "auto"}
+          >
+            <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+              <Table
+                columns={columns}
+                dataSource={tradingHistoryData}
+                size="small"
+                pagination={false}
+                className={'tradingTable'}
+              />
+            </ConfigProvider>
+          </InfiniteScroll>
         }
       </div>
     </div>

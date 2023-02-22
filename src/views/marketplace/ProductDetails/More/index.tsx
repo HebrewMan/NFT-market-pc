@@ -5,6 +5,7 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import { formatTokenId } from 'Utils/utils'
+import AEmpty from "Src/components/Empty"
 
 export const MoreCollects = (props: any) => {
   const { t } = useTranslation()
@@ -49,7 +50,8 @@ export const MoreCollects = (props: any) => {
   const Wrapper = () => (
     <div className='collection-wrapper'>
       <div className={`g-list ${grid != 1 ? 'small' : ''}`}>
-        <div className='cardItem'><WrapItem /></div>
+        {collectGoodsData.length > 0 ? <div className='cardItem'> <WrapItem /></div> : <AEmpty />}
+
       </div>
     </div>
   )

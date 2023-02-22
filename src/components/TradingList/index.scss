@@ -4,7 +4,8 @@
   border: 1px solid $tq-split-line-color;
 
   .trading-table {
-    max-height: 550px;
+    // max-height: 550px;
+    // position: relative;
     overflow: auto;
 
     .item-info {
@@ -37,28 +38,6 @@
       }
 
     }
-
-    /*里面的代码可以根据自己需求去进行更改*/
-    /* 设置滚动条的样式 */
-    &::-webkit-scrollbar {
-      width: 3px;
-      z-index: 100;
-    }
-
-    /* 滚动槽 */
-    &::-webkit-scrollbar-track {
-      border-radius: 10px;
-      display: none;
-      background: $tq-primary-color !important;
-    }
-
-    /* 滚动条滑块 */
-    &::-webkit-scrollbar-thumb {
-      height: 50px;
-      border-radius: 10px;
-      background: $tq-table-bg !important;
-    }
-
 
     .tradingTable {
       .ant-table {
@@ -97,6 +76,7 @@
         background: none;
       }
     }
+
   }
 
   .dataTime {

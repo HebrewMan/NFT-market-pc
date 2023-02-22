@@ -14,10 +14,11 @@ import TradingList from "Src/components/TradingList"
 
 export const Trading = (props: any) => {
   const { t } = useTranslation()
+  const { tokenId, contractAddr } = props || {}
   const _chainId = window?.ethereum?.chainId
   const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId)
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
-  const deepTradingHistoryData = [...props.tradingHistoryData]
+  const deepTradingHistoryData = tradingHistoryData
   const [detailsState, setDetailsState] = useState(false)
   const [filterState, setFilterState] = useState(false)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
@@ -36,11 +37,24 @@ export const Trading = (props: any) => {
 
 
   useEffect(() => {
-    // 请求Trading History
-    setTradingHistoryData(props.tradingHistoryData)
-  }, [props])
+    (String(tokenId) && contractAddr) && getTradingPageData()
+  }, [tokenId, contractAddr, page])
 
-
+  // // 请求Trading History
+  const getTradingPageData = async () => {
+    const obj = {
+      tokenId: tokenId,
+      page: page,
+      size: 20,
+      contractAddr: contractAddr,
+    }
+    const res: any = await getOrderEventPage(obj)
+    setTotal(res?.data.total)
+    setTradingHistoryData(tradingHistoryData.concat(res?.data?.records))
+  }
+  // useEffect(() => {
+  //   getTradingPageData()
+  // }, [page])
   const handleClearCurrent = (e: any, current: any) => {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
@@ -57,201 +71,122 @@ export const Trading = (props: any) => {
     setFilterList(filterList.map((item: any) => ({ ...item, checked: false })))
     filterEventData([])
   }
-  const showEventName = (method: any) => {
-    switch (method) {
-      case 8:
-        return t('marketplace.details.mintTo')
-      case 0:
-        return t('marketplace.details.listings')
-      case 1:
-        return t('marketplace.details.cancel')
-      case 2:
-        return t('marketplace.details.trade')
-      case 8:
-        return t('marketplace.details.batchMintTo')
-      case 5:
-        return t('marketplace.details.updatePrcie')
-      case 3:
-      case 4:
-      case 6:
-      case 7:
-      case 10:
-        return t('marketplace.details.transfer')
-    }
-  }
-  const iconClass = (item: any) => {
-    switch (item.method) {
-      case 8:
-        return 'minto'
-      case 0:
-        return 'listing'
-      case 1:
-        return 'listing'
-      case 2:
-        return 'match'
-      case 4:
-        return 'minto'
-      case 5:
-        return 'listing'
-      case 3:
-      case 4:
-      case 6:
-      case 7:
-      case 10:
-        return 'transfer'
-      default:
-        return 'minto'
-    }
-  }
-  const handleChangeFromRoute = (item: any) => {
-    switch (item.method) {
-      case 8:
-        return false
-      default:
-        return history.push(`/account/0/${item?.fromAddr}`)
-    }
-  }
-  const handleChangeToRoute = (item: any) => {
-    return history.push(`/account/0/${item?.toAddr}`)
-  }
+  // const showEventName = (method: any) => {
+  //   switch (method) {
+  //     case 8:
+  //       return t('marketplace.details.mintTo')
+  //     case 0:
+  //       return t('marketplace.details.listings')
+  //     case 1:
+  //       return t('marketplace.details.cancel')
+  //     case 2:
+  //       return t('marketplace.details.trade')
+  //     case 8:
+  //       return t('marketplace.details.batchMintTo')
+  //     case 5:
+  //       return t('marketplace.details.updatePrcie')
+  //     case 3:
+  //     case 4:
+  //     case 6:
+  //     case 7:
+  //     case 10:
+  //       return t('marketplace.details.transfer')
+  //   }
+  // }
+  // const iconClass = (item: any) => {
+  //   switch (item.method) {
+  //     case 8:
+  //       return 'minto'
+  //     case 0:
+  //       return 'listing'
+  //     case 1:
+  //       return 'listing'
+  //     case 2:
+  //       return 'match'
+  //     case 4:
+  //       return 'minto'
+  //     case 5:
+  //       return 'listing'
+  //     case 3:
+  //     case 4:
+  //     case 6:
+  //     case 7:
+  //     case 10:
+  //       return 'transfer'
+  //     default:
+  //       return 'minto'
+  //   }
+  // }
+  // const handleChangeFromRoute = (item: any) => {
+  //   switch (item.method) {
+  //     case 8:
+  //       return false
+  //     default:
+  //       return history.push(`/account/0/${item?.fromAddr}`)
+  //   }
+  // }
+  // const handleChangeToRoute = (item: any) => {
+  //   return history.push(`/account/0/${item?.toAddr}`)
+  // }
 
-  const handleChangeValue = (e: any, index: number) => {
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
-    setFilterState(true)
-    const deepList = [...filterList]
-    deepList[index].checked = !deepList[index].checked
-    const eventList: Array<string> = deepList
-      .map((item) => (item.checked ? item.label : ''))
-      .filter((item) => item.trim())
-    setFilterList([...deepList])
-    setEventBtn(eventList)
-    filterEventData(eventList)
-  }
-  const filterEventData = (eventList: any) => {
-    const elist = [...eventList]
-    if (elist.length <= 0) {
-      return setTradingHistoryData(deepTradingHistoryData)
-    }
-    const list = new Array()
-    // 转移有多个状态, 搜索需过滤所有状态
-    if (elist.includes('6')) {
-      elist.push('3', '4', '7', '10')
-    }
-    deepTradingHistoryData.forEach((item) => {
-      if (elist.includes(item.method.toString())) {
-        list.push({ ...item })
-      }
-    })
-    setTradingHistoryData([...list])
-  }
-  const Uli = () => (
-    <div className='filter-checkbox'>
-      {/* onClick={e => changeCheckbox(e)} */}
-      <ul id='filter-checkbox-select'>
-        {filterList.map((item: any, index) => {
-          return (
-            <label htmlFor={item.label} key={index} onClick={(e) => handleChangeValue(e, index)}>
-              <li>
-                <input type='checkbox' checked={item.checked} onClick={(e) => handleChangeValue(e, index)} />
-                {item.name}
-              </li>
-            </label>
-          )
-        })}
-      </ul>
-    </div>
-  )
-
-  const fetchMoreData = () => {
-    if (total <= 20) {
-      setHasMore(false)
-      return
-    }
-    setTimeout(() => {
-      setPage(page + 1)
-    }, 500)
-  }
-  const columns: any = [
-    {
-      width: 150,
-      title: t('marketplace.details.transaction'),
-      render: (r: string, t: any) => {
-        return <>
-          <img src={require(`Src/assets/marketPlace/${iconClass(t)}.png`)} className='svg-img-16' alt='' />
-          <span>{showEventName(t.method)}</span>
-        </>
-      }
-    },
-    {
-      width: 120,
-      title: t('marketplace.price'),
-      render: (r: string, t: any) => {
-        return <>
-          <img src={require('Src/assets/coin/aitd.svg')} alt='' className='svg-img' />
-          {intlFloorFormat(t.price, 4)}
-        </>
-      }
-    },
-    {
-      width: 120,
-      title: t('marketplace.details.amount'),
-      dataIndex: 'amount',
-    },
-    {
-      width: 120,
-      title: t('marketplace.from'),
-      render: (r: string, t: any) => {
-        return <a onClick={() => handleChangeFromRoute(t)}>{t?.fromAddr?.substr(2, 6)}</a>
-      }
-    },
-    {
-      width: 120,
-      title: t('marketplace.to'),
-      render: (r: string, t: any) => {
-        return <a onClick={() => handleChangeToRoute(t)}>{t?.toAddr?.substr(2, 6)}</a>
-      }
-    },
-    {
-      width: 120,
-      title: t('common.date'),
-      render: (_: any, item: any) => {
-        return (
-          <a
-            href={item.txHash ? linkEth + 'tx/' + item.txHash : ''}
-            target={item.txHash ? '_blank' : ''}
-            rel='noreferrer'
-            className='dataTime'
-          >
-            {timeG(item.createDate)}
-            {item.txHash && <img src={require('Src/assets//marketPlace/icon-link.png')} style={{ marginLeft: 10 }} alt='' />}
-          </a>
-        )
-      },
-    },
-
-  ]
-
-  const timeG = (createDate: string) => {
-    return formatTime(createDate)
-  }
-  // const Content = () => (
-  //   <div className='list-content'>
-  //     <div className='trading-table'>
-  //       {tradingHistoryData.length > 0 &&
-  //         <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
-  //           <Table
-  //             columns={columns}
-  //             dataSource={tradingHistoryData}
-  //             size="small"
-  //             pagination={false}
-  //             className={'tradingTable'}
-  //           />
-  //         </ConfigProvider>
-  //       }
-  //     </div>
+  // const handleChangeValue = (e: any, index: number) => {
+  //   e.stopPropagation()
+  //   e.nativeEvent.stopImmediatePropagation()
+  //   setFilterState(true)
+  //   const deepList = [...filterList]
+  //   deepList[index].checked = !deepList[index].checked
+  //   const eventList: Array<string> = deepList
+  //     .map((item) => (item.checked ? item.label : ''))
+  //     .filter((item) => item.trim())
+  //   setFilterList([...deepList])
+  //   setEventBtn(eventList)
+  //   filterEventData(eventList)
+  // }
+  // const filterEventData = (eventList: any) => {
+  //   const elist = [...eventList]
+  //   if (elist.length <= 0) {
+  //     return setTradingHistoryData(deepTradingHistoryData)
+  //   }
+  //   const list = new Array()
+  //   // 转移有多个状态, 搜索需过滤所有状态
+  //   if (elist.includes('6')) {
+  //     elist.push('3', '4', '7', '10')
+  //   }
+  //   deepTradingHistoryData.forEach((item: any) => {
+  //     if (elist.includes(item.method.toString())) {
+  //       list.push({ ...item })
+  //     }
+  //   })
+  //   setTradingHistoryData([...list])
+  // }
+  // const Uli = () => (
+  //   <div className='filter-checkbox'>
+  //     {/* onClick={e => changeCheckbox(e)} */}
+  //     <ul id='filter-checkbox-select'>
+  //       {filterList.map((item: any, index) => {
+  //         return (
+  //           <label htmlFor={item.label} key={index} onClick={(e) => handleChangeValue(e, index)}>
+  //             <li>
+  //               <input type='checkbox' checked={item.checked} onClick={(e) => handleChangeValue(e, index)} />
+  //               {item.name}
+  //             </li>
+  //           </label>
+  //         )
+  //       })}
+  //     </ul>
   //   </div>
   // )
+
+  // const fetchMoreData = () => {
+  //   if (total <= 20) {
+  //     setHasMore(false)
+  //     return
+  //   }
+  //   setTimeout(() => {
+  //     setPage(page + 1)
+  //   }, 500)
+  // }
+
   return (
     <div className='trading-history'>
       <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
@@ -269,7 +204,7 @@ export const Trading = (props: any) => {
         </div>
       </div>
       {/* filter */}
-      {!detailsState ? <TradingList TradingData={tradingHistoryData} /> : <></>}
+      {!detailsState ? <TradingList TradingData={tradingHistoryData} handleMoreChange={() => setPage(page + 1)} total={total} /> : <></>}
     </div>
   )
 }

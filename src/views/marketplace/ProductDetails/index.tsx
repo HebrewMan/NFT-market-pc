@@ -106,7 +106,7 @@ export const ProductionDetails = () => {
     // 获取粉丝数量
     getFansByGoodsIdData(tokenId, userContractAddr)
     // 交易历史
-    getOrderPageData(tokenId, userContractAddr)
+    // getOrderPageData(tokenId, userContractAddr)
     // 更多nft
     getMoreCollection(data?.collectionsVO.id)
   }
@@ -278,7 +278,7 @@ export const ProductionDetails = () => {
           <div className='header-pic'>
             <div className='header-image'>
               <div className='prod-image'>
-                <img src={detailMetadata?.imageUrl} alt='' />
+                <img src={detailMetadata?.imageUrl} alt='' className='cover' />
                 <div className='fav'>
                   <img
                     className={!fansStatus ? 'favorite_border_gray' : 'favorite_red'}
@@ -335,7 +335,7 @@ export const ProductionDetails = () => {
           </div>
         </div>
         {/* trading */}
-        {tradingHistoryData.length > 0 && <Trading tradingHistoryData={tradingHistoryData} />}
+        <Trading tokenId={DetailData?.tokenId} contractAddr={DetailData?.contractAddr} />
         <MoreCollects collectGoodsData={collectGoodsData} notify={notify} />
         {/* 上架改价 */}
         {isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />}
