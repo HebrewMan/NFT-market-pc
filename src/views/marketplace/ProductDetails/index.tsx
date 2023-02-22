@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import { cancelMarketItem } from 'Src/hooks/marketplace'
 import {
-  getNFTDetail,
-  getUserNFTDetail,
+  // getNFTDetail,
+  // getUserNFTDetail,
   getGoodsByCollectionId,
 } from '../../../api'
 import { getUserAsset } from 'Src/api/user'
@@ -331,22 +331,12 @@ export const ProductionDetails = () => {
               </div>
             </div>
             {/* Description List */}
-            <DescInfo
-              metadata={detailMetadata}
-            // description={detailMetadata?.description}
-            // contractAddr={detailMetadata.contractAddr}
-            // tokenId={detailMetadata.tokenId}
-            // DetailData={DetailData}
-            />
+            <DescInfo metadata={detailMetadata} />
           </div>
         </div>
         {/* trading */}
         {tradingHistoryData.length > 0 && <Trading tradingHistoryData={tradingHistoryData} />}
-        <MoreCollects
-          collectGoodsData={collectGoodsData}
-          collectionId={DetailData?.collectionId}
-          notify={notify}
-        />
+        <MoreCollects collectGoodsData={collectGoodsData} notify={notify} />
         {/* 上架改价 */}
         {isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={sellOrderFlag} data={DetailData} onCancel={() => setIsOpen(false)} updateGoods={updateGoods} />}
         {/* 购买弹窗 */}

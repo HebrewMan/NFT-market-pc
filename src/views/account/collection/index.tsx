@@ -15,7 +15,8 @@ import { formatAdd } from '../../marketplace/utils'
 import _ from 'lodash'
 import { getCollectionDetails } from 'Src/api/collection'
 import InfiniteScroll from "react-infinite-scroll-component"
-import BugModal from 'Src/views/marketplace/ProductDetails/bugModal'
+
+import CardNft from 'Src/components/CardNFT'
 
 export const GatherDetail: React.FC<any> = (props) => {
   const { t } = useTranslation()
@@ -121,24 +122,6 @@ export const GatherDetail: React.FC<any> = (props) => {
     setPage(1)
   }
 
-
-  const handleJump = (item: any) => {
-    history.push({
-      pathname: "/product-details",
-      state: { tokenId: item?.tokenId, contractAddr: item?.contractAddr }
-    })
-  }
-  // 购买
-  const handleBuy = (e: any, item: any) => {
-    e.stopPropagation()
-    setDetailData(item)
-    setBuyModalOpen(true)
-  }
-
-  const updateGoods = () => {
-    getList(id)
-  }
-
   const handleEditChnage = (e: any, linkCollection: any) => {
     e.stopPropagation()
     history.push({
@@ -178,46 +161,6 @@ export const GatherDetail: React.FC<any> = (props) => {
         {infoVisible && <a onClick={() => setInfoVisible(false)} style={{ marginLeft: '5px' }}>{t('common.putAway')}</a>}
       </Paragraph>
     )
-  }
-  const CardItem = () => {
-    return listData.map((item: any, index: number) => {
-      return (
-        <div className='card' key={index}>
-          <div onClick={() => handleJump(item)}>
-            <div className='assets'>
-              <img src={item.imageUrl} alt='' />
-            </div>
-            <div className='assets-info'>
-              <div className='desc'>
-                <div className='name'>{formatTokenId(item.name, item.tokenId)}</div>
-              </div>
-              <div className='collection-name'>{item.collectionName}</div>
-
-              <div className='price'>
-                <div className='priceCenter'>
-                  {item.price != null &&
-                    <>
-                      <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                      <span>{intlFloorFormat(item.price, 4)}</span>
-                    </>
-                  }
-                </div>
-                {(item.price != null && item.ownerAddr != walletAccount) &&
-                  <>
-                    <div className='btn' onClick={(e) => handleBuy(e, item)}>
-                      <img src={require('Src/assets/account/buy.png')} alt="" />
-                      {t('common.buy')}
-                    </div>
-                  </>
-                }
-              </div>
-
-
-            </div>
-          </div>
-        </div>
-      )
-    })
   }
   return (
     <div className='gatherDetail-body content-wrap-top'>
@@ -320,13 +263,11 @@ export const GatherDetail: React.FC<any> = (props) => {
             loader={false}
           >
             <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-              {listData.length > 0 ? <div className='cardItem'> {CardItem()} </div> : <AEmpty />}
+              {listData.length > 0 ? <CardNft nftList={listData} isCollect={true} /> : <AEmpty />}
             </div>
           </InfiniteScroll>
         </div>
       </div>
-      {/* 购买弹窗 */}
-      {bugModalOpen && <BugModal visible={bugModalOpen} onCancel={() => setBuyModalOpen(false)} data={DetailData} updateGoods={updateGoods} />}
     </div >
   )
 }

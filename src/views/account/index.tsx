@@ -21,7 +21,7 @@ import './index.scss'
 import { getCookie, formatTokenId, handleCopy } from 'Utils/utils'
 import AEmpty from "Src/components/Empty"
 import TradingList from 'Src/components/TradingList'
-
+import CardNft from 'Src/components/CardNFT'
 interface accountInfoProps {
   name: string
   username: string
@@ -33,17 +33,6 @@ interface accountInfoProps {
   bio: string
 
 }
-interface collectionsDataProps {
-  id: number
-  collect: number
-  collectNum: number
-  imageUrl: string
-  collectionName: string
-  name: string
-  price: number
-}
-
-
 
 export const Account: React.FC<any> = () => {
   const { t } = useTranslation()
@@ -72,9 +61,6 @@ export const Account: React.FC<any> = () => {
     id: '',
     bio: ''
   })
-  const _chainId = window?.ethereum?.chainId
-  const chainId = parseInt(_chainId, 16)
-  const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const [collectionsData, setCollectionsData] = useState<any>([])
   const collectRef = useRef(collectionsData)
   const { id, address } = useParams<{ id: string | undefined; address: string }>()
@@ -386,96 +372,9 @@ export const Account: React.FC<any> = () => {
       </ul>
     )
   }
-
-  const handleJump = (item: any) => {
-    const orderId = item?.orderId
-    const tokenId = item?.tokenId
-    const contractAddr = item?.contractAddr
-    history.push({
-      pathname: "/product-details",
-      state: { tokenId, contractAddr }
-    })
-  }
-  // 售出 和取消上架
-  const handleChange = (e: any, item: any) => {
-    e.stopPropagation()
-    // 下架
-    if (item.status === 0) {
-      getCancelSellOrder(item)
-    } else {
-      setIsOpen(true)
-      setDetailData(item)
-    }
-
-  }
-
-  // 取消上架 // 下架合约
-  const getCancelSellOrder = async (item: any) => {
-    if (!walletAccount || !token) {
-      message.error(t('hint.switchMainnet'))
-      history.push('/login')
-      return
-    }
-    if (chainId !== 1319 && isProd) {
-      message.success(t('hint.cancellation'))
-      return
-    }
-    instanceLoading.service()
-    try {
-      const cancelOrderRes = await cancelMarketItem(
-        web3,
-        Number(item?.orderId),
-        walletAccount,
-        marketPlaceContractAddr,
-      )
-      if (cancelOrderRes?.transactionHash) {
-        message.success(t('hint.cancellation'))
-        // updateGoods()
-      }
-      instanceLoading.close()
-    } catch (error: any) {
-      instanceLoading.close()
-    }
-  }
-
-  const CardItem = () => {
-    return collectionsData.map((item: any, index: number) => {
-      return (
-        <div className='card' key={index}>
-          <div
-            onClick={() => handleJump(item)}
-          >
-            <div className='assets'>
-              <img src={item.imageUrl} alt='' />
-            </div>
-            <div className='assets-info'>
-              <div className='desc'>
-                <div className='name'>{formatTokenId(item.name, item.tokenId)}</div>
-              </div>
-              <div className='collection-name'>{item.collectionName}</div>
-              <div className='price'>
-                <div className='priceCenter'>
-                  {item.price != null &&
-                    <>
-                      <img src={require('Src/assets/coin/aitd.svg')} alt='' className='coin-img' />
-                      <span>{item.status === 0 ? intlFloorFormat(item.price, 4) : '0.00'}</span>
-                    </>
-                  }
-                </div>
-                {accountInfo?.userAddr === walletAccount &&
-                  <div className='btn' onClick={(e) => handleChange(e, item)}>
-                    <img src={require('Src/assets/account/buy.png')} alt="" />
-                    {item.status === 0 ? t('account.NFTCancel') : t('account.NFTSell')}
-                  </div>
-                }
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-      )
-    })
+  const handleItenClick = () => {
+    setCollectionsData([])
+    getAccountNFTList(httpData)
   }
 
   return (
@@ -567,7 +466,7 @@ export const Account: React.FC<any> = () => {
                   </div>
                   <div className={`info-main info-main--max`}>
                     <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-                      {collectionsData.length > 0 && <div className='cardItem'> {CardItem()} </div>}
+                      {collectionsData.length > 0 && <CardNft owner={isOwner()} nftList={collectionsData} handleItemChange={() => handleItenClick()} />}
                       {collectionsData.length === 0 && <AEmpty />}
                     </div>
                   </div>
@@ -577,10 +476,6 @@ export const Account: React.FC<any> = () => {
 
           </div>
         </div>
-        {/* 上架 */}
-        {
-          isOpen && <UpdatePriceModal isOpen={isOpen} sellOrderFlag={true} data={detailData} onCancel={() => setIsOpen(false)} />
-        }
       </div>
     </div>
   )

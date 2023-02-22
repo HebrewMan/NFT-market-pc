@@ -14,6 +14,7 @@ import ListItem from 'Src/components/ListItem'
 import AEmpty from "Src/components/Empty"
 import { formatTokenId } from 'Utils/utils'
 import { useHistory } from 'react-router-dom'
+import CardNft from 'Src/components/CardNFT'
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 export const MarketPlace = () => {
@@ -246,7 +247,7 @@ export const MarketPlace = () => {
           </section>
         </div>
         <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-          {goodsList.length > 0 && <div className='cardItem'> {CardItem()} </div>}
+          {goodsList.length > 0 && <CardNft nftList={goodsList} />}
           {goodsList.length === 0 && <AEmpty />}
         </div>
         {loading ? (

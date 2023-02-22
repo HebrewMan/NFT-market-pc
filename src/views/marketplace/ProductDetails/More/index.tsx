@@ -9,7 +9,6 @@ import { formatTokenId } from 'Utils/utils'
 export const MoreCollects = (props: any) => {
   const { t } = useTranslation()
   const [detailsState, setDetailsState] = useState(false)
-  const [ownerAddr, setOwnerAddr] = useState('')
   const grid = 1
   const history = useHistory()
   const collectGoodsData = props.collectGoodsData || []

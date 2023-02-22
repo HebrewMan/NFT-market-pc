@@ -15,7 +15,6 @@ const SwiperComm = (props: any) => {
   const history = useHistory()
   const handleJump = (item: any) => {
     // 0 文章 、1 活动 、2 集合 3、item NFT
-    console.log(item, 'iteeee')
     switch (item.type) {
       case 0:
         history.push(`/article-details/${item.linkId}`)
