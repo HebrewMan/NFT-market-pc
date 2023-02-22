@@ -198,8 +198,7 @@ const ContentDetail = (props: any) => {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={false}
-          height={225}
-        // height={dataSource[0]?.price ? 180 : 225}
+          height={dataSource.length > 0 ? 225 : 300}
         >
           <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
             <Table

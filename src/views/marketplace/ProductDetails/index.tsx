@@ -85,7 +85,6 @@ export const ProductionDetails = () => {
       ...data?.orderVO,
     }
     setDetailData(summaryData)
-    setStatus(data?.orderVO.status) //售卖状态
 
     // 获取用户资产
     const asset: any = await getUserAsset({
@@ -93,11 +92,14 @@ export const ProductionDetails = () => {
       tokenId: tokenId,
       ownerAddr: accountAddress ? accountAddress : '-1'
     })
-    // 如果存在订单取当前订单里所属者。 否则取资产里的
-    if (data?.orderVO.ownerAddr != null) {
-      setOwnerAddr(data?.orderVO.ownerAddr)
-    } else {
-      setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
+    if (data?.orderVO != null) {
+      setStatus(data?.orderVO.status) //售卖状态
+      // 如果存在订单取当前订单里所属者。 否则取资产里的
+      if (data?.orderVO.ownerAddr != null) {
+        setOwnerAddr(data?.orderVO.ownerAddr)
+      } else {
+        setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
+      }
     }
     setUseAmount(asset?.data.amount)
     setAmountNum(asset?.data.amountTotal)
@@ -127,6 +129,7 @@ export const ProductionDetails = () => {
 
   // 获取当前集合下更多的nft
   const getMoreCollection = async (id: string) => {
+    console.log(id, 'idid')
     const params = {
       data: {
         collectionId: id,

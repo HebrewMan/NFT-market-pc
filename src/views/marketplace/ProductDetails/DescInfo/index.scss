@@ -279,6 +279,10 @@
         border: none;
       }
     }
+
+    .ant-table-tbody>tr.ant-table-placeholder:hover>td {
+      background: transparent;
+    }
   }
 
   .ant-spin-nested-loading,
