@@ -1,7 +1,7 @@
 import request from './request';
 import qs from 'qs';
 
-export function get(url:string, parameter = {}, contentType = '', loading = true) {
+export function get(url:string, parameter = {}, contentType = '') {
   let headers: any = {};
 
   if (contentType === 'json') {
@@ -21,7 +21,7 @@ export function get(url:string, parameter = {}, contentType = '', loading = true
     };
   }
 
-  headers.loading = loading;
+  // headers.loading = loading;
 
   return request({
     url,
@@ -31,7 +31,7 @@ export function get(url:string, parameter = {}, contentType = '', loading = true
   });
 }
 
-export function post(url:string, parameter = {}, contentType = '', loading = true) {
+export function post(url:string, parameter = {}, contentType = '') {
   let headers: any = {};
   if (contentType === 'urlencoded') {
     parameter = qs.stringify(parameter);
@@ -62,7 +62,7 @@ export function post(url:string, parameter = {}, contentType = '', loading = tru
     };
   }
 
-  headers.loading = loading;
+  // headers.loading = loading;
 
   return request({
     url,
