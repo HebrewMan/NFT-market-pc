@@ -112,8 +112,8 @@ const connectWallet = () => {
   });
 };
 
+// 签名
 const useSignature = (account: string) => {
-  // const { t} = useTranslation()
   const _web3 = web3 || new Web3(window?.ethereum);
   if (!account) {
     return;
@@ -136,12 +136,13 @@ const useSignature = (account: string) => {
           })
           .catch((err: any) => {
             console.log('signature error: ', err, account);
-            window.location.reload();
+            removeLocalStorage('wallet');
+            removeCookie('web-token');
+            history.push('/');
           });
       })
       .catch((err: any) => {
         console.log('nonce error: ', err);
-        window.location.reload();
       });
   });
 };
@@ -158,7 +159,7 @@ const onEthereumEvent = (deactivate?: any) => {
       removeCookie('web-token');
       // 切换账号跳转登录页
       // useSignature(account);
-      
+      window.location.reload();
       history.push('/login');
     });
 
@@ -187,7 +188,7 @@ const logOut = (deactivate?: any) => {
         if (!!deactivate) {
           deactivate(); // 退出时eth的wallet断开连接
         }
-        history.push('/login');
+        history.push('/');
         // window.location.reload();
       }
     })

@@ -95,6 +95,8 @@ export const createMarketSaleWithTokenErc1155 = async (web3: Web3, obj?: any) =>
 
 // 2.0.1新增 购买NFT
 export const createMarketSale = async (web3: Web3, obj?: any) => {
+  console.log(obj,'obj');
+  
   const { orderId, price, Erc1155ContractAddr, moneyMintAddress, marketPlaceContractAddr, account, amounts, coin } = obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
   let sendObj: any = { from: account};

@@ -28,24 +28,43 @@ export const Login = () => {
     })
   }
 
-  useEffect(() => {
-  }, [account])
+  const activateInjectedProvider = (providerName: 'MetaMask' | 'coinBase') => {
+    const { ethereum } = window
 
+    if (!ethereum?.providers) {
+      return undefined
+    }
+
+    let provider
+    switch (providerName) {
+      case 'coinBase':
+        provider = ethereum.providers.find(({ isCoinbaseWallet }: any) => isCoinbaseWallet)
+        break
+      case 'MetaMask':
+        provider = ethereum.providers.find(({ isMetaMask }: any) => isMetaMask)
+        break
+    }
+
+    if (provider) {
+      ethereum.setSelectedProvider(provider)
+    }
+  }
   // 清空localStorage和cookie
   const clearLocalAndCookie = () => {
     removeLocalStorage('wallet')
     removeCookie('web-token')
   }
   const connectWallet = (walletInfo: any) => {
+    const { name } = walletInfo
     const { connector }: { connector: AbstractConnector | undefined } = walletInfo
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
     // && connector.walletConnectProvider?.wc?.uri
     if (connector instanceof WalletConnectConnector) {
       connector.walletConnectProvider = undefined
     }
-
     // eth钱包连接
     if (connector && !account) {
+      activateInjectedProvider(name)
       activate(connector, undefined, true)
         .then(() => {
           clearLocalAndCookie()
@@ -71,6 +90,7 @@ export const Login = () => {
             // setPendingError(true)
           }
         })
+    } else {
     }
   }
   return (

@@ -11,6 +11,7 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { Language } from '../../utils/enum'
 import { changeLanguage } from '../../utils/i18n'
+import ConnectModal from "Src/components/ConnectModal"
 
 export const HeaderMenu = () => {
   const { t, i18n } = useTranslation()
@@ -24,7 +25,9 @@ export const HeaderMenu = () => {
   const [accountImg, setAccountImg] = useState(defaultImg)
   const [isLogin, setIsLogin] = useState(false)
   const [lang, setLang] = useState('简体中文')
+  const [connectVisible, setConnectVisible] = useState(false)
 
+  console.log(account, 'account')
   const items: MenuProps['items'] = [
     { key: Language.zh, label: '中文简体' },
     { key: Language.tw, label: '中文繁體' },
@@ -61,7 +64,6 @@ export const HeaderMenu = () => {
     /**
       有的路由要刷新当前页面，因为页面里用了ui组件 必须要刷新 文案才会更新
     */
-    console.log(window.location.pathname, 'window.location.pathname')
     const listPath = [
       "/marketplace",
       "/helpcenter",
@@ -85,7 +87,12 @@ export const HeaderMenu = () => {
     // 取消强制跳转login
     // history.push('/login');
   }
+
+  // t退出
   const getLogOut = () => {
+    $web3js.logOut(deactivate)
+  }
+  const getLogin = () => {
     // 已登录，点击退出
     if (isLogin) {
       $web3js.logOut(deactivate)
@@ -96,6 +103,13 @@ export const HeaderMenu = () => {
       }
       history.push('/login')
     }
+    // clearLogin()
+    // history.push('/login')
+  }
+  // 钱包登录
+  const getWalletLoin = () => {
+    console.log('fffff')
+    setConnectVisible(true)
   }
   useEffect(() => {
     if (!walletAccount || !token) {
@@ -171,7 +185,7 @@ export const HeaderMenu = () => {
         {/* 已登录显示菜单 */}
         {
           !token && !walletAccount ? (
-            <Button type='primary' className='linkWallet' onClick={getLogOut}>
+            <Button type='primary' className='linkWallet' onClick={getLogin}>
               {/* <img className='language-img' src={require('Src/assets/common/linkWallet.png')} alt='language' /> */}
               {t('nav.cnnectWallet')}
             </Button>
@@ -222,7 +236,7 @@ export const HeaderMenu = () => {
                           <a onClick={getLogOut}>
                             <img src={require('Src/assets/common/account-log-out.png')} alt='' />
                             <div className='txt'>
-                              <span>{isLogin ? t('nav.loginOut') : t('nav.login')}</span>
+                              <span>{t('nav.loginOut')}</span>
                             </div>
                           </a>
                         </li>
@@ -235,22 +249,8 @@ export const HeaderMenu = () => {
               </div>
             )
         }
-
-
-
-        {/* <div className='item'>
-          <button className='wallet-menu' type='button' onClick={() => setShowDropper(!showDropper)}>
-            <img src={require('../../assets/wallet-active.svg')} className='wallet-active' alt='' />
-          </button>
-        </div>
-
-        <div
-          className={`dropper ${showDropper ? 'dropper-actived' : 'dropper-none'}`}
-          onClick={() => setShowDropper(false)}
-        >
-          <Slider showDropper={showDropper} />
-        </div> */}
       </div>
-    </div>
+      {/* <ConnectModal visible={connectVisible} onCancel={() => setConnectVisible(false)} /> */}
+    </div >
   )
 }

@@ -125,6 +125,8 @@ export const getApproval = async (
 
 // 查看erc20是否授权
 export const getIsApproved = async (owner: string, operator: boolean, Erc20ContractAddr: string, web3?: Web3) => {
+  console.log(web3,'web3web3')
+
   try {
     const res = await getERC20Contract(Erc20ContractAddr, web3).methods.allowance(owner, operator).call();
     return res;

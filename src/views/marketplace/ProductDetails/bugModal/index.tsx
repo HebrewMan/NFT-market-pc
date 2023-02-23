@@ -121,6 +121,7 @@ const ReceiveModal: React.FC<any> = (props) => {
       if (isAITD) {
         fillOrderRes = await createMarketSale(web3, obj)
       } else {
+
         // 查看erc20是否已授权, 获取授权余额
         const _allowance = await getIsApproved(accountAddress, marketPlaceContractAddr, Erc20ContractAddr, web3)
         allowance = Number(_allowance) - Number(price)
@@ -147,6 +148,7 @@ const ReceiveModal: React.FC<any> = (props) => {
       }
       instanceLoading.close()
     } catch (error) {
+      console.log('baocuo')
       props?.onCancel()
       instanceLoading.close()
     }

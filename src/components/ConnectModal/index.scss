@@ -1,0 +1,37 @@
+.contentWaper {
+  .content-title {
+    h3 {
+      font-size: 32px;
+      font-weight: normal;
+      color: #0E102B;
+      line-height: 38px;
+    }
+
+    p {
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: normal;
+      color: #6E7080;
+    }
+  }
+
+  .connectItem {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    img {
+      width: 60px;
+      height: 60px;
+    }
+
+    p {
+      margin-left: 12px;
+      font-size: 18px;
+      color: #000000;
+    }
+  }
+}

@@ -1,53 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { PHeader } from '../Header';
-import { MaskImage } from '../List';
-import { getActivityProduction } from '../../../../api/primary';
-import { useTouchBottom } from '../../../../hooks';
-import './index.scss';
-import useWindowDimensions from '../../../../utils/layout';
+import React, { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { PHeader } from '../Header'
+import { MaskImage } from '../List'
+import { getActivityProduction } from '../../../../api/primary'
+import { useTouchBottom } from '../../../../hooks'
+import './index.scss'
+import useWindowDimensions from '../../../../utils/layout'
 
 export const MarketList = () => {
-  const { t } = useTranslation();
-  const { width } = useWindowDimensions();
-  const details: string = localStorage.getItem('details') ?? '';
-  const primaryObj = JSON.parse(details);
-  const history = useHistory();
-  const { id, status } = useParams() as any;
-  const [marketList, setMarketList] = useState<any[]>([]);
-  const size = 20;
-  const [page, setPage] = useState(1);
+  const { t } = useTranslation()
+  const { width } = useWindowDimensions()
+  const details: string = localStorage.getItem('details') ?? ''
+  const primaryObj = JSON.parse(details)
+  const history = useHistory()
+  const { id, status } = useParams() as any
+  const [marketList, setMarketList] = useState<any[]>([])
+  const size = 20
+  const [page, setPage] = useState(1)
   // 此处增加了一个变量用于保存 是否还有更多数据
-  const [isMore, setIsMore] = useState(true);
+  const [isMore, setIsMore] = useState(true)
   const filterItem = () => {
     return marketList.map((item: any) => {
       return {
         ...item,
         status: Number(item?.residueNum) === 0 && Number(item?.status) === 1 ? 3 : item?.status,
-      };
-    });
-  };
+      }
+    })
+  }
   const handleLoadMore = () => {
-    console.log(isMoreRef.current, 'isMoreRef.current');
+    console.log(isMoreRef.current, 'isMoreRef.current')
     if (isMoreRef.current) {
-      const newPage = pageRef.current + 1;
-      setPage(newPage);
+      const newPage = pageRef.current + 1
+      setPage(newPage)
     }
-  };
-  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, page, isMore);
+  }
+  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, page, isMore)
   useEffect(() => {
-    initList({ page, size });
-  }, [id, page]);
+    initList({ page, size })
+  }, [id, page])
   // 初始化列表
   const initList = async (data: any) => {
-    const res: any = await getActivityProduction(Number(id), data);
-    const dataList = res?.data?.records;
-    setPage(res?.data?.current);
-    setMarketList([...marketList, ...dataList]);
-    console.log(page, 'page');
+    const res: any = await getActivityProduction(Number(id), data)
+    const dataList = res?.data?.records
+    setPage(res?.data?.current)
+    setMarketList([...marketList, ...dataList])
+    console.log(page, 'page')
     if (page >= Math.ceil(res.data.total / size)) {
-      setIsMore(false);
+      setIsMore(false)
     }
     // 存储倒计时
     // const timeList = res.data.records.map((item: any) => {
@@ -60,12 +60,12 @@ export const MarketList = () => {
     //   };
     // });
     // localStorage.setItem('timeArr', JSON.stringify(timeList));
-  };
+  }
 
   const handleToDetails = (item: any) => {
-    const { nftId, blindBoxId } = item; // id 标识盲盒和nft
-    history.push(`/primary-details/${nftId}/${blindBoxId ? 1 : 0}`);
-  };
+    const { nftId, blindBoxId } = item // id 标识盲盒和nft
+    history.push(`/primary-details/${nftId}/${blindBoxId ? 1 : 0}`)
+  }
 
   return (
     <div className={`market-list-wrap`}>
@@ -84,7 +84,8 @@ export const MarketList = () => {
                       <h3>{item?.name + '#' + item?.tokenId}</h3>
                       <p>
                         {item?.blindBoxId !== 0 ? (
-                          <img src={require('../../../../assets/blind_box.svg')} className='blind_box'></img>
+                          <></>
+                          // <img src={require('../../../../assets/blind_box.svg')} className='blind_box'></img>
                         ) : (
                           <></>
                         )}
@@ -102,10 +103,10 @@ export const MarketList = () => {
                   {item?.status !== 1 ? <MaskImage status={item?.status} /> : <></>}
                 </li>
               </a>
-            );
+            )
           })}
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
