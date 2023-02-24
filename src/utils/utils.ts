@@ -207,7 +207,7 @@ export const wallets = [
   },
   {
     connector: walletconnect,
-    name: 'walletConnect',
+    name: 'WalletConnect',
     logoURI: require('../assets/coin/wallectConnect.png'),
     description: 'Easy-to-use browser extension.',
     href: null,

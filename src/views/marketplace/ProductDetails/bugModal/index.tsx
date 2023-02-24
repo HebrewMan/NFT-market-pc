@@ -87,6 +87,7 @@ const ReceiveModal: React.FC<any> = (props) => {
     if (!account) {
       return history.push(`/login`)
     }
+    return
     const Erc20ContractAddr = USDT.address || ''
     let approvedRes: any = undefined
     let fillOrderRes: any = undefined

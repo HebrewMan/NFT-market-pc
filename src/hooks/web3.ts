@@ -87,12 +87,12 @@ const connectMetaMask = () => {
 
 const connectWallet = () => {
   return new Promise((resolve, reject) => {
-    if (web3 === undefined) {
-      currWalletAddress = undefined;
-      const error = 'no wallet';
-      reject(error);
-      return;
-    }
+    // if (web3 === undefined) {
+    //   currWalletAddress = undefined;
+    //   const error = 'no wallet';
+    //   reject(error);
+    //   return;
+    // }
     web3?.eth
       ?.getAccounts()
       .then((accounts: string[]) => {
@@ -128,7 +128,7 @@ const useSignature = (account: string) => {
               if (token?.data) {
                 message.success(i18n.t('hint.loginSuccess'));
                 setLocalStorage('wallet', account);
-                removeCookie('web-token');
+                // removeCookie('web-token');
                 setCookie('web-token', token.data, 1);
                 history.push('/marketplace');
               }
@@ -136,8 +136,8 @@ const useSignature = (account: string) => {
           })
           .catch((err: any) => {
             console.log('signature error: ', err, account);
-            removeLocalStorage('wallet');
-            removeCookie('web-token');
+            // removeLocalStorage('wallet');
+            // removeCookie('web-token');
             history.push('/');
           });
       })

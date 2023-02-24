@@ -27,7 +27,9 @@ export const HeaderMenu = () => {
   const [lang, setLang] = useState('简体中文')
   const [connectVisible, setConnectVisible] = useState(false)
 
-  console.log(account, 'account')
+
+  // console.log(account, 'account')
+
   const items: MenuProps['items'] = [
     { key: Language.zh, label: '中文简体' },
     { key: Language.tw, label: '中文繁體' },
@@ -75,7 +77,18 @@ export const HeaderMenu = () => {
       window.location.reload()
     }
   }
-  const clearLogin = () => {
+  const clearLogin = async () => {
+    console.log(window.ethereum, 'ethereum')
+    removeLocalStorage('wallet')
+    removeCookie('web-token')
+    removeLocalStorage('walletName')
+    removeLocalStorage('provider')
+    if (localStorage.walletName == 'WalletConnect') await (window?.ethereum.provider?.disconnect())
+    history.push('/')
+
+    return
+    const ethereum = window.ethereum
+    console.log(ethereum, 'ethereum')
     removeLocalStorage('wallet')
     removeCookie('web-token')
     /**一定要加已登录的判断，因为此处“点击登录”之后会请求一遍，而后台登录代码会在此处代码之后执行，
@@ -85,32 +98,32 @@ export const HeaderMenu = () => {
       deactivate() // 退出时eth的wallet断开连接
     }
     // 取消强制跳转login
-    // history.push('/login');
+    history.push('/')
   }
 
   // t退出
   const getLogOut = () => {
-    $web3js.logOut(deactivate)
+    clearLogin()
+    // $web3js.logOut(deactivate)
   }
+
+  // 登录
   const getLogin = () => {
     // 已登录，点击退出
-    if (isLogin) {
-      $web3js.logOut(deactivate)
-    } else {
-      clearLogin()
-      if (!!deactivate) {
-        deactivate() // 退出时eth的wallet断开连接
-      }
-      history.push('/login')
-    }
+    setConnectVisible(true)
+    // if (isLogin) {
+    //   $web3js.logOut(deactivate)
+    // } else {
+    //   clearLogin()
+    //   if (!!deactivate) {
+    //     deactivate() // 退出时eth的wallet断开连接
+    //   }
+    //   history.push('/login')
+    // }
     // clearLogin()
     // history.push('/login')
   }
-  // 钱包登录
-  const getWalletLoin = () => {
-    console.log('fffff')
-    setConnectVisible(true)
-  }
+  // 获取用户信息
   useEffect(() => {
     if (!walletAccount || !token) {
       setIsLogin(false)
@@ -250,7 +263,7 @@ export const HeaderMenu = () => {
             )
         }
       </div>
-      {/* <ConnectModal visible={connectVisible} onCancel={() => setConnectVisible(false)} /> */}
+      {connectVisible && <ConnectModal visible={connectVisible} onCancel={() => setConnectVisible(false)} />}
     </div >
   )
 }
