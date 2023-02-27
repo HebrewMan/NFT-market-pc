@@ -92,7 +92,9 @@ export const HeaderMenu = () => {
   // t退出
   const getLogOut = () => {
     $web3js.logOut()
-    clearLogin()
+    setTimeout(() => {
+      clearLogin()
+    }, 200)
   }
 
   // 登录
