@@ -127,7 +127,7 @@ export const GatherEdit: React.FC<any> = () => {
     }
     if (!account || !token) {
       message.error(t('hint.pleaseLog'))
-      history.push('/login')
+      // history.push('/login')
       return
     }
     if (chainId !== 1319 && isProd) {

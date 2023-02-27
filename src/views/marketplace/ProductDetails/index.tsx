@@ -31,7 +31,7 @@ import { getNftDetail } from 'Src/api/marketPlace'
 export const ProductionDetails = () => {
   const web3 = useWeb3()
   const { t } = useTranslation()
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const { account } = useWeb3React()
@@ -172,7 +172,7 @@ export const ProductionDetails = () => {
   const getCancelSellOrder = async () => {
     if (!accountAddress || !token) {
       message.error(t('hint.switchMainnet'))
-      history.push('/login')
+      // history.push('/login')
       return
     }
     if (chainId !== 1319 && isProd) {

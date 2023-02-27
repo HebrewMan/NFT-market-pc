@@ -15,7 +15,7 @@ import TradingList from "Src/components/TradingList"
 export const Trading = (props: any) => {
   const { t } = useTranslation()
   const { tokenId, contractAddr } = props || {}
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId)
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
   const deepTradingHistoryData = tradingHistoryData

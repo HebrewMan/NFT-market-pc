@@ -28,7 +28,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const history = useHistory()
 	const account = getLocalStorage('wallet') || ''
 	const token = getCookie('web-token') || ''
-	const _chainId = window?.ethereum?.chainId
+	const _chainId = window.provider?.chainId
 	const chainId = parseInt(_chainId) //链id
 	const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -146,9 +146,11 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	}
 	// NFT上架     // 上架
 	const getSellOrder = async () => {
+		console.log(account, 'account')
+
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
-			history.push('/login')
+			// history.push('/login')
 			return
 		}
 		if (chainId !== 1319 && isProd) {
@@ -209,7 +211,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		}
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
-			history.push('/login')
+			// history.push('/login')
 			return
 		}
 		if (chainId !== 1319 && isProd) {
@@ -312,7 +314,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}
-			{props?.sellOrderFlag && <MessageModal visible={messageVisible} data={messageData} title={t('marketplace.details.successfullyLaunched')} />}
+			{(props?.sellOrderFlag && messageVisible) && <MessageModal visible={messageVisible} data={messageData} title={t('marketplace.details.successfullyLaunched')} />}
 
 		</div>
 	)

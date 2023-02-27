@@ -21,7 +21,7 @@ import './index.scss'
 export const ProDetails = (props: any) => {
   const web3: any = useWeb3()
   const { t } = useTranslation()
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId)
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155
   const primaryMarketPlaceContractAddr = (config as any)[chainId]?.PRIMARY_ADDRESS
@@ -199,7 +199,7 @@ export const ProDetails = (props: any) => {
 
     if (!account || !token || !Erc20ContractAddr) {
       message.error('Please log in first！')
-      history.push('/login')
+      // history.push('/login')
       return
     }
     if (chainId !== 1319 && isProd) {

@@ -7,6 +7,7 @@ import history from '../utils/history';
 import { injected } from '../utils/utils';
 import { isProd } from '../config/constants';
 import i18n from 'i18next';
+import { useHistory, useParams } from 'react-router-dom'
 declare global {
   interface Window {
     ethereum: any;
@@ -57,7 +58,7 @@ const getNetwork = () => {
 // 连接网络链路
 const connectMetaMask = () => {
   return new Promise((resolve, reject) => {
-    const ethereum = window?.ethereum;
+    const ethereum = window?.provider;
     if (ethereum) {
       try {
         // user auth
@@ -96,8 +97,18 @@ const onEthereumEvent = () => {
       if (!account) return;
       setLocalStorage('wallet',String(accounts))
       setLocalStorage('accountAddress',String(accounts))
+      // 如果当前路由是 用户中心页面
+      // 获取路由参数，更新参数
+      // 刷新页面
+      // if(window.location.pathname.indexOf('/account') != -1){
+      //    const history = useHistory()
+      //    history.push(`/account/0/${accounts}`)
+
+      // }
+      history.push('/')
       window.location.reload();
       
+
     });
 
     ethereum.on('chainChanged', (chainId: string) => {

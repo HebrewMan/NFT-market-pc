@@ -26,7 +26,7 @@ export const Supported_Wallets: WalletConnectorType[] = [
 
 export const IgnoredConnectErrors = ['NoEthereumProviderError', 't', 'UserRejectedRequestError'];
 
-export const hasWallet = () => Boolean(window?.ethereum);
+export const hasWallet = () => Boolean(window?.provider);
 
 export const WalletCache = {
   setType(value: WalletList) {
@@ -39,7 +39,7 @@ export const WalletCache = {
     localStorage.removeItem(WalletCacheKey);
   },
   getChain: () => {
-    const walletChain = parseInt(window?.ethereum?.chainId);
+    const walletChain = parseInt(window?.provider?.chainId);
     const cache = Number(localStorage.getItem(CHAIN_CACHE_KEY));
     let correctChain = INIT_CHAIN;
     // 连接了钱包 => 当前钱包链ID是否是项目支持的链 ? 取钱包iD : 到缓存里面找

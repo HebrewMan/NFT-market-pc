@@ -91,8 +91,8 @@ export const HeaderMenu = () => {
 
   // t退出
   const getLogOut = () => {
-    clearLogin()
     $web3js.logOut()
+    clearLogin()
   }
 
   // 登录
@@ -182,7 +182,7 @@ export const HeaderMenu = () => {
             (
               <div className='' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
                 <Link
-                  to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}
+                  to={token && walletAccount ? `/account/0/${walletAccount}` : `/`}
                   className={`account-menu ${dom === 'js-account' ? 'active' : ''}`}
                 >
                   <img src={accountImg} className='account-active' alt='' />

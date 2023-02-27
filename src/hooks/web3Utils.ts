@@ -12,10 +12,10 @@ import marketPlaceAitdV3Abi from '../config/abi/marketPlaceAitdV3.json';
 import marketPlaceAitdV2_1Abi from '../config/abi/marketPlaceAitdV2_1.json';
 import { ethers } from 'ethers';
 
-const _chainId = window?.ethereum?.chainId;
+const _chainId = window?.provider?.chainId;
 export const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
 
-export const hasWallet = () => Boolean(window?.ethereum);
+export const hasWallet = () => Boolean(window?.provider);
 
 export const getRpcUrl = (): string => {
   return (config as any)[chainId]?.RPC_URL;

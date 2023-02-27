@@ -8,7 +8,7 @@ import config from '../config/constants';
 const useWeb3 = () => {
   const { library } = useWeb3React();
   const refEth = useRef(library);
-  const _chainId = window?.ethereum?.chainId;
+  const _chainId = window?.provider?.chainId;
   const chainId = parseInt(_chainId);
   const rpcUrl = (config as any)[chainId]?.RPC_URL;
   const [web3, setWeb3] = useState(library ? new Web3(library) : getWeb3NoAccount(sample(rpcUrl)));

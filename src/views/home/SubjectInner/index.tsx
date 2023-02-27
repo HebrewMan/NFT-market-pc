@@ -10,6 +10,7 @@ import './index.scss'
 SwiperCore.use([EffectCards, Pagination])
 
 import { getHomePageBanner } from 'Src/api/index'
+import { message } from 'antd'
 const SwiperComm = (props: any) => {
   const { swiperList, setCurrentSwiperObject } = props
   const history = useHistory()
@@ -91,7 +92,8 @@ export const SubjectInner = () => {
     if (isLogin) {
       history.push(`/account/0/${walletAccount}`)
     } else {
-      history.push(`/login`)
+      message.error(t('hint.pleaseLog'))
+      // history.push(`/login`)
     }
   }
 

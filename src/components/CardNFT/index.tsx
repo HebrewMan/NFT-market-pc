@@ -27,7 +27,7 @@ const CardNFT: React.FC<any> = (props: PropsType) => {
   const web3 = useWeb3()
   const nftList = props.nftList || []
   const { owner = false, isCollect = false, handleItemChange } = props || {}
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const walletAccount: string = localStorage.getItem('wallet') || ''

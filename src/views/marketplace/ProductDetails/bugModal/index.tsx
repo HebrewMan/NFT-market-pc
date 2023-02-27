@@ -19,15 +19,13 @@ import { intlFloorFormat } from "Utils/bigNumber"
 import { values } from 'lodash'
 
 const ReceiveModal: React.FC<any> = (props) => {
-  console.log(props, 'props')
-
   const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()
   const { data } = props
   const { orderId, price, contractAddr, moneyAddr, tokenId, leftAmount, coin = 'AITD', marketAddr, contractType } = props.data
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId, 16)
   // const accountAddress = getLocalStorage('accountAddress')
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
@@ -80,7 +78,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   }
   // 买nft合约
   const getBuy = async () => {
-
+    console.log(marketPlaceContractAddr, 'marketPlaceContractAddr')
     // 未链接钱包
     if (!window.provider || !accountAddress || !token) {
       message.error(t('hint.pleaseLog'))

@@ -72,7 +72,7 @@ request.interceptors.response.use((response: any) => {
       removeLocalStorage('wallet');
       messageAntd.error(data?.message)
       setTimeout(() => {
-        history.push('/login');
+        history.push('/');
         window.location.reload()
       }, 2500)
     }else if(codeNum === 500){
