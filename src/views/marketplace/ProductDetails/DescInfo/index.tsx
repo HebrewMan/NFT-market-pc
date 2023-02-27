@@ -114,7 +114,6 @@ const ContentDetail = (props: any) => {
     instanceLoading.service()
     try {
       const cancelOrderRes = await cancelMarketItem(
-        web3,
         Number(item?.orderId),
         walletAccount,
         marketPlaceContractAddr,

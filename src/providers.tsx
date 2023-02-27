@@ -11,7 +11,7 @@ import { ConnectionRejectedError, ChainUnsupportedError, ConnectorUnsupportedErr
 import { getAccountIsContract, getBlockNumber, getNetworkName, pollEvery } from './utils'
 import { Spin } from 'antd'
 import { AppLayout } from './components/Layout'
-import store from './store/store'
+import { store } from 'Src/store'
 import $web3js from './hooks/web3'
 
 const UseWalletContext = React.createContext<WalletContext>(null)
@@ -234,7 +234,7 @@ function UseWalletProvider({
         // TODO: there is no way to prevent an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
         setConnector(connectorId)
-        await web3ReactContext.activate(web3ReactConnector, undefined, true)
+        // await web3ReactContext.activate(web3ReactConnector, undefined, true)
         setStatus('connected')
       } catch (err: any) {
         // Don’t throw if another connection has happened in the meantime.
@@ -291,12 +291,12 @@ function UseWalletProvider({
 
   useEffect(() => {
     // 监听账号和chainId变化
-    $web3js.onEthereumEvent(deactivate)
+    $web3js.onEthereumEvent()
   }, [])
 
   useEffect(() => {
     store.subscribe(() => {
-      setLoadingStatus(store.getState().loading)
+      setLoadingStatus(store.getState().load.loading)
     })
   }, [loadingStatus])
 

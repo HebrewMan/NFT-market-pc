@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next'
 import { Language } from '../../utils/enum'
 import { changeLanguage } from '../../utils/i18n'
 import ConnectModal from "Src/components/ConnectModal"
+import { store } from 'Src/store'
+import { setConnectModal } from 'Src/store/modules/global/action'
 
 export const HeaderMenu = () => {
   const { t, i18n } = useTranslation()
@@ -85,43 +87,17 @@ export const HeaderMenu = () => {
     removeLocalStorage('provider')
     if (localStorage.walletName == 'WalletConnect') await (window?.ethereum.provider?.disconnect())
     history.push('/')
-
-    return
-    const ethereum = window.ethereum
-    console.log(ethereum, 'ethereum')
-    removeLocalStorage('wallet')
-    removeCookie('web-token')
-    /**一定要加已登录的判断，因为此处“点击登录”之后会请求一遍，而后台登录代码会在此处代码之后执行，
-     * 导致walletAccount和token为空，然而此时却连接了钱包，使得!!deactivate为true,就会断开连接
-     */
-    if (!!deactivate && isLogin) {
-      deactivate() // 退出时eth的wallet断开连接
-    }
-    // 取消强制跳转login
-    history.push('/')
   }
 
   // t退出
   const getLogOut = () => {
     clearLogin()
-    // $web3js.logOut(deactivate)
+    $web3js.logOut()
   }
 
   // 登录
   const getLogin = () => {
-    // 已登录，点击退出
     setConnectVisible(true)
-    // if (isLogin) {
-    //   $web3js.logOut(deactivate)
-    // } else {
-    //   clearLogin()
-    //   if (!!deactivate) {
-    //     deactivate() // 退出时eth的wallet断开连接
-    //   }
-    //   history.push('/login')
-    // }
-    // clearLogin()
-    // history.push('/login')
   }
   // 获取用户信息
   useEffect(() => {

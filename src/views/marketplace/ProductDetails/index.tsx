@@ -182,7 +182,6 @@ export const ProductionDetails = () => {
     instanceLoading.service()
     try {
       const cancelOrderRes = await cancelMarketItem(
-        web3,
         Number(DetailData?.orderId),
         accountAddress,
         marketPlaceContractAddr,

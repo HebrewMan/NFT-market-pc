@@ -156,8 +156,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			return
 		}
 		const isApproval = isERC721
-			? await getERC711IsApproved(tokenId, marketPlaceContractAddr, web3)
-			: await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr, web3)
+			? await getERC711IsApproved(tokenId, marketPlaceContractAddr)
+			: await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr)
 		let approvalRes: any = undefined
 		let orderRes: any = undefined
 		const _price = updatePrice
@@ -166,8 +166,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		if (!isApproval) {
 			// ERC721 返回值为用户当前tokenid所授权的地址，如果未授权则返回 0x0000000000000000000000000000000000000000 地址
 			approvalRes = isERC721
-				? await getSetERC711ApprovalForAll(account, marketPlaceContractAddr, tokenId, contractAddr, web3)
-				: await getSetApprovalForAll(account, marketPlaceContractAddr, true, contractAddr, web3)
+				? await getSetERC711ApprovalForAll(account, marketPlaceContractAddr, tokenId, contractAddr)
+				: await getSetApprovalForAll(account, marketPlaceContractAddr, true, contractAddr)
 		}
 
 		// 已授权，调用上架合约
@@ -183,7 +183,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				amounts: defaultAmountNum,
 			}
 			try {
-				orderRes = await createMarketItem(web3, obj)
+				orderRes = await createMarketItem(obj)
 			} catch (error: any) {
 				instanceLoading.close()
 			}
@@ -218,7 +218,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		}
 		instanceLoading.service()
 		try {
-			const modifyPriceRes = await getModifyPrice(web3, obj)
+			const modifyPriceRes = await getModifyPrice(obj)
 			if (modifyPriceRes?.transactionHash) {
 				// 修改价格通知后台
 				const updateObj = {

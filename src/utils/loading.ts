@@ -1,5 +1,5 @@
-import { openLoading, closeLoading } from '../store/actions';
-import store from '../store/store';
+import { openLoading, closeLoading } from 'Src/store/modules/load/actions';
+import { store } from 'Src/store'
 const instanceLoading = {
   service: () => {
     store.dispatch(openLoading());

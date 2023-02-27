@@ -29,8 +29,9 @@ const ReceiveModal: React.FC<any> = (props) => {
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const _chainId = window?.ethereum?.chainId
   const chainId = parseInt(_chainId, 16)
+  // const accountAddress = getLocalStorage('accountAddress')
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
-  const { account } = useWeb3React()
+  // const { account } = useWeb3React()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subNum, setSubNum] = useState(1) //购买数量
   const [paymentPrice, setPaymentPrice] = useState(0)
@@ -79,15 +80,18 @@ const ReceiveModal: React.FC<any> = (props) => {
   }
   // 买nft合约
   const getBuy = async () => {
+
+    // 未链接钱包
+    if (!window.provider || !accountAddress || !token) {
+      message.error(t('hint.pleaseLog'))
+      return
+    }
+
     if (subNum > leftAmount) {
       message.error(t('marketplace.details.NFTAmount'))
       return
     }
-    // 未链接钱包跳转
-    if (!account) {
-      return history.push(`/login`)
-    }
-    return
+
     const Erc20ContractAddr = USDT.address || ''
     let approvedRes: any = undefined
     let fillOrderRes: any = undefined
@@ -106,12 +110,6 @@ const ReceiveModal: React.FC<any> = (props) => {
       amounts: subNum, // 购买数量
       coin: coin,
     }
-
-    if (!accountAddress || !token) {
-      message.error(t('hint.pleaseLog'))
-      history.push('/login')
-      return
-    }
     if (chainId !== 1319 && isProd) {
       message.error(t('hint.switchMainnet'))
       return
@@ -120,11 +118,11 @@ const ReceiveModal: React.FC<any> = (props) => {
     try {
       // 非原生币需要授权
       if (isAITD) {
-        fillOrderRes = await createMarketSale(web3, obj)
+        fillOrderRes = await createMarketSale(obj)
       } else {
 
         // 查看erc20是否已授权, 获取授权余额
-        const _allowance = await getIsApproved(accountAddress, marketPlaceContractAddr, Erc20ContractAddr, web3)
+        const _allowance = await getIsApproved(accountAddress, marketPlaceContractAddr, Erc20ContractAddr)
         allowance = Number(_allowance) - Number(price)
         if (allowance <= 0) {
           // 授权erc20 币种到市场合约
@@ -133,19 +131,16 @@ const ReceiveModal: React.FC<any> = (props) => {
             marketPlaceContractAddr,
             ethers.constants.MaxUint256,
             Erc20ContractAddr,
-            web3,
           )
         }
         if (allowance > 0 || !!approvedRes?.transactionHash) {
-          fillOrderRes = await createMarketSale(web3, obj)
+          fillOrderRes = await createMarketSale(obj)
         }
       }
       if (!!fillOrderRes?.transactionHash) {
         message.success(t('hint.purchaseSuccess'))
         setMessageVisible(true)
         setIsModalOpen(false)
-        // props?.onCancel()
-        // props?.updateGoods()
       }
       instanceLoading.close()
     } catch (error) {

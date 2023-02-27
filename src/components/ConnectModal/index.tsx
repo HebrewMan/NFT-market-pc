@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Button } from 'antd'
+import { Modal } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { useWeb3React } from '@web3-react/core'
 import useWeb3 from '../../hooks/useWeb3'
-import { removeCookie, removeLocalStorage, wallets, setCookie, setLocalStorage } from 'Utils/utils'
+import { setCookie, setLocalStorage } from 'Utils/utils'
 import { SwitchChainRequest, SupportedChain, hasWallet } from '../../utils/walletUtils'
 import WalletConnectProvider from "@walletconnect/web3-provider"
 import { providers } from 'ethers'
@@ -13,6 +12,7 @@ import { getNonce, login } from 'Src/api/index'
 import { message } from 'antd'
 import { isProd } from '../../config/constants'
 import Constants from '../../config/constants'
+
 const { INIT_CHAIN } = Constants
 const walletList = [
   {
@@ -82,9 +82,10 @@ const ConnectModal: React.FC<any> = (props) => {
       //check providers length
       if ((window as any).ethereum.providers?.length) {
         (window as any).ethereum.providers.forEach(async (p: any) => {
-          if (walletName == 'coinBase' && p.isCoinbaseWallet) singer = p
-          if (walletName == 'MetaMask' && p.isMetaMask) singer = p
-
+          (window as any).ethereum.providers.forEach(async (p: any) => {
+            if (walletName == 'coinBase' && p.isCoinbaseWallet) singer = p
+            if (walletName == 'MetaMask' && p.isMetaMask) singer = p
+          })
         })
       } else {
         singer = (window as any).ethereum
@@ -109,8 +110,12 @@ const ConnectModal: React.FC<any> = (props) => {
         .catch((err: any) => console.log(err))
 
       web3Provider = new providers.Web3Provider(singer)
+
     }
-    (window as any).provider = web3Provider?.provider
+    // (window as any).provider = web3Provider?.provider
+    (window as any).provider = web3Provider?.getSigner()
+    const addr = await (window as any).provider.getAddress()
+    localStorage.setItem('accountAddress', addr)
   }
 
   const signs = async (walletName: string, accounts: string, providers: any) => {
@@ -131,6 +136,8 @@ const ConnectModal: React.FC<any> = (props) => {
     setLocalStorage('walletName', walletName)
     login(accounts, signature).then((token: any) => {
       if (token?.data) {
+        // debugger
+        console.log((window as any).provider, '(window as any).provider')
 
         message.success(t('hint.loginSuccess'))
         onCancelClick()

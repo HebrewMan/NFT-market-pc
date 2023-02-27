@@ -136,7 +136,7 @@ export const GatherEdit: React.FC<any> = () => {
     }
     instanceLoading.service()
     try {
-      const modifyPriceRes = await setRoyaltyRateData(web3, obj)
+      const modifyPriceRes = await setRoyaltyRateData(obj)
       if (modifyPriceRes?.transactionHash) {
         // 设置成功之后 调用后端接口存数据
         setFormData()

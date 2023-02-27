@@ -30,7 +30,7 @@ export const Login = () => {
   // eth 调用签名
   const connectMetaMask = () => {
     // $web3js.connectMetaMask().then(() => {
-    $web3js.connectWallet().finally(() => { })
+    // $web3js.connectWallet().finally(() => { })
     // })
   }
 
