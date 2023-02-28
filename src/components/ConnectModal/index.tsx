@@ -142,8 +142,8 @@ export const ConnectModal: React.FC<any> = (props) => {
   return (
     <div className='contentWaper'>
       <div className='content-title'>
-        <h3>欢迎来到 Diffgalaxy</h3>
-        <p>连接你的钱包，开始使用</p>
+        <h3>{t('common.welcomeText')}</h3>
+        <p>{t('common.useWallet')}</p>
       </div>
       {walletList.map((item: any, index) => {
         return (

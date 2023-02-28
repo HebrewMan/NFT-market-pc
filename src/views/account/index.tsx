@@ -49,7 +49,7 @@ export const Account: React.FC<any> = () => {
       value: 'low',
     },
   ]
-  const tabsData = [t('account.collected'), t('account.favorited'), '交易记录']
+  const tabsData = [t('account.collected'), t('account.favorited'), t('account.activities')]
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
   const [accountInfo, setAccountInfo] = useState<accountInfoProps>({
     name: '',

@@ -44,7 +44,7 @@ export const Ranking = (props: any) => {
 
   const columns: any = [
     {
-      title: '集合系列',
+      title: t('ranking.collection'),
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: any, index: string) => {
@@ -57,7 +57,7 @@ export const Ranking = (props: any) => {
 
     },
     {
-      title: '地板价',
+      title: t('gather.priceFloor'),
       dataIndex: 'lowestPrice',
       key: 'lowestPrice',
       render: (t: string, r: any) => {
@@ -68,7 +68,7 @@ export const Ranking = (props: any) => {
       }
     },
     {
-      title: '1天交易量',
+      title: t('ranking.volume', { day: 1 }),
       dataIndex: 'day1totalTransaction',
       key: 'day1totalTransaction',
       render: (t: string, r: any) => {
@@ -79,7 +79,7 @@ export const Ranking = (props: any) => {
       }
     },
     {
-      title: '7天交易量',
+      title: t('ranking.volume', { day: 7 }),
       dataIndex: 'day7totalTransaction',
       key: 'day7totalTransaction',
       render: (t: string, r: any) => {
@@ -90,7 +90,7 @@ export const Ranking = (props: any) => {
       }
     },
     {
-      title: '30天交易量',
+      title: t('ranking.volume', { day: 30 }),
       dataIndex: 'day30totalTransaction',
       key: 'totalTransaction',
       render: (t: string, r: any) => {
@@ -101,7 +101,7 @@ export const Ranking = (props: any) => {
       }
     },
     {
-      title: '总交易量',
+      title: t('gather.totalVolume'),
       dataIndex: 'totalTransaction',
       key: 'totalTransaction',
       render: (t: string, r: any) => {
@@ -112,7 +112,7 @@ export const Ranking = (props: any) => {
       }
     },
     {
-      title: '挂单量',
+      title: t('ranking.listed'),
       dataIndex: 'totalOrder',
       key: 'totalOrder',
       render: (t: string, r: any) => {
@@ -120,7 +120,7 @@ export const Ranking = (props: any) => {
       }
     },
     {
-      title: '总数',
+      title: t('gather.totalNum'),
       dataIndex: 'totalTokens',
       key: 'totalTokens',
       render: (t: string, r: any) => {
