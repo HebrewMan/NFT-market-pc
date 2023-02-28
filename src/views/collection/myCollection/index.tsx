@@ -181,14 +181,14 @@ export const GatherList: React.FC<any> = () => {
                             <p>{t('gather.totalVolume')}</p>
                             <div className='num'>
                               <img src={aitdIcon} alt="" />
-                              <span>{NumUnitFormat(item.totalTransaction)}</span>
+                              <span>{NumUnitFormat(item?.totalTransaction)}</span>
                             </div>
                           </section>
                           <section>
                             <p>{t('gather.totalNum')}</p>
                             <div className='num'>
                               <img src={aitdIcon} alt="" />
-                              <span>{NumUnitFormat(item.totalTokens)}</span>
+                              <span>{NumUnitFormat(item?.totalTokens)}</span>
                             </div>
                           </section>
                         </div>

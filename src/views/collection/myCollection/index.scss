@@ -15,13 +15,15 @@
     display: flex;
     flex-wrap: wrap;
 
-    .cover {
+    .swiper-item {
       position: relative;
+    }
 
+    .cover {
       .editIcon {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 36px;
+        right: 36px;
         width: 22px !important;
         height: 22px !important;
         cursor: pointer;

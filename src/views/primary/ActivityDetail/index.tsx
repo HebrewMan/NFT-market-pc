@@ -12,10 +12,6 @@ export const ActivityDetail = () => {
   const history = useHistory()
   const [actityDetail, setActityDetail] = useState<any>({})
   const [primaryObj, setPrimaryObj] = useState<any>({})
-  // const [activeInfo, setActiveInfo] = useState<any>({})
-  // const localActityDetail: string = localStorage.getItem('actityDetail')
-  // const activeInfo = JSON.parse(localActityDetail)
-  // console.log(activeInfo,actityDetail, 'activeInfo')
 
   // 获取活动详情
   useEffect(() => {
@@ -30,9 +26,6 @@ export const ActivityDetail = () => {
       description: res.data.inRemark,
     }
     setActityDetail(res.data)
-    console.log(res.data, 'res.data')
-
-    // setActiveInfo(res.data)
     setPrimaryObj(info)
 
   }

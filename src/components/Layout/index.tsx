@@ -11,8 +11,6 @@ import { providers } from 'ethers'
 import './index.scss'
 
 export const AppLayout = React.memo((props: any) => {
-  const { width } = useWindowDimensions()
-  const { account, activate, active } = useWeb3React()
 
 
   useEffect(() => {
@@ -20,6 +18,8 @@ export const AppLayout = React.memo((props: any) => {
   }, [])
 
   const connectWallet = async () => {
+    console.log('刷新')
+
     const walletName = localStorage.getItem('walletName')
     let web3Provider
     if (walletName === 'WalletConnect') {

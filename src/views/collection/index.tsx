@@ -37,7 +37,6 @@ export const GatherDetail: React.FC<any> = (props) => {
   const [DetailData, setDetailData] = useState([])
   const [id, setId] = useState<string>('0')
   const [linkList, setLinkList] = useState<any>([])
-  const params = useParams()
   const queryList = [
     // 所有过滤条件
     {
@@ -66,6 +65,7 @@ export const GatherDetail: React.FC<any> = (props) => {
   useEffect(() => {
     // getList(id)
     getAccountInfoById(link)
+    setListData([])
   }, [link])
 
   useEffect(() => {

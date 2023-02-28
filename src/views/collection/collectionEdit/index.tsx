@@ -32,7 +32,7 @@ export const GatherEdit: React.FC<any> = () => {
   const { link: link } = useParams<{ link: string }>() // 路由参数id
   const account = getLocalStorage('wallet') || ''
   const token = getCookie('web-token') || ''
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId) //链id
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
   const [contractAddr, setContractAddr] = useState('')
@@ -41,7 +41,7 @@ export const GatherEdit: React.FC<any> = () => {
   const requireMsg = t('userSettings.required')
   const [id, setId] = useState<string>('0')
   const [formNmat, setFormNmat] = useState('')
-  const linkUrl = window.location.origin + '/gather-detail/'  //dev临时配置
+  const linkUrl = window.location.origin + '/collection/'  //dev临时配置
 
 
   useEffect(() => {
@@ -86,36 +86,26 @@ export const GatherEdit: React.FC<any> = () => {
       })
     }
   }
-  // 调用签名
-  const useSignature = (account: string) => {
-    const _web3 = Ethweb3 || new Web3(window?.ethereum)
-    if (!account) {
-      return
-    }
-    return new Promise(() => {
-      getNonce(account)
-        .then((sign: any) => {
-          _web3?.eth?.personal
-            ?.sign(sign.data, account)
-            .then((value: string) => {
-              // 版税 且 收款地址未改变，则不调用合约接口
-              if (form.getFieldValue('royaltyAddr') === initialRoyaltyAddr && Number(form.getFieldValue('royalty')) === initialRoyalty) {
-                setFormData()
-              } else {
-                // 设置版税
-                setRoyalty()
-              }
-            })
-            .catch((err: any) => {
-              // window.location.reload()
-            })
-        })
-        .catch((err: any) => {
-          // window.location.reload()
-        })
+  const useSignature = async (accounts: string) => {
+    const providers = window.provider
+    // 获取签名
+    const getNonces: any = await getNonce(accounts)
+    let signature = ''
+    signature = await providers.request({
+      method: "personal_sign",
+      params: [
+        web3.utils.fromUtf8(getNonces.data),
+        accounts
+      ]
     })
-  }
+    if (form.getFieldValue('royaltyAddr') === initialRoyaltyAddr && Number(form.getFieldValue('royalty')) === initialRoyalty) {
+      setFormData()
+    } else {
+      // 设置版税
+      setRoyalty()
+    }
 
+  }
   // 设置版税
   const setRoyalty = async () => {
     const obj = {
@@ -134,7 +124,7 @@ export const GatherEdit: React.FC<any> = () => {
       message.error(t('hint.switchMainnet'))
       return
     }
-    instanceLoading.service()
+    // instanceLoading.service()
     try {
       const modifyPriceRes = await setRoyaltyRateData(obj)
       if (modifyPriceRes?.transactionHash) {
@@ -142,9 +132,9 @@ export const GatherEdit: React.FC<any> = () => {
         setFormData()
       }
     } catch (error: any) {
-      instanceLoading.close()
+      // instanceLoading.close()
     }
-    instanceLoading.close()
+    // instanceLoading.close()
   }
   // 调接口 存数据
   const setFormData = () => {
@@ -161,9 +151,8 @@ export const GatherEdit: React.FC<any> = () => {
     editMyGatherList(data).then((res: any) => {
       if (res.code == 0) {
         message.success(t('gather.edit.editSucces'))
-        console.log("🚀 ~ file: index.tsx:165 ~ editMyGatherList ~ formNmat", formNmat)
         if (formNmat === 'list') {
-          history.push('/collection')
+          history.push('/account/collection')
         } else {
           history.push(`/collection/${form.getFieldValue('linkCollection')}`)
         }

@@ -34,9 +34,6 @@ export const ProductionDetails = () => {
   const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
-  const { account } = useWeb3React()
-  // const [tokenId, setTokenId] = useState<string>('') // token id
-  // const [userContractAddr, setUserContractAddr] = useState('') // nft 合约地址
   const [ownerAddr, setOwnerAddr] = useState('')
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const token = getCookie('web-token') || ''
@@ -129,7 +126,6 @@ export const ProductionDetails = () => {
 
   // 获取当前集合下更多的nft
   const getMoreCollection = async (id: string) => {
-    console.log(id, 'idid')
     const params = {
       data: {
         collectionId: id,
@@ -153,7 +149,7 @@ export const ProductionDetails = () => {
   }
   const isOwner = () => {
     // 连接钱包，并且拥有者=登录账户
-    return !!account && ownerAddr === accountAddress
+    return !!window.provider && ownerAddr === accountAddress
   }
 
   const isBuyNow = () => {
@@ -299,12 +295,24 @@ export const ProductionDetails = () => {
                   {collectiondata?.collectionName}
                 </p>
               </div>
-
-
               <div className='author'>
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
-                  <span>{t('marketplace.Owner')} {detailMetadata.contractType == 'ERC1155' && amountNum} {isOwner() ? ownerLink : ownerAddress}</span>
+                  {/* nft未上架 */}
+                  {orderData != null ?
+                    <span>
+                      {t('marketplace.Owner')}
+                      <span style={{ margin: "5px" }}>{detailMetadata.contractType == 'ERC1155' && amountNum}</span>
+                      {isOwner() ? ownerLink : ownerAddress}
+                    </span>
+                    :
+                    <span>
+                      {t('marketplace.Owner')}
+                      <Link to={`/account/0/${detailMetadata.belongToList[0]}`}>
+                        {detailMetadata.belongToList[0]?.substring(0, 6)}
+                      </Link>
+                    </span>
+                  }
                 </div>
               </div>
               <div className='buy'>
@@ -323,10 +331,6 @@ export const ProductionDetails = () => {
                 )}
                 {/* /上架售出 改价和下架  */}
                 {sellBtn()}
-                {/* */}
-                {/* <div className='wrapper-btn'>
-                  {cancelBtn()}
-                </div> */}
               </div>
             </div>
             {/* Description List */}

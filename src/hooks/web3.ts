@@ -100,15 +100,13 @@ const onEthereumEvent = () => {
       // 如果当前路由是 用户中心页面
       // 获取路由参数，更新参数
       // 刷新页面
-      // if(window.location.pathname.indexOf('/account') != -1){
-      //    const history = useHistory()
-      //    history.push(`/account/0/${accounts}`)
+      if(window.location.pathname.indexOf('/account') != -1){
+         history.push('/')
+        //  const history = useHistory()
+        //  history.push(`/account/0/${accounts}`)
 
-      // }
-      history.push('/')
+      }
       window.location.reload();
-      
-
     });
 
     ethereum.on('chainChanged', (chainId: string) => {

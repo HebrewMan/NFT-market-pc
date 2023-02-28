@@ -11,26 +11,19 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { Language } from '../../utils/enum'
 import { changeLanguage } from '../../utils/i18n'
-import ConnectModal from "Src/components/ConnectModal"
-import { store } from 'Src/store'
-import { setConnectModal } from 'Src/store/modules/global/action'
+import { showConnectModal } from "Src/components/ConnectModal"
 
 export const HeaderMenu = () => {
   const { t, i18n } = useTranslation()
-  const { account, active, deactivate } = useWeb3React()
   const history = useHistory()
   const [dom, setDom] = useState('')
   const token = getCookie('web-token') || ''
   const walletAccount = localStorage.getItem('wallet') || ''
-  const [showDropper, setShowDropper] = useState(false)
   const defaultImg = require('../../assets/account/default_header.png')
   const [accountImg, setAccountImg] = useState(defaultImg)
   const [isLogin, setIsLogin] = useState(false)
   const [lang, setLang] = useState('简体中文')
-  const [connectVisible, setConnectVisible] = useState(false)
 
-
-  // console.log(account, 'account')
 
   const items: MenuProps['items'] = [
     { key: Language.zh, label: '中文简体' },
@@ -80,13 +73,13 @@ export const HeaderMenu = () => {
     }
   }
   const clearLogin = async () => {
-    console.log(window.ethereum, 'ethereum')
     removeLocalStorage('wallet')
     removeCookie('web-token')
     removeLocalStorage('walletName')
     removeLocalStorage('provider')
     if (localStorage.walletName == 'WalletConnect') await (window?.ethereum.provider?.disconnect())
     history.push('/')
+    location.reload()
   }
 
   // t退出
@@ -99,21 +92,21 @@ export const HeaderMenu = () => {
 
   // 登录
   const getLogin = () => {
-    setConnectVisible(true)
+    showConnectModal(true)
   }
   // 获取用户信息
   useEffect(() => {
     if (!walletAccount || !token) {
       setIsLogin(false)
       setAccountImg(defaultImg)
-      clearLogin()
+
+      // clearLogin()
     } else {
       const getLoginUserInfo = async () => {
-        const res: any = await getAccountInfo(account?.toLocaleLowerCase() || walletAccount)
+        const res: any = await getAccountInfo(walletAccount)
         if (res.data) {
           localStorage.setItem('userInfo', JSON.stringify(res.data))
         }
-
         const imageUrl = res?.data?.imageUrl
         setIsLogin(true)
         if (!!imageUrl) {
@@ -124,7 +117,7 @@ export const HeaderMenu = () => {
       }
       getLoginUserInfo()
     }
-  }, [walletAccount, token, account?.toLocaleLowerCase()])
+  }, [walletAccount, token])
 
   const menuProps = {
     items,
@@ -177,7 +170,6 @@ export const HeaderMenu = () => {
         {
           !token && !walletAccount ? (
             <Button type='primary' className='linkWallet' onClick={getLogin}>
-              {/* <img className='language-img' src={require('Src/assets/common/linkWallet.png')} alt='language' /> */}
               {t('nav.cnnectWallet')}
             </Button>
           ) :
@@ -193,7 +185,7 @@ export const HeaderMenu = () => {
                 {dom === 'js-account' ? (
                   <div
                     id='js-account'
-                    className={`tippy-box ${dom === 'js-account' ? 'opacity' : ''}`}
+                    className={`tippy-box ${dom === 'js-account' ? 'opacity' : 'opacity'}`}
                     onMouseLeave={() => hideMenu()}
                     onMouseOver={() => showMenu('js-account')}
                   >
@@ -241,7 +233,6 @@ export const HeaderMenu = () => {
             )
         }
       </div>
-      {connectVisible && <ConnectModal visible={connectVisible} onCancel={() => setConnectVisible(false)} />}
     </div >
   )
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Modal } from 'antd'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
 import useWeb3 from '../../hooks/useWeb3'
 import { setCookie, setLocalStorage } from 'Utils/utils'
 import { SwitchChainRequest, SupportedChain, hasWallet } from '../../utils/walletUtils'
@@ -12,7 +11,8 @@ import { getNonce, login } from 'Src/api/index'
 import { message } from 'antd'
 import { isProd } from '../../config/constants'
 import Constants from '../../config/constants'
-
+import history from 'Utils/history'
+const { confirm } = Modal
 const { INIT_CHAIN } = Constants
 const walletList = [
   {
@@ -29,11 +29,10 @@ const walletList = [
   },
 ]
 
-const ConnectModal: React.FC<any> = (props) => {
+export const ConnectModal: React.FC<any> = (props) => {
   const { onCancel } = props
   const { t } = useTranslation()
   const web3 = useWeb3()
-  const history = useHistory()
 
 
   const onCancelClick = () => {
@@ -79,13 +78,10 @@ const ConnectModal: React.FC<any> = (props) => {
 
 
     } else {
-      //check providers length
       if ((window as any).ethereum.providers?.length) {
         (window as any).ethereum.providers.forEach(async (p: any) => {
-          (window as any).ethereum.providers.forEach(async (p: any) => {
-            if (walletName == 'coinBase' && p.isCoinbaseWallet) singer = p
-            if (walletName == 'MetaMask' && p.isMetaMask) singer = p
-          })
+          if (walletName == 'coinBase' && p.isCoinbaseWallet) singer = p
+          if (walletName == 'MetaMask' && p.isMetaMask) singer = p
         })
       } else {
         singer = (window as any).ethereum
@@ -112,7 +108,6 @@ const ConnectModal: React.FC<any> = (props) => {
       web3Provider = new providers.Web3Provider(singer)
 
     }
-    // (window as any).provider = web3Provider?.provider
     (window as any).provider = web3Provider?.getSigner()
     const addr = await (window as any).provider.getAddress()
     localStorage.setItem('accountAddress', addr)
@@ -136,36 +131,51 @@ const ConnectModal: React.FC<any> = (props) => {
     setLocalStorage('walletName', walletName)
     login(accounts, signature).then((token: any) => {
       if (token?.data) {
-        // debugger
-        console.log((window as any).provider, '(window as any).provider')
-
         message.success(t('hint.loginSuccess'))
         onCancelClick()
         setLocalStorage('wallet', accounts)
         setCookie('web-token', token.data, 1)
         location.reload()
-        // history.push('/marketplace')
       }
     })
   }
   return (
-    <Modal title='' open={props?.visible} footer={null} onCancel={onCancelClick} closable={true}>
-      <div className='contentWaper'>
-        <div className='content-title'>
-          <h3>欢迎来到 Diffgalaxy</h3>
-          <p>连接你的钱包，开始使用</p>
-        </div>
-        {walletList.map((item: any, index) => {
-          return (
-            <div className='connectItem' key={index} onClick={() => connectWallets(item.name)}>
-              <img src={item.logo} alt="" />
-              <p>{item.name}</p>
-            </div>
-          )
-        })
-        }
+    <div className='contentWaper'>
+      <div className='content-title'>
+        <h3>欢迎来到 Diffgalaxy</h3>
+        <p>连接你的钱包，开始使用</p>
       </div>
-    </Modal>
+      {walletList.map((item: any, index) => {
+        return (
+          <div className='connectItem' key={index} onClick={() => connectWallets(item.name)}>
+            <img src={item.logo} alt="" />
+            <p>{item.name}</p>
+          </div>
+        )
+      })
+      }
+    </div>
   )
 }
-export default ConnectModal
+// export default ConnectModal
+export const showConnectModal = (visible = false) => {
+  confirm({
+    wrapClassName: 'connect-modal',
+    title: ' ',
+    width: 585,
+    centered: true,
+    closable: true,
+    closeIcon: <img src={require('Src/assets/close.svg')} />,
+    content: (
+      <>
+        <ConnectModal />
+      </>
+    ),
+
+
+    onCancel() {
+      // 登录过期强制登录, 否则返回首页
+      visible && history.push('/')
+    },
+  })
+}

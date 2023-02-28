@@ -16,10 +16,9 @@ import { createMarketSale } from 'Src/hooks/marketplace'
 import { getApproval, getIsApproved } from 'Src/hooks/web3Utils'
 import MessageModal from '../MessageModal'
 import { intlFloorFormat } from "Utils/bigNumber"
-import { values } from 'lodash'
+import { showConnectModal } from "Src/components/ConnectModal"
 
 const ReceiveModal: React.FC<any> = (props) => {
-  const web3 = useWeb3()
   const { t } = useTranslation()
   const history = useHistory()
   const { data } = props
@@ -27,9 +26,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId, 16)
-  // const accountAddress = getLocalStorage('accountAddress')
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
-  // const { account } = useWeb3React()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subNum, setSubNum] = useState(1) //购买数量
   const [paymentPrice, setPaymentPrice] = useState(0)
@@ -61,6 +58,8 @@ const ReceiveModal: React.FC<any> = (props) => {
 
   // 增加
   const increase = () => {
+    if (subNum > leftAmount) {
+    }
     if (subNum >= 0) {
       setSubNum(subNum + 1)
     }
@@ -78,10 +77,10 @@ const ReceiveModal: React.FC<any> = (props) => {
   }
   // 买nft合约
   const getBuy = async () => {
-    console.log(marketPlaceContractAddr, 'marketPlaceContractAddr')
     // 未链接钱包
     if (!window.provider || !accountAddress || !token) {
       message.error(t('hint.pleaseLog'))
+      showConnectModal(true)
       return
     }
 
@@ -142,7 +141,6 @@ const ReceiveModal: React.FC<any> = (props) => {
       }
       instanceLoading.close()
     } catch (error) {
-      console.log('baocuo')
       props?.onCancel()
       instanceLoading.close()
     }
@@ -167,13 +165,13 @@ const ReceiveModal: React.FC<any> = (props) => {
         {/* 如果合约是1155 才显示数量 */}
         {data?.contractType === 'ERC1155' && (
           <div className='numberWaper'>
-            <div onClick={decrease}>
+            <button onClick={decrease} disabled={subNum <= 1 ? true : false}>
               <img src={decreaseImg} alt='' />
-            </div>
+            </button>
             <input type='text' className='num_box' value={subNum} onChange={inputChange} />
-            <div onClick={increase}>
+            <button onClick={increase} disabled={subNum > leftAmount ? true : false}>
               <img src={increaseImg} alt='' />
-            </div>
+            </button>
           </div>
         )}
 

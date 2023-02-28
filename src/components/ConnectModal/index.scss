@@ -2,15 +2,15 @@
   .content-title {
     h3 {
       font-size: 32px;
-      font-weight: normal;
       color: #0E102B;
       line-height: 38px;
+      font-weight: 500;
     }
 
     p {
       margin-top: 8px;
       font-size: 18px;
-      font-weight: normal;
+      font-weight: 500;
       color: #6E7080;
     }
   }
@@ -33,5 +33,13 @@
       font-size: 18px;
       color: #000000;
     }
+  }
+}
+
+.connect-modal {
+
+  .anticon,
+  .ant-modal-confirm-btns {
+    display: none;
   }
 }

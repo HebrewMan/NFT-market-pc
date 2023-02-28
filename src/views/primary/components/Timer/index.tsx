@@ -8,7 +8,6 @@ export const CommTimer = (props: any) => {
   const { t } = useTranslation()
   const { width } = useWindowDimensions()
   const { activityStatus, isSoldOut, small, isBought, endTime } = props
-  console.log(props, 'props')
   const stamps = endTime[0] * 24 * 60 * 60 + endTime[1] * 60 * 60 + endTime[2] * 60 + endTime[3]
   let [timeStamp, setTimeStamp] = useState(stamps)
 

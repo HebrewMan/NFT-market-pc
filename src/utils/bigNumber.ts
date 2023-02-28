@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import _ from 'lodash'
+import _, { toNumber } from 'lodash'
 
 type IType = string | BigNumber | number;
 type ITypeArr = IType[];
@@ -137,10 +137,10 @@ export function coverage(num:any) {
    * @param num
    * @param precision 精度
    */
- export function NumUnitFormat(num: IType) {
-  if(num >= 10000){
+ export function NumUnitFormat(num:string) {
+  if(Number(num) >= 10000){
     num = Math.round(Number(num) / 1000) / 10 + 'w';
-  }else if (num >= 1000){
+  }else if (Number(num) >= 1000){
     num = Math.round(Number(num) / 100) / 10 + 'k';
   }
   return num

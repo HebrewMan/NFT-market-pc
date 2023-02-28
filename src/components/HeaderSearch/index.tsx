@@ -63,7 +63,7 @@ export const SelectGroup = () => {
       history.push(`/account/0/${userAddr}`)
     }
     else {
-      history.push(`/gather-detail/${linkCollection}`)
+      history.push(`/collection/${linkCollection}`)
     }
   }
   const handleSearch = debounce((value: string) => {

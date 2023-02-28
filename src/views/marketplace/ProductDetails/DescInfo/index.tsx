@@ -196,7 +196,7 @@ const ContentDetail = (props: any) => {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={false}
-          height={dataSource.length > 0 ? 225 : 300}
+          height={dataSource.length > 0 ? 230 : 300}
         >
           <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
             <Table
