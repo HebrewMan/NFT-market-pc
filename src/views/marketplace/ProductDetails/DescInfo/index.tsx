@@ -71,7 +71,7 @@ const ContentDetail = (props: any) => {
   const [DetailData, setDetailData] = useState([])
   const walletAccount = localStorage.getItem('wallet') || ''
   const token = getCookie('web-token') || ''
-  const chainId = parseInt(window?.ethereum?.chainId, 16)
+  const chainId = parseInt(window?.provider?.chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const [isOpen, setIsOpen] = useState(false)
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false)
@@ -104,7 +104,7 @@ const ContentDetail = (props: any) => {
   const getCancelSellOrder = async (item: any) => {
     if (!walletAccount || !token) {
       message.error(t('hint.switchMainnet'))
-      history.push('/login')
+      // history.push('/login')
       return
     }
     if (chainId !== 1319 && isProd) {
@@ -114,7 +114,6 @@ const ContentDetail = (props: any) => {
     instanceLoading.service()
     try {
       const cancelOrderRes = await cancelMarketItem(
-        web3,
         Number(item?.orderId),
         walletAccount,
         marketPlaceContractAddr,
@@ -240,7 +239,7 @@ const ContentDetail = (props: any) => {
       })
     return <div className='content-wrap properties'>{listItem()}</div>
   } else if (type === 2) {
-    const _chainId = window?.ethereum?.chainId
+    const _chainId = window?.provider?.chainId
     const chainId = parseInt(_chainId)
     const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
     return (

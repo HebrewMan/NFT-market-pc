@@ -12,10 +12,10 @@ import marketPlaceAitdV3Abi from '../config/abi/marketPlaceAitdV3.json';
 import marketPlaceAitdV2_1Abi from '../config/abi/marketPlaceAitdV2_1.json';
 import { ethers } from 'ethers';
 
-const _chainId = window?.ethereum?.chainId;
+const _chainId = window?.provider?.chainId;
 export const chainId = !isMobile ? parseInt(_chainId, 16) : parseInt(_chainId);
 
-export const hasWallet = () => Boolean(window?.ethereum);
+export const hasWallet = () => Boolean(window?.provider);
 
 export const getRpcUrl = (): string => {
   return (config as any)[chainId]?.RPC_URL;
@@ -32,44 +32,44 @@ export const getLibrary = (provider: any) => {
   return library;
 };
 
-export const getContract = (abi: any, addr: string, web3?: any) => {
-  // const _web3 = web3 || getWeb3NoAccount();
-  return new web3.eth.Contract(abi, addr);
+export const getContract = (abi: any, addr: string) => {
+  const _web = new Web3(window.provider);
+  return new _web.eth.Contract(abi, addr);
 };
 
 // marketPlace 合约
-export const getMarketPlaceContract = (marketPlaceContractAddr: string, web3?: Web3) => {
-  return getContract(MarketPlaceAbi.abi, marketPlaceContractAddr, web3);
+export const getMarketPlaceContract = (marketPlaceContractAddr: string) => {
+  return getContract(MarketPlaceAbi.abi, marketPlaceContractAddr);
 };
 
 // 一级市场marketPlace 合约
-export const getMarketPlacePrimaryContract = (marketPlaceContractAddr: string, web3?: Web3) => {
-  return getContract(MarketPlacePrimaryAbi.abi, marketPlaceContractAddr, web3);
+export const getMarketPlacePrimaryContract = (marketPlaceContractAddr: string) => {
+  return getContract(MarketPlacePrimaryAbi.abi, marketPlaceContractAddr);
 };
 
 // ERC1155合约
-export const getERC1155Contract = (Erc1155ContractAddr: string, web3?: Web3) => {
-  return getContract(ERC1155Abi.abi, Erc1155ContractAddr, web3);
+export const getERC1155Contract = (Erc1155ContractAddr: string) => {
+  return getContract(ERC1155Abi.abi, Erc1155ContractAddr);
 };
 
 // ERC20合约
-export const getERC20Contract = (Erc20ContractAddr: string, web3?: Web3) => {
-  return getContract(ERC20Abi.abi, Erc20ContractAddr, web3);
+export const getERC20Contract = (Erc20ContractAddr: string) => {
+  return getContract(ERC20Abi.abi, Erc20ContractAddr);
 };
 
 // V2.0.1版本新增合约
 // ERC721合约
-export const getERC721Contract = (Erc711ContractAddr: string, web3?: Web3) => {
-  return getContract(ERC721Abi.abi, Erc711ContractAddr, web3);
+export const getERC721Contract = (Erc711ContractAddr: string) => {
+  return getContract(ERC721Abi.abi, Erc711ContractAddr);
 };
 
 // 市场合约
-export const getMarketPlaceAitdV3Abi = (marketPlaceContractAddr: string, web3?: Web3) => {
-  return getContract(marketPlaceAitdV3Abi.abi, marketPlaceContractAddr, web3);
+export const getMarketPlaceAitdV3Abi = (marketPlaceContractAddr: string) => {
+  return getContract(marketPlaceAitdV3Abi.abi, marketPlaceContractAddr);
 };
 
-export const getMarketPlaceAitdV2_1Abi = (marketPlaceContractAddr: string, web3?: Web3) => {
-  return getContract(marketPlaceAitdV2_1Abi.abi, marketPlaceContractAddr, web3);
+export const getMarketPlaceAitdV2_1Abi = (marketPlaceContractAddr: string) => {
+  return getContract(marketPlaceAitdV2_1Abi.abi, marketPlaceContractAddr);
 };
 
 // erc1155授权
@@ -78,10 +78,9 @@ export const getSetApprovalForAll = async (
   operator: string,
   bool: boolean,
   Erc1155ContractAddr: string,
-  web3?: Web3,
 ) => {
   try {
-    const res = await getERC1155Contract(Erc1155ContractAddr, web3)
+    const res = await getERC1155Contract(Erc1155ContractAddr)
       .methods.setApprovalForAll(operator, bool)
       .send({ from: account });
     return res;
@@ -95,10 +94,9 @@ export const getIsApprovedForAll = async (
   owner: string,
   operator: boolean,
   Erc1155ContractAddr: string,
-  web3?: Web3,
 ) => {
   try {
-    const res = await getERC1155Contract(Erc1155ContractAddr, web3).methods.isApprovedForAll(owner, operator).call();
+    const res = await getERC1155Contract(Erc1155ContractAddr).methods.isApprovedForAll(owner, operator).call();
     return res;
   } catch (error) {
     console.log('error:::', error);
@@ -111,10 +109,9 @@ export const getApproval = async (
   operator: string,
   price: any,
   Erc20ContractAddr: string,
-  web3?: Web3,
 ) => {
   try {
-    const res = await getERC20Contract(Erc20ContractAddr, web3)
+    const res = await getERC20Contract(Erc20ContractAddr)
       .methods.approve(operator, price)
       .send({ from: account });
     return res;
@@ -124,9 +121,9 @@ export const getApproval = async (
 };
 
 // 查看erc20是否授权
-export const getIsApproved = async (owner: string, operator: boolean, Erc20ContractAddr: string, web3?: Web3) => {
+export const getIsApproved = async (owner: string, operator: boolean, Erc20ContractAddr: string) => {
   try {
-    const res = await getERC20Contract(Erc20ContractAddr, web3).methods.allowance(owner, operator).call();
+    const res = await getERC20Contract(Erc20ContractAddr).methods.allowance(owner, operator).call();
     return res;
   } catch (error) {
     console.log('error:::', error);
@@ -134,9 +131,9 @@ export const getIsApproved = async (owner: string, operator: boolean, Erc20Contr
 };
 
 // erc20查询账户余额
-export const getBalanceOf = async (Erc20ContractAddr: string, account: string, web3?: Web3) => {
+export const getBalanceOf = async (Erc20ContractAddr: string, account: string) => {
   try {
-    const res = await getERC20Contract(Erc20ContractAddr, web3).methods.balanceOf(account).call();
+    const res = await getERC20Contract(Erc20ContractAddr).methods.balanceOf(account).call();
     return res;
   } catch (error) {
     console.log('error:::', error);
@@ -148,11 +145,10 @@ export const getERC711IsApproved = async (
   // owner: string,
   // operator: boolean,
   tokenId: string,
-  Erc711ContractAddr: string,
-  web3?: Web3,
+  Erc711ContractAddr: string
 ) => {
   try {
-    const res = await getERC721Contract(Erc711ContractAddr, web3).methods.getApproved(tokenId).call();
+    const res = await getERC721Contract(Erc711ContractAddr).methods.getApproved(tokenId).call();
     return res;
   } catch (error) {
     console.log('error:::', error);
@@ -164,10 +160,9 @@ export const getSetERC711ApprovalForAll = async (
   operator: string,
   tokenId: string,
   Erc711ContractAddr: string,
-  web3?: Web3,
 ) => {
   try {
-    const res = await getERC721Contract(Erc711ContractAddr, web3)
+    const res = await getERC721Contract(Erc711ContractAddr)
       .methods.approve(operator, tokenId)
       .send({ from: account });
     return res;

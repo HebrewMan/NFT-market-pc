@@ -21,7 +21,7 @@ import './index.scss'
 export const ProDetails = (props: any) => {
   const web3: any = useWeb3()
   const { t } = useTranslation()
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId)
   const Erc1155ContractAddr = (config as any)[chainId]?.ERC1155
   const primaryMarketPlaceContractAddr = (config as any)[chainId]?.PRIMARY_ADDRESS
@@ -199,7 +199,7 @@ export const ProDetails = (props: any) => {
 
     if (!account || !token || !Erc20ContractAddr) {
       message.error('Please log in first！')
-      history.push('/login')
+      history.push('/')
       return
     }
     if (chainId !== 1319 && isProd) {
@@ -209,7 +209,7 @@ export const ProDetails = (props: any) => {
     instanceLoading.service()
     try {
       // 查看是否已授权
-      const _allowance = await getIsApproved(account, primaryMarketPlaceContractAddr, Erc20ContractAddr, web3)
+      const _allowance = await getIsApproved(account, primaryMarketPlaceContractAddr, Erc20ContractAddr)
       allowance = Number(_allowance) - Number(_price)
       if (allowance <= 0) {
         // 授权erc20 币种到市场合约
@@ -218,11 +218,10 @@ export const ProDetails = (props: any) => {
           primaryMarketPlaceContractAddr,
           ethers.constants.MaxUint256,
           Erc20ContractAddr,
-          web3,
         )
       }
       if (allowance > 0 || !!approvedRes?.transactionHash) {
-        fillOrderRes = await createMarketSaleWithTokenErc1155(web3, obj)
+        fillOrderRes = await createMarketSaleWithTokenErc1155(obj)
       }
 
       if (!!fillOrderRes?.transactionHash) {

@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 const messageModal: React.FC<any> = (props) => {
   const { t } = useTranslation()
   const history = useHistory()
+  console.log(props, 'props')
   const { tokenId, collectionName, imageUrl, name } = props?.data
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const walletAccount: string = localStorage.getItem('wallet') || ''
@@ -26,7 +27,7 @@ const messageModal: React.FC<any> = (props) => {
     }
   }
   return (
-    <Modal title='' visible={isModalOpen} footer={null} onCancel={onCancel} closable={false}>
+    <Modal title='' open={isModalOpen} footer={null} onCancel={onCancel} closable={false}>
       <div className='contentWaper'>
         <div className='datatTitle'>{props?.title}</div>
         <div className='info'>

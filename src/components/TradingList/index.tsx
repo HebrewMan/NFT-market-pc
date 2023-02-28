@@ -38,7 +38,7 @@ export const TradingList = (props: any) => {
   const { handleMoreChange, total = 0 } = props || {}
   const { t } = useTranslation()
   const history = useHistory()
-  const _chainId = window?.ethereum?.chainId
+  const _chainId = window?.provider?.chainId
   const chainId = parseInt(_chainId)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])

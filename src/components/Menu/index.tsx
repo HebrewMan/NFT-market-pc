@@ -11,6 +11,9 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { Language } from '../../utils/enum'
 import { changeLanguage } from '../../utils/i18n'
+import ConnectModal from "Src/components/ConnectModal"
+import { store } from 'Src/store'
+import { setConnectModal } from 'Src/store/modules/global/action'
 
 export const HeaderMenu = () => {
   const { t, i18n } = useTranslation()
@@ -24,6 +27,10 @@ export const HeaderMenu = () => {
   const [accountImg, setAccountImg] = useState(defaultImg)
   const [isLogin, setIsLogin] = useState(false)
   const [lang, setLang] = useState('简体中文')
+  const [connectVisible, setConnectVisible] = useState(false)
+
+
+  // console.log(account, 'account')
 
   const items: MenuProps['items'] = [
     { key: Language.zh, label: '中文简体' },
@@ -61,7 +68,6 @@ export const HeaderMenu = () => {
     /**
       有的路由要刷新当前页面，因为页面里用了ui组件 必须要刷新 文案才会更新
     */
-    console.log(window.location.pathname, 'window.location.pathname')
     const listPath = [
       "/marketplace",
       "/helpcenter",
@@ -73,30 +79,29 @@ export const HeaderMenu = () => {
       window.location.reload()
     }
   }
-  const clearLogin = () => {
+  const clearLogin = async () => {
+    console.log(window.ethereum, 'ethereum')
     removeLocalStorage('wallet')
     removeCookie('web-token')
-    /**一定要加已登录的判断，因为此处“点击登录”之后会请求一遍，而后台登录代码会在此处代码之后执行，
-     * 导致walletAccount和token为空，然而此时却连接了钱包，使得!!deactivate为true,就会断开连接
-     */
-    if (!!deactivate && isLogin) {
-      deactivate() // 退出时eth的wallet断开连接
-    }
-    // 取消强制跳转login
-    // history.push('/login');
+    removeLocalStorage('walletName')
+    removeLocalStorage('provider')
+    if (localStorage.walletName == 'WalletConnect') await (window?.ethereum.provider?.disconnect())
+    history.push('/')
   }
+
+  // t退出
   const getLogOut = () => {
-    // 已登录，点击退出
-    if (isLogin) {
-      $web3js.logOut(deactivate)
-    } else {
+    $web3js.logOut()
+    setTimeout(() => {
       clearLogin()
-      if (!!deactivate) {
-        deactivate() // 退出时eth的wallet断开连接
-      }
-      history.push('/login')
-    }
+    }, 200)
   }
+
+  // 登录
+  const getLogin = () => {
+    setConnectVisible(true)
+  }
+  // 获取用户信息
   useEffect(() => {
     if (!walletAccount || !token) {
       setIsLogin(false)
@@ -171,7 +176,7 @@ export const HeaderMenu = () => {
         {/* 已登录显示菜单 */}
         {
           !token && !walletAccount ? (
-            <Button type='primary' className='linkWallet' onClick={getLogOut}>
+            <Button type='primary' className='linkWallet' onClick={getLogin}>
               {/* <img className='language-img' src={require('Src/assets/common/linkWallet.png')} alt='language' /> */}
               {t('nav.cnnectWallet')}
             </Button>
@@ -179,7 +184,7 @@ export const HeaderMenu = () => {
             (
               <div className='' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
                 <Link
-                  to={token && walletAccount ? `/account/0/${walletAccount}` : `/login`}
+                  to={token && walletAccount ? `/account/0/${walletAccount}` : `/`}
                   className={`account-menu ${dom === 'js-account' ? 'active' : ''}`}
                 >
                   <img src={accountImg} className='account-active' alt='' />
@@ -222,7 +227,7 @@ export const HeaderMenu = () => {
                           <a onClick={getLogOut}>
                             <img src={require('Src/assets/common/account-log-out.png')} alt='' />
                             <div className='txt'>
-                              <span>{isLogin ? t('nav.loginOut') : t('nav.login')}</span>
+                              <span>{t('nav.loginOut')}</span>
                             </div>
                           </a>
                         </li>
@@ -235,22 +240,8 @@ export const HeaderMenu = () => {
               </div>
             )
         }
-
-
-
-        {/* <div className='item'>
-          <button className='wallet-menu' type='button' onClick={() => setShowDropper(!showDropper)}>
-            <img src={require('../../assets/wallet-active.svg')} className='wallet-active' alt='' />
-          </button>
-        </div>
-
-        <div
-          className={`dropper ${showDropper ? 'dropper-actived' : 'dropper-none'}`}
-          onClick={() => setShowDropper(false)}
-        >
-          <Slider showDropper={showDropper} />
-        </div> */}
       </div>
-    </div>
+      {connectVisible && <ConnectModal visible={connectVisible} onCancel={() => setConnectVisible(false)} />}
+    </div >
   )
 }

@@ -28,7 +28,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const history = useHistory()
 	const account = getLocalStorage('wallet') || ''
 	const token = getCookie('web-token') || ''
-	const _chainId = window?.ethereum?.chainId
+	const _chainId = window.provider?.chainId
 	const chainId = parseInt(_chainId) //链id
 	const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -146,9 +146,11 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	}
 	// NFT上架     // 上架
 	const getSellOrder = async () => {
+		console.log(account, 'account')
+
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
-			history.push('/login')
+			// history.push('/login')
 			return
 		}
 		if (chainId !== 1319 && isProd) {
@@ -156,8 +158,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			return
 		}
 		const isApproval = isERC721
-			? await getERC711IsApproved(tokenId, marketPlaceContractAddr, web3)
-			: await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr, web3)
+			? await getERC711IsApproved(tokenId, marketPlaceContractAddr)
+			: await getIsApprovedForAll(account, marketPlaceContractAddr, contractAddr)
 		let approvalRes: any = undefined
 		let orderRes: any = undefined
 		const _price = updatePrice
@@ -166,8 +168,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		if (!isApproval) {
 			// ERC721 返回值为用户当前tokenid所授权的地址，如果未授权则返回 0x0000000000000000000000000000000000000000 地址
 			approvalRes = isERC721
-				? await getSetERC711ApprovalForAll(account, marketPlaceContractAddr, tokenId, contractAddr, web3)
-				: await getSetApprovalForAll(account, marketPlaceContractAddr, true, contractAddr, web3)
+				? await getSetERC711ApprovalForAll(account, marketPlaceContractAddr, tokenId, contractAddr)
+				: await getSetApprovalForAll(account, marketPlaceContractAddr, true, contractAddr)
 		}
 
 		// 已授权，调用上架合约
@@ -183,7 +185,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				amounts: defaultAmountNum,
 			}
 			try {
-				orderRes = await createMarketItem(web3, obj)
+				orderRes = await createMarketItem(obj)
 			} catch (error: any) {
 				instanceLoading.close()
 			}
@@ -209,7 +211,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		}
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
-			history.push('/login')
+			// history.push('/login')
 			return
 		}
 		if (chainId !== 1319 && isProd) {
@@ -218,7 +220,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		}
 		instanceLoading.service()
 		try {
-			const modifyPriceRes = await getModifyPrice(web3, obj)
+			const modifyPriceRes = await getModifyPrice(obj)
 			if (modifyPriceRes?.transactionHash) {
 				// 修改价格通知后台
 				const updateObj = {
@@ -312,7 +314,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}
-			{props?.sellOrderFlag && <MessageModal visible={messageVisible} data={messageData} title={t('marketplace.details.successfullyLaunched')} />}
+			{(props?.sellOrderFlag && messageVisible) && <MessageModal visible={messageVisible} data={messageData} title={t('marketplace.details.successfullyLaunched')} />}
 
 		</div>
 	)

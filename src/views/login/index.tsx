@@ -4,32 +4,35 @@ import { useTranslation } from 'react-i18next'
 // import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import { removeCookie, removeLocalStorage } from '../../utils/utils'
+import { removeCookie, removeLocalStorage, wallets, setCookie, setLocalStorage } from '../../utils/utils'
 import $web3js from '../../hooks/web3'
-import { wallets } from '../../../src/utils/utils'
 import useWeb3 from '../../hooks/useWeb3'
 import { SwitchChainRequest, SupportedChain, hasWallet } from '../../utils/walletUtils'
 import Constants from '../../config/constants'
 import { chainId } from '../../hooks/web3Utils'
 import { isProd } from '../../config/constants'
 import './index.scss'
-
-const { INIT_CHAIN } = Constants
+import WalletConnectProvider from "@walletconnect/web3-provider"
+import { providers } from 'ethers'
+import { getNonce, login, logout } from 'Src/api/index'
+import { message } from 'antd'
+import Web3 from 'web3'
+import { values } from 'lodash'
+const { INIT_CHAIN, SUPPORTED_CHAINS } = Constants
+import { useHistory } from 'react-router-dom'
 
 export const Login = () => {
   const { t } = useTranslation()
+  const history = useHistory()
   // connector
-  const { active, account, activate, deactivate } = useWeb3React()
+  const { active, account, activate, deactivate, library } = useWeb3React()
   const web3 = useWeb3()
   // eth 调用签名
   const connectMetaMask = () => {
-    $web3js.connectMetaMask().then(() => {
-      $web3js.connectWallet().finally(() => { })
-    })
+    // $web3js.connectMetaMask().then(() => {
+    // $web3js.connectWallet().finally(() => { })
+    // })
   }
-
-  useEffect(() => {
-  }, [account])
 
   // 清空localStorage和cookie
   const clearLocalAndCookie = () => {
@@ -37,15 +40,16 @@ export const Login = () => {
     removeCookie('web-token')
   }
   const connectWallet = (walletInfo: any) => {
+    const { name } = walletInfo
     const { connector }: { connector: AbstractConnector | undefined } = walletInfo
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
     // && connector.walletConnectProvider?.wc?.uri
     if (connector instanceof WalletConnectConnector) {
       connector.walletConnectProvider = undefined
     }
-
     // eth钱包连接
     if (connector && !account) {
+      // activateInjectedProvider(name)
       activate(connector, undefined, true)
         .then(() => {
           clearLocalAndCookie()
@@ -71,6 +75,7 @@ export const Login = () => {
             // setPendingError(true)
           }
         })
+    } else {
     }
   }
   return (
@@ -81,7 +86,7 @@ export const Login = () => {
           <ul className='login-wallet'>
             {wallets.map((item) => {
               return (
-                <li key={item.name} onClick={() => connectWallet(item)}>
+                <li key={item.name} onClick={() => connectWallet(item.name)}>
                   <button>
                     <img src={item.logoURI} alt={`${item.name} logo`} />
                     <div>{item.name}</div>

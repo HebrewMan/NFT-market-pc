@@ -9,7 +9,6 @@ import { getRankingsList } from 'Src/api/rankings'
 
 const aitdIcon = require('Src/assets/coin/aitd.svg')
 export const Ranking = (props: any) => {
-  console.log(props, 'IPropsIProps')
   const { t } = useTranslation()
   const history = useHistory()
   const [paginationBoolean, setPaginationBoolean] = useState(false)
@@ -17,7 +16,6 @@ export const Ranking = (props: any) => {
   const [dataSource, setDataSource] = useState([])
 
   useEffect(() => {
-    console.log(props.paginationBoolean, 'paginationBoolean')
     setPaginationBoolean(props.paginationBoolean)
     initData(1)
   }, [props])

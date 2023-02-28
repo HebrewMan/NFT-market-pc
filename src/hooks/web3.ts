@@ -7,11 +7,13 @@ import history from '../utils/history';
 import { injected } from '../utils/utils';
 import { isProd } from '../config/constants';
 import i18n from 'i18next';
+import { useHistory, useParams } from 'react-router-dom'
 declare global {
   interface Window {
     ethereum: any;
     web3: any;
     menuTimer: any;
+    provider: any;
   }
 }
 
@@ -56,7 +58,7 @@ const getNetwork = () => {
 // 连接网络链路
 const connectMetaMask = () => {
   return new Promise((resolve, reject) => {
-    const ethereum = window?.ethereum;
+    const ethereum = window?.provider;
     if (ethereum) {
       try {
         // user auth
@@ -85,91 +87,36 @@ const connectMetaMask = () => {
   });
 };
 
-const connectWallet = () => {
-  return new Promise((resolve, reject) => {
-    if (web3 === undefined) {
-      currWalletAddress = undefined;
-      const error = 'no wallet';
-      reject(error);
-      return;
-    }
-    web3?.eth
-      ?.getAccounts()
-      .then((accounts: string[]) => {
-        if (accounts.length > 0) {
-          currWalletAddress = accounts[0].toLowerCase();
-          useSignature(currWalletAddress);
-        } else {
-          currWalletAddress = undefined;
-        }
-        resolve(currWalletAddress);
-      })
-      .catch((err: any) => {
-        currWalletAddress = undefined;
-        console.error('getAccounts error :' + err);
-        reject(err);
-      });
-  });
-};
-
-const useSignature = (account: string) => {
-  // const { t} = useTranslation()
-  const _web3 = web3 || new Web3(window?.ethereum);
-  if (!account) {
-    return;
-  }
-  return new Promise(() => {
-    getNonce(account)
-      .then((sign: any) => {
-        _web3?.eth?.personal
-          ?.sign(sign.data, account)
-          .then((value: string) => {
-            login(account, value).then((token: any) => {
-              if (token?.data) {
-                message.success(i18n.t('hint.loginSuccess'));
-                setLocalStorage('wallet', account);
-                removeCookie('web-token');
-                setCookie('web-token', token.data, 1);
-                history.push('/marketplace');
-              }
-            });
-          })
-          .catch((err: any) => {
-            console.log('signature error: ', err, account);
-            window.location.reload();
-          });
-      })
-      .catch((err: any) => {
-        console.log('nonce error: ', err);
-        window.location.reload();
-      });
-  });
-};
-
-const onEthereumEvent = (deactivate?: any) => {
-  // const { t} = useTranslation()
-  const ethereum = window?.ethereum;
+// 监听切换账号 ，链切换 账号切换
+const onEthereumEvent = () => {
+  const ethereum = window.provider;
   if (ethereum?.isMetaMask) {
     ethereum.on('accountsChanged', (accounts: string[]) => {
       // "accounts" will always be an array, but it can be empty.
       const account = accounts[0]?.toLowerCase();
       if (!account) return;
-      removeLocalStorage('wallet');
-      removeCookie('web-token');
-      // 切换账号跳转登录页
-      // useSignature(account);
+      setLocalStorage('wallet',String(accounts))
+      setLocalStorage('accountAddress',String(accounts))
+      // 如果当前路由是 用户中心页面
+      // 获取路由参数，更新参数
+      // 刷新页面
+      // if(window.location.pathname.indexOf('/account') != -1){
+      //    const history = useHistory()
+      //    history.push(`/account/0/${accounts}`)
+
+      // }
+      history.push('/')
+      window.location.reload();
       
-      history.push('/login');
+
     });
 
     ethereum.on('chainChanged', (chainId: string) => {
-      // Handle the new chain.
-      // getNetwork();
       const _chainId = parseInt(chainId);
       const supportedChainIds = injected.supportedChainIds;
       if (_chainId !== 1319 && isProd) {
         message.success(i18n.t('hint.switchMainnet'));
-        logOut(deactivate);
+        logOut();
       }
       // if (supportedChainIds?.includes(_chainId)) {
       //   logOut(deactivate);
@@ -178,35 +125,20 @@ const onEthereumEvent = (deactivate?: any) => {
   }
 };
 
-const logOut = (deactivate?: any) => {
+// 退出登录
+const logOut = () => {
   logout()
     .then((res: any) => {
       if (res?.message === 'success') {
         removeLocalStorage('wallet');
         removeCookie('web-token');
-        if (!!deactivate) {
-          deactivate(); // 退出时eth的wallet断开连接
-        }
-        history.push('/login');
-        // window.location.reload();
+        history.push('/');
       }
     })
-    .catch((err: any) => {
-      console.log('signature error: ', err);
-      if (!!deactivate) {
-        deactivate(); // 退出时eth的wallet断开连接
-      }
-      removeLocalStorage('wallet');
-      removeCookie('web-token');
-      history.push('/login');
-      // window.location.reload();
-    });
 };
 
 export default {
   onEthereumEvent,
   connectMetaMask,
-  connectWallet,
-  useSignature,
   logOut,
 };
