@@ -113,7 +113,7 @@ export const MarketPlace = () => {
     const tokenId = item?.tokenId
     const contractAddr = item?.contractAddr
     history.push({
-      pathname: "/product-details",
+      pathname: "/asset",
       state: { tokenId, contractAddr }
     })
   }

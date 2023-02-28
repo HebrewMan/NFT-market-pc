@@ -58,7 +58,6 @@ export const PList = () => {
   }
   // 触底加载
   const handleLoadMore = () => {
-    console.log(isMoreRef.current, 'isMoreRef.current')
     if (isMoreRef.current) {
       const newPage = pageRef.current + 1
       setPage(newPage)
@@ -71,7 +70,6 @@ export const PList = () => {
 
       // type 0.内部 1.外部
       if (item?.type == 1) {
-        localStorage.setItem('actityDetail', JSON.stringify(item))
         history.push({
           pathname: "/activityDetail",
           state: { id: item.id }

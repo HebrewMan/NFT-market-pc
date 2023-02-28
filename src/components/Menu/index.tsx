@@ -67,7 +67,7 @@ export const HeaderMenu = () => {
       "/helpcenter",
       '/activityDetail',
     ]
-    const product = window.location.pathname.indexOf('/product-details') != -1
+    const product = window.location.pathname.indexOf('/asset') != -1
     const account = window.location.pathname.indexOf('/account') != -1
     if (listPath.indexOf(window.location.pathname) != -1 || product || account) {
       window.location.reload()
@@ -203,7 +203,7 @@ export const HeaderMenu = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={`/account-collection`}>
+                          <Link to={`/account/collection`}>
                             <img src={require('Src/assets/common/account-my-collection.png')} alt='' />
                             <div className='txt'>
                               <span>{t('nav.myCollection')}</span>

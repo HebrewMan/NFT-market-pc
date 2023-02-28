@@ -11,7 +11,7 @@ import { intlFloorFormat, NumUnitFormat } from 'Utils/bigNumber'
 import AEmpty from "Src/components/Empty"
 import ListItem from 'Src/components/ListItem'
 import { formatTokenId, handleCopy } from 'Utils/utils'
-import { formatAdd } from '../../marketplace/utils'
+import { formatAdd } from '../marketplace/utils'
 import _ from 'lodash'
 import { getCollectionDetails } from 'Src/api/collection'
 import InfiniteScroll from "react-infinite-scroll-component"

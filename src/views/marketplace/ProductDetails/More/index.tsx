@@ -17,7 +17,7 @@ export const MoreCollects = (props: any) => {
   const handleJump = (item: any) => {
     window.location.reload()
     history.push({
-      pathname: "/product-details",
+      pathname: "/asset",
       state: { tokenId: item?.tokenId, contractAddr: item?.contractAddr }
     })
   }

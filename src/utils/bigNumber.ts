@@ -119,13 +119,13 @@ export function coverage(num:any) {
    */
    export function intlFloorFormat(num: IType, precision = 0): string | number {
     if (num === 0 || num == null || num == undefined) {
-      return '0.00'
+      return '--'
     }
     let result = ''
     let reg = new RegExp(`^\\d+(?:\\.\\d{0,${precision}})?`);
     let trimNum:any = num.toString().match(reg)
     if (trimNum == '0.0000') {
-      result =  '0.00'
+      result =  '--'
     }else{
       result = trimNum
     }

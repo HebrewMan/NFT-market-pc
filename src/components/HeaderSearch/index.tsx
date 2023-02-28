@@ -56,7 +56,7 @@ export const SelectGroup = () => {
     const { contractAddr, tokenId, userAddr, linkCollection } = optionValue
     if (tokenId) {
       history.push({
-        pathname: "/product-details",
+        pathname: "/asset",
         state: { tokenId, contractAddr }
       })
     } else if (userAddr) {

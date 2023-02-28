@@ -28,7 +28,7 @@ const SwiperComm = (props: any) => {
       case 3:
         const contractAddr = item?.nftMetadata.contractAddr
         const tokenId = item?.nftMetadata.tokenId
-        history.push({ pathname: "/product-details", state: { tokenId, contractAddr } })
+        history.push({ pathname: "/asset", state: { tokenId, contractAddr } })
         break
       default:
         break

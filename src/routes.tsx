@@ -17,9 +17,9 @@ import { HsHome } from './views/home'
 import history from './utils/history'
 import { Slider } from './components/Slider'
 import { ChainIds } from './config/constants'
-import { GatherList } from './views/account/myCollection'
-import { GatherDetail } from "./views/account/collection"
-import { GatherEdit } from "./views/account/collectionEdit"
+import { GatherList } from './views/collection/myCollection'
+import { GatherDetail } from "./views/collection"
+import { GatherEdit } from "./views/collection/collectionEdit"
 import { Privacy } from "./views/privacyPolicy"
 import ScrollTop from './components/ScrollTop'
 import { RankingView } from './views/ranking'
@@ -36,13 +36,13 @@ export function Routes() {
               <Route exact path='/marketplace' component={() => <MarketPlace />} />
               <Route exact path='/marketlist/:id?/:status?' component={() => <MarketList />} />
               <Route exact path='/activityDetail' component={() => <ActivityDetail />} />
-              <Route exact path='/product-details' component={() => <ProductionDetails />} />
+              <Route exact path='/asset' component={() => <ProductionDetails />} />
               <Route exact path='/helpcenter' component={() => <HelpCenter />} />
               <Route exact path='/article-type/:name/:id' component={() => <ArticleType />} />
               <Route exact path='/article-details/:id' component={() => <ArticleDetails />} />
               <Route exact path='/login' component={() => <Login />} />
+              <Route exact path='/account/collection' component={() => <GatherList />} />
               <Route exact path='/account/:id?/:address?' component={() => <Account />} />
-              <Route exact path='/account-collection' component={() => <GatherList />} />
               <Route exact path='/collection/:link' component={() => <GatherDetail />} />
               <Route exact path='/collection-edit/:link' component={() => <GatherEdit />} />
               <Route exact path='/privacy' component={() => <Privacy />} />

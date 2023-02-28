@@ -12,8 +12,10 @@ export const ActivityDetail = () => {
   const history = useHistory()
   const [actityDetail, setActityDetail] = useState<any>({})
   const [primaryObj, setPrimaryObj] = useState<any>({})
-  const localActityDetail: string = localStorage.getItem('actityDetail') ?? actityDetail
-  const activeInfo = JSON.parse(localActityDetail)
+  // const [activeInfo, setActiveInfo] = useState<any>({})
+  // const localActityDetail: string = localStorage.getItem('actityDetail')
+  // const activeInfo = JSON.parse(localActityDetail)
+  // console.log(activeInfo,actityDetail, 'activeInfo')
 
   // 获取活动详情
   useEffect(() => {
@@ -28,7 +30,11 @@ export const ActivityDetail = () => {
       description: res.data.inRemark,
     }
     setActityDetail(res.data)
+    console.log(res.data, 'res.data')
+
+    // setActiveInfo(res.data)
     setPrimaryObj(info)
+
   }
   const handleBuy = () => {
     if (actityDetail?.buyUrl) {
@@ -37,6 +43,8 @@ export const ActivityDetail = () => {
   }
 
   const getTimer = (row: any) => {
+    console.log(row, 'row')
+
     return row?.status === 3 || row?.status === 2 ? [] : row?.countdown
   }
 
@@ -47,11 +55,9 @@ export const ActivityDetail = () => {
           <img src={actityDetail?.backgroundUrl} alt='detail-bg' />
         </div>
         <div className='timer-box'>
-          {actityDetail && (
-            <div className='timer'>
-              <CommTimer activityStatus={Number(actityDetail?.status)} endTime={getTimer(activeInfo)} hiddenMore={true} />
-            </div>
-          )}
+          <div className='timer'>
+            {actityDetail?.status && <CommTimer activityStatus={actityDetail?.status} endTime={getTimer(actityDetail)} hiddenMore={true} />}
+          </div>
         </div>
         <PHeader primaryObj={primaryObj} />
         <div className='price-box'>
