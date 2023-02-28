@@ -27,14 +27,13 @@ export const Footer = () => {
           <img src={require('Src/assets/home/logo.svg')} width={132} height={40} alt='' />
         </div>
         <div className='footer-left'>
-          <div className='desc'>专注GameFi领域的NFT交易市场，您可以使用 Diffgalaxy 发现、出售、购买或创建独特的 NFT。</div>
-          {/* <div className='desc'>{t('footer.title')}</div> */}
+          <div className='desc'>{t('footer.title')}</div>
         </div>
         <div className='footer-right'>
           <div className='copyright'>{t('footer.copyright')}</div>
           <div className='links'>
             {/* <span>{t('footer.legal')}</span> */}
-            <span onClick={() => handleClick('help')}>{t('nav.help')}</span>
+            <span onClick={() => handleClick('help')}>{t('footer.legal')}</span>
             <span onClick={() => handleClick('service')}>{t('footer.service')}</span>
             <span onClick={() => handleClick('policy')}>{t('footer.policy')}</span>
           </div>

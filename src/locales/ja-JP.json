@@ -30,35 +30,34 @@
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://www.diffgalaxy.io</1>。",
   "home": {
-    "title": "Diffgalaxy NFT アセット トレーディング マーケットへようこそ",
-    "subtitle": "Diffgalaxy は NFT 取引を簡単にします。一緒に取引の楽しさを探りましょう",
-    "collection": "人気のコレクション",
+    "title": "GameFi分野のNFTトレーディング市場に注力",
+    "safeReliable":"安全で信頼できる",
+    "lowGasFee":"ガス代が安い",
+    "lowTradingFee":"手数料が安い",
+    "evnChains":"複数の EVM チェーン",
+    "collection": "今人気",
+    "tradingRanking":"取引ランキング",
+    "viewAll":"すべて見る",
+    "safeandReliable":"安全で信頼できる",
+    "safeReliableTips":"分散型設計であり、世界で最も分散型のブロックチェーン機能とスマート コントラクトのセキュリティと信頼性を継承しています。",
+    "ultraLowFee":"超低手数料",
+    "ultraLowFeeTips":"業界で最も低い取引手数料を設定し、ユーザーがNFTを取引するためのコストを大幅に削減します。",
+    "buildGameFi":"GameFi のために生まれた",
+    "buildGameFiTips":"GameFi 分野の NFT 資産取引に焦点を当てて、GameFi の未来につなげてください。",
+    "hiSkyText":"HiSky をはじめ、GameFi の未来をつなぎます。",
+    "startTrading":"取引開始",
     "searchCollections": "集合",
     "searchItems": "項",
-    "searchAccount": "アカウント",
-    "assets": {
-      "title": "NFT 資産の売買",
-      "setting": "ウォレットを設定する",
-      "settingRemind": "最初にウォレットを設定してから、右上のウォレット アイコンをクリックして Diffgalaxy に接続してください。サポートされているウォレットについて学びます。",
-      "buy": "NFTを購入する",
-      "buyRemind": "購入したい NFT の名前を検索ボックスに入力して、NFT の詳細を表示します。 [今すぐ購入] ボタンをクリックし、[支払う] を選択して、ウォレットの指示に従います。",
-      "sell": "NFTを販売する",
-      "sellRemind": "My NFTリストで販売したいNFTを選択し、NFTの価格を設定して販売ボタンをクリックします。取引が完了すると、NFT は購入者のウォレットに転送され、資金を受け取ります。"
-    },
-    "advantage": {
-      "title": "Diffgalaxy のアドバンテージ",
-      "virtueOne": "シンプルで便利で素早い操作",
-      "virtueTwo": "最低の手数料",
-      "virtueThree": "安全でセキュアなスマート コントラクト"
-    }
+    "searchAccount": "アカウント"
   },
   "footer": {
-    "title": "Diffgalaxy のアドバンテージ",
+    "title": "GameFi 分野の NFT 取引市場に焦点を当て、Diffgalaxy を使用して独自の NFT を発見、販売、購入、または作成できます。",
     "copyright": "著作権 2023. 無断複写・転載を禁じます。",
-    "legal": "免責事項",
-    "service": "利用規則",
-    "policy": "プライバシーポリシー"
+    "legal": "ヘルプ",
+    "service": "条項",
+    "policy": "プライバシー"
   },
+
   "nav": {
     "home": "ホームページ",
     "primary": "発見",

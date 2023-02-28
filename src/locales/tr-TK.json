@@ -30,34 +30,32 @@
   },
   "domainNotice": "Diffgalaxy'nin tek resmi internet adi <1>https://www.diffgalaxy.io</1>",
   "home": {
-    "title": "Diffgalaxy NFT Alım Satım Pazarına Hoş Geldiniz",
-    "subtitle": "Diffgalaxy, NFT ticaretini kolaylaştırıyor, hadi birlikte ticaretin eğlencesini keşfedelim",
-    "collection": "Popüler Koleksiyonlar",
+    "title": "GameFi odaklı NFT platformu",
+    "safeReliable":"Güvenli ve güvenilir",
+    "lowGasFee":"Düşük gas ücreti",
+    "lowTradingFee":"düşük işlem ücreti",
+    "evnChains":"Çoklu EVM zincirleri",
+    "collection": "şu anda popüler",
+    "tradingRanking":"İşlem sıralaması",
+    "viewAll":"hepsini gör",
+    "safeandReliable":"Güvenli ve güvenilir",
+    "safeReliableTips":"Merkeziyetsiz sistemli tasarım ve dünyanın en merkeziyetsiz blockchain özelliklerinin ve akıllı sözleşmelerin güvenlik ve güvenilirliğini devralır.",
+    "ultraLowFee":"Ultra düşük hizmet ücreti",
+    "ultraLowFeeTips":"Kullanıcıların NFT ticareti yapma maliyetini büyük ölçüde azaltan, sektördeki en düşük işlem ücretini belirleyin.",
+    "buildGameFi":"GameFi için doğmuş",
+    "buildGameFiTips":"GameFi odaklı NFT platformu,sadece sizinle gameFi aranızı bağlamak için çalışıyor",
+    "hiSkyText":"HiSky ile başlayarak GameFi'nin geleceğini bağlayın.",
+    "startTrading":"İşleme başla",
     "searchCollections": "Toplama",
     "searchItems": "İtemler",
-    "searchAccount": "Hesap",
-    "assets": {
-      "title": "NFT varlıklarınızı satın alın ve satın",
-      "setting": "Cüzdanınızı ayarlayın",
-      "settingRemind": "Lütfen önce cüzdanınızı kurun, ardından Diffgalaxy'ye bağlamak için sağ üst köşedeki cüzdan simgesine tıklayın. Desteklenen cüzdanlarımız hakkında bilgi edinin.",
-      "buy": "NFT satın al",
-      "buyRemind": "NFT'nin ayrıntılarını görüntülemek için satın almak istediğiniz NFT'nin adını arama kutusuna girin. \"Şimdi Satın Al\" düğmesini tıklayın, \"Öde\" yi seçin ve cüzdandaki talimatları izleyin.",
-      "sell": "NFT satmak",
-      "sellRemind": "NFT'lerim listesinden satmak istediğiniz NFT'yi seçin, NFT fiyatını belirleyin ve sat butonuna tıklayın. İşlem tamamlandığında, NFT alıcının cüzdanına aktarılacak ve parayı alacaksınız."
-    },
-    "advantage": {
-      "title": "Diffgalaxy'nin Avantajları",
-      "virtueOne": "Basit, kullanışlı ve hızlı çalışma",
-      "virtueTwo": "En düşük işlem ücreti",
-      "virtueThree": "Güvenli ve güvenli akıllı sözleşmeler"
-    }
+    "searchAccount": "Hesap"
   },
   "footer": {
-    "title": "Diffgalaxy, NFT işlemlerini kolaylaştırır",
+    "title": "GameFi odaklı NFT platformu,Diffgalaxy kullanarak özel NFT leri alıp-satabilirsiniz veya özel NFt yaratabilirsiniz",
     "copyright": "Telif Hakkı 2023. Tüm Hakları Saklıdır.",
-    "legal": "Yasal uyarılar",
-    "service": "hizmet sözleşmesi",
-    "policy": "Gizlilik Politikası"
+    "legal": "yardım",
+    "service": "şartlar",
+    "policy": "Gizlilik"
   },
   "nav": {
     "home": "ön Sayfa",

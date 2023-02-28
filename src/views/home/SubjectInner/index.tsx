@@ -101,11 +101,8 @@ export const SubjectInner = () => {
     <div className='container-banner'>
       <div className='container-flex'>
         <div className='flex-left'>
-          {/* <h1>{t('home.title')}</h1> */}
-          {/* <span>{t('home.subtitle')}</span> */}
-          <p>专注GameFi</p>
-          <p>领域的NFT交易市场</p>
-          <span>安全可靠 | Gas 费低 | 手续费低 | 多EVM链</span>
+          <p>{t('home.title')}</p>
+          <span>{t('home.safeReliable')} | {t('home.lowGasFee')} | {t('home.lowTradingFee')} | {t('home.evnChains')}</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
               {t('common.buy')}

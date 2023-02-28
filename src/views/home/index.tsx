@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 import { Trending } from './Trending'
 import { SubjectInner } from './SubjectInner'
 import { SetupDetails } from './SetupDetails'
-import { Resources } from './Resources'
 import { DomainLink } from 'Src/components/DomainLink'
 import { Ranking } from 'Src/components/Ranking'
 import { Button } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 import './index.scss'
 import { useHistory } from 'react-router-dom'
 export const HsHome = () => {
+  const { t } = useTranslation()
   const history = useHistory()
-
   const jumpRankings = () => {
     history.push('/rankings')
   }
@@ -23,16 +23,16 @@ export const HsHome = () => {
       <div className={`home-container-wrap`}>
         <Trending />
         <div className='home-ranking'>
-          <div className='line-title'>交易排行</div>
+          <div className='line-title'>{t("home.tradingRanking")}</div>
           <Ranking paginationBoolean={false} />
           <div className='SeeMore'>
-            <Button onClick={() => jumpRankings()} type='default'>查看更多</Button>
+            <Button onClick={() => jumpRankings()} type='default'>{t("home.viewAll")}</Button>
           </div>
         </div>
         <SetupDetails />
         <div className='homeTips'>
-          <p>从 Diffgalaxy 开始，链接 GameFi 的未来。</p>
-          <Button type='text' size={'large'}>开始交易</Button>
+          <p>{t("home.hiSkyText")}</p>
+          <Button type='text' size={'large'}>{t("home.startTrading")}</Button>
         </div>
         {/* <Resources /> */}
       </div>
