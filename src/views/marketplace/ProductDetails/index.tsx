@@ -4,20 +4,15 @@ import { ethers } from 'ethers'
 import { DescInfo } from './DescInfo'
 import { MoreCollects } from './More'
 import { Trading } from './Trading'
-import { message, Button } from 'antd'
-import { useWeb3React } from '@web3-react/core'
-import useWeb3 from '../../../hooks/useWeb3'
+import { message, } from 'antd'
+import useWeb3 from 'Src/hooks/useWeb3'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import { cancelMarketItem } from 'Src/hooks/marketplace'
-import {
-  // getNFTDetail,
-  // getUserNFTDetail,
-  getGoodsByCollectionId,
-} from '../../../api'
+import { getGoodsByCollectionId } from 'Src/api'
 import { getUserAsset } from 'Src/api/user'
-import { getOrderEventPage } from '../../../api/order'
-import { getFans, getFansByGoodsId, removeFans } from '../../../api/fans'
+import { getOrderEventPage } from 'Src/api/order'
+import { getFans, getFansByGoodsId, removeFans } from 'Src/api/fans'
 import { getCookie, getLocalStorage, formatTokenId, } from 'Utils/utils'
 import config, { USDT, ContractType, CoinType } from 'Src/config/constants'
 import instanceLoading from 'Utils/loading'
@@ -91,12 +86,10 @@ export const ProductionDetails = () => {
     })
     if (data?.orderVO != null) {
       setStatus(data?.orderVO.status) //售卖状态
+      setOwnerAddr(data?.orderVO.ownerAddr)
       // 如果存在订单取当前订单里所属者。 否则取资产里的
-      if (data?.orderVO.ownerAddr != null) {
-        setOwnerAddr(data?.orderVO.ownerAddr)
-      } else {
-        setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
-      }
+    } else {
+      setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
     }
     setUseAmount(asset?.data.amount)
     setAmountNum(asset?.data.amountTotal)
