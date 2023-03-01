@@ -88,9 +88,9 @@
     "webpackbar": "^5.0.0-3"
   },
   "dependencies": {
-    "@types/react": "^18.0.0",
     "@ant-design/icons": "^4.4.0",
     "@babel/runtime-corejs3": "^7.13.10",
+    "@types/react": "^18.0.0",
     "@types/redux-promise": "^0.5.29",
     "@walletconnect/web3-provider": "^1.8.0",
     "@web3-react/core": "^6.1.9",
@@ -127,7 +127,6 @@
     "timeago.js": "^4.0.2",
     "use-query-params": "^1.2.3",
     "web3": "^1.6.1"
-    
   },
   "resolutions": {
     "react-error-overlay": "6.0.9"
