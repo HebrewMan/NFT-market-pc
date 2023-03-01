@@ -73,13 +73,18 @@ const ReceiveModal: React.FC<any> = (props) => {
 
   // 
   const inputChange = (e: any) => {
-    setSubNum(Number(e.target.value))
+    if (Number(e.target.value) > leftAmount) {
+      setSubNum(leftAmount)
+    } else {
+      setSubNum(Number(e.target.value))
+    }
+
   }
   // 买nft合约
   const getBuy = async () => {
     // 未链接钱包
     if (!window.provider || !accountAddress || !token) {
-      message.error(t('hint.pleaseLog'))
+      // message.error(t('hint.pleaseLog'))
       showConnectModal(true)
       return
     }
@@ -168,8 +173,8 @@ const ReceiveModal: React.FC<any> = (props) => {
             <button onClick={decrease} disabled={subNum <= 1 ? true : false}>
               <img src={decreaseImg} alt='' />
             </button>
-            <input type='text' className='num_box' value={subNum} onChange={inputChange} />
-            <button onClick={increase} disabled={subNum > leftAmount ? true : false}>
+            <input type='text' className='num_box' value={subNum} onChange={inputChange} disabled={subNum == leftAmount ? true : false} />
+            <button onClick={increase} disabled={subNum >= leftAmount ? true : false}>
               <img src={increaseImg} alt='' />
             </button>
           </div>

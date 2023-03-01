@@ -175,7 +175,7 @@ export const showConnectModal = (visible = false) => {
 
     onCancel() {
       // 登录过期强制登录, 否则返回首页
-      visible && history.push('/')
+      visible && window.location.reload()
     },
   })
 }

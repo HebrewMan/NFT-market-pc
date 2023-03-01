@@ -7,6 +7,7 @@ import SwiperCore, { EffectCards, Autoplay, Pagination, Scrollbar } from 'swiper
 import { useTranslation } from 'react-i18next'
 import 'swiper/scss'
 import './index.scss'
+import { showConnectModal } from "Src/components/ConnectModal"
 
 SwiperCore.use([EffectCards, Pagination])
 
@@ -93,7 +94,8 @@ export const SubjectInner = () => {
     if (isLogin) {
       history.push(`/account/0/${walletAccount}`)
     } else {
-      message.error(t('hint.pleaseLog'))
+      // message.error(t('hint.pleaseLog'))
+      showConnectModal(true)
       // history.push(`/login`)
     }
   }
