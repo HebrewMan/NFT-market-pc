@@ -33,7 +33,8 @@
   },
   "domainNotice": "The only official domain for Diffgalaxy is <1>https://www.diffgalaxy.io</1>",
   "home": {
-    "title": "NFT trading marketplace focused on the GameFi space",
+    "title": "NFT trading marketplace",
+    "subTitle":"focused on the GameFi space",
     "safeReliable": "Safe reliable",
     "lowGasFee": "Low gas fee",
     "lowTradingFee": "Low trading fee",
@@ -49,25 +50,9 @@
     "buildGameFiTips": "Focusing on trading NFT assets in the GameFi space, just to link you to the future of GameFi.",
     "hiSkyText": "Start with HiSky and link the future of GameFi.",
     "startTrading": "Start Trading",
-
     "searchCollections": "Collections",
     "searchItems": "Items",
-    "searchAccount": "Account",
-    "assets": {
-      "title": "Buy And Sell Your NFT assets",
-      "setting": "Set Your Wallet",
-      "settingRemind": "Once you've set up your wallet of choice, connect it to Diffgalaxy by clicking the wallet icon in the top right corner. Learn about the wallets that we support.",
-      "buy": "Purchase NFTs",
-      "buyRemind": "Enter the name of the NFT you want to purchase in the search box to see the details of the NFT. Click the Buy Now button,Select Pay and follow the instructions in your wallet.",
-      "sell": "Sell NFTs",
-      "sellRemind": "Select the NFT to sell in my NFTS list, Set the NFT price and click the Sell button. Once the transaction is completed, the NFT will be transferred to purchaser wallet and you will receive the funds."
-    },
-    "advantage": {
-      "title": "The priority of Diffgalaxy's",
-      "virtueOne": "Operation Procedure Is Simple, Convenient And Fast",
-      "virtueTwo": "Lowest Handling Fee is",
-      "virtueThree": "Secure and Reliable Smart Contract"
-    }
+    "searchAccount": "Account"
   },
   "footer": {
     "title": "NFT trading marketplace focused on the GameFi space,where you can use HiSky to discover, sell, buy or create unique NFTs.",
@@ -87,7 +72,8 @@
     "login": "Log in",
     "loginOut": "Exit",
     "cnnectWallet": "Connect Wallet",
-    "myCollection": "My Collections"
+    "myCollection": "My Collections",
+    "ranking":"Ranking"
   },
   "marketplace": {
     "serach": "Search for the name of NFT ,Token ID",

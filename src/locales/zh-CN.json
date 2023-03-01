@@ -33,7 +33,8 @@
   },
   "domainNotice": "Diffgalaxy 的唯一官方域名是<1>https://www.diffgalaxy.io</1>",
   "home": {
-    "title": "专注 GameFi 领域的NFT交易市场",
+    "title": "专注GameFi",
+    "subTitle":"领域的NFT交易市场",
     "safeReliable": "安全可靠",
     "lowGasFee": "Gas费低",
     "lowTradingFee": "手续费低",
@@ -71,7 +72,8 @@
     "login": "登录",
     "loginOut": "退出",
     "cnnectWallet": "连接钱包",
-    "myCollection": "我的集合"
+    "myCollection": "我的集合",
+    "ranking":"排行"
   },
   "marketplace": {
     "serach": "搜索NFT名称、TokenID",

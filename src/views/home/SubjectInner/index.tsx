@@ -102,6 +102,7 @@ export const SubjectInner = () => {
       <div className='container-flex'>
         <div className='flex-left'>
           <p>{t('home.title')}</p>
+          <p>{t("home.subTitle")}</p>
           <span>{t('home.safeReliable')} | {t('home.lowGasFee')} | {t('home.lowTradingFee')} | {t('home.evnChains')}</span>
           <div className='left-button'>
             <button className='button-explore' onClick={() => history.push(`/marketplace`)}>

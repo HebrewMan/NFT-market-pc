@@ -34,7 +34,8 @@
   },
   "domainNotice": "Diffgalaxy'nin tek resmi internet adi <1>https://www.diffgalaxy.io</1>",
   "home": {
-    "title": "GameFi odaklı NFT platformu",
+    "title": "GameFi",
+    "subTitle":"odaklı NFT platformu",
     "safeReliable": "Güvenli ve güvenilir",
     "lowGasFee": "Düşük gas ücreti",
     "lowTradingFee": "düşük işlem ücreti",
@@ -72,7 +73,8 @@
     "login": "Giriş",
     "loginOut": "cik",
     "cnnectWallet": "Cüzdan bağlayın",
-    "myCollection": "Benim topladıklarım"
+    "myCollection": "Benim topladıklarım",
+    "ranking":"sıralama"
   },
   "marketplace": {
     "serach": "NFT ismi,TokeID ara",

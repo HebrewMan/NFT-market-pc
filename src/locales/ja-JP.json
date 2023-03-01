@@ -34,7 +34,8 @@
   },
   "domainNotice": "Diffgalaxy の唯一の公式ドメイン名は、<1>https://www.diffgalaxy.io</1>。",
   "home": {
-    "title": "GameFi分野のNFTトレーディング市場に注力",
+    "title": "GameFiに集中",
+    "subTitle":"分野のNFT取引市場",
     "safeReliable": "安全で信頼できる",
     "lowGasFee": "ガス代が安い",
     "lowTradingFee": "手数料が安い",
@@ -73,7 +74,8 @@
     "login": "ログイン",
     "loginOut": "ログアウト",
     "cnnectWallet": "ウォレットリンク",
-    "myCollection": "私の集合"
+    "myCollection": "私の集合",
+    "ranking":"ランキング"
   },
   "marketplace": {
     "serach": "NFTの名前やトークンIDで検索します",
