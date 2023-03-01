@@ -93,7 +93,7 @@ function useWatchBlockNumber({
   // number, which implies to re-render whenever the block number updates.
   const blockNumberListeners = useRef<Set<(blockNumber: number) => void>>(new Set())
 
-  const addBlockNumberListener = useCallback((cb) => {
+  const addBlockNumberListener = useCallback((cb: any) => {
     if (blockNumberListeners.current.has(cb)) {
       return
     }
@@ -105,12 +105,12 @@ function useWatchBlockNumber({
     blockNumberListeners.current.add(cb)
   }, [])
 
-  const removeBlockNumberListener = useCallback((cb) => {
+  const removeBlockNumberListener = useCallback((cb: any) => {
     blockNumberListeners.current.delete(cb)
   }, [])
 
   // Update the block number and broadcast it to the listeners
-  const updateBlockNumber = useCallback((blockNumber) => {
+  const updateBlockNumber = useCallback((blockNumber: any) => {
     if (lastBlockNumber.current === blockNumber) {
       return
     }

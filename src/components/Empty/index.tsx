@@ -4,7 +4,7 @@ import { Empty } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 
-const AEmpty: React.FC<IProps> = (props) => {
+const AEmpty: React.FC<IProps> = (props: any) => {
   const { t } = useTranslation()
   const NO_DATA_IMG = require('Src/assets/common/empty.png')
   const {
@@ -31,7 +31,7 @@ const AEmpty: React.FC<IProps> = (props) => {
       style={myStyle}
       {...rest}
     >
-      {props.children}
+      {props?.children}
     </Empty>
   )
 }
