@@ -11,7 +11,7 @@ import useWeb3 from '../../../../../hooks/useWeb3'
 import { createMarketSaleErc1155, createMarketSaleWithTokenErc1155 } from '../../../../../hooks/marketplace'
 import { getApproval, getIsApproved } from '../../../../../hooks/web3Utils'
 // import { useAddBlindBoxContract, useOpenBlindBoxContract } from '../../../../../hooks/useContract';
-import { buyBlindBox, openBlindBox } from '../../../../../api/blindbox'
+import { openBlindBox } from '../../../../../api/blindbox'
 import instanceLoading from '../../../../../utils/loading'
 import { getCookie, getLocalStorage, toPriceDecimals } from '../../../../../utils/utils'
 import config, { USDT, isProd } from '../../../../../config/constants'

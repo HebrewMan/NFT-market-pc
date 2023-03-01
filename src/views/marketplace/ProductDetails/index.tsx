@@ -84,6 +84,9 @@ export const ProductionDetails = () => {
       tokenId: tokenId,
       ownerAddr: accountAddress ? accountAddress : '-1'
     })
+    console.log(asset?.data.amountTotal, 'asset?.data.amountTotal')
+    setUseAmount(asset?.data.amount)
+    setAmountNum(asset?.data.amountTotal)
     if (data?.orderVO != null) {
       setStatus(data?.orderVO.status) //售卖状态
       setOwnerAddr(data?.orderVO.ownerAddr)
@@ -91,8 +94,6 @@ export const ProductionDetails = () => {
     } else {
       setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
     }
-    setUseAmount(asset?.data.amount)
-    setAmountNum(asset?.data.amountTotal)
     // 获取粉丝数量
     getFansByGoodsIdData(tokenId, userContractAddr)
     // 交易历史
@@ -303,8 +304,8 @@ export const ProductionDetails = () => {
                   ) :
                     (
                       <span>
-                        {t('marketplace.Owner')}
-                        <span style={{ margin: "5px" }}>{detailMetadata.contractType == 'ERC1155' && amountNum}</span>
+                        {t('marketplace.Owner')}&nbsp;&nbsp;
+                        {isOwner() && <span>{detailMetadata.contractType == 'ERC1155' && amountNum} &nbsp;&nbsp;</span>}
                         {isOwner() ? ownerLink : ownerAddress}
                       </span>
                     )

@@ -31,7 +31,7 @@
       justify-content: center;
       padding: 18px;
       width: 60%;
-      border: 1px solid #E5E8EB;
+      border: 1px solid #3E4055;
       border-radius: 10px;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -45,7 +45,8 @@
       top: -18px;
       left: 50%;
       transform: translateX(-50%);
-      background: #fff;
+      background: $tq-primary-body-bg;
+      color: #BDBDBD;
     }
   }
 
@@ -60,7 +61,7 @@
       font-size: 18px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
-      color: #4B5163;
+      color: $tq-font-color-sub-title;
       line-height: 25px;
     }
 

@@ -50,7 +50,7 @@
   }
 
   span {
-    color: $tq-primary-color;
+    color: $tq-color-white;
     font-weight: 500;
 
     &.disabled {
@@ -67,7 +67,7 @@
   min-width: 60px;
   border-radius: 10px;
   text-align: center;
-  background: rgba($color: $tq-primary-color, $alpha: 0.1);
+  background: $tq-primary-color;
 }
 
 .small-timer div {
