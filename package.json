@@ -1,7 +1,7 @@
 {
   "name": "dfiffgalaxy",
   "version": "0.1.0",
-  "description": "Diffgalaxy aitd.",
+  "description": "HiSky aitd.",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=start node scripts/server",

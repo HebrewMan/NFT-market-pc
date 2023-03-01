@@ -10,8 +10,8 @@ export const DomainLink = () => {
     <>
       <div className={`domian-link`} id={'main-link'}>
         <Trans t={t} i18nKey='domainNotice'>
-          The only official domain for Diffgalaxy is
-          <a href='https://hiskynft.com'>hhttps://hiskynft.com</a>
+          The only official domain for hiSky is
+          <a href='https://hiskynft.com'>https://hiskynft.com</a>
         </Trans>
       </div>
     </>

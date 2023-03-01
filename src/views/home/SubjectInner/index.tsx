@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { getCookie } from 'Src/utils/utils'
+import { Col, Row } from 'antd'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { EffectCards, Autoplay, Pagination, Scrollbar } from 'swiper'
 import { useTranslation } from 'react-i18next'
@@ -100,25 +101,33 @@ export const SubjectInner = () => {
   return (
     <div className='container-banner'>
       <div className='container-flex'>
-        <div className='flex-left'>
-          <p>{t('home.title')}</p>
-          <p>{t("home.subTitle")}</p>
-          <span>{t('home.safeReliable')} | {t('home.lowGasFee')} | {t('home.lowTradingFee')} | {t('home.evnChains')}</span>
-          <div className='left-button'>
-            <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
-              {t('common.buy')}
-            </button>
-            <button className='button-sell' onClick={clickSell}>
-              {t('common.sell')}
-            </button>
-          </div>
-        </div>
-        <div className='flex-right'>
-          <div className='cards-swiper'>
-            <SwiperComm swiperList={swiperList} setCurrentSwiperObject={setCurrentSwiperObject} />
-            {/* <div className='swiper-scrollbar'></div> */}
-          </div>
-        </div>
+        <Row>
+          <Col span={10}>
+            <div className='flex-left'>
+              <p>{t('home.title')}</p>
+              <p>{t("home.subTitle")}</p>
+              <span>{t('home.safeReliable')} | {t('home.lowGasFee')} | {t('home.lowTradingFee')} | {t('home.evnChains')}</span>
+              <div className='left-button'>
+                <button className='button-explore' onClick={() => history.push(`/marketplace`)}>
+                  {t('common.buy')}
+                </button>
+                <button className='button-sell' onClick={clickSell}>
+                  {t('common.sell')}
+                </button>
+              </div>
+            </div>
+          </Col>
+          <Col span={12}>
+            <div className='flex-right'>
+              <div className='cards-swiper'>
+                <SwiperComm swiperList={swiperList} setCurrentSwiperObject={setCurrentSwiperObject} />
+                {/* <div className='swiper-scrollbar'></div> */}
+              </div>
+            </div>
+          </Col>
+        </Row>
+
+
       </div>
     </div>
   )

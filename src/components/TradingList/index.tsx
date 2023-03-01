@@ -122,7 +122,7 @@ export const TradingList = (props: any) => {
       render: (r: string, t: any) => {
         return <>
           <img src={require('Src/assets/coin/aitd.svg')} alt='' className='svg-img' />
-          {intlFloorFormat(t.price, 4)}
+          {t.price == null ? '--' : intlFloorFormat(t.price, 4)}
         </>
       }
     },

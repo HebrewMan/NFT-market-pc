@@ -16,8 +16,8 @@ export const Privacy: React.FC<any> = (props) => {
     return (
       <>
         <p>1. INTRODUCTION</p>
-        <p>Welcome to Diffgalaxy (“Company”, “we”, “our”, “us”)!</p>
-        <p>These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at Diffgalaxy.io (together or individually “Service”) operated by Diffgalaxy.</p>
+        <p>Welcome to HiSky (“Company”, “we”, “our”, “us”)!</p>
+        <p>These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at HiSky.io (together or individually “Service”) operated by HiSky.</p>
         <p>Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages.</p>
         <p>Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them.</p>
         <p>IF YOU DO NOT AGREE WITH (OR CANNOT COMPLY WITH) AGREEMENTS ,THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY.</p>
@@ -38,35 +38,35 @@ export const Privacy: React.FC<any> = (props) => {
         <p>A lack of use or public interest in the creation and development of distributed ecosystems could negatively impact the development of those ecosystems and related applications, and could therefore also negatively impact the potential utility of NFTs.</p>
         <p>The regulatory regime governing blockchain technologies, non-fungible tokens, cryptocurrency, and other crypto-based items is uncertain,
           and new regulations or policies may materially adversely affect the development of the Service and the utility of NFTs.</p>
-        <p>You are solely responsible for determining what, if any, taxes apply to your transactions. Diffgalaxy is not responsible for determining the taxes that apply to your NFTs.</p>
+        <p>You are solely responsible for determining what, if any, taxes apply to your transactions. HiSky is not responsible for determining the taxes that apply to your NFTs.</p>
         <p>There are risks associated with purchasing items associated with content created by third parties through peer-to-peer transactions,
           including but not limited to, the risk of purchasing counterfeit items, mislabeled items,
           items that are vulnerable to metadata decay, items on smart contracts with bugs, and items that may become untransferable.
           You represent and warrant that you have done sufficient research before making any decisions to sell, obtain, transfer, or otherwise interact with any NFTs or accounts/collections.</p>
         <p>We do not control the public blockchains that you are interacting with and we do not control certain smart contracts and protocols that may be integral to your ability
-          to complete transactions on these public blockchains. Additionally, blockchain transactions are irreversible and Diffgalaxy has no ability to reverse any transactions on the blockchain.</p>
+          to complete transactions on these public blockchains. Additionally, blockchain transactions are irreversible and HiSky has no ability to reverse any transactions on the blockchain.</p>
         <p>There are risks associated with using Internet and blockchain based products, including, but not limited to, the risk associated with hardware, software,
           and Internet connections, the risk of malicious software introduction, and the risk that third parties may obtain unauthorized access to your third-party wallet or Account.
-          You accept and acknowledge that Diffgalaxy will not be responsible for any communication failures, disruptions, errors, distortions or delays you may experience when using the
+          You accept and acknowledge that HiSky will not be responsible for any communication failures, disruptions, errors, distortions or delays you may experience when using the
           Service or any Blockchain network, however caused.</p>
         <p>The Service relies on third-party platforms and/or vendors. If we are unable to maintain a good relationship with such platform providers and/or vendors;
           if the terms and conditions or pricing of such platform providers and/or vendors change; if we violate or cannot comply with the terms and conditions of such platforms and/or vendors;
           or if any of such platforms and/or vendors loses market share or falls out of favor or is unavailable for a prolonged period of time, access to and use of the Service will suffer.</p>
-        <p>Diffgalaxy reserves the right to hide collections, contracts, and items affected by any of these issues or by other issues. Items you purchase may become inaccessible on Diffgalaxy.
-          Under no circumstances shall the inability to view items on Diffgalaxy or an inability to use the Service in conjunction with the purchase, sale,
-          or transfer of items available on any blockchains serve as grounds for a claim against Diffgalaxy.</p>
+        <p>HiSky reserves the right to hide collections, contracts, and items affected by any of these issues or by other issues. Items you purchase may become inaccessible on HiSky.
+          Under no circumstances shall the inability to view items on HiSky or an inability to use the Service in conjunction with the purchase, sale,
+          or transfer of items available on any blockchains serve as grounds for a claim against HiSky.</p>
         <p>IF YOU HAVE A DISPUTE WITH ONE OR MORE USERS, YOU RELEASE US FROM CLAIMS, DEMANDS, AND DAMAGES OF EVERY KIND AND NATURE, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH SUCH DISPUTES.
           IN ENTERING INTO THIS RELEASE YOU EXPRESSLY WAIVE ANY PROTECTIONS (WHETHER STATUTORY OR OTHERWISE) THAT WOULD OTHERWISE LIMIT THE COVERAGE OF THIS RELEASE TO INCLUDE THOSE CLAIMS WHICH YOU MAY KNOW
           OR SUSPECT TO EXIST IN YOUR FAVOR AT THE TIME OF AGREEING TO THIS RELEASE.</p>
         <p>3. PROPRIETARY RIGHTS</p>
-        <p>The intellectual property generated by core contributors to Diffgalaxy and all material generated by Service are the property of Diffgalaxy. You may not distribute, modify,
+        <p>The intellectual property generated by core contributors to HiSky and all material generated by Service are the property of HiSky. You may not distribute, modify,
           transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.</p>
         <p>Provided that you are eligible to use the Site, you are granted a limited license to access and use the Site and to download or print a copy of any portion of the Content to which you have properly
           gained access solely for your personal, non-commercial use. We reserve all rights not expressly granted to you in and to the Site, the Content and the Marks.</p>
         <p>4. THIRD-PARTY CONTENT AND SERVICES</p>
-        <p>Diffgalaxy helps you explore NFTs created by third parties and interact with different blockchains. Diffgalaxy does not make any representations or warranties about this third-party content visible
+        <p>HiSky helps you explore NFTs created by third parties and interact with different blockchains. HiSky does not make any representations or warranties about this third-party content visible
           through our Service, including any content associated with NFTs displayed on the Service, and you bear responsibility for verifying the legitimacy,
-          authenticity, and legality of NFTs that you purchase from third-party sellers. We also cannot guarantee that any NFTs visible on Diffgalaxy will always remain visible and/or available to be bought,
+          authenticity, and legality of NFTs that you purchase from third-party sellers. We also cannot guarantee that any NFTs visible on HiSky will always remain visible and/or available to be bought,
           sold, or transferred.</p>
         <p>5. PROHIBITED USES</p>
         <p>You may use Service only for lawful purposes and in accordance with Terms. You agree not to use Service:</p>
@@ -84,7 +84,7 @@ export const Privacy: React.FC<any> = (props) => {
         <p>Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of Service, the server on which Service is stored, or any server, computer, or database connected to Service.</p>
         <p>Attack Service via a denial-of-service attack or a distributed denial-of-service attack.
           Bypass any instructions that control access to the Service, including attempting to circumvent any rate limiting systems by using multiple API keys,
-          or obfuscating the source of traffic you send to Diffgalaxy;Take any action that may damage or falsify Company rating.Otherwise attempt to interfere with the proper working of Service.</p>
+          or obfuscating the source of traffic you send to HiSky;Take any action that may damage or falsify Company rating.Otherwise attempt to interfere with the proper working of Service.</p>
         <p>6. USER REPRESENTATIONS</p>
         <p>By using the Site, you represent and warrant that: (1) you have the legal capacity and you agree to comply with these Terms of Use;
           (2) you are not a minor in the jurisdiction in which you reside; (3) you will not access the Site through automated or non-human means,
@@ -125,9 +125,9 @@ export const Privacy: React.FC<any> = (props) => {
         </p>
         <p>12. LINKS TO OTHER WEB SITES
         </p>
-        <p>Our Service may contain links to third party web sites or services that are not owned or controlled by Diffgalaxy.
+        <p>Our Service may contain links to third party web sites or services that are not owned or controlled by HiSky.
         </p>
-        <p>Diffgalaxy has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
+        <p>HiSky has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
         </p>
         <p>YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES.
         </p>
@@ -198,19 +198,19 @@ export const Privacy: React.FC<any> = (props) => {
     return (
       <>
         <p>
-          Thank you for choosing to be part of our community at Diffgalaxy ("Diffgalaxy," "we," "us," or "our").
+          Thank you for choosing to be part of our community at HiSky ("HiSky," "we," "us," or "our").
           We are committed to protecting your personal information and your right to privacy.
           If you have any questions or concerns about this privacy notice or our practices with regard to your personal information,
-          please contact us at hi@Diffgalaxy.com.
+          please contact us at hi@HiSky.com.
         </p>
         <p>
-          When you visit our website https://Diffgalaxy.com, and use our services, you trust us with your personal information.
+          When you visit our website https://HiSky.com, and use our services, you trust us with your personal information.
           We take your privacy very seriously. In this privacy notice, we seek to explain to you in the clearest way possible what information we collect,
           how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important.
           If there are any terms in this privacy notice that you do not agree with, please discontinue use of our Sites and our services.
         </p>
         <p>
-          This privacy notice applies to all information collected through our website (such as https://Diffgalaxy.com),
+          This privacy notice applies to all information collected through our website (such as https://HiSky.com),
           and/or any related services, sales, marketing or events (we refer to them collectively in this privacy notice as the "Services").
         </p>
         <p>Please read this privacy notice carefully as it will help you make informed decisions about sharing your personal information with us.</p>
