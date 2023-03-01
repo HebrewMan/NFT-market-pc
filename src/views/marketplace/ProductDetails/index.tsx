@@ -142,7 +142,7 @@ export const ProductionDetails = () => {
   }
   const isOwner = () => {
     // 连接钱包，并且拥有者=登录账户
-    return !!window.provider && ownerAddr === accountAddress
+    return !!token && ownerAddr === accountAddress
   }
 
   const isBuyNow = () => {
@@ -292,19 +292,22 @@ export const ProductionDetails = () => {
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
                   {/* nft未上架 */}
-                  {orderData != null ?
+                  {(orderData == null && detailMetadata.belongToList.length) ? (
                     <span>
-                      {t('marketplace.Owner')}
-                      <span style={{ margin: "5px" }}>{detailMetadata.contractType == 'ERC1155' && amountNum}</span>
-                      {isOwner() ? ownerLink : ownerAddress}
-                    </span>
-                    :
-                    <span>
-                      {t('marketplace.Owner')}
+                      {t('marketplace.Owner')}&nbsp;&nbsp;
                       <Link to={`/account/0/${detailMetadata.belongToList[0]}`}>
                         {detailMetadata.belongToList[0]?.substring(0, 6)}
                       </Link>
                     </span>
+
+                  ) :
+                    (
+                      <span>
+                        {t('marketplace.Owner')}
+                        <span style={{ margin: "5px" }}>{detailMetadata.contractType == 'ERC1155' && amountNum}</span>
+                        {isOwner() ? ownerLink : ownerAddress}
+                      </span>
+                    )
                   }
                 </div>
               </div>
