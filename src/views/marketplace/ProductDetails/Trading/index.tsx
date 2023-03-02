@@ -54,22 +54,7 @@ export const Trading = (props: any) => {
   }
   return (
     <div className='trading-history'>
-      <div className='list-title title-point' onClick={() => setDetailsState(!detailsState)}>
-        <img src={require('Src/assets/marketPlace/tradding.png')} alt='' className='svg-default-size' />
-        <h2>{t('marketplace.details.history')}</h2>
-        <div className='arrow-icon'>
-          <img
-            src={
-              !detailsState
-                ? require('Src/assets/marketPlace/arrow.png')
-                : require('Src/assets/marketPlace/expand.png')
-            }
-            alt=''
-          />
-        </div>
-      </div>
-      {/* filter */}
-      {!detailsState ? <TradingList TradingData={tradingHistoryData} handleMoreChange={() => setPage(page + 1)} total={total} /> : <></>}
+      {<TradingList TradingData={tradingHistoryData} showTitle={true} handleMoreChange={() => setPage(page + 1)} total={total} />}
     </div>
   )
 }

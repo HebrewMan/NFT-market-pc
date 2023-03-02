@@ -131,6 +131,7 @@
   .ant-table-tbody>tr {
     border-radius: 10px;
     background: $tq-primary-body-bg;
+    cursor: pointer;
 
     td {
       border: none;

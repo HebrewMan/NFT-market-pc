@@ -36,7 +36,6 @@ interface accountInfoProps {
 
 export const Account: React.FC<any> = () => {
   const { t } = useTranslation()
-  const web3 = useWeb3()
   const sortList = [
     {
       label: 'sort',
@@ -108,6 +107,7 @@ export const Account: React.FC<any> = () => {
     const data = {
       page: transactionPage,
       size: 20,
+      userAddr: address,
     }
     const res: any = await getUserTransactionList(data)
     setTradinTotal(res?.data?.total)

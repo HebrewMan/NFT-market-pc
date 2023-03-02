@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom'
 export const HsHome = () => {
   const { t } = useTranslation()
   const history = useHistory()
+
   const jumpRankings = () => {
     history.push('/rankings')
   }
@@ -32,7 +33,7 @@ export const HsHome = () => {
         <SetupDetails />
         <div className='homeTips'>
           <p>{t("home.hiSkyText")}</p>
-          <Button type='text' size={'large'}>{t("home.startTrading")}</Button>
+          <Button type='text' size={'large'} onClick={() => history.push(`/marketplace`)}>{t("home.startTrading")}</Button>
         </div>
         {/* <Resources /> */}
       </div>

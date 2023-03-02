@@ -77,15 +77,20 @@ export const General = () => {
     return form.username && form.email
   }
   const handleUpdateInfo = async () => {
-    const params = {
-      ...form,
-      imageUrl,
-      bannerUrl,
+    if (form.email == null || form.username == '') {
+      message.error(t('userSettings.required'))
+    } else {
+      const params = {
+        ...form,
+        imageUrl,
+        bannerUrl,
+      }
+      const res: any = await updateUserInfo(params)
+      if (res?.message === 'success') {
+        message.success(t('hint.informationUpdated'))
+      }
     }
-    const res: any = await updateUserInfo(params)
-    if (res?.message === 'success') {
-      message.success(t('hint.informationUpdated'))
-    }
+
   }
   const getAccountInfoByAddress = async () => {
     const res: any = await getAccountInfo(address)

@@ -115,6 +115,7 @@
         .right-inner {
           box-shadow: rgb(196, 197, 200) 0px 0px 5px 0px;
           border-radius: 20px;
+          position: relative;
 
           &:hover {
             transition: all 0.3s ease 0s;
@@ -128,6 +129,27 @@
             cursor: pointer;
             object-fit: cover;
           }
+
+          .bannerItem-info {
+            position: absolute;
+            left: 40px;
+            bottom: 40px;
+            display: flex;
+            align-items: center;
+
+            h3 {
+              font-size: 36px;
+              color: #fff;
+            }
+
+            img {
+              width: 86px;
+              height: 86px;
+              border-radius: 50%;
+              margin-right: 24px;
+            }
+          }
+
         }
 
         .swiper-pagination {

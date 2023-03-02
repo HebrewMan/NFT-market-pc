@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Table, ConfigProvider } from 'antd'
 import AEmpty from "Src/components/Empty"
 import './index.scss'
+import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import config from 'Src/config/constants'
@@ -35,7 +36,7 @@ const iconClass = (item: any) => {
 }
 
 export const TradingList = (props: any) => {
-  const { handleMoreChange, total = 0 } = props || {}
+  const { handleMoreChange, total = 0, showTitle = false } = props || {}
   const { t } = useTranslation()
   const history = useHistory()
   const _chainId = window?.provider?.chainId
@@ -43,6 +44,16 @@ export const TradingList = (props: any) => {
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
+  const [detailsState, setDetailsState] = useState(false)
+  const [eventBtn, setEventBtn] = useState<any>([])
+  const [filterList, setFilterList] = useState([
+    { label: '8', name: t('marketplace.details.mintTo'), checked: false },
+    { label: '0', name: t('marketplace.details.listings'), checked: false },
+    { label: '1', name: t('marketplace.details.cancel'), checked: false },
+    { label: '2', name: t('marketplace.details.trade'), checked: false },
+    { label: '8', name: t('marketplace.details.batchMintTo'), checked: false },
+    { label: '6', name: t('marketplace.details.transfer'), checked: false },
+  ])
   useEffect(() => {
     setTradingHistoryData(props?.TradingData)
   }, [props])
@@ -91,7 +102,39 @@ export const TradingList = (props: any) => {
       handleMoreChange && handleMoreChange()
     }, 500)
   }
+  const handleChangeValue = (e: any, index: number) => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+    const deepList = [...filterList]
+    deepList[index].checked = !deepList[index].checked
+    const eventList: Array<string> = deepList
+      .map((item) => (item.checked ? item.label : ''))
+      .filter((item) => item.trim())
+    setFilterList([...deepList])
+    setEventBtn(eventList)
+    filterEventData(eventList)
+  }
+  const filterEventData = (eventList: any) => {
+    if (eventList.length <= 0) {
+      return setTradingHistoryData(props?.TradingData)
+    }
+    const list = new Array()
+    props?.TradingData.forEach((item: any) => {
+      if (eventList.includes(item.method.toString())) {
+        list.push({ ...item })
+      }
+    })
+    setTradingHistoryData([...list])
+  }
 
+  const addreNull = (item: any, name: any) => {
+    if (_.isNull(name)) {
+      console.log(name, 'name')
+      return '--'
+    } else {
+      return <a onClick={() => handleChangeFromRoute(item)}>{name?.substr(2, 6)}</a>
+    }
+  }
   const columns: any = [
     {
       width: 150,
@@ -135,18 +178,26 @@ export const TradingList = (props: any) => {
       width: 120,
       title: t('marketplace.from'),
       render: (r: string, t: any) => {
-        return <a onClick={() => handleChangeFromRoute(t)}>{t?.fromAddr?.substr(2, 6)}</a>
+        if (t.method == 8) {
+          return t?.fromAddr?.substr(2, 6)
+        } else {
+          return addreNull(t, t.fromAddr)
+        }
       }
     },
     {
       width: 120,
       title: t('marketplace.to'),
       render: (r: string, t: any) => {
-        return <a onClick={() => handleChangeToRoute(t)}>{t?.toAddr?.substr(2, 6)}</a>
+        if (t.method == 8) {
+          return t?.fromAddr?.substr(2, 6)
+        } else {
+          return addreNull(t, t.toAddr)
+        }
       }
     },
     {
-      width: 120,
+      width: 160,
       title: t('common.date'),
       render: (_: any, item: any) => {
         return (
@@ -164,19 +215,82 @@ export const TradingList = (props: any) => {
     },
 
   ]
+  const Uli = () => (
+    <div className='filter-checkbox'>
+      <ul id='filter-checkbox-select'>
+        {filterList.map((item, index) => {
+          return (
+            <label htmlFor={item.label} key={index} onClick={(e) => handleChangeValue(e, index)}>
+              <li className={`${item.checked ? 'active' : ''}`}>
+                <div className={`checkbox ${item.checked ? 'checked' : ''}`} onClick={(e) => handleChangeValue(e, index)}></div>
+                <span>{item.name}</span>
+              </li>
+            </label>
+          )
+        })}
+      </ul>
+    </div>
+  )
+  const handleClearCurrent = (current: any) => {
+    const currentList = eventBtn.filter((item: any) => item !== current)
+    const currentFilterList = filterList.map((item) =>
+      currentList.includes(item.label) ? { ...item, checked: true } : { ...item, checked: false },
+    )
+    setFilterList([...currentFilterList])
+    setEventBtn(currentList)
+    filterEventData(currentList)
+  }
+  const handleClearAll = () => {
+    setEventBtn([])
+    setFilterList(filterList.map((item) => ({ ...item, checked: false })))
+    filterEventData([])
+  }
 
   return (
-    <div className='trading-content'>
-      <div className='trading-table'>
-        {tradingHistoryData.length > 0 &&
-          <InfiniteScroll
-            dataLength={tradingHistoryData.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={false}
-            height={tradingHistoryData.length > 8 ? 575 : "auto"}
-          >
-            <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+    <div className={`trading-history ${!showTitle ? 'titleMargin' : ''}`}>
+      <div className='list-title'>
+        <section className='flex'>
+          {showTitle && (
+            <>
+              <img src={require('Src/assets/marketPlace/tradding.png')} alt='' className='svg-default-size' />
+              <h2>{t('marketplace.details.history')}</h2>
+            </>
+          )}
+
+        </section>
+        <div className='filter-flex'>
+          <div className='details-button' id='filter-button'>
+            {eventBtn.map((item: any) => (
+              <button key={item} id='mintToBtn' onClick={() => handleClearCurrent(item)}>
+                {showEventName(Number(item))} <img src={require('Src/assets/coin/icon-close.png')} width={12} alt='' />
+              </button>
+            ))}
+            {eventBtn.length > 0 && <span onClick={handleClearAll}>{t('marketplace.details.clearAll')}</span>}
+          </div>
+          <div className='arrow-icon' onClick={() => setDetailsState(!detailsState)}>
+            <span>{t('marketplace.details.filter')}</span>
+            <img
+              src={
+                !detailsState
+                  ? require('Src/assets/marketPlace/arrow.png')
+                  : require('Src/assets/marketPlace/expand.png')
+              }
+              alt=''
+            />
+            {detailsState ? <Uli /> : <></>}
+          </div>
+        </div>
+      </div>
+      <div className='trading-content'>
+        {tradingHistoryData.length > 0 ?
+          <div className='trading-table'>
+            <InfiniteScroll
+              dataLength={tradingHistoryData.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={false}
+              height={tradingHistoryData.length > 8 ? 575 : "auto"}
+            >
               <Table
                 columns={columns}
                 dataSource={tradingHistoryData}
@@ -184,8 +298,9 @@ export const TradingList = (props: any) => {
                 pagination={false}
                 className={'tradingTable'}
               />
-            </ConfigProvider>
-          </InfiniteScroll>
+            </InfiniteScroll>
+          </div>
+          : <AEmpty />
         }
       </div>
     </div>

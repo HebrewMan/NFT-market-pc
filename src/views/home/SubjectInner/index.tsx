@@ -57,6 +57,18 @@ const SwiperComm = (props: any) => {
           <SwiperSlide key={index}>
             <div className='right-inner' onClick={() => handleJump(item)}>
               <img className='pic' src={item.imageUrl} alt='' />
+              {
+                (item.type === 2 || item.type === 3) && (
+                  <div className='bannerItem-info'>
+                    <img src={item?.nftCollection?.headUrl || item?.nftMetadata?.headUrl} />
+                    <section>
+                      <h3>{item?.nftCollection?.name || item?.nftMetadata?.name}</h3>
+                      {/* <p>other other</p> */}
+                    </section>
+                  </div>
+                )
+              }
+
             </div>
           </SwiperSlide>
         )

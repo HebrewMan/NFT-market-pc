@@ -24,14 +24,11 @@ export const MarketPlace = () => {
   const [total, setTotal] = useState(0)
   const [grid, setGrid] = useState(localStorage.getItem('listItenGrid'))
   const [params, setParams] = useState<any>({ ...defaultParams })
-  const [collect, setCollect] = useState(false) // 收藏状态
-  const [keyWord, setKeyWord] = useState('')
   const [inputMin, setInputMin] = useState('')
   const [inputMax, setInputMax] = useState('')
   const [isMore, setIsMore] = useState(true)
   const [loading, setLoading] = useState(true)
   const [sort, setSort] = useState<any>("new")
-  const [ownerAddr, setOwnerAddr] = useState('')
   const queryList = [
     { name: `${t('marketplace.recentlyListed')}`, value: 'new' },
     { name: `${t('marketplace.LowToHigh')}`, value: 'low' },
@@ -40,19 +37,13 @@ export const MarketPlace = () => {
 
   useEffect(() => {
     initData(params)
-  }, [params, collect])
+  }, [params])
 
   const initData = async (data: any) => {
-    // const userWallet = localStorage.getItem('wallet') || null
-    // const param = {
-    //   ...data,
-    // }
     setLoading(true)
     try {
-      // getListedNftList getGoods
       const res: any = await getListedNftList(data)
       setTotal(res.data.total)
-
       // 过滤掉没有元数据的脏数据
       const list: any = []
       res.data.records.map((item: any, index: string) => {

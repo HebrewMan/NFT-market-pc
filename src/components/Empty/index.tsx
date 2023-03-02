@@ -16,7 +16,7 @@ const AEmpty: React.FC<IProps> = (props: any) => {
   } = props
 
   const myStyle = {
-    paddingTop: '80px',
+    paddingTop: '50px',
     height: '220px',
     width: '100%',
     ...style,
