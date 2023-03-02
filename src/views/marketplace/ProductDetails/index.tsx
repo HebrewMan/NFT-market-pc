@@ -71,6 +71,7 @@ export const ProductionDetails = () => {
     setDetailMetadata(data?.metadataVO) //元数据
     setCollectiondata(data?.collectionsVO) //集合数据
     setOrderData(data?.orderVO) //订单数据
+    data?.orderVO != null && setStatus(data?.orderVO.status) //售卖状态
     const summaryData = {
       ...data?.collectionsVO,
       ...data?.metadataVO,
@@ -84,16 +85,19 @@ export const ProductionDetails = () => {
       tokenId: tokenId,
       ownerAddr: accountAddress ? accountAddress : '-1'
     })
-    console.log(asset?.data.amountTotal, 'asset?.data.amountTotal')
     setUseAmount(asset?.data.amount)
     setAmountNum(asset?.data.amountTotal)
     if (data?.orderVO != null) {
-      setStatus(data?.orderVO.status) //售卖状态
-      setOwnerAddr(data?.orderVO.ownerAddr)
-      // 如果存在订单取当前订单里所属者。 否则取资产里的
+      // 如果地板价订单里的地址不等于钱包地址
+      if (data?.orderVO.ownerAddr != accountAddress) {
+        setOwnerAddr(data?.orderVO?.ownerAddr) //NFT拥有者钱包地址
+      } else {
+        setOwnerAddr(asset?.data.userAddr)
+      }
     } else {
-      setOwnerAddr(asset?.data.userAddr) //NFT拥有者钱包地址
+      setOwnerAddr(asset?.data.userAddr)
     }
+
     // 获取粉丝数量
     getFansByGoodsIdData(tokenId, userContractAddr)
     // 交易历史
@@ -219,7 +223,7 @@ export const ProductionDetails = () => {
 
   const sellBtn = () => {
     // 只要用户可用数量>1 就能继续上架
-    if (isOwner() && useAmount >= 1) {
+    if (useAmount >= 1) {
       return <button onClick={getSetPriceOrder}>{t('common.sell')}</button>
     }
     else {
@@ -293,23 +297,18 @@ export const ProductionDetails = () => {
                 <div className='auth'>
                   <img src={detailMetadata?.imageUrl} alt='' />
                   {/* nft未上架 */}
-                  {(orderData == null && detailMetadata.belongToList.length) ? (
-                    <span>
-                      {t('marketplace.Owner')}&nbsp;&nbsp;
+                  <span>
+                    {t('marketplace.Owner')}&nbsp;&nbsp;
+                    {isOwner() && <span>{detailMetadata.contractType == 'ERC1155' && amountNum} &nbsp;&nbsp;</span>}
+                    {(orderData == null && detailMetadata.belongToList.length) ? (
                       <Link to={`/account/0/${detailMetadata.belongToList[0]}`}>
                         {detailMetadata.belongToList[0]?.substring(0, 6)}
                       </Link>
-                    </span>
+                    ) : (
+                      isOwner() ? ownerLink : ownerAddress
+                    )}
 
-                  ) :
-                    (
-                      <span>
-                        {t('marketplace.Owner')}&nbsp;&nbsp;
-                        {isOwner() && <span>{detailMetadata.contractType == 'ERC1155' && amountNum} &nbsp;&nbsp;</span>}
-                        {isOwner() ? ownerLink : ownerAddress}
-                      </span>
-                    )
-                  }
+                  </span>
                 </div>
               </div>
               <div className='buy'>
@@ -321,7 +320,7 @@ export const ProductionDetails = () => {
                     </p>
                   </div>
                 )}
-                {(status != null && !isOwner()) && (
+                {(status != null && !isOwner() && useAmount < 1) && (
                   <button disabled={!isBuyNow()} onClick={handeClickBuy}>
                     {t('common.buyNow')}
                   </button>

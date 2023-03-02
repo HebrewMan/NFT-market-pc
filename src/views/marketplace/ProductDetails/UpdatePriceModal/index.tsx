@@ -22,7 +22,7 @@ import { getHandlingFee, getUserAsset } from 'Src/api/user'
 
 const UpdatePriceModal: React.FC<any> = (props) => {
 	const { t } = useTranslation()
-	const { data } = props
+	const { data, useAmount = 1 } = props
 	const { contractAddr, tokenId, contractType, moneyAddr = null, price, amount, orderId, leftAmount } = props.data
 	const web3 = useWeb3()
 	const history = useHistory()
@@ -70,7 +70,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		const data: any = await getHandlingFee({ name: 'transaction_fee' })
 		setHandlingFee(data.data.value)
 		// 用户资产
-		const asset: any = await getUserAsset({ contractAddr: contractAddr, tokenId: tokenId })
+		const asset: any = await getUserAsset({ contractAddr: contractAddr, tokenId: tokenId, ownerAddr: walletAccount })
 		setAmountNum(asset?.data.amount)
 	}
 
