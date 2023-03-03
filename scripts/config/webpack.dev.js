@@ -6,7 +6,7 @@ const paths = require('../paths');
 const TerserPlugin = require('terser-webpack-plugin');
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   target: 'web',
   output: {
     filename: 'js/[name].js',
@@ -26,17 +26,17 @@ module.exports = merge(common, {
   plugins: [new Webpack.HotModuleReplacementPlugin(), new ErrorOverlayPlugin()],
   optimization: {
     minimize: false,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_debugger: false,
-            drop_console: false,
-          },
-        },
-      }),
-      new CssMinimizerPlugin(),
-    ],
+    // minimizer: [   
+    //   new TerserPlugin({
+    //     terserOptions: {
+    //       compress: {
+    //         drop_console: false,
+    //         drop_debugger: false,
+
+    //       }
+    //     }
+    //   })
+    // ],
     splitChunks: {
       chunks: 'all',
       minSize: 0,

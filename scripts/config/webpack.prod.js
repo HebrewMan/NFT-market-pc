@@ -40,7 +40,7 @@ module.exports = merge(common, {
           compress: {
             warnings: false,
             drop_debugger: true,
-            drop_console: false,
+            drop_console: true,
             pure_funcs: ['console.log', 'console.error'],
           },
         },

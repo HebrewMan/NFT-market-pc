@@ -81,12 +81,19 @@ export const TradingList = (props: any) => {
     }
   }
 
-  const handleChangeFromRoute = (item: any) => {
+  const handleChangeFromRoute = (item: any, name: any) => {
+    console.log(name, 'name')
     switch (item.method) {
       case 8:
         return false
       default:
-        return history.push(`/account/0/${item?.fromAddr}`)
+        if (window.location.pathname.indexOf('/account') != -1) {
+          history.replace(`/account/0/${name}`)
+        } else {
+          return history.push(`/account/0/${name}`)
+        }
+
+
     }
   }
   const handleChangeToRoute = (item: any) => {
@@ -129,10 +136,9 @@ export const TradingList = (props: any) => {
 
   const addreNull = (item: any, name: any) => {
     if (_.isNull(name)) {
-      console.log(name, 'name')
       return '--'
     } else {
-      return <a onClick={() => handleChangeFromRoute(item)}>{name?.substr(2, 6)}</a>
+      return <a onClick={() => handleChangeFromRoute(item, name)}>{name?.substr(2, 6)}</a>
     }
   }
   const columns: any = [
@@ -178,7 +184,7 @@ export const TradingList = (props: any) => {
       width: 120,
       title: t('marketplace.from'),
       render: (r: string, t: any) => {
-        if (t.method == 8) {
+        if (t.method == 8 && _.isNull(t.fromName)) {
           return t?.fromAddr?.substr(2, 6)
         } else {
           return addreNull(t, t.fromAddr)
@@ -189,7 +195,7 @@ export const TradingList = (props: any) => {
       width: 120,
       title: t('marketplace.to'),
       render: (r: string, t: any) => {
-        if (t.method == 8) {
+        if (t.method == 8 && _.isNull(t.toName)) {
           return t?.fromAddr?.substr(2, 6)
         } else {
           return addreNull(t, t.toAddr)
