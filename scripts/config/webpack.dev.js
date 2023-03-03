@@ -3,7 +3,7 @@ const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const paths = require('../paths');
-
+const TerserPlugin = require('terser-webpack-plugin');
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'cheap-module-source-map',
@@ -26,10 +26,21 @@ module.exports = merge(common, {
   plugins: [new Webpack.HotModuleReplacementPlugin(), new ErrorOverlayPlugin()],
   optimization: {
     minimize: false,
-    minimizer: [],
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_debugger: false,
+            drop_console: false,
+          },
+        },
+      }),
+      new CssMinimizerPlugin(),
+    ],
     splitChunks: {
       chunks: 'all',
       minSize: 0,
+      
     },
   },
 });
