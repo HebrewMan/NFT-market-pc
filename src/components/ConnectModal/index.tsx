@@ -40,7 +40,12 @@ export const ConnectModal: React.FC<any> = (props) => {
   }
 
   const connectWallets = async (walletName: string) => {
+    console.log(
+      walletName, 'name',
+      (window as any).ethereum, 'ethereum',
+      (window as any).ethereum?.providers, "providers")
     if (!(window as any).ethereum && walletName != 'WalletConnect') {
+      console.log("找不到ethereum")
       walletName == 'MetaMask' ? window.open('https://metamask.io/download') : window.open('https://www.coinbase.com/wallet')
       return
     }
