@@ -71,15 +71,20 @@ const ReceiveModal: React.FC<any> = (props) => {
     }
   }
 
-  // 
+  //
   const inputChange = (e: any) => {
     if (Number(e.target.value) > leftAmount) {
       setSubNum(leftAmount)
     } else {
       setSubNum(Number(e.target.value))
     }
-
   }
+  const inputBlur = (e: any) => {
+    if (e.target.value === '0') {
+      setSubNum(1)
+    }
+  }
+
   // 买nft合约
   const getBuy = async () => {
     // 未链接钱包
@@ -173,7 +178,13 @@ const ReceiveModal: React.FC<any> = (props) => {
             <button onClick={decrease} disabled={subNum <= 1 ? true : false}>
               <img src={decreaseImg} alt='' />
             </button>
-            <input type='text' className='num_box' value={subNum} onChange={inputChange} disabled={subNum == leftAmount ? true : false} />
+            <input
+              type='text'
+              className='num_box'
+              value={subNum}
+              onChange={inputChange}
+              onBlur={inputBlur}
+              disabled={subNum == leftAmount ? true : false} />
             <button onClick={increase} disabled={subNum >= leftAmount ? true : false}>
               <img src={increaseImg} alt='' />
             </button>
