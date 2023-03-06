@@ -2,7 +2,8 @@ import useWindowDimensions from '../../utils/layout'
 import { useTranslation, Trans } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Table, TableProps } from 'antd'
+import { Table, ConfigProvider } from 'antd'
+import AEmpty from "Src/components/Empty"
 import './index.scss'
 import { intlFloorFormat, NumUnitFormat } from 'Utils/bigNumber'
 import { getRankingsList } from 'Src/api/rankings'
@@ -14,7 +15,9 @@ export const Ranking = (props: any) => {
   const [paginationBoolean, setPaginationBoolean] = useState(false)
   const [total, setTotal] = useState(0)
   const [dataSource, setDataSource] = useState([])
-
+  const [page, setPage] = useState(1)
+  const [current, setCurrent] = useState(1)
+  const size = 10
   useEffect(() => {
     setPaginationBoolean(props.paginationBoolean)
     initData(1)
@@ -35,9 +38,9 @@ export const Ranking = (props: any) => {
   const initData = async (page: number) => {
     const { data }: any = await getRankingsList({
       page,
-      size: props.paginationBoolean ? 10 : 5
+      size: props.paginationBoolean ? size : 5
     })
-
+    setCurrent(data.current)
     setTotal(data.total)
     setDataSource(data?.records)
   }
@@ -48,8 +51,9 @@ export const Ranking = (props: any) => {
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: any, index: string) => {
+        console.log(record, 'text')
         return <div className='item-info'>
-          <p>{index + 1}</p>
+          <p>{(page - 1) * size + (index + 1)}</p>
           <img src={record.headUrl} />
           <p>{record.name}</p>
         </div>
@@ -128,6 +132,10 @@ export const Ranking = (props: any) => {
       }
     },
   ]
+  const pageChange = (page: number) => {
+    setPage(page)
+    initData(page)
+  }
   // 分页
   const pagination = () => {
     if (total < 10) {
@@ -140,7 +148,7 @@ export const Ranking = (props: any) => {
       hideOnSinglePage: true,
       showSizeChanger: false,
       showQuickJumper: true,
-      onChange: (page: number) => initData(page),
+      onChange: (page: number) => pageChange(page),
     }
   }
 
@@ -151,15 +159,18 @@ export const Ranking = (props: any) => {
   return (
     <>
       <div className='ranking-waper'>
-        <Table
-          dataSource={dataSource}
-          columns={columns}
-          className={'rankingTable'}
-          pagination={paginationBoolean === false ? false : pagination()}
-          onRow={(record) => ({
-            onClick: () => onSelectRow(record)
-          })}>
-        </Table>
+        <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            className={'rankingTable'}
+            pagination={paginationBoolean === false ? false : pagination()}
+            onRow={(record) => ({
+              onClick: () => onSelectRow(record)
+            })}>
+          </Table>
+        </ConfigProvider>
+
       </div>
     </>
   )

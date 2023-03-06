@@ -80,7 +80,6 @@ export const TradingList = (props: any) => {
     }
   }
   const showFliterName = (method: string) => {
-    console.log(method, 'method')
     switch (method) {
       case '8':
         return t('marketplace.details.mintTo')
@@ -98,18 +97,13 @@ export const TradingList = (props: any) => {
   }
 
   const handleChangeFromRoute = (item: any, addr: string) => {
-    switch (item.method) {
-      case 8:
-        return false
-      default:
-        if (window.location.pathname.indexOf('/account') != -1) {
-          history.replace(`/account/0/${addr}`)
-        } else {
-          // if(type === 'to' && _.isNull(item.toName))
-          return history.push(`/account/0/${addr}`)
-        }
-
-
+    if (item.method == 8 && addr == ZERO_ADDRESS) {
+      return false
+    }
+    if (window.location.pathname.indexOf('/account') != -1) {
+      history.replace(`/account/0/${addr}`)
+    } else {
+      return history.push(`/account/0/${addr}`)
     }
   }
 
@@ -131,7 +125,6 @@ export const TradingList = (props: any) => {
       .map((item) => (item.checked ? item.label : ''))
       .filter((item) => item.trim())
     setFilterList([...deepList])
-    console.log(eventList, 'eventList')
     setEventBtn(eventList)
     filterEventData(eventList)
   }
@@ -156,11 +149,6 @@ export const TradingList = (props: any) => {
         )}
       </>
     )
-    // if (_.isNull(name) && _.isNull(addr)) {
-    //   return '--'
-    // } else {
-    //   return <a onClick={() => handleChangeFromRoute(item, name,type)}>{name?.substr(2, 6)}</a>
-    // }
   }
   const columns: any = [
     {

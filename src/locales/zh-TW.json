@@ -58,7 +58,8 @@
     "copyright": "Copyright 2023. All Rights Reserved.",
     "legal": "幫助",
     "service": "條款",
-    "policy": "隱私"
+    "policy": "隱私",
+    "error":"抱歉，您的頁面走丟了～"
   },
   "nav": {
     "home": "首頁",

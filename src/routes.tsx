@@ -23,6 +23,7 @@ import { GatherEdit } from "./views/collection/collectionEdit"
 import { Privacy } from "./views/privacyPolicy"
 import ScrollTop from './components/ScrollTop'
 import { RankingView } from './views/ranking'
+import { ErrorViwe } from './views/errorView'
 
 export function Routes() {
   return (
@@ -31,6 +32,7 @@ export function Routes() {
         <ScrollTop>
           <UseWalletProvider connectors={ChainIds}>
             <Switch>
+              <Route exact path='/404' component={() => <ErrorViwe />} />
               <Route exact path='/rankings' component={() => <RankingView />} />
               <Route exact path='/primary' component={() => <Primary />} />
               <Route exact path='/marketplace' component={() => <MarketPlace />} />

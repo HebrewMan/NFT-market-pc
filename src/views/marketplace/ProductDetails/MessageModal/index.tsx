@@ -8,7 +8,7 @@ const messageModal: React.FC<any> = (props) => {
   const { t } = useTranslation()
   const history = useHistory()
 
-  const { tokenId, collectionName, imageUrl, name } = props?.data
+  const { tokenId, collectionName, imageUrl, name, contractAddr } = props?.data
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const walletAccount: string = localStorage.getItem('wallet') || ''
   useEffect(() => {
@@ -21,13 +21,16 @@ const messageModal: React.FC<any> = (props) => {
 
   const handleDetail = () => {
     setIsModalOpen(false)
-    history.push(`/account/0/${walletAccount}`)
-    if (window.location.pathname == `/account/0/${walletAccount}`) {
+    history.push({
+      pathname: "/asset",
+      state: { tokenId: tokenId, contractAddr: contractAddr }
+    })
+    if (window.location.pathname == `/asset`) {
       window.location.reload()
     }
   }
   return (
-    <Modal title='' open={isModalOpen} footer={null} onCancel={onCancel} closable={false}>
+    <Modal title='' open={isModalOpen} footer={null} onCancel={onCancel} closable={true}>
       <div className='contentWaper'>
         <div className='datatTitle'>{props?.title}</div>
         <div className='info'>

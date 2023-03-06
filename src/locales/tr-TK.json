@@ -60,7 +60,8 @@
     "copyright": "Telif Hakkı 2023. Tüm Hakları Saklıdır.",
     "legal": "yardım",
     "service": "şartlar",
-    "policy": "Gizlilik"
+    "policy": "Gizlilik",
+    "error":"Üzgünüm, sayfasınız kayıp."
   },
   "nav": {
     "home": "ön Sayfa",

@@ -15,11 +15,11 @@ export const Trading = (props: any) => {
 
   useEffect(() => {
     (String(tokenId) && contractAddr) && getTradingPageData()
-  }, [tokenId, contractAddr, type])
+  }, [tokenId, contractAddr, type, page])
 
-  useEffect(() => {
-    getTradingPageData()
-  }, [page])
+  // useEffect(() => {
+  //   getTradingPageData()
+  // }, [page])
   // // 请求Trading History
   const getTradingPageData = async () => {
     const obj = {

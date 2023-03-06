@@ -5,14 +5,14 @@ import { Select } from '../marketplace/Select'
 import { formatAdd } from '../marketplace/utils'
 import { message, Select as SelectAntd, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import config from 'Src/config/constants'
+import _ from 'lodash'
 import ListItem from 'Src/components/ListItem'
 import { createIpfs, getMyNFTList } from '../../api'
 import { getAccountInfo, updateUserInfo, getUserTransactionList } from '../../api/user'
 import { uploadFileCheck } from '../../utils/utils'
 import { useTouchBottom } from '../../hooks'
 import './index.scss'
-import { getCookie, formatTokenId, handleCopy } from 'Utils/utils'
+import { handleCopy } from 'Utils/utils'
 import AEmpty from "Src/components/Empty"
 import TradingList from 'Src/components/TradingList'
 import CardNft from 'Src/components/CardNFT'
@@ -174,17 +174,18 @@ export const Account: React.FC<any> = () => {
 
   useEffect(() => {
     setCollectAddr(null)
+    setFilterList(null)
     setTradingHistoryData([])
     setCurrentIndex(0)
     if (address) {
       getAccountInfoByAddress()
-      // getAccountNFTList()
     }
   }, [address])
 
   // 根据用户地址获取账户信息
   const getAccountInfoByAddress = async () => {
     const res: any = await getAccountInfo(address)
+    _.isNull(res.data) && history.push('/404')
     setAccountInfo(res.data)
   }
 
@@ -239,7 +240,7 @@ export const Account: React.FC<any> = () => {
 
   const getDescInfo = () => {
     const { Paragraph } = Typography
-    const article = accountInfo.bio
+    const article = accountInfo?.bio || ''
     return (
       <Paragraph
         ellipsis={

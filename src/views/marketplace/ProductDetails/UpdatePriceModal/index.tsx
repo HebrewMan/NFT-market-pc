@@ -44,7 +44,8 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
 		imageUrl: data?.nftMetadata?.imageUrl || data.imageUrl,
-		name: data?.nftMetadata?.name || data?.name
+		name: data?.nftMetadata?.name || data?.name,
+		contractAddr: contractAddr
 	})
 
 	// 初始化

@@ -59,7 +59,8 @@
     "copyright": "Copyright 2023. All Rights Reserved.",
     "legal": "Help",
     "service": "Terms",
-    "policy": "Privacy"
+    "policy": "Privacy",
+    "error":"Sorry, your page is missing~"
   },
   "nav": {
     "home": "Home",
