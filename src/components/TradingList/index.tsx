@@ -7,9 +7,10 @@ import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import config from 'Src/config/constants'
 import { useHistory } from 'react-router-dom'
-import { formatTime, formatTokenId } from 'Utils/utils'
+import { formatTokenId } from 'Utils/utils'
 import InfiniteScroll from "react-infinite-scroll-component"
-
+import { formatTime } from 'Src/views/marketplace/utils'
+const ZERO_ADDRESS = (config as any)?.ZERO_ADDRESS
 const iconClass = (item: any) => {
   switch (item.method) {
     case 8:
@@ -36,7 +37,7 @@ const iconClass = (item: any) => {
 }
 
 export const TradingList = (props: any) => {
-  const { handleMoreChange, total = 0, showTitle = false } = props || {}
+  const { handleMoreChange, total = 0, showTitle = false, handleFilter } = props || {}
   const { t } = useTranslation()
   const history = useHistory()
   const _chainId = window?.provider?.chainId
@@ -51,8 +52,8 @@ export const TradingList = (props: any) => {
     { label: '0', name: t('marketplace.details.listings'), checked: false },
     { label: '1', name: t('marketplace.details.cancel'), checked: false },
     { label: '2', name: t('marketplace.details.trade'), checked: false },
-    { label: '8', name: t('marketplace.details.batchMintTo'), checked: false },
-    { label: '6', name: t('marketplace.details.transfer'), checked: false },
+    // { label: '8', name: t('marketplace.details.batchMintTo'), checked: false },
+    { label: '3,4,6,7,10', name: t('marketplace.details.transfer'), checked: false },
   ])
   useEffect(() => {
     setTradingHistoryData(props?.TradingData)
@@ -68,8 +69,6 @@ export const TradingList = (props: any) => {
         return t('marketplace.details.cancel')
       case 2:
         return t('marketplace.details.trade')
-      case 8:
-        return t('marketplace.details.batchMintTo')
       case 5:
         return t('marketplace.details.updatePrcie')
       case 3:
@@ -80,24 +79,38 @@ export const TradingList = (props: any) => {
         return t('marketplace.details.transfer')
     }
   }
+  const showFliterName = (method: string) => {
+    console.log(method, 'method')
+    switch (method) {
+      case '8':
+        return t('marketplace.details.mintTo')
+      case '0':
+        return t('marketplace.details.listings')
+      case '1':
+        return t('marketplace.details.cancel')
+      case '2':
+        return t('marketplace.details.trade')
+      case '5':
+        return t('marketplace.details.updatePrcie')
+      case '3,4,6,7,10':
+        return t('marketplace.details.transfer')
+    }
+  }
 
-  const handleChangeFromRoute = (item: any, name: any) => {
-    console.log(name, 'name')
+  const handleChangeFromRoute = (item: any, addr: string) => {
     switch (item.method) {
       case 8:
         return false
       default:
         if (window.location.pathname.indexOf('/account') != -1) {
-          history.replace(`/account/0/${name}`)
+          history.replace(`/account/0/${addr}`)
         } else {
-          return history.push(`/account/0/${name}`)
+          // if(type === 'to' && _.isNull(item.toName))
+          return history.push(`/account/0/${addr}`)
         }
 
 
     }
-  }
-  const handleChangeToRoute = (item: any) => {
-    return history.push(`/account/0/${item?.toAddr}`)
   }
 
   const fetchMoreData = () => {
@@ -109,7 +122,7 @@ export const TradingList = (props: any) => {
       handleMoreChange && handleMoreChange()
     }, 500)
   }
-  const handleChangeValue = (e: any, index: number) => {
+  const handleChangeValue = (e: any, index: any) => {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
     const deepList = [...filterList]
@@ -118,28 +131,36 @@ export const TradingList = (props: any) => {
       .map((item) => (item.checked ? item.label : ''))
       .filter((item) => item.trim())
     setFilterList([...deepList])
+    console.log(eventList, 'eventList')
     setEventBtn(eventList)
     filterEventData(eventList)
   }
   const filterEventData = (eventList: any) => {
-    if (eventList.length <= 0) {
-      return setTradingHistoryData(props?.TradingData)
-    }
-    const list = new Array()
-    props?.TradingData.forEach((item: any) => {
-      if (eventList.includes(item.method.toString())) {
-        list.push({ ...item })
-      }
+    const NewArr = [...eventList]
+    let list: any[] = []
+    NewArr.forEach((item: any) => {
+      const res = item && item.split(',')
+      list = [...list, ...res]
     })
-    setTradingHistoryData([...list])
+    handleFilter && handleFilter(list)
   }
 
-  const addreNull = (item: any, name: any) => {
-    if (_.isNull(name)) {
-      return '--'
-    } else {
-      return <a onClick={() => handleChangeFromRoute(item, name)}>{name?.substr(2, 6)}</a>
-    }
+  const addreNull = (item: any, addr: string, name: any, type: string) => {
+    const shownName = name && !name.startsWith('0x') ? name?.substr(0, 8) : addr?.substr(2, 6)
+    return (
+      <>
+        {addr && addr !== ZERO_ADDRESS ? (
+          <a onClick={() => handleChangeFromRoute(item, addr)}>{shownName}</a>
+        ) : (
+          <span>{shownName || '--'}</span>
+        )}
+      </>
+    )
+    // if (_.isNull(name) && _.isNull(addr)) {
+    //   return '--'
+    // } else {
+    //   return <a onClick={() => handleChangeFromRoute(item, name,type)}>{name?.substr(2, 6)}</a>
+    // }
   }
   const columns: any = [
     {
@@ -184,22 +205,23 @@ export const TradingList = (props: any) => {
       width: 120,
       title: t('marketplace.from'),
       render: (r: string, t: any) => {
-        if (t.method == 8 && _.isNull(t.fromName)) {
-          return t?.fromAddr?.substr(2, 6)
-        } else {
-          return addreNull(t, t.fromAddr)
-        }
+        return addreNull(t, t.fromAddr, t.fromName, "form")
+        // if (t.method == 8 && _.isNull(t.fromName)) {
+        //   return t?.fromAddr?.substr(2, 6)
+        // } else {
+        //   return addreNull(t, t.fromAddr,"form")
+        // }
       }
     },
     {
       width: 120,
       title: t('marketplace.to'),
       render: (r: string, t: any) => {
-        if (t.method == 8 && _.isNull(t.toName)) {
-          return t?.fromAddr?.substr(2, 6)
-        } else {
-          return addreNull(t, t.toAddr)
-        }
+        // if (t.method == 8 && _.isNull(t.toName)) {
+        //   return t?.fromAddr?.substr(2, 6)
+        // } else {
+        return addreNull(t, t.toAddr, t.toName, "to")
+        // }
       }
     },
     {
@@ -268,7 +290,7 @@ export const TradingList = (props: any) => {
           <div className='details-button' id='filter-button'>
             {eventBtn.map((item: any) => (
               <button key={item} id='mintToBtn' onClick={() => handleClearCurrent(item)}>
-                {showEventName(Number(item))} <img src={require('Src/assets/coin/icon-close.png')} width={12} alt='' />
+                {showFliterName(item)} <img src={require('Src/assets/coin/icon-close.png')} width={12} alt='' />
               </button>
             ))}
             {eventBtn.length > 0 && <span onClick={handleClearAll}>{t('marketplace.details.clearAll')}</span>}

@@ -5,12 +5,6 @@ import { Select } from '../marketplace/Select'
 import { formatAdd } from '../marketplace/utils'
 import { message, Select as SelectAntd, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { intlFloorFormat } from 'Utils/bigNumber'
-import UpdatePriceModal from '../marketplace/ProductDetails/UpdatePriceModal'
-import { isProd } from 'Src/config/constants'
-import instanceLoading from 'Utils/loading'
-import useWeb3 from 'Src/hooks/useWeb3'
-import { cancelMarketItem } from 'Src/hooks/marketplace'
 import config from 'Src/config/constants'
 import ListItem from 'Src/components/ListItem'
 import { createIpfs, getMyNFTList } from '../../api'
@@ -22,6 +16,7 @@ import { getCookie, formatTokenId, handleCopy } from 'Utils/utils'
 import AEmpty from "Src/components/Empty"
 import TradingList from 'Src/components/TradingList'
 import CardNft from 'Src/components/CardNFT'
+import InfiniteScroll from "react-infinite-scroll-component"
 interface accountInfoProps {
   name: string
   username: string
@@ -60,51 +55,44 @@ export const Account: React.FC<any> = () => {
     id: '',
     bio: ''
   })
-  const [collectionsData, setCollectionsData] = useState<any>([])
-  const collectRef = useRef(collectionsData)
   const { id, address } = useParams<{ id: string | undefined; address: string }>()
   const [keyWord, setKeyWord] = useState<any>()
   const [sort, setSort] = useState<any>()
-  const [status, setStatus] = useState<any>()
   const [collectAddr, setCollectAddr] = useState<any>(null)
   const [ownerAddr, setOwnerAddr] = useState<any>(null)
   const [reset, setReset] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-
-  const defaultData = {
-    collectAddr: collectAddr,
-    ownerAddr: ownerAddr || address,
-    name: keyWord,
-    // status: status,
-  }
-
-  const [pageCurrent, setPageCurrent] = useState(1)
-  const [httpData, setHttpData] = useState({
-    page: pageCurrent,
-    size: 20,
-    data: { ...defaultData },
-  })
-  const [isMore, setIsMore] = useState(false)
   const walletAccount: string = localStorage.getItem('wallet') || ''
   const [currentIndex, setCurrentIndex] = useState(0)
   const history = useHistory()
   const defaultHeader = require('../../assets/account/default_header.png')
   const defaulBannerUrl = require('../../assets/account/default_banner.svg')
   const [total, setTotal] = useState(0)
-  const { page, size } = httpData
+  const [page, setPage] = useState(1)
   const [infoVisible, setInfoVisible] = useState(false)
   const [tradingHistoryData, setTradingHistoryData] = useState([])
   const [transactionPage, setTransactionPage] = useState(1)
   const [tradinTotal, setTradinTotal] = useState(0)
+  const [filterList, setFilterList] = useState(null)
+  const [hasMore, setHasMore] = useState(true)
+  const [NFTlistData, setNFTlistData] = useState<any[]>([])
+  const params = {
+    collectAddr: collectAddr,
+    ownerAddr: address,
+    name: keyWord,
+    data: { sort },
+    page: page,
+    size: 10,
+  }
 
   useEffect(() => {
-    getTransactionList()
-  }, [transactionPage])
+    currentIndex == 2 && getTransactionList()
+  }, [transactionPage, filterList, currentIndex])
 
 
   // 获取用户交易记录
   const getTransactionList = async () => {
     const data = {
+      types: filterList,
       page: transactionPage,
       size: 20,
       userAddr: address,
@@ -113,10 +101,10 @@ export const Account: React.FC<any> = () => {
     setTradinTotal(res?.data?.total)
     setTradingHistoryData(tradingHistoryData.concat(res?.data?.records))
   }
-  // 初始化
-  useEffect(() => {
-    setCollectionsData([])
-  }, [address])
+  const handleFilter = (list: any) => {
+    setFilterList(list)
+    setTradingHistoryData([])
+  }
 
   // 判断方法回调返回值
   const isOwner = () => {
@@ -156,158 +144,67 @@ export const Account: React.FC<any> = () => {
   }
   const clickedTab = (index: number) => {
     setCurrentIndex(index)
-    const typeParams = {
-      ...httpData,
-      page: pageCurrent,
-    }
-    pageRef.current = 0
+    setPage(1)
     const cloneAddr = isOwner() ? walletAccount : address
-    if (index === 2) {
-      return
+    if (index == 2) {
+      setTradingHistoryData([])
+      // getTransactionList()
     }
-    else if (index === 0) {
-      typeParams.data.collectAddr = null
-
-      typeParams.data.ownerAddr = cloneAddr
+    if (index === 0) {
+      setCollectAddr(null)
       setOwnerAddr(cloneAddr)
-
     } else if (index === 1) {
-      typeParams.data.collectAddr = cloneAddr
-      typeParams.data.ownerAddr = null
       setCollectAddr(cloneAddr)
     }
-    setCollectionsData([])
-    if (Math.ceil(total / size) > page) {
-      setIsMore(true)
-    }
-
-    setHttpData(() => ({ ...typeParams }))
   }
 
   const getKeyWord = (value: string) => {
-    setHttpData(() => {
-      setKeyWord(value)
-      if (Math.ceil(total / size) > page) {
-        setIsMore(true)
-      }
-      setCollectionsData([])
-      return {
-        page: pageCurrent,
-        size,
-        data: {
-          ...httpData.data,
-          name: value,
-        },
-      }
-    })
+    setPage(1)
+    setKeyWord(value)
   }
 
   const handleSort = (item: any) => {
-    const data = {
-      sort: item.value,
-    }
-
-    setHttpData(() => {
-      return {
-        page: pageCurrent,
-        size,
-        data: {
-          ...httpData.data,
-          data: data,
-        },
-      }
-    })
-    // sort === 'high' ? false : true
-    const params = {
-      ...httpData,
-      page: pageCurrent,
-    }
-
-    pageRef.current = 0
+    setPage(1)
     setSort(item.value)
-    setPageCurrent(1)
-    setCollectionsData([])
-    if (Math.ceil(total / size) > page) {
-      setIsMore(true)
-    }
-    setHttpData(() => {
-      return {
-        page: 1,
-        size,
-        data: {
-          ...httpData.data,
-          data: data,
-        },
-      }
-    })
-    // setHttpData(() => ({ ...httpData.data, page: 1,orders:orders}));
   }
 
+  useEffect(() => {
+    getAccountNFTList()
+  }, [currentIndex, sort, keyWord, page])
 
   useEffect(() => {
+    setCollectAddr(null)
+    setTradingHistoryData([])
+    setCurrentIndex(0)
     if (address) {
       getAccountInfoByAddress()
+      // getAccountNFTList()
     }
   }, [address])
 
-  // 触底加载
-  const handleLoadMore = () => {
-    if (isMoreRef.current) {
-      const newPage = pageRef.current + 1
-      setPageCurrent(newPage)
-      setHttpData({ ...httpData, page: newPage })
-    } else {
-      pageRef.current = 1
-    }
-  }
-
-  const { isMoreRef, pageRef } = useTouchBottom(handleLoadMore, httpData.page, isMore)
-
-  useEffect(() => {
-    if (accountInfo?.userAddr || accountInfo?.id) {
-      const address = localStorage.getItem('wallet')
-      if (accountInfo?.userAddr == address) {
-        setCollectionsData([])
-      }
-      setTimeout(() => {
-        getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } })
-      }, 200)
-    }
-  }, [httpData, accountInfo?.userAddr, accountInfo?.id])
-
   // 根据用户地址获取账户信息
   const getAccountInfoByAddress = async () => {
-    setCollectionsData([])
     const res: any = await getAccountInfo(address)
     setAccountInfo(res.data)
-    if (accountInfo?.userAddr) {
-      getCollectGoods({ ...httpData, ...{ data: { ...httpData.data } } })
-    }
   }
 
   // 获取用户当前账号所有的资产
-  const getAccountNFTList = async (typeParams: any) => {
-    const res: any = await getMyNFTList(typeParams)
-    const { records, total, current } = res.data
-    collectRef.current = records
-    setPageCurrent(current)
-    setCollectionsData([...collectionsData, ...records])
-    if (httpData.page >= Math.ceil(total / httpData.size)) {
-      setIsMore(false)
-    } else {
-      setIsMore(true)
+  const getAccountNFTList = async () => {
+    const obj = {
+      ...params,
+      page: page,
     }
+    const { data } = (await getMyNFTList(obj)) || {}
+    setTotal(data.total)
+    setNFTlistData((val) => {
+      // 搜索条件改变时置空
+      if (page === 1) {
+        return [...data?.records]
+      }
+      return [...val, ...data?.records]
+    })
   }
 
-  const getCollectGoods = (typeParams: any) => {
-    const newParams = {
-      ...typeParams.data,
-      page: typeParams.page,
-      size,
-      ownerAddr: address,
-    }
-    getAccountNFTList(newParams)
-  }
   const handleBannerImage = (e: any) => {
     const file = e.target.files[0]
 
@@ -329,6 +226,17 @@ export const Account: React.FC<any> = () => {
       updateGeneralInfo({ ...accountInfo, bannerUrl: res.data })
     })
   }
+
+  const fetchMoreData = () => {
+    if (total <= 10) {
+      setHasMore(false)
+      return
+    }
+    setTimeout(() => {
+      setPage(page + 1)
+    }, 200)
+  }
+
   const getDescInfo = () => {
     const { Paragraph } = Typography
     const article = accountInfo.bio
@@ -376,8 +284,8 @@ export const Account: React.FC<any> = () => {
     )
   }
   const handleItenClick = () => {
-    setCollectionsData([])
-    getAccountNFTList(httpData)
+    setNFTlistData([])
+    getAccountNFTList()
   }
 
   return (
@@ -446,7 +354,7 @@ export const Account: React.FC<any> = () => {
           </div>
           <div className='account-all-collects'>
             {currentIndex == 2 ? <>
-              {tradingHistoryData.length > 0 ? <TradingList TradingData={tradingHistoryData} total={tradinTotal} handleMoreChange={() => setTransactionPage(transactionPage + 1)} /> : <AEmpty style={{ heigth: '200px' }} />}
+              {<TradingList TradingData={tradingHistoryData} total={tradinTotal} handleMoreChange={() => setTransactionPage(transactionPage + 1)} handleFilter={(list: any) => handleFilter(list)} />}
             </>
               :
               <div className='info'>
@@ -469,8 +377,18 @@ export const Account: React.FC<any> = () => {
                   </div>
                   <div className={`info-main info-main--max`}>
                     <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
-                      {collectionsData.length > 0 && <CardNft owner={isOwner()} nftList={collectionsData} handleItemChange={() => handleItenClick()} />}
-                      {collectionsData.length === 0 && <AEmpty />}
+                      {NFTlistData.length > 0 &&
+                        <InfiniteScroll
+                          dataLength={NFTlistData.length}
+                          next={fetchMoreData}
+                          hasMore={hasMore}
+                          loader={false}
+                        >
+                          <CardNft owner={isOwner()} nftList={NFTlistData} handleItemChange={() => handleItenClick()} />
+                        </InfiniteScroll>
+
+                      }
+                      {NFTlistData.length === 0 && <AEmpty />}
                     </div>
                   </div>
                 </div>
