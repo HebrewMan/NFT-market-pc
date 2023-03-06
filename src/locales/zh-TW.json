@@ -33,7 +33,7 @@
   "domainNotice": "HiSky 的唯壹官方域名是<1>https://hiskynft.com</1>",
   "home": {
     "title": "專註GameFi ",
-    "subTitle":"領域的NFT交易市場",
+    "subTitle": "領域的NFT交易市場",
     "safeReliable": "安全可靠 ",
     "lowGasFee": "Gas費低",
     "lowTradingFee": "手續費低",
@@ -50,8 +50,8 @@
     "hiSkyText": "從 HiSky 開始，鏈接 GameFi 的未來。",
     "startTrading": "開始交易",
     "searchCollections": "集合",
-    "searchItems": "项",
-    "searchAccount": "账户"
+    "searchItems": "項",
+    "searchAccount": "賬戶"
   },
   "footer": {
     "title": "專註GameFi領域的NFT交易市場，您可以使用 HiSky 發現、出售、購買或創建獨特的 NFT。",
@@ -72,7 +72,7 @@
     "loginOut": "退出",
     "cnnectWallet": "連接錢包",
     "myCollection": "我的集合",
-    "ranking":"排行"
+    "ranking": "排行"
   },
   "marketplace": {
     "serach": "搜索NFT名稱、TokenID",

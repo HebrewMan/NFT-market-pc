@@ -34,7 +34,7 @@
   "domainNotice": "HiSky 的唯一官方域名是<1>https://hiskynft.com</1>",
   "home": {
     "title": "专注GameFi",
-    "subTitle":"领域的NFT交易市场",
+    "subTitle": "领域的NFT交易市场",
     "safeReliable": "安全可靠",
     "lowGasFee": "Gas费低",
     "lowTradingFee": "手续费低",
@@ -73,7 +73,7 @@
     "loginOut": "退出",
     "cnnectWallet": "连接钱包",
     "myCollection": "我的集合",
-    "ranking":"排行"
+    "ranking": "排行"
   },
   "marketplace": {
     "serach": "搜索NFT名称、TokenID",
