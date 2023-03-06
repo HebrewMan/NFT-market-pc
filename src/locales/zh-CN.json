@@ -198,7 +198,8 @@
     "bio": "简介",
     "introduction": "介绍一下你自己吧",
     "save": "保存",
-    "required": "该字段为必填"
+    "required": "该字段为必填",
+    "uploadTips": "支持JPG、PNG、GIF，最大{{ size }}M"
   },
   "hint": {
     "switchMainnet": "请先切换到主网",

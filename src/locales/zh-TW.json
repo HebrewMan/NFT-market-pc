@@ -197,7 +197,8 @@
     "bio": "簡介",
     "introduction": "介紹壹下妳自己吧",
     "save": "保存",
-    "required": "該字段為必填"
+    "required": "該字段為必填",
+    "uploadTips": "支持JPG、PNG、GIF，最大{{ size }}M"
   },
   "hint": {
     "switchMainnet": "請切換到主網",

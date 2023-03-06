@@ -35,7 +35,7 @@
   "domainNotice": "HiSky in tek resmi internet adi <1>https://hiskynft.com</1>",
   "home": {
     "title": "GameFi",
-    "subTitle":"odaklı NFT platformu",
+    "subTitle": "odaklı NFT platformu",
     "safeReliable": "Güvenli ve güvenilir",
     "lowGasFee": "Düşük gas ücreti",
     "lowTradingFee": "düşük işlem ücreti",
@@ -74,7 +74,7 @@
     "loginOut": "cik",
     "cnnectWallet": "Cüzdan bağlayın",
     "myCollection": "Benim topladıklarım",
-    "ranking":"sıralama"
+    "ranking": "sıralama"
   },
   "marketplace": {
     "serach": "NFT ismi,TokeID ara",
@@ -199,7 +199,8 @@
     "bio": "Giriiş",
     "introduction": "Bize kendinizden bahsedin",
     "save": "kaydet",
-    "required": "bualan doldurulmak zorunda"
+    "required": "bualan doldurulmak zorunda",
+    "uploadTips": "JPG, PNG, GIF'yi destekler, maksimum {{ size }}M"
   },
   "hint": {
     "switchMainnet": "ana sayfaya git",

@@ -110,6 +110,7 @@ export const General = () => {
         <div className='inner-top'>
           <div className='inner-title'>
             <label>{t('userSettings.avatar')}</label>
+            <p>（{t('userSettings.uploadTips', { size: 1 })}）</p>
           </div>
           <div className='inner-file logo-image'>
             {!imageUrl ? (
@@ -127,6 +128,7 @@ export const General = () => {
         <div className='inner-top'>
           <div className='inner-title'>
             <label>{t('userSettings.banner')}</label>
+            <p>（{t('userSettings.uploadTips', { size: 5 })}）</p>
           </div>
           <div className='inner-file banner-image'>
             {!bannerUrl ? (

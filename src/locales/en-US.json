@@ -34,7 +34,7 @@
   "domainNotice": "The only official domain for HiSky is <1>https://hiskynft.com</1>",
   "home": {
     "title": "NFT trading marketplace",
-    "subTitle":"focused on the GameFi space",
+    "subTitle": "focused on the GameFi space",
     "safeReliable": "Safe reliable",
     "lowGasFee": "Low gas fee",
     "lowTradingFee": "Low trading fee",
@@ -73,7 +73,7 @@
     "loginOut": "Exit",
     "cnnectWallet": "Connect Wallet",
     "myCollection": "My Collections",
-    "ranking":"Ranking"
+    "ranking": "Ranking"
   },
   "marketplace": {
     "serach": "Search for the name of NFT ,Token ID",
@@ -199,7 +199,8 @@
     "bio": "Bio",
     "introduction": "Tell the world your story!",
     "save": "Save",
-    "required": "This field must be filled"
+    "required": "This field must be filled",
+    "uploadTips": "Support JPG, PNG, GIF, Max {{ size }}M"
   },
   "hint": {
     "switchMainnet": "Please switch to mainnet!",
