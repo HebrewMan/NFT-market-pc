@@ -1,18 +1,17 @@
 .privacyWpaer {
-  padding: 32px 0;
   width: 1200px;
   min-width: 1200px;
-  margin: 0 auto;
+  margin: 32px auto 0;
 
   .privacyTitle {
     font-size: 32px;
-    color: #1D243B;
+    color: $tq-color-white;
     font-weight: 600;
   }
 
   .privacyTime {
     font-size: 14px;
-    color: #1D243B;
+    color: #9F9FAA;
     margin-top: 8px;
 
   }
@@ -20,7 +19,7 @@
   .privacyConten {
     margin-top: 45px;
     font-size: 16px;
-    color: #4B5163;
+    color: #9F9FAA;
     line-height: 28px;
 
     p {

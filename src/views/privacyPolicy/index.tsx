@@ -295,7 +295,7 @@ export const Privacy: React.FC<any> = (props) => {
   }
 
   return (
-    <div className='privacyWpaer'>
+    <div className='privacyWpaer content-wrap-top'>
       <div className='privacyTitle'>{type === "policy" ? 'PRIVACY POLICY' : 'TERMS OF SERVICE'}</div>
       <div className='privacyTime'>Last updated: 2022-1-4</div>
       <div className='privacyConten'>

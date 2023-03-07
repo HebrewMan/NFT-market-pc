@@ -95,7 +95,7 @@ export const PList = () => {
             <p>{getViewLang(item.inRemark)}</p>
             <CommTimer activityStatus={Number(item.status)} endTime={getTimer(item)} />
             {width > 1024 && (
-              <div>
+              <div className='box-more'>
                 <a> {t('primary.more')} → </a>
               </div>
             )}

@@ -17,6 +17,7 @@ const messageModal: React.FC<any> = (props) => {
 
   const onCancel = () => {
     setIsModalOpen(false)
+    window.location.reload()
   }
 
   const handleDetail = () => {

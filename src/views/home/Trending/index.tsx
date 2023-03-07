@@ -22,10 +22,10 @@ const TrendSwiper = (props: any) => {
       direction='horizontal'
       loop={true}
       slidesPerView="auto"
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
+      // autoplay={{
+      //   delay: 2500,
+      //   disableOnInteraction: false,
+      // }}
 
       spaceBetween={24}
       centeredSlides={true}
@@ -109,22 +109,23 @@ export const Trending = () => {
 
   return (
     <>
-      <div className='swiper-list collectionCard'>
+      <div className='collectionCard'>
         <div className='line-title'>{t('home.collection')}</div>
-        {collections && collections.length > 0 && (
-          <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} ></TrendSwiper>
-        )}
-        {!(collections && collections.length > 0) && <p style={styles}>{t('common.noData')}</p>}
-      </div>
-      <div className='swiper-buttons'>
-        <div className='swiper-button-prev'>
-          <img src={require('Src/assets/home/icon-left.png')} alt='' />
+        <div className='swiper-list'>
+          {collections && collections.length > 0 && (
+            <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} ></TrendSwiper>
+          )}
+          {!(collections && collections.length > 0) && <p style={styles}>{t('common.noData')}</p>}
+          <div className='swiper-buttons'>
+            <div className='swiper-button-prev'>
+              <img src={require('Src/assets/home/icon-left.png')} alt='' />
+            </div>
+            <div className='swiper-button-next'>
+              <img src={require('Src/assets/home/icon-right.png')} alt='' />
+            </div>
+          </div>
         </div>
-        <div className='swiper-button-next'>
-          <img src={require('Src/assets/home/icon-right.png')} alt='' />
-        </div>
       </div>
-
     </>
   )
 }

@@ -174,7 +174,7 @@ export const HeaderMenu = () => {
             </Button>
           ) :
             (
-              <div className='' onMouseOver={() => showMenu('js-account')} onMouseLeave={() => hideMenu()}>
+              <div className='' onMouseOver={() => showMenu('js-account')}>
                 <Link
                   to={token && walletAccount ? `/account/0/${walletAccount}` : `/`}
                   className={`account-menu ${dom === 'js-account' ? 'active' : ''}`}
@@ -186,7 +186,7 @@ export const HeaderMenu = () => {
                   <div
                     id='js-account'
                     className={`tippy-box ${dom === 'js-account' ? 'opacity' : 'opacity'}`}
-                    onMouseLeave={() => hideMenu()}
+                    // onMouseLeave={() => hideMenu()}
                     onMouseOver={() => showMenu('js-account')}
                   >
                     <div className='tippy-content'>

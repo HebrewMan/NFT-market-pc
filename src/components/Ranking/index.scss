@@ -82,6 +82,10 @@
     align-items: center;
 
     p {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       font-size: $tq-font-size-5;
 
     }

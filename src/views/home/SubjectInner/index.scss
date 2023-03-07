@@ -3,7 +3,7 @@
   height: 900px;
   background-image: url('../../../assets/home/home-bg.svg');
   background-repeat: no-repeat;
-  // background-size: 100% auto;
+  background-size: 100% 100%;
 }
 
 .container-flex {
@@ -65,6 +65,7 @@
       color: rgb(255, 255, 255);
       border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     .button-sell {
@@ -113,13 +114,13 @@
         overflow: visible;
 
         .right-inner {
-          box-shadow: rgb(196, 197, 200) 0px 0px 5px 0px;
+          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
           border-radius: 20px;
           position: relative;
 
           &:hover {
             transition: all 0.3s ease 0s;
-            box-shadow: rgb(196, 197, 200) 0px 0px 10px 0px;
+            // box-shadow: rgb(196, 197, 200) 0px 0px 10px 0px;
           }
 
           .pic {

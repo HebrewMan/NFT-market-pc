@@ -44,6 +44,11 @@
       padding-right: 10px;
       background: $tq-color-white;
 
+      .default-timer span {
+        background: rgba(74, 69, 255, 0.1);
+        color: #4A45FF;
+      }
+
       h2 {
         width: 100%;
         overflow: hidden;
@@ -57,10 +62,28 @@
         font-size: 16px;
         color: $tq-font-color-minor;
         line-height: 1.5;
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: normal !important;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical
       }
 
-      a {
-        color: $tq-primary-color;
+      .box-more {
+        max-width: 110px;
+        border-radius: 4px;
+        padding: 0px 16px;
+        height: 42px;
+        line-height: 42px;
+        background: #4A45FF;
+        opacity: 1;
+
+        a {
+          font-size: 14px;
+          color: $tq-color-white;
+        }
       }
     }
   }
