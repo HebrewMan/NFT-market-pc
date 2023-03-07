@@ -188,11 +188,11 @@
 
       .information-top {
         .name-waper {
-          display: flex;
+          // display: flex;
           align-items: baseline;
 
           .collections-name {
-            margin-left: 8px;
+            margin-bottom: 12px;
             font-size: 18px;
             color: $tq-primary-aqua;
             cursor: pointer;

@@ -289,10 +289,10 @@ export const ProductionDetails = () => {
           <div className='header-information'>
             <div className='information-top'>
               <div className='name-waper'>
-                <h1 className='name'>{formatTokenId(detailMetadata?.name, detailMetadata?.tokenId)}</h1>
                 <p className='collections-name' onClick={handleToCollection}>
                   {collectiondata?.collectionName}
                 </p>
+                <h1 className='name'>{formatTokenId(detailMetadata?.name, detailMetadata?.tokenId)}</h1>
               </div>
               <div className='author'>
                 <div className='auth'>
