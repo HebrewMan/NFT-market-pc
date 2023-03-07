@@ -67,14 +67,14 @@ export const WalletCache = {
 };
 
 export const monitorAccountsChanged = (cb: (data: any) => void) => {
-  window?.ethereum?.on('accountsChanged', (accounts: any) => {
+  window?.provider?.on('accountsChanged', (accounts: any) => {
     cb(accounts);
     window.location.reload();
   });
 };
 
 export const monitorChainChange = (cb?: () => void) => {
-  window?.ethereum?.on('chainChanged', (chain: any) => {
+  window?.provider?.on('chainChanged', (chain: any) => {
     if (chain) {
       const chainId = parseInt(chain);
       if (SUPPORTED_CHAINS.includes(chainId)) {
@@ -91,7 +91,7 @@ export const SwitchChainRequest = (certainChain: SupportedChain, errorCB?: () =>
   return new Promise(async (reslove, reject) => {
     console.log('deee: ', certainChain);
     try {
-      await window?.ethereum?.request({
+      await window?.provider?.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x' + certainChain.toString(16) }],
       });
@@ -100,7 +100,7 @@ export const SwitchChainRequest = (certainChain: SupportedChain, errorCB?: () =>
     } catch (e: any) {
       if (e?.code === 4902) {
         try {
-          await window?.ethereum.request({
+          await window?.provider.request({
             method: 'wallet_addEthereumChain',
             params: [
               {
