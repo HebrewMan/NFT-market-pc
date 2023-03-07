@@ -29,7 +29,6 @@ export const MarketList = () => {
     })
   }
   const handleLoadMore = () => {
-    console.log(isMoreRef.current, 'isMoreRef.current')
     if (isMoreRef.current) {
       const newPage = pageRef.current + 1
       setPage(newPage)
@@ -45,7 +44,6 @@ export const MarketList = () => {
     const dataList = res?.data?.records
     setPage(res?.data?.current)
     setMarketList([...marketList, ...dataList])
-    console.log(page, 'page')
     if (page >= Math.ceil(res.data.total / size)) {
       setIsMore(false)
     }

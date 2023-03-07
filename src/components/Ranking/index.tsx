@@ -51,7 +51,6 @@ export const Ranking = (props: any) => {
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: any, index: string) => {
-        console.log(record, 'text')
         return <div className='item-info'>
           <p>{(page - 1) * size + (index + 1)}</p>
           <img src={record.headUrl} />

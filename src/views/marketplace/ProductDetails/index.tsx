@@ -146,6 +146,7 @@ export const ProductionDetails = () => {
     setTradingHistoryData(res?.data?.records)
   }
   const isOwner = () => {
+    console.log(!!token && ownerAddr === accountAddress, '!!token && ownerAddr === accountAddress')
     // 连接钱包，并且拥有者=登录账户
     return !!token && ownerAddr === accountAddress
   }
@@ -299,10 +300,10 @@ export const ProductionDetails = () => {
                   {/* nft未上架 */}
                   <span>
                     {t('marketplace.Owner')}&nbsp;&nbsp;
-                    {isOwner() && <span>{detailMetadata.contractType == 'ERC1155' && amountNum} &nbsp;&nbsp;</span>}
+                    {isOwner() && (detailMetadata.contractType == 'ERC1155' && amountNum) && <span>{amountNum}&nbsp;&nbsp;</span>}
                     {(orderData == null && detailMetadata.belongToList.length) ? (
                       <Link to={`/account/0/${detailMetadata.belongToList[0]}`}>
-                        {detailMetadata.belongToList[0]?.substring(0, 6)}
+                        {isOwner() ? ownerLink : detailMetadata.belongToList[0]?.substring(0, 6)}
                       </Link>
                     ) : (
                       isOwner() ? ownerLink : ownerAddress

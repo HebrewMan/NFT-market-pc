@@ -99,7 +99,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		}
 
 		makeDealPrice(value, defaultAmountNum)
-		console.log(value.length, 'value')
 
 		const posDot = value.indexOf('.')
 		if (posDot < 0) {
@@ -147,8 +146,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	}
 	// NFT上架     // 上架
 	const getSellOrder = async () => {
-		console.log(account, 'account')
-
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
 			// history.push('/login')

@@ -36,8 +36,6 @@ export const ActivityDetail = () => {
   }
 
   const getTimer = (row: any) => {
-    console.log(row, 'row')
-
     return row?.status === 3 || row?.status === 2 ? [] : row?.countdown
   }
 

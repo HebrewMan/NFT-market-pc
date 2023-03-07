@@ -68,7 +68,6 @@ export const WalletCache = {
 
 export const monitorAccountsChanged = (cb: (data: any) => void) => {
   window?.ethereum?.on('accountsChanged', (accounts: any) => {
-    console.log('账号切换: ', accounts);
     cb(accounts);
     window.location.reload();
   });
@@ -82,7 +81,6 @@ export const monitorChainChange = (cb?: () => void) => {
         WalletCache.setChain(chainId);
       }
     }
-    console.log('chainChanged: ', chain);
     WalletCache.removeType();
     cb?.();
     window.location.reload();

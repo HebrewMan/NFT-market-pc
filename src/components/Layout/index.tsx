@@ -18,8 +18,6 @@ export const AppLayout = React.memo((props: any) => {
   }, [])
 
   const connectWallet = async () => {
-    console.log('刷新')
-
     const walletName = localStorage.getItem('walletName')
     let web3Provider
     if (walletName === 'WalletConnect') {
