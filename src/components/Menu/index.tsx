@@ -77,7 +77,7 @@ export const HeaderMenu = () => {
     removeCookie('web-token')
     removeLocalStorage('walletName')
     removeLocalStorage('provider')
-    if (localStorage.walletName == 'WalletConnect') await (window?.ethereum.provider?.disconnect())
+    if (localStorage.walletName == 'WalletConnect') await (window?.provider?.disconnect())
     history.push('/')
     location.reload()
   }

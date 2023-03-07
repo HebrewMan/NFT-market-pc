@@ -21,7 +21,7 @@ import BugModal from './bugModal'
 import UpdatePriceModal from './UpdatePriceModal'
 import './index.scss'
 import { getNftDetail } from 'Src/api/marketPlace'
-
+import { showConnectModal } from "Src/components/ConnectModal"
 
 export const ProductionDetails = () => {
   const web3 = useWeb3()
@@ -134,19 +134,7 @@ export const ProductionDetails = () => {
     const res: any = await getGoodsByCollectionId(params)
     setCollectGoodsData(res?.data?.records)
   }
-  // // 请求Trading History
-  const getOrderPageData = async (tokenId: string, contractAddr: string) => {
-    const obj = {
-      tokenId: tokenId,
-      page: 1,
-      size: 1000,
-      contractAddr: contractAddr,
-    }
-    const res: any = await getOrderEventPage(obj)
-    setTradingHistoryData(res?.data?.records)
-  }
   const isOwner = () => {
-    console.log(!!token && ownerAddr === accountAddress, '!!token && ownerAddr === accountAddress')
     // 连接钱包，并且拥有者=登录账户
     return !!token && ownerAddr === accountAddress
   }
@@ -166,12 +154,11 @@ export const ProductionDetails = () => {
   // 取消上架 // 下架合约
   const getCancelSellOrder = async () => {
     if (!accountAddress || !token) {
-      message.error(t('hint.switchMainnet'))
-      // history.push('/login')
+      showConnectModal(true)
       return
     }
     if (chainId !== 1319 && isProd) {
-      message.success(t('hint.cancellation'))
+      message.error(t('hint.switchMainnet'))
       return
     }
     instanceLoading.service()
