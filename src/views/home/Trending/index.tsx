@@ -22,10 +22,10 @@ const TrendSwiper = (props: any) => {
       direction='horizontal'
       loop={true}
       slidesPerView="auto"
-      // autoplay={{
-      //   delay: 2500,
-      //   disableOnInteraction: false,
-      // }}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
 
       spaceBetween={24}
       centeredSlides={true}

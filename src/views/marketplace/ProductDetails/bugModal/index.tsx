@@ -90,11 +90,13 @@ const ReceiveModal: React.FC<any> = (props) => {
   const getBuy = async () => {
     // 未链接钱包
     if (!window.provider || !accountAddress || !token) {
-      // message.error(t('hint.pleaseLog'))
       showConnectModal(true)
       return
     }
-
+    if (chainId !== 1319 && isProd) {
+      message.error(t('hint.switchMainnet'))
+      return
+    }
     if (subNum > leftAmount) {
       message.error(t('marketplace.details.NFTAmount'))
       return

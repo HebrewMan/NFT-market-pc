@@ -66,13 +66,13 @@ const CardNFT: React.FC<any> = (props: PropsType) => {
   }
   // 取消上架 // 下架合约
   const getCancelSellOrder = async (item: any) => {
-    if (!walletAccount || !token) {
-      message.error(t('hint.switchMainnet'))
-      history.push('/login')
-      return
-    }
+    // if (!walletAccount || !token) {
+    //   message.error(t('hint.switchMainnet'))
+    //   history.push('/login')
+    //   return
+    // }
     if (chainId !== 1319 && isProd) {
-      message.success(t('hint.cancellation'))
+      message.success(t('hint.switchMainnet'))
       return
     }
     instanceLoading.service()
