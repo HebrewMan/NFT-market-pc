@@ -89,8 +89,8 @@ export const ConnectModal: React.FC<any> = (props) => {
       await singer.request({ method: "eth_requestAccounts" })
         .then(async (accounts: string) => {
           // 查找钱包链ID 不是AITD主网 弹出小狐狸切换弹窗
-          if (isProd && hasWallet() && singer.chainId !== INIT_CHAIN) {
-            SwitchChainRequest(INIT_CHAIN as SupportedChain)
+          if (isProd && singer.networkVersion !== INIT_CHAIN) {
+            SwitchChainRequest((INIT_CHAIN as SupportedChain), singer)
               .then(() => {
                 signs(walletName, accounts[0], singer)
               })

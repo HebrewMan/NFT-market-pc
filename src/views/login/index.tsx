@@ -39,45 +39,45 @@ export const Login = () => {
     removeLocalStorage('wallet')
     removeCookie('web-token')
   }
-  const connectWallet = (walletInfo: any) => {
-    const { name } = walletInfo
-    const { connector }: { connector: AbstractConnector | undefined } = walletInfo
-    // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
-    // && connector.walletConnectProvider?.wc?.uri
-    if (connector instanceof WalletConnectConnector) {
-      connector.walletConnectProvider = undefined
-    }
-    // eth钱包连接
-    if (connector && !account) {
-      // activateInjectedProvider(name)
-      activate(connector, undefined, true)
-        .then(() => {
-          clearLocalAndCookie()
-          //查找钱包链ID 不是AITD主网 弹出小狐狸切换弹窗
-          if (isProd && hasWallet() && chainId !== INIT_CHAIN) {
-            SwitchChainRequest(INIT_CHAIN as SupportedChain)
-              .then(() => {
-                connectMetaMask()
-              })
-              .catch(() => {
-                window.location.reload()
-              })
-          } else {
-            connectMetaMask()
-          }
-        })
-        .catch((error) => {
-          console.log('error:::', error)
-          // 链错了，重新连接
-          if (error instanceof UnsupportedChainIdError) {
-            activate(connector) // a little janky...can't use setError because the connector isn't set
-          } else {
-            // setPendingError(true)
-          }
-        })
-    } else {
-    }
-  }
+  // const connectWallet = (walletInfo: any) => {
+  //   const { name } = walletInfo
+  //   const { connector }: { connector: AbstractConnector | undefined } = walletInfo
+  //   // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
+  //   // && connector.walletConnectProvider?.wc?.uri
+  //   if (connector instanceof WalletConnectConnector) {
+  //     connector.walletConnectProvider = undefined
+  //   }
+  //   // eth钱包连接
+  //   if (connector && !account) {
+  //     // activateInjectedProvider(name)
+  //     activate(connector, undefined, true)
+  //       .then(() => {
+  //         clearLocalAndCookie()
+  //         //查找钱包链ID 不是AITD主网 弹出小狐狸切换弹窗
+  //         if (isProd && hasWallet() && chainId !== INIT_CHAIN) {
+  //           SwitchChainRequest(INIT_CHAIN as SupportedChain)
+  //             .then(() => {
+  //               connectMetaMask()
+  //             })
+  //             .catch(() => {
+  //               window.location.reload()
+  //             })
+  //         } else {
+  //           connectMetaMask()
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log('error:::', error)
+  //         // 链错了，重新连接
+  //         if (error instanceof UnsupportedChainIdError) {
+  //           activate(connector) // a little janky...can't use setError because the connector isn't set
+  //         } else {
+  //           // setPendingError(true)
+  //         }
+  //       })
+  //   } else {
+  //   }
+  // }
   return (
     <div className='login-component'>
       <div className='login-inner'>
@@ -86,7 +86,7 @@ export const Login = () => {
           <ul className='login-wallet'>
             {wallets.map((item) => {
               return (
-                <li key={item.name} onClick={() => connectWallet(item.name)}>
+                <li key={item.name}>
                   <button>
                     <img src={item.logoURI} alt={`${item.name} logo`} />
                     <div>{item.name}</div>

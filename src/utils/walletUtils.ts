@@ -87,11 +87,11 @@ export const monitorChainChange = (cb?: () => void) => {
   });
 };
 
-export const SwitchChainRequest = (certainChain: SupportedChain, errorCB?: () => void) => {
+export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,errorCB?: () => void) => {
   return new Promise(async (reslove, reject) => {
-    console.log('deee: ', certainChain);
+    console.log('deee: ',provider, certainChain);
     try {
-      await window?.provider?.request({
+      await provider.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x' + certainChain.toString(16) }],
       });
@@ -100,7 +100,7 @@ export const SwitchChainRequest = (certainChain: SupportedChain, errorCB?: () =>
     } catch (e: any) {
       if (e?.code === 4902) {
         try {
-          await window?.provider.request({
+          await provider.request({
             method: 'wallet_addEthereumChain',
             params: [
               {
