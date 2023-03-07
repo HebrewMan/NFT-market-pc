@@ -77,7 +77,7 @@ export const General = () => {
     return form.username && form.email
   }
   const handleUpdateInfo = async () => {
-    if (form.email == null || form.username == '') {
+    if (form.username == '') {
       message.error(t('userSettings.required'))
     } else {
       const params = {
@@ -171,7 +171,7 @@ export const General = () => {
         <div className='inner-name'>
           <label htmlFor='email'>
             {t('userSettings.email')}
-            <span>*</span>
+            {/* <span>*</span> */}
           </label>
           <div className={`inner-name-input ${requiredEmail ? 'active-name-input' : 'inner-name-input'}`}>
             <input
