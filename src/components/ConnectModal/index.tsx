@@ -103,7 +103,6 @@ export const ConnectModal: React.FC<any> = (props) => {
             } else {
               signs(walletName, accounts[0], singer)
             }
-
           } else {
             signs(walletName, accounts[0], singer)
           }

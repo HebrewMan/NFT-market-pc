@@ -143,7 +143,7 @@
   },
   "primary": {
     "title": "Primary Market",
-    "titleInfo": "Primary is a marketplace that allows high-quality projects, artists, and celebrities to conduct the primary list of NFT assets. Users or players can place orders before the NFT flows into the secondary marketplace to obtain a better price or the priority to experience the project in advance.",
+    "titleInfo": "Here you can find a wealth of quality blind box projects that also aim to help build a bridge between project owners and users.",
     "soldOut": "Sold Out",
     "progress": "In Progress",
     "end": "End",
@@ -238,7 +238,7 @@
     "noTemporarily": "No Earnings Temporarily",
     "contract": "Contract",
     "creators": "Creators",
-    "holders": "Holders",
+    "holders": "Owners",
     "totalListings": "Total Listings",
     "loadMore": "Load More",
     "price": "Unit Price",

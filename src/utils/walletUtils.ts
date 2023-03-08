@@ -98,7 +98,6 @@ export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,err
       reslove(true);
     } catch (e: any) {
       if (e?.code === 4902) {
-        debugger
         try {
           await provider.request({
             method: 'wallet_addEthereumChain',

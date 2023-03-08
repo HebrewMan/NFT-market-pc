@@ -89,8 +89,8 @@ const connectMetaMask = () => {
 
 // 监听切换账号 ，链切换 账号切换
 const onEthereumEvent = () => {
-  const ethereum = window.provider;
-  if (ethereum?.isMetaMask) {
+  const ethereum = window?.provider;
+  if (ethereum) {
     ethereum.on('accountsChanged', (accounts: string[]) => {
       // "accounts" will always be an array, but it can be empty.
       const account = accounts[0]?.toLowerCase();
