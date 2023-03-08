@@ -4,7 +4,7 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import useWeb3 from '../../hooks/useWeb3'
 import { setCookie, setLocalStorage } from 'Utils/utils'
-import { SwitchChainRequest, SupportedChain, hasWallet } from '../../utils/walletUtils'
+import { SwitchChainRequest, SupportedChain, hasWallet, addEthereumChain } from '../../utils/walletUtils'
 import WalletConnectProvider from "@walletconnect/web3-provider"
 import { providers } from 'ethers'
 import { getNonce, login } from 'Src/api/index'
@@ -40,6 +40,7 @@ export const ConnectModal: React.FC<any> = (props) => {
   }
 
   const connectWallets = async (walletName: string) => {
+    console.log(walletName, 'walletName')
     if (!(window as any).ethereum && walletName != 'WalletConnect') {
       walletName == 'MetaMask' ? window.open('https://metamask.io/download') : window.open('https://www.coinbase.com/wallet')
       return
@@ -89,14 +90,20 @@ export const ConnectModal: React.FC<any> = (props) => {
       await singer.request({ method: "eth_requestAccounts" })
         .then(async (accounts: string) => {
           // 查找钱包链ID 不是AITD主网 弹出小狐狸切换弹窗
-          if (isProd && singer.networkVersion !== INIT_CHAIN) {
-            SwitchChainRequest((INIT_CHAIN as SupportedChain), singer)
-              .then(() => {
-                signs(walletName, accounts[0], singer)
-              })
-              .catch(() => {
-                window.location.reload()
-              })
+          const chainId = await singer.request({ method: 'eth_chainId' })
+          if (isProd && chainId !== INIT_CHAIN) {
+            if (walletName === 'MetaMask') {
+              SwitchChainRequest((INIT_CHAIN as SupportedChain), singer)
+                .then(() => {
+                  signs(walletName, accounts[0], singer)
+                })
+                .catch(() => {
+                  window.location.reload()
+                })
+            } else {
+              signs(walletName, accounts[0], singer)
+            }
+
           } else {
             signs(walletName, accounts[0], singer)
           }

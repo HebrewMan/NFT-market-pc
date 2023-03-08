@@ -89,7 +89,6 @@ export const monitorChainChange = (cb?: () => void) => {
 
 export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,errorCB?: () => void) => {
   return new Promise(async (reslove, reject) => {
-    console.log('deee: ',provider, certainChain);
     try {
       await provider.request({
         method: 'wallet_switchEthereumChain',
@@ -99,6 +98,7 @@ export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,err
       reslove(true);
     } catch (e: any) {
       if (e?.code === 4902) {
+        debugger
         try {
           await provider.request({
             method: 'wallet_addEthereumChain',
@@ -110,7 +110,6 @@ export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,err
               },
             ],
           });
-
           WalletCache.setChain(certainChain);
           reslove(true);
         } catch (addError: any) {
@@ -123,3 +122,50 @@ export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,err
     }
   });
 };
+
+export const addEthereumChain = (certainChain: SupportedChain,provider:any,errorCB?: () => void) => {
+  return new Promise(async (reslove, reject) => {
+    debugger
+    const name = (CHAIN_INFO as any)?.[certainChain + '']?.chainName;
+    const id =  '0x' + certainChain.toString(16)
+    const rpcUrls = (CHAIN_INFO as any)?.[certainChain + '']?.rpcUrl;
+    debugger
+    console.log('ChainId: ',name,id,rpcUrls, certainChain);
+    const addEthereum =  await provider.request({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0x' + certainChain.toString(16),
+          chainName: (CHAIN_INFO as any)?.[certainChain + '']?.chainName,
+          rpcUrls: (CHAIN_INFO as any)?.[certainChain + '']?.rpcUrl,
+        },
+      ],
+    });
+    debugger
+    console.log(addEthereum,'addEthereum');
+    
+    // try {
+    //   debugger
+    //   console.log(provider,'provider')
+    //   await provider.request({
+    //     method: 'wallet_addEthereumChain',
+    //     params: [
+    //       {
+    //         chainId: '0x' + certainChain.toString(16),
+    //         chainName: (CHAIN_INFO as any)?.[certainChain + '']?.chainName,
+    //         rpcUrls: (CHAIN_INFO as any)?.[certainChain + '']?.rpcUrl,
+    //       },
+    //     ],
+    //   });
+    //   debugger 
+    //   console.log(certainChain,'certainChain')
+    //   WalletCache.setChain(certainChain);
+    //   reslove(true);
+    // }
+    // catch (e: any) {
+    //   console.log(e,'error');
+    //   reject();
+    // }
+  });
+};
+

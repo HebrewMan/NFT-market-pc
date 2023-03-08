@@ -76,7 +76,7 @@ request.interceptors.response.use((response: any) => {
         window.location.reload()
       }, 2500)
     }else if(codeNum === 500){
-      messageAntd.error('接口异常')
+      messageAntd.error('Server request exception')
     }
     else{
       messageAntd.error(message)
