@@ -117,16 +117,15 @@ export const SwitchChainRequest = (certainChain: SupportedChain,provider:any,err
           WalletCache.setChain(certainChain);
           reslove(true);
         } catch (addError: any) {
-          console.log('catch2: ', certainChain, addError);
           reject();
         }
       }
-      console.log('catch1: ', certainChain, e);
       reject();
     }
   });
 };
 
+// 暂时没用
 export const addEthereumChain = (certainChain: SupportedChain,provider:any,errorCB?: () => void) => {
   return new Promise(async (reslove, reject) => {
     provider.request({
@@ -145,6 +144,7 @@ export const addEthereumChain = (certainChain: SupportedChain,provider:any,error
       ],
     });
     // debugger
+    WalletCache.setChain(certainChain);
     reslove(true)
   
   });
