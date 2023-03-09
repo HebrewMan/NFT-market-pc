@@ -104,7 +104,7 @@
     align-items: center;
 
     img {
-      margin-right: 2px;
+      margin-right: 4px;
       width: 16px;
       height: 16px;
     }
@@ -141,7 +141,6 @@
       border: none;
       height: 88px;
       padding: 0px 24px;
-      line-height: 88px;
       background: $tq-table-bg;
 
       &:first-child {

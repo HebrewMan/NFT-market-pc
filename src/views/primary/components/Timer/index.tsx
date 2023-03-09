@@ -4,6 +4,7 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 
 export const CommTimer = (props: any) => {
+  console.log(props, 'props')
   // eslint-disable-next-line react/prop-types
   const { t } = useTranslation()
   const { width } = useWindowDimensions()
@@ -99,11 +100,6 @@ export const CommTimer = (props: any) => {
             <p className={timeEnd ? 'disabled' : ''}>{t('common.seconds')}</p>
           </div>
         </div>
-        {width <= 1024 && (
-          <div className='more'>
-            <a> {t('primary.more')} → </a>
-          </div>
-        )}
       </div>
     </div>
   )

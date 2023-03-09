@@ -80,7 +80,6 @@ request.interceptors.response.use((response: any) => {
     }
     else{
       messageAntd.error(message)
-      return response?.data // 返回接口返回的错误信息
     }
   }
 }, errorHandler);

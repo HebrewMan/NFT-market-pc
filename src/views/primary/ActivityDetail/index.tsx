@@ -17,7 +17,7 @@ export const ActivityDetail = () => {
   useEffect(() => {
     const state: any = history.location.state
     getDetail(state?.id)
-  }, [history.location.state])
+  }, [])
 
   const getDetail = async (id: string) => {
     const res: any = await getPrimaryActivityDetail(id)
@@ -25,7 +25,8 @@ export const ActivityDetail = () => {
       name: res.data.inName,
       description: res.data.inRemark,
     }
-    setActityDetail(res.data)
+    console.log(res?.data, 'res')
+    setActityDetail(res?.data)
     setPrimaryObj(info)
 
   }
@@ -36,6 +37,7 @@ export const ActivityDetail = () => {
   }
 
   const getTimer = (row: any) => {
+    console.log(actityDetail)
     return row?.status === 3 || row?.status === 2 ? [] : row?.countdown
   }
 
@@ -47,7 +49,7 @@ export const ActivityDetail = () => {
         </div>
         <div className='timer-box'>
           <div className='timer'>
-            {actityDetail?.status && <CommTimer activityStatus={actityDetail?.status} endTime={getTimer(actityDetail)} hiddenMore={true} />}
+            {actityDetail?.status >= 0 && <CommTimer activityStatus={Number(actityDetail?.status)} endTime={getTimer(actityDetail)} />}
           </div>
         </div>
         <PHeader primaryObj={primaryObj} />
