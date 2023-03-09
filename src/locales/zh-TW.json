@@ -145,6 +145,7 @@
     "titleInfo": "在這裏，你可以找到豐富優質的盲盒項目，也旨在幫助項目方和用戶搭建起一個橋梁。",
     "soldOut": "告罄",
     "progress": "進行中",
+    "waitStarted":"待開始",
     "end": "結束",
     "more": "更多",
     "update": "更新",
@@ -290,6 +291,8 @@
     "volume": "{{day}}d 交易量",
     "listed": "掛單量",
     "collection": "集合系列",
-    "allTime": "全部"
+    "allTime": "全部",
+    "page":"頁",
+    "goTo":"跳至"
   }
 }

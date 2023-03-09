@@ -146,6 +146,7 @@
     "title": "birinci piyasa",
     "titleInfo": "Zengin ve kaliteli gizemli kutu projeleri bulabileceğiniz bu proje, proje tarafları ile kullanıcılar arasında bir köprü kurmayı da amaçlıyor.",
     "soldOut": "hepsi satıldı",
+    "waitStarted":"başlamasi bekleniyor",
     "progress": "işleme",
     "end": "Bitiş",
     "more": "Daha",
@@ -292,6 +293,8 @@
     "volume": "{{day}}d Işlem hacmı",
     "listed": "Emir miktarı",
     "collection": "koleksiyon serisi",
-    "allTime": "Tümü"
+    "allTime": "Tümü",
+    "page":"sayfa",
+    "goTo":"gitmek"
   }
 }

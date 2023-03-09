@@ -19,7 +19,7 @@ export const MaskImage = (props: any) => {
     } else if (status === 2) {
       return t('primary.end')
     } else if (status === 0) {
-      return t('primary.progress')
+      return t('primary.waitStarted')
     } else {
       return ''
     }

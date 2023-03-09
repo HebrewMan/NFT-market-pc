@@ -51,8 +51,8 @@
     "hiSkyText": "从 HiSky 开始，链接 GameFi 的未来。",
     "startTrading": "开始交易",
     "searchCollections": "集合",
-    "searchItems": "項",
-    "searchAccount": "賬戶"
+    "searchItems": "项",
+    "searchAccount": "账户"
   },
   "footer": {
     "title": "专注GameFi领域的NFT交易市场，您可以使用 HiSky 发现、出售、购买或创建独特的 NFT。",
@@ -145,6 +145,7 @@
     "title": "一级市场",
     "titleInfo": "在这里，你可以找到丰富优质的盲盒项目，也旨在帮助项目方和用户搭建起一个桥梁。",
     "soldOut": "售罄",
+    "waitStarted":"待开始",
     "progress": "进行中",
     "end": "结束",
     "more": "更多",
@@ -291,6 +292,8 @@
     "volume": "{{day}}d 交易量",
     "listed": "挂单量",
     "collection": "集合系列",
-    "allTime": "全部"
+    "allTime": "全部",
+    "page":"页",
+    "goTo":"跳至"
   }
 }

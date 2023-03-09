@@ -145,6 +145,7 @@
     "title": "Primary Market",
     "titleInfo": "Here you can find a wealth of quality blind box projects that also aim to help build a bridge between project owners and users.",
     "soldOut": "Sold Out",
+    "waitStarted":"Wait to be started",
     "progress": "In Progress",
     "end": "End",
     "begin": "To Begin",
@@ -292,6 +293,8 @@
     "volume": "{{day}}d Volume ",
     "listed": "Listed",
     "collection": "Collection",
-    "allTime": "All time"
+    "allTime": "All time",
+    "page":"page",
+    "goTo":"Go to"
   }
 }

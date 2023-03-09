@@ -13,7 +13,7 @@ export const CommTimer = (props: any) => {
 
   const currentStatus = () => {
     if (activityStatus === 0) {
-      return t('primary.soldOut')
+      return t('primary.waitStarted')
     } else if (activityStatus === 1) {
       return t('primary.progress')
     } else if (activityStatus === 2) {

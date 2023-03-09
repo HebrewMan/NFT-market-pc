@@ -1,4 +1,4 @@
-import useWindowDimensions from '../../utils/layout'
+
 import { useTranslation, Trans } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -29,8 +29,8 @@ export const Ranking = (props: any) => {
     //2.如果小于10条，或者不到一页的情况下，这个是默认不展示跳转到多少页的，这样找不到类名就会报错，
     // 所以加上了document.getElementsByClassName("ant-pagination-options-quick-jumper")[0]的判断。，有则修改，否则反之
     if (dataSource.length > 0 && document.getElementsByClassName("ant-pagination-options-quick-jumper")[0]) {
-      document.getElementsByClassName("ant-pagination-options-quick-jumper")[0].childNodes[0].nodeValue = "跳至"
-      document.getElementsByClassName("ant-pagination-options-quick-jumper")[0].childNodes[2].nodeValue = "页"
+      document.getElementsByClassName("ant-pagination-options-quick-jumper")[0].childNodes[0].nodeValue = t('ranking.goTo')
+      document.getElementsByClassName("ant-pagination-options-quick-jumper")[0].childNodes[2].nodeValue = t('ranking.page')
     }
   }, [dataSource])
 
@@ -142,6 +142,7 @@ export const Ranking = (props: any) => {
     }
     return {
       pageSize: 10,
+      showTitle: false,
       // current: props.ATMHistory.curPage,
       total: total,
       hideOnSinglePage: true,
