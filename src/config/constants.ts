@@ -45,6 +45,7 @@ const constants = {
       },
     },
     '1319': {
+      chainId: "1319",
       chainName: 'AITD MAIN',
       chainNameShort: 'AITD',
       rpcUrl: ['https://walletrpc.aitd.io', 'https://node.aitd.io'],
