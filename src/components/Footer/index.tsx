@@ -37,9 +37,9 @@ export const Footer = () => {
             <span onClick={() => handleClick('service')}>{t('footer.service')}</span>
             <span onClick={() => handleClick('policy')}>{t('footer.policy')}</span>
           </div>
-          <div className='webLink'>
+          {/* <div className='webLink'>
             <img src={require('Src/assets/home/twitter.png')} alt="" />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

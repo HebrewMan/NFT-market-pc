@@ -37,7 +37,7 @@ export const AppLayout = React.memo((props: any) => {
       let singer: any
       if ((window as any).ethereum.providers?.length) {
         (window as any).ethereum.providers.forEach(async (p: any) => {
-          if (walletName == 'coinBase' && p.isCoinbaseWallet) singer = p
+          if (walletName == 'CoinBase' && p.isCoinbaseWallet) singer = p
           if (walletName == 'MetaMask' && p.isMetaMask) singer = p
         })
       } else {
