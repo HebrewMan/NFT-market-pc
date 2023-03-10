@@ -2,12 +2,13 @@
 import { useTranslation, Trans } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Table, ConfigProvider } from 'antd'
+import { Table, ConfigProvider, Spin } from 'antd'
 import AEmpty from "Src/components/Empty"
 import './index.scss'
 import { intlFloorFormat, NumUnitFormat } from 'Utils/bigNumber'
 import { getRankingsList } from 'Src/api/rankings'
-
+import { LoadingOutlined } from '@ant-design/icons'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 const aitdIcon = require('Src/assets/coin/aitd.svg')
 export const Ranking = (props: any) => {
   const { t } = useTranslation()
@@ -17,6 +18,7 @@ export const Ranking = (props: any) => {
   const [dataSource, setDataSource] = useState([])
   const [page, setPage] = useState(1)
   const [current, setCurrent] = useState(1)
+  const [loading, setLoading] = useState(false)
   const size = 20
   useEffect(() => {
     setPaginationBoolean(props.paginationBoolean)
@@ -36,10 +38,12 @@ export const Ranking = (props: any) => {
 
 
   const initData = async (page: number) => {
+    setLoading(true)
     const { data }: any = await getRankingsList({
       page,
       size: props.paginationBoolean ? size : 5
     })
+    data && setLoading(false)
     setCurrent(data.current)
     setTotal(data.total)
     setDataSource(data?.records)
@@ -160,7 +164,7 @@ export const Ranking = (props: any) => {
   return (
     <>
       <div className='ranking-waper'>
-        <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+        <ConfigProvider renderEmpty={() => loading ? <Spin indicator={antIcon} /> : <AEmpty style={{ heigth: '200px' }} />}>
           <Table
             dataSource={dataSource}
             columns={columns}
@@ -171,6 +175,7 @@ export const Ranking = (props: any) => {
             })}>
           </Table>
         </ConfigProvider>
+
 
       </div>
     </>

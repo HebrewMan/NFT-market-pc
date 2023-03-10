@@ -93,6 +93,7 @@ const ReceiveModal: React.FC<any> = (props) => {
       showConnectModal(true)
       return
     }
+    console.log(window.provider, chainId, isProd, '主网信息')
     if (chainId !== 1319 && isProd) {
       message.error(t('hint.switchMainnet'))
       return

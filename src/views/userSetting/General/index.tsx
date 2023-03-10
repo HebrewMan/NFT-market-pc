@@ -173,9 +173,9 @@ export const General = () => {
             {t('userSettings.email')}
             {/* <span>*</span> */}
           </label>
-          <div className={`inner-name-input ${requiredEmail ? 'active-name-input' : 'inner-name-input'}`}>
+          <div className={`inner-name-input  inner-name-input}`}>
             <input
-              type='text'
+              type='email'
               name='email'
               id='name'
               className={requiredEmail ? 'active-focus' : ''}
@@ -185,11 +185,11 @@ export const General = () => {
               value={form.email || ''}
             />
           </div>
-          {requiredEmail && (
+          {/* {requiredEmail && (
             <p className='required-tips'>
               <img src='/sol/close_error.svg' alt='' className='close-svg' /> {t('userSettings.required')}
             </p>
-          )}
+          )} */}
         </div>
 
         <div className='inner-name'>

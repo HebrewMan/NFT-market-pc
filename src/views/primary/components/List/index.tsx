@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 import { CommTimer } from '../Timer'
+import { Spin } from 'antd'
 import { useTouchBottom } from '../../../../hooks'
 import { getPrimaryActivityList } from '../../../../api/primary'
 import useWindowDimensions from '../../../../utils/layout'
 import './index.scss'
 import { useTranslation } from "react-i18next"
 import { getViewLang } from "../../../../utils/i18n"
-
+import { LoadingOutlined } from '@ant-design/icons'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 export const MaskImage = (props: any) => {
   const { t } = useTranslation()
   // eslint-disable-next-line react/prop-types
@@ -37,11 +39,13 @@ export const PList = () => {
   const [activityList, setActivityList] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [isMore, setIsMore] = useState(true)
+  const [loading, setLoading] = useState(false)
   const size = 20
   useEffect(() => {
     initList()
   }, [page])
   const initList = async () => {
+    setLoading(true)
     const res: any = await getPrimaryActivityList({ page, size })
     const list: any = []
     // 暂时屏蔽内部活动
@@ -50,6 +54,7 @@ export const PList = () => {
         list.push(item)
       }
     })
+    res?.data.records && setLoading(false)
     setActivityList([...activityList, ...list])
     setPage(res?.data?.current)
     if (page >= Math.ceil(res.data.total / size)) {
@@ -108,6 +113,7 @@ export const PList = () => {
     <div className={`primary-list-wrap ${isMobile ? 'mobile-primary-list-wrap' : ''}`}>
       <div className='list-wrap-box'>
         <ul>
+          {loading && <Spin indicator={antIcon} />}
           <ListItem activityList={activityList} />
         </ul>
       </div>

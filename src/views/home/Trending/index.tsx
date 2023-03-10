@@ -11,6 +11,11 @@ import 'swiper/scss'
 import './index.scss'
 const aitdIcon = require('Src/assets/coin/aitd.svg')
 const swiperBorder = ['blue', 'orange', 'green', 'pink']
+import { Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+import AEmpty from "Src/components/Empty"
+
 
 SwiperCore.use([Navigation])
 
@@ -86,9 +91,11 @@ export const Trending = () => {
   const { width } = useWindowDimensions()
   const [collections, setCollections] = useState<any[]>([])
   const [currentSwiperObject, setCurrentSwiperObject] = useState<any>({})
+  const [loading, setLoading] = useState(false)
   const styles: object = { textAlign: 'center', paddingTop: '40px', fontWeight: 600 }
 
   const init = async () => {
+    setLoading(true)
     const params = {
       // 推荐合集参数
       data: {
@@ -98,8 +105,8 @@ export const Trending = () => {
       size: 6,
     }
     const res: any = await getRecommendCollection(params)
+    res.data.records && setLoading(false)
     setCollections(res.data.records)
-
     setCurrentSwiperObject(res?.data?.records[0])
   }
 
@@ -112,10 +119,12 @@ export const Trending = () => {
       <div className='collectionCard'>
         <div className='line-title'>{t('home.collection')}</div>
         <div className='swiper-list'>
+
           {collections && collections.length > 0 && (
             <TrendSwiper collections={collections} setCurrentSwiperObject={setCurrentSwiperObject} ></TrendSwiper>
           )}
-          {!(collections && collections.length > 0) && <p style={styles}>{t('common.noData')}</p>}
+          {loading && <Spin indicator={antIcon} style={{ width: '100%' }} />}
+          {!(collections && collections.length > 0) && <AEmpty />}
           <div className='swiper-buttons'>
             <div className='swiper-button-prev'>
               <img src={require('Src/assets/home/icon-left.png')} alt='' />

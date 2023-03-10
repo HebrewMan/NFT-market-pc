@@ -6,11 +6,14 @@ import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { intlFloorFormat } from 'Utils/bigNumber'
 import config from 'Src/config/constants'
+import Constants from '../../config/constants'
 import { useHistory } from 'react-router-dom'
 import { formatTokenId } from 'Utils/utils'
 import InfiniteScroll from "react-infinite-scroll-component"
 import { formatTime } from 'Src/views/marketplace/utils'
 const ZERO_ADDRESS = (config as any)?.ZERO_ADDRESS
+const { INIT_CHAIN } = Constants
+import { isProd } from '../../config/constants'
 const iconClass = (item: any) => {
   switch (item.method) {
     case 8:
@@ -40,9 +43,10 @@ export const TradingList = (props: any) => {
   const { handleMoreChange, total = 0, showTitle = false, handleFilter } = props || {}
   const { t } = useTranslation()
   const history = useHistory()
-  const _chainId = window?.provider?.chainId
+  const _chainId = window?.provider?.chainId || (isProd ? INIT_CHAIN : '1320')
   const chainId = parseInt(_chainId)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
+  console.log(linkEth, chainId, _chainId, 'linkEth')
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
   const [detailsState, setDetailsState] = useState(false)

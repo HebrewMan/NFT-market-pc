@@ -22,6 +22,9 @@ import UpdatePriceModal from './UpdatePriceModal'
 import './index.scss'
 import { getNftDetail } from 'Src/api/marketPlace'
 import { showConnectModal } from "Src/components/ConnectModal"
+import { Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 export const ProductionDetails = () => {
   const web3 = useWeb3()
@@ -62,12 +65,14 @@ export const ProductionDetails = () => {
 
   // 获取nft详情
   const getDetail = async (tokenId: string, userContractAddr: string) => {
+    instanceLoading.service()
     const useParams = {
       tokenId: tokenId,
       contractAddr: userContractAddr,
     }
     const datas = await getNftDetail(useParams)
     const { data } = datas
+    data && instanceLoading.close()
     setDetailMetadata(data?.metadataVO) //元数据
     setCollectiondata(data?.collectionsVO) //集合数据
     setOrderData(data?.orderVO) //订单数据
