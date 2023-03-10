@@ -7,13 +7,13 @@
 }
 
 .primary-header {
-  width: 100%;
+  width: 1160px;
+  margin: 0 auto 50px;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 50px;
 
   .primary-header-title {
-    width: 66%;
+    width: 100%;
     text-align: center;
 
     h1 {

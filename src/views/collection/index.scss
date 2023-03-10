@@ -84,6 +84,10 @@
         align-items: center;
         justify-content: start;
 
+        .ant-typography-single-line {
+          white-space: pre-wrap;
+        }
+
         .ant-typography {
           font-size: $tq-font-size-5;
           color: $tq-font-color-sub-title;

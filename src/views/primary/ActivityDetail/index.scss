@@ -97,6 +97,10 @@
       border-radius: 5px;
       background-color: $tq-primary-color;
       color: $tq-color-white;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
   }
 }

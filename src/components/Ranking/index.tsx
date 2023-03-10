@@ -17,7 +17,7 @@ export const Ranking = (props: any) => {
   const [dataSource, setDataSource] = useState([])
   const [page, setPage] = useState(1)
   const [current, setCurrent] = useState(1)
-  const size = 10
+  const size = 20
   useEffect(() => {
     setPaginationBoolean(props.paginationBoolean)
     initData(1)
@@ -50,6 +50,7 @@ export const Ranking = (props: any) => {
       title: t('ranking.collection'),
       dataIndex: 'name',
       key: 'name',
+      width: 300,
       render: (text: string, record: any, index: string) => {
         return <div className='item-info'>
           <p>{(page - 1) * size + (index + 1)}</p>
@@ -137,11 +138,11 @@ export const Ranking = (props: any) => {
   }
   // 分页
   const pagination = () => {
-    if (total < 10) {
+    if (total < 20) {
       return false
     }
     return {
-      pageSize: 10,
+      pageSize: 20,
       showTitle: false,
       // current: props.ATMHistory.curPage,
       total: total,

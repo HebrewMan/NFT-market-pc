@@ -319,8 +319,7 @@ code {
 
     &:hover,
     &:focus {
-      // background-color: #1868b7 !important;
-      // color: $tq-color-white;
+      opacity: 0.9;
     }
   }
 
@@ -356,7 +355,7 @@ code {
 
     &:hover,
     &:focus {
-      background: $tq-color-white;
+      opacity: 0.9;
     }
   }
 

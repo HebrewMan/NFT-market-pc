@@ -66,17 +66,25 @@
       border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
 
     .button-sell {
       margin-left: 16px;
       background: transparent;
       border: 2px solid #FFFFFF;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
     }
 
     .button-explore:hover {
-      background-color: $tq-btn-linear;
-      transition: all 0.2s ease 0s;
+      // background-color: $tq-btn-linear;
+      // transition: all 0.2s ease 0s;
     }
 
     .button-create:hover {

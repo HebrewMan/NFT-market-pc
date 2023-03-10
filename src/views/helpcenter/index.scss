@@ -28,6 +28,12 @@
 
       .ant-collapse {
         .ant-collapse-item {
+          &:hover {
+            .ant-collapse-header {
+              border: 1px solid #3E4055;
+            }
+          }
+
           .ant-collapse-header {
             margin-bottom: 10px;
             height: 84px;

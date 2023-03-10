@@ -142,7 +142,7 @@ export const GatherDetail: React.FC<any> = (props) => {
           infoVisible
             ? false
             : {
-              rows: 3,
+              rows: 1,
               expandable: true,
               symbol: (
                 <span

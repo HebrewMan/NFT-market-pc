@@ -11,6 +11,19 @@
 .SeeMore {
   margin-top: 32px;
   text-align: center;
+
+  button {
+    padding: 0 20px;
+    height: 44px;
+    background: #262840 !important;
+    border-radius: 10px;
+    opacity: 1;
+    border: 1px solid #6E7080;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1) !important;
+    }
+  }
 }
 
 .homeTips {

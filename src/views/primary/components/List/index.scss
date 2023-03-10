@@ -80,6 +80,10 @@
         background: #4A45FF;
         opacity: 1;
 
+        &:hover {
+          opacity: 0.9;
+        }
+
         a {
           font-size: 14px;
           color: $tq-color-white;

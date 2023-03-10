@@ -66,6 +66,10 @@
       opacity: 1;
       background: $tq-primary-color;
       border: 0px;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
 
     .ant-input-affix-wrapper {

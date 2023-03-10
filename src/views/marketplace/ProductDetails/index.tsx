@@ -184,6 +184,11 @@ export const ProductionDetails = () => {
     setSellOrderFlag(false)
   }
   const toggleFansCollected = () => {
+    // 判断是否登录
+    if (!accountAddress || !token) {
+      showConnectModal(true)
+      return
+    }
     fansStatus
       ? removeFansData(DetailData?.tokenId, DetailData?.contractAddr)
       : fansCollected(DetailData?.tokenId, DetailData?.contractAddr)

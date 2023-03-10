@@ -106,7 +106,7 @@
       "token": "トークンID",
       "standard": "トークン標準",
       "blockchain": "ブロックチェーン",
-      "history": "取引履歴",
+      "history": "アクティビティ",
       "filter": "選別",
       "transaction": "取引",
       "clearAll": "すべてクリア",

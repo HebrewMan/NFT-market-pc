@@ -9,9 +9,11 @@
   background: $tq-list-bg;
   border: 1px solid $tq-list-bg;
   overflow: hidden;
+  transition: all 0.15s ease-in-out 0s;
+  will-change: transform;
 
   &:hover {
-    border: 1px solid rgba($color: $tq-primary-aqua, $alpha: 0.7)
+    transform: translate(0, -5px);
   }
 
   a {

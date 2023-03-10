@@ -20,7 +20,7 @@ const walletList = [
     logo: require('Src/assets/coin/metaMask.png'),
   },
   {
-    name: 'coinBase',
+    name: 'CoinBase',
     logo: require('Src/assets/coin/coinbase.png'),
   },
   {
@@ -51,7 +51,7 @@ export const ConnectModal: React.FC<any> = (props) => {
         window.open('https://metamask.io/download')
         return
       };
-      if (!(window as any).ethereum.isCoinbaseWallet && walletName == 'coinBase') {
+      if (!(window as any).ethereum.isCoinbaseWallet && walletName == 'CoinBase') {
         window.open('https://www.coinbase.com/wallet')
         return
       };
@@ -81,7 +81,7 @@ export const ConnectModal: React.FC<any> = (props) => {
     } else {
       if ((window as any).ethereum.providers?.length) {
         (window as any).ethereum.providers.forEach(async (p: any) => {
-          if (walletName == 'coinBase' && p.isCoinbaseWallet) singer = p
+          if (walletName == 'CoinBase' && p.isCoinbaseWallet) singer = p
           if (walletName == 'MetaMask' && p.isMetaMask) singer = p
         })
       } else {

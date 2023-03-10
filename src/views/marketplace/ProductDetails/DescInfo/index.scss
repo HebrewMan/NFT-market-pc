@@ -277,6 +277,11 @@
         background: rgba($color: $tq-primary-color, $alpha: 0.2);
         color: $tq-primary-color;
         border: none;
+
+        &:hover {
+          background: #4A45FF;
+          color: #Fff;
+        }
       }
     }
 

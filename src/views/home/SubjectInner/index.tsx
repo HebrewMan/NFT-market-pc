@@ -43,6 +43,7 @@ const SwiperComm = (props: any) => {
         delay: 2500,
         disableOnInteraction: false,
       }}
+      loop={true}
       grabCursor={true}
       onSlideChange={(swiper) => setCurrentSwiperObject(swiperList[swiper.activeIndex])}
       scrollbar={{
