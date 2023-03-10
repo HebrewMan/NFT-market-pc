@@ -239,14 +239,13 @@ export const MarketPlace = () => {
         </div>
         <div className={`g-list ${grid == '2' ? 'small' : ''}`}>
           {goodsList.length > 0 && <CardNft nftList={goodsList} />}
-          {goodsList.length === 0 && <AEmpty />}
         </div>
         {loading ? (
           <div className='loading-wrap'>
             <Spin indicator={antIcon} />
           </div>
         ) : (
-          <></>
+          <>{goodsList.length === 0 && <AEmpty />}</>
         )}
       </div>
 

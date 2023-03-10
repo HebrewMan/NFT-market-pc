@@ -22,10 +22,6 @@ import UpdatePriceModal from './UpdatePriceModal'
 import './index.scss'
 import { getNftDetail } from 'Src/api/marketPlace'
 import { showConnectModal } from "Src/components/ConnectModal"
-import { Spin } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
-
 export const ProductionDetails = () => {
   const web3 = useWeb3()
   const { t } = useTranslation()

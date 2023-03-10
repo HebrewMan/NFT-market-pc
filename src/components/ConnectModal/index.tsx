@@ -12,6 +12,7 @@ import { message } from 'antd'
 import { isProd } from '../../config/constants'
 import Constants from '../../config/constants'
 import history from 'Utils/history'
+import { toLower } from 'lodash'
 const { confirm } = Modal
 const { INIT_CHAIN } = Constants
 const walletList = [
@@ -135,7 +136,7 @@ export const ConnectModal: React.FC<any> = (props) => {
       if (token?.data) {
         message.success(t('hint.loginSuccess'))
         onCancelClick()
-        setLocalStorage('wallet', accounts)
+        setLocalStorage('wallet', accounts.toLowerCase())
         setCookie('web-token', token.data, 1)
         location.reload()
       }

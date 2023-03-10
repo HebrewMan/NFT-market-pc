@@ -15,7 +15,7 @@ import { formatAdd } from '../marketplace/utils'
 import _ from 'lodash'
 import { getCollectionDetails } from 'Src/api/collection'
 import InfiniteScroll from "react-infinite-scroll-component"
-
+import instanceLoading from 'Utils/loading'
 import CardNft from 'Src/components/CardNFT'
 
 export const GatherDetail: React.FC<any> = (props) => {
@@ -75,9 +75,11 @@ export const GatherDetail: React.FC<any> = (props) => {
 
   // 通过合集id获取账户详情基本信息
   const getAccountInfoById = async (link: string) => {
+    instanceLoading.service()
     const res: any = await getCollectionDetails({
       linkCollection: link
     })
+    res.data && instanceLoading.close()
     setCreateAddr(res.data.createAddr)
     const { linkDiscord, linkInstagram, linkMedium, linkSkypegmwcn, linkTwitter } = res.data
     setLinkList({ linkSkypegmwcn, linkTwitter, linkDiscord, linkInstagram, linkMedium })
@@ -163,6 +165,7 @@ export const GatherDetail: React.FC<any> = (props) => {
     )
   }
   return (
+
     <div className='gatherDetail-body content-wrap-top'>
       <div className='gatherDetail-banner'>
         <img src={data.backgroundUrl == null ? require('Src/assets/account/bg-banner.png') : data.backgroundUrl} alt="" />

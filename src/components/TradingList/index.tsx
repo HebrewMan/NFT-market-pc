@@ -14,6 +14,9 @@ import { formatTime } from 'Src/views/marketplace/utils'
 const ZERO_ADDRESS = (config as any)?.ZERO_ADDRESS
 const { INIT_CHAIN } = Constants
 import { isProd } from '../../config/constants'
+import { Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 const iconClass = (item: any) => {
   switch (item.method) {
     case 8:
@@ -46,11 +49,11 @@ export const TradingList = (props: any) => {
   const _chainId = window?.provider?.chainId || (isProd ? INIT_CHAIN : '1320')
   const chainId = parseInt(_chainId)
   const linkEth = (config as any)[chainId]?.BLOCKCHAIN_LINK
-  console.log(linkEth, chainId, _chainId, 'linkEth')
   const [tradingHistoryData, setTradingHistoryData] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
   const [detailsState, setDetailsState] = useState(false)
   const [eventBtn, setEventBtn] = useState<any>([])
+  const [loading, setLoading] = useState(true)
   const [filterList, setFilterList] = useState([
     { label: '8', name: t('marketplace.details.mintTo'), checked: false },
     { label: '0', name: t('marketplace.details.listings'), checked: false },
@@ -60,6 +63,7 @@ export const TradingList = (props: any) => {
     { label: '3,4,6,7,10', name: t('marketplace.details.transfer'), checked: false },
   ])
   useEffect(() => {
+    props?.TradingData && setLoading(true)
     setTradingHistoryData(props?.TradingData)
   }, [props])
 
@@ -320,7 +324,7 @@ export const TradingList = (props: any) => {
               />
             </InfiniteScroll>
           </div>
-          : <AEmpty />
+          : loading ? <Spin indicator={antIcon} style={{ width: '100%', padding: "20px" }} /> : <AEmpty />
         }
       </div>
     </div>

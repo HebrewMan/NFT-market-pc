@@ -133,6 +133,7 @@ const logOut = () => {
       if (res?.message === 'success') {
         removeLocalStorage('wallet');
         removeCookie('web-token');
+        removeLocalStorage("walletconnect")
         history.push('/');
       }
     })

@@ -153,3 +153,7 @@
 	font-size: 18px;
 	cursor: pointer;
 }
+
+.BuyBtn[disabled] {
+	background: #3E4055;
+}

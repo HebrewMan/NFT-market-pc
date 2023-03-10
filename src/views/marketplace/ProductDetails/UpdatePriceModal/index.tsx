@@ -30,6 +30,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const token = getCookie('web-token') || ''
 	const _chainId = window.provider?.chainId
 	const chainId = parseInt(_chainId) //链id
+	console.log(_chainId, chainId, '_chainId')
 	const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS //市场合约地址
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const [amountNum, setAmountNum] = useState('') // 拥有数量
@@ -40,6 +41,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const [messageVisible, setMessageVisible] = useState<boolean>(false)
 	const [handlingFee, setHandlingFee] = useState(0) //手续费
 	const [getPrice, setGetPrice] = useState('0')  //最终获得价格
+	const [disabled, setDisabled] = useState(true)
 	const [messageData, setMessageData] = useState<any>({
 		tokenId: tokenId,
 		collectionName: data?.collectionName,
@@ -92,6 +94,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	// 价格切换
 	const handleChange = (event: any) => {
 		const value = event.target.value
+		setDisabled(false)
 		const reg = /[^\d.]{1,18}/
 		if (reg.test(value)) {
 			message.error(t('hint.numbersOnly'))
@@ -124,11 +127,13 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		const value = event.target.value
 		if (value > amountNum) {
 			message.error(t('marketplace.details.greaterAvailable'))
+			setDisabled(true)
 			return
 		}
 		if (value <= 0) {
 			message.error(t('hint.numbersGreater'))
 		}
+		setDisabled(false)
 		setDefaultAmountNum(value)
 		makeDealPrice(updatePrice, value)
 	}
@@ -148,7 +153,6 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 	const getSellOrder = async () => {
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
-			// history.push('/login')
 			return
 		}
 		if (chainId !== 1319 && isProd) {
@@ -309,7 +313,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 					{(Number(updatePrice) > 0 && Number(getPrice) > 0) && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) + 'AITD' })}</div>}
 					{/* <div className='info'>{t('marketplace.details.sellTips')}</div> */}
 				</div>
-				<div className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</div>
+				<button disabled={disabled} className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</button>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}
 			{(props?.sellOrderFlag && messageVisible) && <MessageModal visible={messageVisible} data={messageData} title={t('marketplace.details.successfullyLaunched')} />}

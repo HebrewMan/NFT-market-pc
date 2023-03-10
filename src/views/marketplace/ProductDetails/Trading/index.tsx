@@ -3,6 +3,7 @@ import { isMobile } from 'react-device-detect'
 import './index.scss'
 import { getOrderEventPage } from 'Src/api/order'
 import TradingList from "Src/components/TradingList"
+
 export const Trading = (props: any) => {
   const { tokenId, contractAddr } = props || {}
   const _chainId = window?.provider?.chainId
@@ -22,6 +23,7 @@ export const Trading = (props: any) => {
   // }, [page])
   // // 请求Trading History
   const getTradingPageData = async () => {
+
     const obj = {
       types: type,
       tokenId: tokenId,

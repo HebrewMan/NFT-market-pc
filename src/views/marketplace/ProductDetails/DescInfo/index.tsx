@@ -16,7 +16,9 @@ import UpdatePriceModal from '../UpdatePriceModal'
 import InfiniteScroll from "react-infinite-scroll-component"
 import { intlFloorFormat } from 'Utils/bigNumber'
 import AEmpty from "Src/components/Empty"
-
+import { LoadingOutlined } from '@ant-design/icons'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+import { Spin } from 'antd'
 export const DescInfo = (props: any) => {
   const { contractType } = props.metadata
   const [type, setType] = useState(0)
@@ -78,6 +80,8 @@ const ContentDetail = (props: any) => {
   const [hasMore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(false)
+
 
   // 获取订单列表
   useEffect(() => {
@@ -85,6 +89,7 @@ const ContentDetail = (props: any) => {
   }, [tokenId])
 
   const IntGetOrderList = async (curPage = 1) => {
+    setLoading(true)
     const useParams = {
       tokenId: tokenId,
       contractAddr: contractAddr,
@@ -198,7 +203,7 @@ const ContentDetail = (props: any) => {
           loader={false}
           height={dataSource.length > 0 ? 195 : 300}
         >
-          <ConfigProvider renderEmpty={() => <AEmpty style={{ heigth: '200px' }} />}>
+          <ConfigProvider renderEmpty={() => loading ? <Spin indicator={antIcon} /> : <AEmpty style={{ heigth: '200px' }} />}>
             <Table
               columns={columns}
               dataSource={dataSource}
