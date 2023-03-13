@@ -26,7 +26,7 @@ export const ProductionDetails = () => {
   const web3 = useWeb3()
   const { t } = useTranslation()
   const _chainId = window?.provider?.chainId
-  const chainId = parseInt(_chainId, 16)
+  const chainId = getLocalStorage('walletName') == 'WalletConnect' ? _chainId : parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const [ownerAddr, setOwnerAddr] = useState('')
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
@@ -154,6 +154,8 @@ export const ProductionDetails = () => {
   }
   // 取消上架 // 下架合约
   const getCancelSellOrder = async () => {
+    console.log(window.provider, accountAddress, _chainId, marketPlaceContractAddr, 'provider')
+
     if (!accountAddress || !token) {
       showConnectModal(true)
       return

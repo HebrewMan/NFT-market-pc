@@ -25,7 +25,7 @@ const ReceiveModal: React.FC<any> = (props) => {
   const { orderId, price, contractAddr, moneyAddr, tokenId, leftAmount, coin = 'AITD', marketAddr, contractType } = props.data
   const [accountAddress, setAccountAddress] = useState<string | null | undefined>(getLocalStorage('wallet'))
   const _chainId = window?.provider?.chainId
-  const chainId = parseInt(_chainId, 16)
+  const chainId = getLocalStorage('walletName') == 'WalletConnect' ? _chainId : parseInt(_chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [subNum, setSubNum] = useState(1) //购买数量
