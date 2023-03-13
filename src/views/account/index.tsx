@@ -187,6 +187,7 @@ export const Account: React.FC<any> = () => {
     const res: any = await getAccountInfo(address)
     _.isNull(res.data) && history.push('/404')
     setAccountInfo(res.data)
+    currentIndex == 0 && getAccountNFTList()
   }
 
   // 获取用户当前账号所有的资产
