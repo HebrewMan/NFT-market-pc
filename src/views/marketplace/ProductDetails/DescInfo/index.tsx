@@ -6,7 +6,7 @@ import './index.scss'
 import { Table, Button, message, ConfigProvider } from 'antd'
 import { getOrderList } from 'Src/api/order'
 import BugModal from '../bugModal'
-import { getCookie } from 'Utils/utils'
+import { getCookie, getLocalStorage } from 'Utils/utils'
 import { useHistory } from 'react-router-dom'
 import { isProd } from 'Src/config/constants'
 import instanceLoading from 'Utils/loading'
@@ -73,7 +73,7 @@ const ContentDetail = (props: any) => {
   const [DetailData, setDetailData] = useState([])
   const walletAccount = localStorage.getItem('wallet') || ''
   const token = getCookie('web-token') || ''
-  const chainId = parseInt(window?.provider?.chainId, 16)
+  const chainId = getLocalStorage('walletName') == 'WalletConnect' ? window?.provider?.chainId : parseInt(window?.provider?.chainId, 16)
   const marketPlaceContractAddr = (config as any)[chainId]?.MARKET_ADDRESS
   const [isOpen, setIsOpen] = useState(false)
   const [sellOrderFlag, setSellOrderFlag] = useState<boolean>(false)
@@ -99,6 +99,7 @@ const ContentDetail = (props: any) => {
     const data: any = await getOrderList(useParams)
     setDataSource(dataSource.concat(data.data.records))
     setTotal(data.data.total)
+    data.data && setLoading(false)
   }
   // 购买
   const handleBuy = (record: any) => {
@@ -108,12 +109,11 @@ const ContentDetail = (props: any) => {
   // 取消上架
   const getCancelSellOrder = async (item: any) => {
     if (!walletAccount || !token) {
-      message.error(t('hint.switchMainnet'))
-      // history.push('/login')
+      message.error(t('hint.pleaseLog'))
       return
     }
     if (chainId !== 1319 && isProd) {
-      message.success(t('hint.cancellation'))
+      message.success(t('hint.switchMainnet'))
       return
     }
     instanceLoading.service()
