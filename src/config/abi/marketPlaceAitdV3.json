@@ -18171,11 +18171,6 @@
 	},
 	"abi": [
 		{
-			"inputs": [],
-			"stateMutability": "nonpayable",
-			"type": "constructor"
-		},
-		{
 			"anonymous": false,
 			"inputs": [
 				{
@@ -18228,7 +18223,7 @@
 				},
 				{
 					"indexed": false,
-					"internalType": "enum marketPlaceAitdV3.Status",
+					"internalType": "enum marketPlaceAitdV2_2.Status",
 					"name": "sold",
 					"type": "uint8"
 				}
@@ -18289,13 +18284,13 @@
 				},
 				{
 					"indexed": false,
-					"internalType": "enum marketPlaceAitdV3.Status",
+					"internalType": "enum marketPlaceAitdV2_2.Status",
 					"name": "sold",
 					"type": "uint8"
 				},
 				{
 					"indexed": false,
-					"internalType": "enum marketPlaceAitdV3.ContractType",
+					"internalType": "enum marketPlaceAitdV2_2.ContractType",
 					"name": "ctype",
 					"type": "uint8"
 				}
@@ -18306,6 +18301,12 @@
 		{
 			"anonymous": false,
 			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "user",
+					"type": "address"
+				},
 				{
 					"indexed": true,
 					"internalType": "uint256",
@@ -18352,6 +18353,12 @@
 				{
 					"indexed": false,
 					"internalType": "address",
+					"name": "buyer",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
 					"name": "moneyMintAddress",
 					"type": "address"
 				},
@@ -18375,13 +18382,25 @@
 				},
 				{
 					"indexed": false,
-					"internalType": "enum marketPlaceAitdV3.Status",
+					"internalType": "uint256",
+					"name": "fee",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "royalty",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "enum marketPlaceAitdV2_2.Status",
 					"name": "sold",
 					"type": "uint8"
 				},
 				{
 					"indexed": false,
-					"internalType": "enum marketPlaceAitdV3.ContractType",
+					"internalType": "enum marketPlaceAitdV2_2.ContractType",
 					"name": "ctype",
 					"type": "uint8"
 				}
@@ -18406,6 +18425,37 @@
 				}
 			],
 			"name": "OwnershipTransferred",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "collectionAddress",
+					"type": "address"
+				},
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "sneder",
+					"type": "address"
+				},
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "rateNumerator",
+					"type": "uint256"
+				}
+			],
+			"name": "SetRoyaltyRate",
 			"type": "event"
 		},
 		{
@@ -18482,9 +18532,14 @@
 					"type": "uint256"
 				},
 				{
-					"internalType": "enum marketPlaceAitdV3.ContractType",
+					"internalType": "enum marketPlaceAitdV2_2.ContractType",
 					"name": "ctype",
 					"type": "uint8"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "b",
+					"type": "bytes32"
 				}
 			],
 			"name": "createMarketItem",
@@ -18518,6 +18573,11 @@
 					"internalType": "uint256",
 					"name": "price",
 					"type": "uint256"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "b",
+					"type": "bytes32"
 				}
 			],
 			"name": "createMarketSale",
@@ -18617,17 +18677,17 @@
 							"type": "uint256"
 						},
 						{
-							"internalType": "enum marketPlaceAitdV3.Status",
+							"internalType": "enum marketPlaceAitdV2_2.Status",
 							"name": "sold",
 							"type": "uint8"
 						},
 						{
-							"internalType": "enum marketPlaceAitdV3.ContractType",
+							"internalType": "enum marketPlaceAitdV2_2.ContractType",
 							"name": "ctype",
 							"type": "uint8"
 						}
 					],
-					"internalType": "struct marketPlaceAitdV3.MarketItem",
+					"internalType": "struct marketPlaceAitdV2_2.MarketItem",
 					"name": "",
 					"type": "tuple"
 				}
@@ -18646,6 +18706,11 @@
 					"internalType": "uint256",
 					"name": "newPrice",
 					"type": "uint256"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "b",
+					"type": "bytes32"
 				}
 			],
 			"name": "modifyPrice",
@@ -18780,9 +18845,64 @@
 		},
 		{
 			"inputs": [],
+			"name": "proxiableUUID",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"stateMutability": "pure",
+			"type": "function"
+		},
+		{
+			"inputs": [],
 			"name": "renounceOwnership",
 			"outputs": [],
 			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"name": "royaltyInfos",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "rate",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "royaltyRateDenominator",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{
@@ -18819,6 +18939,42 @@
 		{
 			"inputs": [
 				{
+					"internalType": "address",
+					"name": "collectionAddress",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "receiver",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "rateNumerator",
+					"type": "uint256"
+				}
+			],
+			"name": "setRoyaltyRate",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "number",
+					"type": "uint256"
+				}
+			],
+			"name": "setRoyaltyRateDenominator",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
 					"internalType": "bytes4",
 					"name": "interfaceId",
 					"type": "bytes4"
@@ -18844,6 +19000,19 @@
 				}
 			],
 			"name": "transferOwnership",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "newCode",
+					"type": "address"
+				}
+			],
+			"name": "updateCode",
 			"outputs": [],
 			"stateMutability": "nonpayable",
 			"type": "function"

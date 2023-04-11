@@ -314,6 +314,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 					{(Number(updatePrice) > 0 && Number(getPrice) > 0) && <div className='title'>{t('marketplace.details.dollarsInfo', { price: updatePrice + 'AITD', getPrice: intlFloorFormat(getPrice, 4) + 'AITD' })}</div>}
 					{/* <div className='info'>{t('marketplace.details.sellTips')}</div> */}
 				</div>
+				{/* 上架 */}
 				<button disabled={disabled} className='BuyBtn' onClick={getSellOrderOrUpdatePrice}>{t('marketplace.details.confirmListing')}</button>
 			</Modal>
 			{/*上架改价成功 过度弹窗 */}

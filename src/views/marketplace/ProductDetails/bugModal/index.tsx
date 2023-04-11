@@ -199,6 +199,7 @@ const ReceiveModal: React.FC<any> = (props) => {
           <div className='name'>{t('marketplace.details.payAmount')}</div>
           <div className='price'>{paymentPrice} AITD</div>
         </div>
+        {/* 购买支付按钮 */}
         <div className='BuyBtn' onClick={getBuy}>{t('marketplace.details.pay')}</div>
       </Modal>
       {/* 购买成功& 上架改加成功 过度弹窗 */}

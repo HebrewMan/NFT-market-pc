@@ -1,8 +1,9 @@
-import Web3 from 'web3';
+
+import { utils } from 'ethers';
 import { getMarketPlaceContract, getMarketPlacePrimaryContract, getMarketPlaceAitdV3Abi, getMarketPlaceAitdV2_1Abi } from './web3Utils';
 import instanceLoading from '../utils/loading';
 import { multipliedBy, multipliedByDecimals } from '../utils/bigNumber'
-import { web } from 'webpack'
+import { sha256Key } from '../constant';
 
 /*
 nftContract nft合约地址
@@ -21,8 +22,11 @@ export const createMarketItem = async ( obj: any) => {
   // 如果是721类型 amount传1
   const count = (ctype === 0 ? 1 : amounts) || 1;
   const type = ctype === 'ERC1155' ? 1 : 0;
+  const hash = utils.keccak256(utils.toUtf8Bytes(price + sha256Key))
+  console.log('上架: ', hash)
+
   const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr)
-    .methods.createMarketItem(nftContract, moneyMintAddress, tokenId, amounts, price, type)
+    .methods.createMarketItem(nftContract, moneyMintAddress, tokenId, amounts, price, type, hash)
     .send({ from: account});
   return result;
 };
@@ -39,23 +43,6 @@ export const cancelMarketItem = async ( orderId: number, account: any, marketPla
   return result;
 };
 
-// 购买使用原生币, marketType 区分一、二级市场
-export const createMarketSaleErc1155 = async ( obj?: any) => {
-  const { orderId, price, marketType, Erc1155ContractAddr, marketPlaceContractAddr, account } = obj;
-  const nftContract = Erc1155ContractAddr; // nft合约地址
-  try {
-    const result = await (marketType === 1
-      ? getMarketPlacePrimaryContract(marketPlaceContractAddr)
-      : getMarketPlaceContract(marketPlaceContractAddr)
-    ).methods
-      .createMarketSaleErc1155(nftContract, orderId)
-      .send({ from: account, value: price });
-    return result;
-  } catch (error: any) {
-    console.log('error', error);
-    instanceLoading.close();
-  }
-};
 
 // 购买使用erc20, marketType 区分一、二级市场
 export const createMarketSaleWithTokenErc1155 = async (obj?: any) => {
@@ -85,9 +72,11 @@ export const createMarketSale = async ( obj?: any) => {
   if (coin === 'AITD') {
     sendObj = { ...sendObj, value: multipliedByDecimals(values)};
   }
+  const hash = utils.keccak256(utils.toUtf8Bytes(price + sha256Key))
+  console.log('购买: ', hash)
   try {
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr)
-      .methods.createMarketSale(nftContract, moneyMintAddress, orderId, amounts, price)
+      .methods.createMarketSale(nftContract, moneyMintAddress, orderId, amounts, price, hash)
       .send(sendObj);
     return result;
   } catch (error: any) {
@@ -104,6 +93,7 @@ export const createMarketSale = async ( obj?: any) => {
   amount 成交数量，此字段针对erc1155，如果是erc721则传1。成交数量不能大于订单剩余数量
   price 订单价格
 */
+// 已废弃
 export const MarketItemSold = async (obj?: any) => {
   const { price, Erc1155ContractAddr, moneyMintAddress, marketPlaceContractAddr, account, amount, itemId, ctype } = obj;
   const nftContract = Erc1155ContractAddr; // nft合约地址
@@ -122,13 +112,15 @@ export const MarketItemSold = async (obj?: any) => {
 export const getModifyPrice = async ( obj: any) => {
   console.log('modifyPrice', obj);
   const { orderId, newPrice, marketType, marketPlaceContractAddr, account } = obj;
+  const hash = utils.keccak256(utils.toUtf8Bytes(newPrice + sha256Key))
+  console.log('改价: ', hash)
   try {
     // const result = await (marketType === 1
     //   ? getMarketPlacePrimaryContract(marketPlaceContractAddr, web3)
     //   : getMarketPlaceContract(marketPlaceContractAddr, web3)
     // )
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr)
-      .methods.modifyPrice(orderId, newPrice)
+      .methods.modifyPrice(orderId, newPrice, hash)
       .send({ from: account });
     console.log('result', result);
     return result;

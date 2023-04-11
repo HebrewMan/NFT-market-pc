@@ -8,7 +8,7 @@ import { Content, ContentSuccess } from './content'
 // import $web3js from '../../../../../hooks/web3';
 import useWeb3 from '../../../../../hooks/useWeb3'
 // import { getUpdateBuyOrder } from '../../../../../api/index';
-import { createMarketSaleErc1155, createMarketSaleWithTokenErc1155 } from '../../../../../hooks/marketplace'
+import { createMarketSaleWithTokenErc1155 } from '../../../../../hooks/marketplace'
 import { getApproval, getIsApproved } from '../../../../../hooks/web3Utils'
 // import { useAddBlindBoxContract, useOpenBlindBoxContract } from '../../../../../hooks/useContract';
 import { openBlindBox } from '../../../../../api/blindbox'
