@@ -22,7 +22,8 @@ export const createMarketItem = async ( obj: any) => {
   // 如果是721类型 amount传1
   const count = (ctype === 0 ? 1 : amounts) || 1;
   const type = ctype === 'ERC1155' ? 1 : 0;
-  const hash = utils.keccak256(utils.toUtf8Bytes(price + sha256Key))
+  
+  const hash = utils.solidityKeccak256(['address', 'uint', 'uint','string'], [nftContract, tokenId, price, sha256Key]);
   console.log('上架: ', hash)
 
   const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr)
@@ -72,7 +73,7 @@ export const createMarketSale = async ( obj?: any) => {
   if (coin === 'AITD') {
     sendObj = { ...sendObj, value: multipliedByDecimals(values)};
   }
-  const hash = utils.keccak256(utils.toUtf8Bytes(price + sha256Key))
+  const hash = utils.solidityKeccak256(['address', 'uint', 'uint','string'], [nftContract, orderId, price, sha256Key]);
   console.log('购买: ', hash)
   try {
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr)
@@ -111,8 +112,8 @@ export const MarketItemSold = async (obj?: any) => {
 // 2.0.1 修改价格，marketType 区分一、二级市场
 export const getModifyPrice = async ( obj: any) => {
   console.log('modifyPrice', obj);
-  const { orderId, newPrice, marketType, marketPlaceContractAddr, account } = obj;
-  const hash = utils.keccak256(utils.toUtf8Bytes(newPrice + sha256Key))
+  const { orderId, newPrice, marketPlaceContractAddr, account, contractAddr } = obj;
+  const hash = utils.solidityKeccak256(['address', 'uint', 'uint','string'], [contractAddr, orderId, newPrice, sha256Key]);
   console.log('改价: ', hash)
   try {
     // const result = await (marketType === 1
@@ -120,7 +121,7 @@ export const getModifyPrice = async ( obj: any) => {
     //   : getMarketPlaceContract(marketPlaceContractAddr, web3)
     // )
     const result = await getMarketPlaceAitdV3Abi(marketPlaceContractAddr)
-      .methods.modifyPrice(orderId, newPrice, hash)
+      .methods.modifyPrice(contractAddr, orderId, newPrice, hash)
       .send({ from: account });
     console.log('result', result);
     return result;

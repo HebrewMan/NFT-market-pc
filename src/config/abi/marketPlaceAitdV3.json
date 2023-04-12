@@ -18698,6 +18698,11 @@
 		{
 			"inputs": [
 				{
+					"internalType": "address",
+					"name": "nftAddr",
+					"type": "address"
+				},
+				{
 					"internalType": "uint256",
 					"name": "itemId",
 					"type": "uint256"

@@ -1,1 +1,1 @@
-export const sha256Key = '12580hiyy';
+export const sha256Key = '12580hisky';

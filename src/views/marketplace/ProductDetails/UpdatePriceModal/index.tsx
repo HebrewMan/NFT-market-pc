@@ -211,6 +211,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 			marketType: 2, // 二级市场
 			marketPlaceContractAddr,
 			account,
+			contractAddr
 		}
 		if (!account || !token) {
 			message.error(t('hint.pleaseLog'))
@@ -257,7 +258,7 @@ const UpdatePriceModal: React.FC<any> = (props) => {
 		<div className='modalWaper'>
 			<Modal
 				title={props?.sellOrderFlag ? t('marketplace.details.setPrice') : t('marketplace.details.updateListPrice')}
-				visible={isModalVisible}
+				open={isModalVisible}
 				footer={null}
 				onCancel={onCancel}
 			>
