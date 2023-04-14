@@ -108,17 +108,17 @@ export const Ranking = (props: any) => {
         </div>
       }
     },
-    {
-      title: t('gather.totalVolume'),
-      dataIndex: 'totalTransaction',
-      key: 'totalTransaction',
-      render: (t: string, r: any) => {
-        return <div className='item-number'>
-          <img src={aitdIcon} alt="" />
-          <span>{intlFloorFormat(r.totalTransaction, 2)}</span>
-        </div>
-      }
-    },
+    // {
+    //   title: t('gather.totalVolume'),
+    //   dataIndex: 'totalTransaction',
+    //   key: 'totalTransaction',
+    //   render: (t: string, r: any) => {
+    //     return <div className='item-number'>
+    //       <img src={aitdIcon} alt="" />
+    //       <span>{intlFloorFormat(r.totalTransaction, 2)}</span>
+    //     </div>
+    //   }
+    // },
     {
       title: t('ranking.listed'),
       dataIndex: 'totalOrder',
